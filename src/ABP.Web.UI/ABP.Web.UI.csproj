@@ -6,6 +6,12 @@
     <CompressionEnabled>false</CompressionEnabled> <!-- Disable compression. E.g. for umbraco backoffice files. These files should be precompressed by node and not let dotnet handle it -->
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Views\Partials\blocklist\Abp Components\**" />
+    <Content Remove="Views\Partials\blocklist\Abp Components\**" />
+    <EmbeddedResource Remove="Views\Partials\blocklist\Abp Components\**" />
+    <None Remove="Views\Partials\blocklist\Abp Components\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="App_Plugins\AiWriter\umbraco-package.json" />
     <Content Include="wwwroot\media\03qmp3fp\24-days-people-at-codegarden.jpg" />
     <Content Include="wwwroot\media\0fobq2ls\tutorials.jpg" />
@@ -66,7 +72,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Partials\blocklist\Abp Components\" />
     <Folder Include="wwwroot\uespire\css\" />
   </ItemGroup>
 

@@ -633,3 +633,4 @@ C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Core\bin\Debug\net9.0\ABP.Web.Models.dll
 C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Core\bin\Debug\net9.0\ABP.Web.Models.pdb
 C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Core\obj\Debug\net9.0\ABP.Web..D54A1122.Up2Date
 C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Core\obj\Debug\net9.0\ref\ABP.Web.Core.dll
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Core\obj\Debug\net9.0\ABP.Web.Core.sourcelink.json

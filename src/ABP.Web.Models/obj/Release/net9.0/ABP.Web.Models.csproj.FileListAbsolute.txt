@@ -1,0 +1,13 @@
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\bin\Release\net9.0\ABP.Web.Models.deps.json
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\bin\Release\net9.0\ABP.Web.Models.dll
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\bin\Release\net9.0\ABP.Web.Models.pdb
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\obj\Release\net9.0\ABP.Web.Models.csproj.AssemblyReference.cache
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\obj\Release\net9.0\ABP.Web.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\obj\Release\net9.0\ABP.Web.Models.AssemblyInfoInputs.cache
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\obj\Release\net9.0\ABP.Web.Models.AssemblyInfo.cs
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\obj\Release\net9.0\ABP.Web.Models.csproj.CoreCompileInputs.cache
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\obj\Release\net9.0\ABP.Web.Models.sourcelink.json
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\obj\Release\net9.0\ABP.Web.Models.dll
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\obj\Release\net9.0\refint\ABP.Web.Models.dll
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\obj\Release\net9.0\ABP.Web.Models.pdb
+C:\ABP Repo\ABP-Umbraco\src\ABP.Web.Models\obj\Release\net9.0\ref\ABP.Web.Models.dll
