@@ -20,7 +20,7 @@ namespace ABP.Web.Models.UmbracoModels
 {
 	/// <summary>Home</summary>
 	[PublishedModel("home")]
-	public partial class Home : PublishedContentModel, IContactFormControls, IContentControls, IFooterComposition, IFooterControls, IHeaderControls, IHumburgerComposition, IMainImageControls, INavigationComposition, ISEocontrols
+	public partial class Home : PublishedContentModel, IContentControls, IFooterComposition, IFooterControls, IHeaderControls, IHumburgerComposition, IMainImageControls, INavigationComposition, ISEocontrols
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -56,30 +56,6 @@ namespace ABP.Web.Models.UmbracoModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("headTagScripts")]
 		public virtual string HeadTagScripts => this.Value<string>(_publishedValueFallback, "headTagScripts");
-
-		///<summary>
-		/// Error Message: Enter the message to show on error
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("errorMessage")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString ErrorMessage => global::ABP.Web.Models.UmbracoModels.ContactFormControls.GetErrorMessage(this, _publishedValueFallback);
-
-		///<summary>
-		/// Instruction Message: Enter the message to tell the user what to do
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("instructionMessage")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString InstructionMessage => global::ABP.Web.Models.UmbracoModels.ContactFormControls.GetInstructionMessage(this, _publishedValueFallback);
-
-		///<summary>
-		/// Success Message: Enter the message to show on success
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("successMessage")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString SuccessMessage => global::ABP.Web.Models.UmbracoModels.ContactFormControls.GetSuccessMessage(this, _publishedValueFallback);
 
 		///<summary>
 		/// Content Rows: Add the rows of content for the page
