@@ -1,0 +1,89 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+
+    var aboutTitle = content.Value<string>("aboutTitle");
+    var description = content.Value<string>("description");
+    var mainImage = content.Value<MediaWithCrops>("image");
+    var smallImageBlocks = content.Value<BlockListModel>("smallImageBlocks");
+    var footerTitle = content.Value<string>("footerTitle");
+    var footerDescription = content.Value<string>("footerDescription");
+}
+
+<main class="main">
+    <div class="wrap wrap--small">
+
+        <!-- About Section -->
+        <div class="rte">
+            @if (!string.IsNullOrWhiteSpace(aboutTitle))
+            {
+                <h1>@aboutTitle</h1>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(description))
+            {
+                <p class="intro">@Html.Raw(description)</p>
+            }
+
+            @if (mainImage != null)
+            {
+                <p class="intro">
+                    <img style="display:block;margin-left:auto;margin-right:auto;"
+                         src="@mainImage.GetCropUrl()"
+                         alt="@mainImage.Name"
+                         width="831"
+                         height="522"
+                         loading="lazy" />
+                </p>
+            }
+        </div>
+
+        <!-- Description Section -->
+        <div class="rte">
+            @if (!string.IsNullOrWhiteSpace(footerDescription))
+            {
+                <p class="intro">@Html.Raw(footerDescription)</p>
+            }
+        </div>
+
+        <!-- Inline Image Blocks -->
+        @if (smallImageBlocks != null && smallImageBlocks.Any())
+        {
+            foreach (var block in smallImageBlocks)
+            {
+                var blockContent = block.Content;
+                var blockImage = blockContent.Value<MediaWithCrops>("image");
+                var blockTitle = blockContent.Value<string>("title");
+                var blockDescription = blockContent.Value<string>("description");
+
+                <div class="inline-image">
+                    <div class="inline-image__img-wrapper">
+                        @if (blockImage != null)
+                        {
+                            <img src="@blockImage.GetCropUrl()"
+                                 alt="@blockImage.Name"
+                                 loading="lazy" />
+                        }
+                    </div>
+                    <div class="inline-image__text-wrapper">
+                        <div class="rte">
+                            @if (!string.IsNullOrWhiteSpace(blockTitle))
+                            {
+                                <h2>@blockTitle</h2>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(blockDescription))
+                            {
+                                <p>@Html.Raw(blockDescription)</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</main>

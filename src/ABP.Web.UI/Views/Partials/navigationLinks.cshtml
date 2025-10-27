@@ -1,0 +1,108 @@
+﻿@model Umbraco.Cms.Core.Models.Blocks.BlockListItem
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using Umbraco.Cms.Core.Models.PublishedContent
+
+@{
+    var content = Model.Content;
+    var title = content.Value<string>("title");
+    var description = content.Value<string>("description");
+    var subNavBlocks = content.Value<BlockListModel>("subNavigation");
+}
+
+<li class="nav-item">
+    @if (subNavBlocks != null && subNavBlocks.Any())
+    {
+        <a class="nav-link" href="#">@title</a>
+
+        <!-- Mega Menu -->
+        <div class="mega-menu">
+            <div class="mega-menu-content">
+                <div class="row">
+
+                    <!-- Left Column: Title + Description -->
+                    <div class="col-md-4">
+                        <div class="mega-menu-header">
+                            <h2>@title</h2>
+                            @if (!string.IsNullOrWhiteSpace(description))
+                            {
+                                <p>@Html.Raw(description)</p>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Services Grid -->
+                    <div class="col-md-8">
+                        <div class="services-grid">
+                            @foreach (var sub in subNavBlocks)
+                            {
+                                var subContent = sub.Content;
+                                var subDescription = subContent.Value<string>("description"); // <-- description here
+                                var linkColumns = subContent.Value<BlockListModel>("linkColumns");
+
+                                if (linkColumns != null)
+                                {
+                                    foreach (var colBlock in linkColumns)
+                                    {
+                                        var simpleLinks = colBlock.Content.Value<BlockListModel>("simpleUrl");
+
+                                        if (simpleLinks != null)
+                                        {
+                                            foreach (var sl in simpleLinks)
+                                            {
+                                                var slContent = sl.Content;
+
+                                                var media = slContent.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("image");
+                                                var slTitle = slContent.Value<string>("title");
+                                                var slDescription = slContent.Value<string>("description"); // or description field
+
+                                                <div class="service-card">
+                                                    <div class="service-icon">
+                                                        @if (media != null)
+                                                        {
+                                                            <img src="@media.GetCropUrl()" alt="@media.Name" width="46" height="46" />
+                                                        }
+                                                    </div>
+                                                    <div class="service-content">
+
+                                                        @{
+                                                            var slCta = slContent.Value<IEnumerable<Link>>("cta") ?? Enumerable.Empty<Link>();
+                                                        }
+                                                       
+                                                        @if (slCta.Any())
+                                                        {
+                                                            foreach (var link in slCta)
+
+                                                            {
+                                                                 <h3>
+                                                                <a href="@link.Url"
+                                                                   target="@(string.IsNullOrWhiteSpace(link.Target) ? "_self" : link.Target)">
+                                                                    @link.Name
+                                                                </a>
+                                                                    </h3>
+                                                            }
+                                                        }
+                                                        @if (!string.IsNullOrWhiteSpace(slDescription))
+                                                        {
+                                                            <p >@Html.Raw(slDescription)</p>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <a class="nav-link" href="#">@title</a>
+    }
+</li>

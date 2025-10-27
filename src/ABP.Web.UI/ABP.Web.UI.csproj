@@ -1,0 +1,84 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <CompressionEnabled>false</CompressionEnabled> <!-- Disable compression. E.g. for umbraco backoffice files. These files should be precompressed by node and not let dotnet handle it -->
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\AiWriter\umbraco-package.json" />
+    <Content Include="wwwroot\media\03qmp3fp\24-days-people-at-codegarden.jpg" />
+    <Content Include="wwwroot\media\0fobq2ls\tutorials.jpg" />
+    <Content Include="wwwroot\media\0ofdvcwj\chairs-lamps.jpg" />
+    <Content Include="wwwroot\media\1cuir1yc\diary.jpg" />
+    <Content Include="wwwroot\media\2zyhi1oh\first-timers-at-codegarden.jpg" />
+    <Content Include="wwwroot\media\4fjhe3oo\package-manifest.jpg" />
+    <Content Include="wwwroot\media\5j1nbs4b\candid-contributions.jpg" />
+    <Content Include="wwwroot\media\bj5gpm45\codegarden-keynote.jpg" />
+    <Content Include="wwwroot\media\bzsfu4zz\profile-pic-2023.png" />
+    <Content Include="wwwroot\media\ct1p55fb\podcast-coffee.jpg" />
+    <Content Include="wwwroot\media\fqhfymgm\desktop-notebook-glasses.jpg" />
+    <Content Include="wwwroot\media\fszfgegs\meetup-organizers-at-codegarden.jpg" />
+    <Content Include="wwwroot\media\gmgjipfc\friendly-chair.jpg" />
+    <Content Include="wwwroot\media\gt0kbjpl\say-cheese.jpg" />
+    <Content Include="wwwroot\media\hsfh200i\front-row-audience-smiles.jpg" />
+    <Content Include="wwwroot\media\ibnjtqmf\mastodon.png" />
+    <Content Include="wwwroot\media\izlgca0r\skrift-at-codegarden.jpg" />
+    <Content Include="wwwroot\media\qbflidnm\phone-pen-binder.jpg" />
+    <Content Include="wwwroot\media\tiwdriew\community-front-row.jpg" />
+    <Content Include="wwwroot\media\u34n3y5z\bluetooth-white-keyboard.jpg" />
+    <Content Include="wwwroot\media\unfhm1au\umbracoffee-codegarden.jpg" />
+    <Content Include="wwwroot\media\vnkhl5rz\triangle-table-chairs.jpg" />
+    <Content Include="wwwroot\media\xvine1dx\authors.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_Plugins\AiWriter\aiwriter-button.js" />
+    <None Include="App_Plugins\AiWriter\aiwriter.js" />
+    <None Include="wwwroot\media\0wglizkw\discord.svg" />
+    <None Include="wwwroot\media\c2fdyivm\twitter.svg" />
+    <None Include="wwwroot\media\gkmoccsc\square-twitter.svg" />
+    <None Include="wwwroot\media\iynjhcyz\github-alt.svg" />
+    <None Include="wwwroot\media\lhbb3kqb\share-nodes.svg" />
+    <None Include="wwwroot\media\li2bwunp\square-github.svg" />
+    <None Include="wwwroot\media\logo.svg" />
+    <None Include="wwwroot\media\midjxff5\umbraco.svg" />
+    <None Include="wwwroot\media\q0vh0gkd\paypal.svg" />
+    <None Include="wwwroot\media\up3dj0zf\github.svg" />
+    <None Include="wwwroot\media\xi4eondd\mastodon.svg" />
+    <None Include="wwwroot\media\xynai4tn\cc-paypal.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Clean" Version="6.0.1" />
+    <PackageReference Include="Skybrud.Umbraco.Redirects" Version="16.0.1" />
+    <PackageReference Include="Umbraco.Cms" Version="16.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
+    <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
+    <PackageReference Include="Umbraco.Cms.Integrations.Analytics.Cookiebot" Version="2.0.1" />
+    <PackageReference Include="Umbraco.Forms" Version="16.1.0" />
+    <PackageReference Include="uSync" Version="16.0.4" />
+    <ProjectReference Include="..\ABP.Web.Core\ABP.Web.Core.csproj" />
+    <ProjectReference Include="..\ABP.Web.Models\ABP.Web.Models.csproj" />
+    <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Partials\blocklist\Abp Components\" />
+    <Folder Include="wwwroot\uespire\css\" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Razor files are needed for the backoffice to work correctly -->
+    <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Remove RazorCompileOnBuild and RazorCompileOnPublish when not using ModelsMode InMemoryAuto -->
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>
+    <RazorCompileOnPublish>false</RazorCompileOnPublish>
+  </PropertyGroup>
+
+</Project>

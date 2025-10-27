@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Core" Version="16.2.0" />
+    <PackageReference Include="Umbraco.Cms.Infrastructure" Version="16.2.0" />
+    <PackageReference Include="Umbraco.Cms.Web.Common" Version="16.2.0" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="16.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ABP.Web.Models\ABP.Web.Models.csproj" />
+
+  </ItemGroup>
+
+</Project>

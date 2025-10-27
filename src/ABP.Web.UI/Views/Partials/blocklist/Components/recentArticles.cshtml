@@ -1,0 +1,88 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Clean.Core.Helpers
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var row = Model.Content as RecentArticles;
+    var settings = Model.Settings as HideProperty;
+    if (settings?.Hide ?? false) { return; }
+
+    var homeNode = Umbraco.ContentAtRoot().FirstOrDefault(x=> x.ContentType.Alias == Home.ModelTypeAlias);
+
+    var articleListNode = homeNode?.Children().FirstOrDefault(x => x.ContentType.Alias == ArticleList.ModelTypeAlias);
+
+    var articlesNodes = articleListNode?.Children()
+     .OrderByDescending(x => x.Value<DateTime>("articleDate")); 
+
+    
+}
+<!-- Recent Articles -->
+<section class="articles-section text-center">
+
+    <h2 class="h1">@row?.Title</h2>
+    <p class="section-subtitle mb-5">
+        @Html.Raw(row?.SubTitle?.ToString()?.TrimStart("<p>").TrimEnd("</p>"))
+    </p>
+
+    @if (articlesNodes != null && articlesNodes.Any())
+    {
+        <div class="carousel-container">
+            <div class="articles-carousel">
+
+                @foreach (var articlesNode in articlesNodes)
+                {
+                    var article = (Article)articlesNode;
+                    var cats = article?.Categories?.Select(x => x.Name).ToList();
+
+                    string categories = string.Empty;
+
+                    if (cats != null && cats.Any())
+                    {
+                        categories = string.Join(",", cats);
+                    }
+
+                    string? formattedArticleDate = article?.ArticleDate.ToString("dd MMMM yyyy");
+
+                    string? subTitle = string.Empty;
+
+                    if (article != null && !string.IsNullOrEmpty(article.Subtitle) && article.Subtitle.Length > 132)
+                    {
+                        subTitle = article.Subtitle.Substring(0, 132) + "...";
+                    }
+                    else
+                    {
+                        subTitle = article?.Subtitle;
+                    }
+                    
+                    <div class="article-card">
+                        <div class="article-image">
+                            <img src="@article?.MainImage?.GetCropUrl(width: 380, height: 301)" alt="@article?.MainImage?.Name" width="380" height="301" />
+                            <span class="image-title">@categories</span>
+                        </div>
+                        <div class="article-content">
+                            <h3 class="article-title">@article?.Title</h3>
+                            <div class="article-date">@formattedArticleDate</div>
+                            <div class="article-excerpt">
+                                @subTitle
+                            </div>
+                            <a class="btn btn-know-more" href="@article?.Url()">
+                                <span class="btn-icon">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 10.9502L11 0.950195" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                              stroke-linejoin="round"></path>
+                                        <path d="M1 0.950195H11V10.9502" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                              stroke-linejoin="round"></path>
+                                    </svg>
+                                </span>
+                                Know More
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+   
+
+</section>

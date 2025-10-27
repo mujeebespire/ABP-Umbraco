@@ -1,0 +1,50 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as RightImageWithLeftText;
+    if (content == null) return;
+
+    var heading = content.Value<string>("heading");
+    var title = content.Value<string>("title");
+    var description = content.Value<string>("description");
+    var image = content.Image;
+    var imageUrl = image?.Url() ?? "";
+    var cta = content.Cta;
+}
+
+<div class="contact">
+    <div class="wrap">
+        <div class="contact__container">
+            @if (!string.IsNullOrWhiteSpace(imageUrl))
+            {
+                <div class="contact__img has-cover" style="background-image: url('@imageUrl');">
+                    <span class="sr-only">Contact image</span>
+                </div>
+            }
+
+            <div class="contact__content">
+                @if (!string.IsNullOrWhiteSpace(heading))
+                {
+                    <h3 class="contact__subtitle">@heading</h3>
+                }
+                @if (!string.IsNullOrWhiteSpace(title))
+                {
+                    <h2 class="contact__title">@title</h2>
+                }
+                @if (!string.IsNullOrWhiteSpace(description))
+                {
+                    <p class="contact__text">@Html.Raw(description)</p>
+                }
+                @if (cta != null)
+                {
+                    <a href="@cta.Url" target="@(cta.Target)" class="btn-home btn-home--cta">
+                        <span class="btn-home__text">@cta.Name</span>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

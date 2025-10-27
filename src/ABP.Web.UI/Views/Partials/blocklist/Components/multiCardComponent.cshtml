@@ -1,0 +1,53 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as MultiCardComponent;
+    if (content == null) { return; }
+
+    var cards = content.CardBlock; // BlockList<CardsWithImages>
+}
+
+<div class="blog-articles">
+    <div class="blog-articles__wrap">
+        @if (cards != null && cards.Any())
+        {
+            foreach (var item in cards)
+            {
+                var card = item.Content as CardsWithImages;
+                if (card == null) { continue; }
+
+                var image = card.Image;
+                var imageUrl = image?.Url() ?? "";
+
+                var imageTitle = card.ImageTitle;
+                var cta = card.Cta; // Link picker
+                                    <article class="blog-articles__item"
+                                             style="background-image: url('@imageUrl');">
+
+                    <div class="blog-articles__cat">Highlight</div>
+                    <div class="blog-articles__content">
+                        @if (!string.IsNullOrWhiteSpace(imageTitle))
+                        {
+                            <h3 class="blog-articles__title">@imageTitle</h3>
+                        }
+
+                        @if (cta != null)
+                        {
+                            <a href="@cta.Url"
+                               class="blog-articles__link btn btn--transparent"
+                               target="@(cta.Target)">
+                                @cta.Name
+                                <span class="blog-articles__link-icon icon font-ico-arrow-long"></span>
+                            </a>
+                        }
+                    </div>
+                    <div class="blog-articles__overlay"></div>
+                </article>
+            }
+        }
+    </div>
+</div>

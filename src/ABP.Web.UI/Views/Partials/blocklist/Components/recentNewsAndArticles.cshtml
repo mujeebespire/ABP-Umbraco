@@ -1,0 +1,78 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var recentNewsAndArticles = Model.Content as RecentNewsAndArticles;
+
+    var homeNode = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == Home.ModelTypeAlias);
+
+    var articleListNode = homeNode?.Children().FirstOrDefault(x => x.ContentType.Alias == ArticleList.ModelTypeAlias);
+
+    var articlesNodes = articleListNode?.Children()
+     .OrderByDescending(x => x.Value<DateTime>("articleDate"));
+}
+
+<div class="slider-home">
+    <div class="wrap">
+        <div class="slider-home__top">
+            <h2 class="slider-home__title">@recentNewsAndArticles?.Title</h2>
+            <a href="@recentNewsAndArticles?.CtaLink?.Url" target="@recentNewsAndArticles?.CtaLink?.Target" class="btn-home btn-home--transparent btn-home--cta">
+                <span class="btn-home__text">@recentNewsAndArticles?.CtaLink?.Name</span>
+            </a>
+        </div>
+    </div>
+    <div class="slider-home__wrap">
+        <div class="slider-home__container">
+            <div class="slider-home__holder">
+                <div class="slider-home__slides js-home-slider">
+                    @if (articlesNodes != null && articlesNodes.Any())
+                    {
+                        foreach (var articlesNode in articlesNodes)
+                        {
+                            var article = (Article)articlesNode;
+                            var cats = article?.Categories?.Select(x => x.Name).ToList();
+
+                            string categories = string.Empty;
+
+                            if (cats != null && cats.Any())
+                            {
+                                categories = string.Join(",", cats);
+                            }
+
+                            string? formattedArticleDate = article?.ArticleDate.ToString("dd MMMM yyyy");
+
+                            string? subTitle = string.Empty;
+
+                            if (article != null && !string.IsNullOrEmpty(article.Subtitle) && article.Subtitle.Length > 132)
+                            {
+                                subTitle = article.Subtitle.Substring(0, 132) + "...";
+                            }
+                            else
+                            {
+                                subTitle = article?.Subtitle;
+                            }
+
+                            <div class="slider-home__slide">
+                                <div class="slider-home__img has-cover"
+                                     style="background-image: url('@article?.MainImage?.Url()');">
+                                    <div class="slider-home__tages">
+                                        <span class="slider-home__tag">@categories</span>
+                                    </div>
+                                </div>
+                                <div class="slider-home__content">
+                                    <a href="@article?.Url()"
+                                       class="slider-home__link">
+                                        @subTitle
+                                    </a>
+                                    <span class="slider-home__date">@formattedArticleDate</span>
+                                </div>
+                            </div>
+                        }
+                    }
+                  
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Clean.Core.Extensions
+@using Clean.Core.Helpers
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var aboutSection = Model.Content as AboutSection;
+    var heading = aboutSection?.Heading;
+    var title = aboutSection?.AboutTitle;
+    var subtitle = aboutSection?.AboutSubtitle;
+    var ctas = aboutSection?.AboutCta; // Multi Url Picker
+    var imageBlocks = aboutSection?.AboutImageBlock; // BlockList
+    var bgColor = aboutSection?.BackgroundColor;
+
+    // Decide section class
+    var sectionClass = (bgColor != null && bgColor.Equals("Blue", StringComparison.OrdinalIgnoreCase))
+        ? "boost-section"
+        : "about-section";
+}
+
+<section class="@sectionClass">
+    <div class="container">
+        <div class="row">
+
+            <!-- Left Content -->
+            <div class="col">
+                <div class="left-content d-flex flex-column justify-content-center align-items-start">
+                    @* Heading *@
+                    @if (!string.IsNullOrWhiteSpace(heading))
+                    {
+                        <div class="title-responsibility mb-2">@heading</div>
+
+                    }
+                    @* Title *@
+                    @if (!string.IsNullOrWhiteSpace(title))
+                    {
+                        <h2 class="mb-5">@title</h2>
+                    }
+                    
+                        <p class="description mb-5">@subtitle</p>
+                    
+
+                    @* CTA(s) *@
+                    @if (ctas != null && ctas.Any())
+                    {
+                        foreach (var cta in ctas)
+                        {
+                            <a href="@cta.Url"
+                               target="@(string.IsNullOrWhiteSpace(cta.Target) ? "_self" : cta.Target)"
+                               class="btn btn-know-more">
+                                <span class="btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                         fill="currentColor" class="bi bi-arrow-up-right"
+                                         viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146
+                                                                 13.146a.5.5 0 0 0 .708.708L13
+                                                                 3.707V8.5a.5.5 0 0 0 1 0z" />
+                                    </svg>
+                                </span>
+                                @cta.Name
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Right Content (Image Block) -->
+            <div class="col">
+                @if (imageBlocks != null && imageBlocks.Any())
+                {
+                    foreach (var block in imageBlocks)
+                    {
+                        var imageBlock = block.Content as ImageBlock;
+                        if (imageBlock?.BlockImage != null)
+                        {
+                            <img src="@imageBlock.BlockImage.GetCropUrl()"
+                                 alt="@imageBlock.BlockImage.Name" />
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>

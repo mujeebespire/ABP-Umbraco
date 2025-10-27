@@ -1,0 +1,37 @@
+﻿@using Umbraco.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@{
+    var content = Model.Content;
+}
+
+<section class="general-template section-bg general-template-sidebar">
+    <div class="container">
+        <div class="general-template-inner">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="general-content">
+                        @await Html.GetBlockGridItemAreaHtmlAsync(Model, "8left")
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="general-sidebar">
+                        @await Html.GetBlockGridItemAreaHtmlAsync(Model, "4right")
+                    </div>
+                </div>
+                @if (Model.Areas.Count() > 2)
+                {
+                    @if (((Umbraco.Cms.Core.Models.Blocks.BlockGridArea[])Model.Areas)[2].Count() >= 1)
+                    {
+                        <div class="col-12">
+                            <div class="general-content">
+                                @await Html.GetBlockGridItemAreaHtmlAsync(Model, "fullwidth")
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>

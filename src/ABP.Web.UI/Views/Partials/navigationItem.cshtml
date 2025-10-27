@@ -1,0 +1,84 @@
+﻿@model Umbraco.Cms.Core.Models.Blocks.BlockListItem
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Extensions;
+
+@{
+    var content = Model.Content;
+    var title = content.Value<string>("navigationTitle");
+    var url = content.Value<string>("navigationUrl") ?? "#";
+    var isVisible = content.Value<bool>("isVisible");
+    var openInNewWindow = content.Value<bool>("openInNewWindow");
+    var subNav = content.Value<BlockListModel>("subNavigation");
+
+    if (!isVisible) return;
+
+    // Get all visible subitems
+    var visibleSubItems = subNav != null
+        ? subNav.Where(x => x.Content.Value<bool>("isVisible")).ToList()
+        : new List<BlockListItem>();
+    var hasSubNav = visibleSubItems.Any();
+
+    // Optional image and CTA (from first subItem with image)
+    string imgUrl = null;
+    string imgAlt = null;
+
+    var firstWithImage = visibleSubItems
+        .Select(si => si.Content)
+        .FirstOrDefault(c => c.Value<IPublishedContent>("navigationImage") != null);
+
+    if (firstWithImage != null)
+    {
+        var img = firstWithImage.Value<IPublishedContent>("navigationImage");
+        imgUrl = img?.Url();
+        imgAlt = firstWithImage.Value<string>("navigationTitle") ?? "";
+    }
+
+    // CTA text (from root item or you can move this per subItem if needed)
+    var ctaText = content.Value<string>("navigationCta");
+}
+<li class="abp-nav-item @(hasSubNav ? "abp-has-fullwidth-dropdown" : "")">
+    <a href="@url"
+       class="abp-nav-link"
+       @(openInNewWindow ? "target='_blank'" : "")>
+        @title
+    </a>
+
+    @if (hasSubNav)
+    {
+        <div class="abp-fullwidth-dropdown">
+            <div class="abp-fullwidth-dropdown-inner abp-container">
+                <div class="abp-fullwidth-dropdown-links">
+                    @foreach (var subItem in visibleSubItems)
+                    {
+                        var subContent = subItem.Content;
+                        var subTitle = subContent.Value<string>("navigationTitle");
+                        var subUrl = subContent.Value<string>("navigationUrl") ?? "#";
+                        var subOpenInNewWindow = subContent.Value<bool>("openInNewWindow");
+
+                        <a href="@subUrl"
+                           class="abp-fullwidth-dropdown-link"
+                           @(subOpenInNewWindow ? "target='_blank'" : "")>
+                            @subTitle
+                        </a>
+                    }
+                </div>
+
+                <div class="abp-fullwidth-dropdown-image-cta">
+                    @if (!string.IsNullOrWhiteSpace(imgUrl))
+                    {
+                        <div class="abp-fw-image">
+                            <img src="@imgUrl" alt="@imgAlt" />
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(ctaText))
+                    {
+                        <div class="abp-fw-cta">
+                            <a href="@url" class="cta-button">@ctaText</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</li>

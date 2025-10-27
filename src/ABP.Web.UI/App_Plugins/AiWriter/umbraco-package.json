@@ -1,0 +1,18 @@
+{
+  "$schema": "../../umbraco-package-schema.json",
+  "name": "AI Writer",
+  "version": "1.0.0",
+  "extensions": [
+    {
+      "type": "tiptapEditorButton",
+      "alias": "AiWriter.Button",
+      "name": "AI Assist Button",
+      "elementName": "aiwriter-button",
+      "weight": 20,
+      "meta": {
+        "label": "AI Assist",
+        "icon": "wand"
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+﻿
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Home>
+
+@using Clean.Core.Models.ViewModels
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@using ABP.Web.Models.UmbracoModels
+
+
+@{
+    Layout = "abpMaster.cshtml";
+}
+
+@* @await Html.PartialAsync("~/Views/Partials/pageHeader.cshtml", new PageHeaderViewModel(Model.Name, Model.Title, Model.Subtitle, Model.MainImage)) *@
+
+@if (Model.ContentRows != null)
+{
+    @Html.GetBlockListHtml(Model.ContentRows)
+}

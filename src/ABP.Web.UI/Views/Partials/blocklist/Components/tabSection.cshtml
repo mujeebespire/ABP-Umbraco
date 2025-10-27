@@ -1,0 +1,74 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Extensions
+
+@{
+    var tabSection = Model;
+    var tabs = tabSection.Value<BlockListModel>("tabs");
+    var tabIndex = 0;
+}
+
+@if (tabs != null && tabs.Any())
+{
+    <div class="tabs-container">
+        <ul class="tabs">
+            @foreach (var tabItem in tabs)
+            {
+                var tabPage = tabItem.Content;
+                var tabTitle = tabPage?.Value<string>("tabTitle") ?? "Tab";
+                var tabId = tabTitle.Replace(" ", "-").ToLower() ?? $"tab-{tabIndex}";
+
+                <li class="tab @(tabIndex == 0 ? "active" : "")" data-tab="@tabId">
+                    <div class="tab-icon"></div>
+                    <div class="tab-label">@tabTitle</div>
+                </li>
+
+                tabIndex++;
+            }
+        </ul>
+    </div>
+
+    <div class="content-container">
+        @{
+            tabIndex = 0;
+        }
+
+        @foreach (var tabItem in tabs)
+        {
+            var tabPage = tabItem.Content;
+            var tabTitle = tabPage?.Value<string>("tabTitle") ?? "Tab";
+            var tabId = tabTitle.Replace(" ", "-").ToLower() ?? $"tab-{tabIndex}";
+            var tabComponents = tabPage.Value<BlockListModel>("tabComponents");
+
+            <div class="tab-content @(tabIndex == 0 ? "active" : "")" id="@tabId">
+                <div class="container">
+                    <h2 class="text-center">@tabTitle</h2>
+
+                    @if (tabComponents != null && tabComponents.Any())
+                    {
+                        @foreach (var innerBlock in tabComponents)
+                        {
+                            var alias = innerBlock.Content?.ContentType?.Alias;
+
+                            if (!string.IsNullOrWhiteSpace(alias))
+                            {
+                                @* Pass the entire innerBlock as object *@
+                                @await Html.PartialAsync(
+                                $"~/Views/Partials/blocklist/Components/{alias}.cshtml",
+                        (object)innerBlock
+                        )
+                        }
+                        }
+                    }
+                    else
+                    {
+                        <p>No content available for this tab.</p>
+                    }
+                </div>
+            </div>
+
+            tabIndex++;
+        }
+    </div>
+}

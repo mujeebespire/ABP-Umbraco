@@ -1,0 +1,27 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Clean.Core.Extensions
+@using Clean.Core.Helpers
+@using ABP.Web.Models.UmbracoModels
+@{
+    var textWithImage = Model.Content as TextWithImage;
+
+    var settings = Model.Settings as HideProperty;
+
+    if (settings?.Hide ?? false) { return; }
+
+}
+
+@* <div class="tab-content  @(active ? "active" : "")" id="@textWithImage?.Key">
+   
+</div> *@
+<div class="container">
+    <h2 class="text-center">@textWithImage?.TextTitle</h2>
+    <div class="content-text">
+        @Html.Raw(textWithImage?.TextDescription)
+    </div>
+    <div class="image-who">
+        <img src="@textWithImage?.Image?.Url()" alt="@textWithImage?.Image?.Name" />
+    </div>
+</div>

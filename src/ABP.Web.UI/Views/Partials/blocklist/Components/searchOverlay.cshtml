@@ -1,0 +1,29 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var searchOverlay = Model.Content as SearchOverlay;
+
+    string? searchResultPageUrl = searchOverlay?.SearchResultPageLink?.Url;
+}
+<!-- Overlay Search Section -->
+<div class="search-overlay">
+    <div class="search-overlay__top-wrapper">
+        <a href="/" class="logo">
+            <img src="/abp/images/logo.svg" alt="Associated British Ports" class="logo__img" />
+            <img src="/abp/images/logo-hover.svg" alt="Associated British Ports" class="logo__img-hover" />
+        </a>
+        <button type="button" class="search-overlay__close icon font-ico-close js-search-close"></button>
+    </div>
+    <div class="search-overlay__form-wrapper js-search-wrapper">
+        <div class="search-overlay__form-container">
+            <form class="search-overlay__form" action="@searchResultPageUrl" method="get">
+                <input type="search" name="q" required placeholder="@Umbraco.GetDictionaryValue("Search.Results")" autofocus
+                       class="search-overlay__input js-search-wildcards">
+                <button type="submit" class="icon font-ico-search search-overlay__btn"></button>
+            </form>
+        </div>
+        <div class="search-overlay__wildcard-list-items js-wildcard">
+        </div>
+    </div>
+</div>

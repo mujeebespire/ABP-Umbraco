@@ -1,0 +1,8 @@
+﻿@using ABP.Web.Models.UmbracoModels
+@inherits UmbracoViewPage<IPublishedContent>
+@{
+    var homePage = Model.AncestorOrSelf<Home>();
+    string? headTagScripts = Model?.Value<string>("headTagScripts");
+}
+
+@Html.Raw(@headTagScripts)

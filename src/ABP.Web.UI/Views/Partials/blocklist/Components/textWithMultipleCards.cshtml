@@ -1,0 +1,137 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as TextWithMultipleCards;
+    if (content == null) return;
+
+    var title = content.Title;
+    var description = content.Value<string>("description");
+    var cards = content.Cards;
+    var bigTiles = content.Value<bool>("bigTiles"); // toggle
+}
+
+@if (bigTiles)
+{
+    <!-- New Design: Description per card required -->
+    <div class="cards">
+        <div class="wrap wrap--wide">
+            @if (!string.IsNullOrWhiteSpace(title))
+            {
+                <header class="cards__header">
+                    <h2 class="cards__title">@title</h2>
+                </header>
+            }
+
+            <div class="cards__container">
+                @if (cards != null && cards.Any())
+                {
+                    foreach (var item in cards)
+                    {
+                        var card = item.Content as CardsWithImages;
+                        if (card == null) continue;
+
+                        var image = card.Image;
+                        var imageUrl = image?.Url() ?? "";
+                        var imageTitle = card.ImageTitle;
+                        var cardDescription = content.Value<string>("card.Description");
+                        var cta = card.Cta;
+
+                        <article class="cards__article">
+                            <div class="cards__article-wrap" style="background-image: url('@imageUrl');">
+                                @if (cta != null)
+                                {
+                                    <a href="@cta.Url" target="@(cta.Target)" class="cards__content">
+                                        @if (!string.IsNullOrWhiteSpace(imageTitle))
+                                        {
+                                            <h4 class="cards__single-heading">@imageTitle</h4>
+                                        }
+
+                                        @if (!string.IsNullOrWhiteSpace(cardDescription))
+                                        {
+                                            <div class="cards__description">
+                                                <h4 class="cards__desc-heading">@imageTitle</h4>
+                                                <p class="cards__desc-text">@cardDescription</p>
+                                            </div>
+                                        }
+
+                                        <div class="cards__link">
+                                            EXPLORE MORE
+                                            <span class="cards__link-icon font-ico-arrow-long"></span>
+                                        </div>
+                                    </a>
+                                }
+                            </div>
+                        </article>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <!-- Old Design: Description at parent level required -->
+    <div class="services">
+        <div class="wrap">
+            <div class="headline">
+                <div class="wrap">
+                    <div class="headline__wrap">
+                        @if (!string.IsNullOrWhiteSpace(title))
+                        {
+                            <h2 class="headline__title">@title</h2>
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(description))
+                        {
+                            <div class="headline__content">
+                                <div class="headline__intro rte">
+                                    @Html.Raw(description)
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="services__cards">
+                @if (cards != null && cards.Any())
+                {
+                    foreach (var item in cards)
+                    {
+                        var card = item.Content as CardsWithImages;
+                        if (card == null) continue;
+
+                        var image = card.Image;
+                        var imageUrl = image?.Url() ?? "";
+                        var imageTitle = card.ImageTitle;
+                        var cta = card.Cta;
+
+                        <div class="services__card">
+                            <div class="services__content">
+                                @if (!string.IsNullOrWhiteSpace(imageUrl))
+                                {
+                                    <img src="@imageUrl" alt="@imageTitle" class="services__img" />
+                                }
+                                @if (!string.IsNullOrWhiteSpace(imageTitle))
+                                {
+                                    <h4 class="services__title">@imageTitle</h4>
+                                }
+                            </div>
+
+                            @if (cta != null)
+                            {
+                                <span class="services__cta">@cta.Name</span>
+                                <a href="@cta.Url" target="@(cta.Target)" class="services__link">
+                                    <span class="sr-only">Link to page</span>
+                                </a>
+                            }
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,30 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as BannerWithImage;
+    if (content == null) { return; }
+
+    var heading = content.Value<string>("heading");
+    var title = content.Value<string>("title");
+    var image = content.Value<MediaWithCrops>("image");
+    var imageUrl = image?.Url() ?? "";
+}
+
+<!-- InnerBanner Section -->
+<div class="banner banner--small" style="background-image: url('@imageUrl');">
+    <div class="banner__container">
+        @if (!string.IsNullOrWhiteSpace(heading))
+        {
+            <span class="banner__subtitle">@heading</span>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(title))
+        {
+            <h1 class="banner__title">@title</h1>
+        }
+    </div>
+</div>

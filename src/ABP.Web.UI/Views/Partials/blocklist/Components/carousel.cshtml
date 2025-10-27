@@ -1,0 +1,166 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Extensions
+@using Clean.Core.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var carousel = Model.Content as Carousel;
+    var title = carousel?.Title;
+    var subtitle = carousel?.SubTitle; // Rich text
+    var tabs = carousel?.CarouselTabs; // BlockList (Carousel Items)
+    var backgroundImage = carousel?.BackgroundImage;
+    var bgUrl = backgroundImage?.MediaUrl();
+
+    var textWithCard = carousel?.TextWithCard ?? false; // boolean toggle
+}
+
+@if (textWithCard)
+{
+    @* -----------------------------
+       ALTERNATE DESIGN VERSION (Text with Card) — NO background
+       ----------------------------- *@
+        <div class="content-container">
+
+
+            @* Main Title *@
+            @if (!string.IsNullOrWhiteSpace(title))
+            {
+                <h2 class="text-left mb-4">@title</h2>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(subtitle?.ToString()))
+            {
+                <div class="text-center mb-5">@Html.Raw(subtitle)</div>
+            }
+            <div class="tab-content active" id="board">
+            <div class="container">
+                <div class="row g-4 mt-2">
+                    @if (tabs != null && tabs.Any())
+                    {
+                        foreach (var block in tabs)
+                        {
+                            var item = block.Content as CarouselItems;
+                            if (item != null)
+                            {
+                                var itemTitle = item.Title;
+                                var itemSubTitle = item.SubTitle;
+                                var icon = item.Icon;
+                                var cta = item.Cta;
+
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="service-card-cover">
+                                        @if (icon != null)
+                                        {
+                                            <div class="service-icon">
+                                                <span class="mountain-icon">
+                                                    <img src="@icon.MediaUrl()" alt="@itemTitle" />
+                                                </span>
+                                            </div>
+                                        }
+
+                                        @if (!string.IsNullOrWhiteSpace(itemTitle))
+                                        {
+                                            <h3>@itemTitle</h3>
+                                        }
+
+                                        @if (!string.IsNullOrWhiteSpace(itemSubTitle))
+                                        {
+                                            <p>@Html.Raw(itemSubTitle)</p>
+                                        }
+
+                                        @if (cta != null)
+                                        {
+                                            <a href="@cta.Url"
+                                               target="@(string.IsNullOrWhiteSpace(cta.Target) ? "_self" : cta.Target)"
+                                               class="btn btn-know-more">
+                                                <span class="btn-icon">
+                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M1 10.9502L11 0.950195" stroke="white" stroke-width="1.5"
+                                                              stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        <path d="M1 0.950195H11V10.9502" stroke="white" stroke-width="1.5"
+                                                              stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    </svg>
+                                                </span>
+                                                @cta.Name
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+else
+{
+    @* -----------------------------
+       DEFAULT SLIDER VERSION (WITH BACKGROUND IMAGE)
+       ----------------------------- *@
+    <section class="services-section" style="@(bgUrl != null ? $"background-image: url('{bgUrl}');" : "")">
+        <div class="container">
+
+            @* Main Title *@
+            @if (!string.IsNullOrWhiteSpace(title))
+            {
+                <h2 class="text-center mb-4">@title</h2>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(subtitle?.ToString()))
+            {
+                <div class="text-center mb-5">@Html.Raw(subtitle)</div>
+            }
+
+            <div class="services-slider">
+                @if (tabs != null && tabs.Any())
+                {
+                    foreach (var block in tabs)
+                    {
+                        var item = block.Content as CarouselItems;
+                        if (item != null)
+                        {
+                            var itemTitle = item.Title;
+                            var itemSubTitle = item.SubTitle;
+                            var icon = item.Icon;
+                            var cta = item.Cta;
+
+                            <div class="service-card">
+                                @if (icon != null)
+                                {
+                                    <i>
+                                        <img src="@icon.MediaUrl()" alt="@itemTitle" />
+                                    </i>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(itemTitle))
+                                {
+                                    <h5>@itemTitle</h5>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(itemSubTitle))
+                                {
+                                    <p>@Html.Raw(itemSubTitle)</p>
+                                }
+
+                                @if (cta != null)
+                                {
+                                    <a href="@cta.Url"
+                                       target="@(string.IsNullOrWhiteSpace(cta.Target) ? "_self" : cta.Target)"
+                                       class="btn btn-primary mt-3">
+                                        @cta.Name
+                                    </a>
+                                }
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </section>
+}

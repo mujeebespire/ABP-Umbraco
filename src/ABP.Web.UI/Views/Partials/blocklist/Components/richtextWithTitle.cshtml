@@ -1,0 +1,20 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Clean.Core.Extensions
+@using Clean.Core.Helpers
+@using ABP.Web.Models.UmbracoModels
+@{
+    var richtextWithTitle = Model.Content as RichtextWithTitle;
+
+    var settings = Model.Settings as HideProperty;
+
+    if (settings?.Hide ?? false) { return; }  
+}
+<div class="container">
+    <h2 class="text-center">@richtextWithTitle?.Title</h2>
+    <div class="content-text">
+        @Html.Raw(richtextWithTitle?.RichText)
+    </div>
+</div>
+

@@ -1,0 +1,20 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+    var text = content.Value<string>("text"); // Rich Text Editor content
+}
+
+@if (!string.IsNullOrWhiteSpace(text))
+{
+    <!-- Dynamic Text Block -->
+    <div class="inline-image">
+        <div class="inline-image__text-wrapper">
+            <div class="rte">
+                @Html.Raw(text)
+            </div>
+        </div>
+    </div>
+}

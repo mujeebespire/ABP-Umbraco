@@ -1,0 +1,58 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Clean.Core.Helpers
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var searchcomponent = Model.Content as SearchComponent;
+    var cTAs = searchcomponent?.CtAs;
+    string? searchResultPageUrl = searchcomponent?.SearchResultPage?.Url;
+}
+
+<section class="hero-search">
+    <div class="container py-5">
+
+        <form action="@searchResultPageUrl" method="GET">
+            <div class="search-bar row justify-content-between align-items-center">
+
+                <span class="mb-0 p-0 col-lg-11"><input type="text" placeholder="What are you looking for?" name="q"></span>
+                <span class="col-lg-1">
+                    <button class="btn btn-outline-info d-flex align-items-center">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg>
+                        </span> Search
+                    </button>
+                </span>
+            </div>
+        </form>
+
+
+        <!-- Bottom row: quick links (3 columns) -->
+        <div class="row text-left quick-links">
+            @if (cTAs != null && cTAs.Any())
+            {
+                foreach (var cTA in cTAs)
+                {
+                    <div class="col mb-3">
+                        <a href="@cTA.Url" target="@cTA.Target">
+                            @cTA.Name <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z" />
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                }
+
+            }
+
+
+        </div>
+
+    </div>
+</section>

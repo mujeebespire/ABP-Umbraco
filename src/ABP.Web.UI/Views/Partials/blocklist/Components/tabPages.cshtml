@@ -1,0 +1,84 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Clean.Core.Extensions
+@using Clean.Core.Helpers
+@using ABP.Web.Models.UmbracoModels
+@{
+    var tabPages = Model.Content as TabPages;
+    var settings = Model.Settings as HideProperty;
+    if (settings?.Hide ?? false) { return; }
+
+    var tabPageList = tabPages?.TabPageList;
+}
+<!-- Tab Section -->
+<div class="tabs-container">
+
+    @if (tabPageList != null && tabPageList.Any())
+    {
+        <ul class="tabs">
+            @foreach (var tabPage in tabPageList)
+            {
+                HideProperty? hideProperty = tabPage.Settings == null ? null : (HideProperty)tabPage.Settings;
+
+                if (hideProperty != null && hideProperty.Hide)
+                {
+                    continue;
+                }
+
+                var tabPageItemContent = tabPage.Content;
+
+                var tabIcon = tabPageItemContent?.Value<MediaWithCrops>("tabIcon");
+                var title = tabPageItemContent?.Value<string>("title");
+
+                var tabActive = tabPageItemContent?.Value<bool>("isTabActive") ?? false;
+
+                string active = tabActive ? "active" : "";
+
+                <li class="tab @active" data-tab="@tabPage.Content.Key">
+                    <div class="tab-icon">
+                        <img src="@tabIcon?.Url()" alt="@(tabIcon?.Name ?? "Tab icon")" />
+                    </div>
+                    <div class="tab-label">@title</div>
+                </li>
+            }           
+        </ul>
+    }
+
+</div>
+
+<div class="content-container">
+
+    @if (tabPages?.TabPageList != null)
+    {
+        @foreach (var tabPageItem in tabPages.TabPageList)
+        {
+            if (tabPageItem == null || tabPageItem?.Content == null)
+            { 
+                continue; 
+            }
+
+            HideProperty? hideProperty = tabPageItem.Settings == null ? null : (HideProperty)tabPageItem.Settings;
+
+            if (hideProperty != null && hideProperty.Hide)
+            {
+                continue;
+            }
+
+            var tabPage = (TabPage)tabPageItem.Content;
+
+            string active = tabPage.IsTabActive ? "active" : "";
+
+            <div class="tab-content @active" id="@tabPage.Key">
+                @Html.GetBlockListHtml(tabPage?.TabPageContent)
+            </div>
+
+        }
+     
+    }
+   
+</div>
+
+
+
+

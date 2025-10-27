@@ -1,0 +1,164 @@
+﻿@model Umbraco.Cms.Core.Models.Blocks.BlockListItem
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content;
+    var iconsBlockList = content.Value<BlockListModel>("icons");
+    var linkColumnsBlockList = content.Value<BlockListModel>("linkColumns");
+
+    // Dynamic background image
+    var footerBg = content.Value<IPublishedContent>("backgroundImage");
+    var footerBgUrl = footerBg != null ? footerBg.Url() : "/images/footer-bg.jpg";
+
+    // Dynamic footer logo
+    var footerLogo = content.Value<IPublishedContent>("footerLogo");
+    var footerLogoUrl = footerLogo != null ? footerLogo.Url() : "/images/footer-logo.png";
+}
+
+<footer class="footer-section" style="background-image: url('@footerBgUrl'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="container">
+
+        <!-- Newsletter Section -->
+        <div class="newsletter-section">
+            @if (TempData["SubscriptionStatus"] != null)
+            {
+                <div class="alert alert-@TempData["SubscriptionStatus"]">
+                    @TempData["SubscriptionMessage"]
+                </div>
+            }
+            <h2 class="newsletter-title">Join our mailing list for information, industry insight and marketing material</h2>
+            @using (Html.BeginUmbracoForm("Subscribe", "NewsletterSubscription", FormMethod.Post))
+            {
+               
+
+                <div class="search-bar row justify-content-between align-items-center">
+                    <span class="mb-0 col-lg-11"><input type="email" id="email" name="email" placeholder="yourname@youraddress.com"></span>
+                    <span class="col-lg-1">
+                        <button class="btn btn-outline-info d-flex align-items-center">Send</button>
+                    </span>
+                </div>
+            }
+         
+        </div>
+
+        <!-- Logo -->
+        <div class="row">
+            <div class="col-12">
+                <div class="logo-section">
+                    <img src="@footerLogoUrl" alt="ABP Footer Logo" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <!-- Company Info -->
+            <div class="col-lg-4 col-md-6">
+                <div class="company-info">
+                    <p>Associated British Ports <br> 25 Bedford Street, London <br> WC2E 9ES</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="#">
+                                <div class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+44 (0) 20 7430 1177</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#">
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>info@example.com</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Link Columns -->
+            @if (linkColumnsBlockList != null && linkColumnsBlockList.Any())
+            {
+                <div class="col-lg-8 footer-menu-cover">
+                    <div class="row footer-inner">
+                        @{
+                            var isFirstColumn = true;
+                        }
+
+                        @foreach (var columnBlock in linkColumnsBlockList)
+                        {
+                            var columnTitle = columnBlock.Content.Value<string>("title");
+                            var linkGroupBlocks = columnBlock.Content.Value<BlockListModel>("simpleUrl");
+
+                            var colClass = "col-lg-3 col-md-6";
+                            if (isFirstColumn)
+                            {
+                                colClass += " offset-lg-3";
+                                isFirstColumn = false;
+                            }
+
+                            <div class="@colClass">
+                                @if (!string.IsNullOrEmpty(columnTitle))
+                                {
+                                    <h3 class="footer-heading">@columnTitle</h3>
+                                }
+
+
+                                @if (linkGroupBlocks != null && linkGroupBlocks.Any())
+                                {
+                                    <ul class="footer-links">
+                                        @foreach (var linkGroupBlock in linkGroupBlocks)
+                                        {
+                                            var ctas = linkGroupBlock.Content.Value<IEnumerable<Link>>("cta");
+                                            if (ctas != null && ctas.Any())
+                                            {
+                                                foreach (var link in ctas)
+                                                {
+                                                    <li>
+                                                        <a href="@link.Url" target="@(!string.IsNullOrEmpty(link.Target) ? link.Target : "_self")">
+                                                            @link.Name
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="copyright">© @DateTime.Now.Year Associated British Ports. All rights reserved</div>
+            <div class="social-icons">
+                @if (iconsBlockList != null && iconsBlockList.Any())
+                {
+                    foreach (var block in iconsBlockList)
+                    {
+                        var socialIcons = (SocialIcons)block.Content;
+                        var iconImage = block.Content.Value<IPublishedContent>("socialIcon");
+                        if (iconImage != null)
+                        {
+                            <a href="@socialIcons?.SocialLink?.Url"
+                               target="@(!string.IsNullOrEmpty(socialIcons?.SocialLink?.Target) ? socialIcons.SocialLink.Target : "_self")"
+                               class="social-icon"
+                               aria-label="@iconImage.Name">
+                                <img src="@iconImage.Url()" alt="@iconImage.Name" />
+                            </a>
+                        }
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+</footer>

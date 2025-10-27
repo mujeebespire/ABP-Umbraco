@@ -1,0 +1,136 @@
+﻿@model Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Models
+
+@{
+    // 1️⃣ Get current page
+    var currentPage = Model;
+
+    // 2️⃣ Try page-specific navigation first
+    var navigation = currentPage?.Value<BlockListModel>("navMenu");
+
+    // 3️⃣ Fallback to homepage navigation if none
+    if (navigation == null || !navigation.Any())
+    {
+        var homePage = Model.Root();
+        navigation = homePage?.Value<BlockListModel>("navMenu");
+    }
+
+    var homeUrl = Model.Root().Url(); // For logo link
+}
+
+<header class="site-header">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="@homeUrl">
+                <img src="/uespire/images/Logo.png" alt="Logo" />
+            </a>
+
+            <!-- Mobile Hamburger -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    @if (navigation != null && navigation.Any())
+                    {
+                        foreach (var block in navigation)
+                        {
+                            @await Html.PartialAsync("navigationLinks", block)
+                        }
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@homeUrl">Home</a>
+                        </li>
+                    }
+                </ul>
+
+                <a href="#" class="btn contact-btn">
+                    <span class="btn-icon">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 10.9502L11 0.950195" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                            <path d="M1 0.950195H11V10.9502" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </span> Contact us
+                </a>
+            </div>
+            <span class="submenu">
+                <button type="button">
+                    <span>
+                        <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_2330_112)">
+                                <path d="M31.999 0.949997V2.83235H-0.000976562V0.949997H31.999ZM31.999 8.47941V10.3618H11.2931V8.47941H31.999ZM31.999 16.0088V17.8912H-0.000976562V16.0088H31.999ZM31.999 23.5382V25.4206H11.2931V23.5382H31.999ZM31.999 31.0676V32.95H-0.000976562V31.0676H31.999Z"
+                                      fill="#152A5D" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_2330_112">
+                                    <rect width="32" height="32" fill="white" transform="translate(-0.000976562 0.949997)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </span>
+                    <span>
+                        <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_2337_2719)">
+                                <path d="M-0.000976562 0.949997L31.999 32.95M31.999 0.949997L-0.000976562 32.95" stroke="#152A5D"
+                                      stroke-linecap="round" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_2337_2719">
+                                    <rect width="32" height="32" fill="white" transform="translate(-0.000976562 0.949997)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </span>
+                </button>
+            </span>
+        </div>
+
+
+        <div class="submenu-pop">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img width="46" height="46"
+                             src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=200&h=200&fit=crop" alt="Agribulks">
+                    </div>
+                    <div class="service-content">
+                        <h3>Agribulks</h3>
+                        <p>Demo Description: i non deserunt ullamco est sit aliqua amet sint.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img width="46" height="46"
+                             src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=200&h=200&fit=crop" alt="Agribulks">
+                    </div>
+                    <div class="service-content">
+                        <h3>Agribulks</h3>
+                        <p>Demo Description: i non deserunt ullamco est sit aliqua amet sint.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <img width="46" height="46"
+                             src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=200&h=200&fit=crop" alt="Agribulks">
+                    </div>
+                    <div class="service-content">
+                        <h3>Agribulks</h3>
+                        <p>Demo Description: i non deserunt ullamco est sit aliqua amet sint.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+</header>
