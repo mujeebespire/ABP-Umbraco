@@ -9486,6 +9486,49 @@
       };
       t.default = i;
     },
+    // function (n, t) {
+    //   "use strict";
+    //   Object.defineProperty(t, "__esModule", {
+    //     value: !0,
+    //   });
+    //   var i = {
+    //     $newsletterWrapper: $(".newsletter__container"),
+    //     $newsletterBtn: $(".newsletter__btn"),
+    //     init: function () {
+    //       this.subscribe();
+    //     },
+    //     subscribe: function () {
+    //       var n = this;
+    //       n.$newsletterBtn.on("click", function (t) {
+
+    //         if (1 !== $("span[generated=true]").length) {
+    //           var r = $(this).data("controller-url"),
+    //             i = $(this).siblings("input").val();
+
+    //           i &&
+    //             ($.post(
+    //               r,
+    //               {
+    //                 emailAddress: i,
+    //               },
+    //               function (t) {
+    //                 n.$newsletterWrapper.empty();
+    //                 n.$newsletterWrapper.addClass(
+    //                   "newsletter__container--success"
+    //                 );
+    //                 n.$newsletterWrapper.append(
+    //                   '<span class="newsletter__success">' + t + "</span>"
+    //                 );
+    //               },
+    //               "html"
+    //             ),
+    //             t.preventDefault());
+    //         }
+    //       });
+    //     },
+    //   };
+    //   t.default = i;
+    // },
     function (n, t) {
       "use strict";
       Object.defineProperty(t, "__esModule", {
@@ -9494,33 +9537,63 @@
       var i = {
         $newsletterWrapper: $(".newsletter__container"),
         $newsletterBtn: $(".newsletter__btn"),
+        $newsletterForm: $(".newsletter__form"),
         init: function () {
+          this.initValidation();
           this.subscribe();
+        },
+        initValidation: function () {
+          // Reinitialize jQuery validation
+          if ($.validator && $.validator.unobtrusive) {
+            $.validator.unobtrusive.parse(this.$newsletterForm);
+          }
         },
         subscribe: function () {
           var n = this;
-          n.$newsletterBtn.on("click", function (t) {
+          n.$newsletterForm.on("submit", function (t) {
+            t.preventDefault();
+            // Check if form is valid
+            if (!$(this).valid()) {
+              return false;
+            }
             if (1 !== $("span[generated=true]").length) {
-              var r = $(this).data("controller-url"),
-                i = $(this).siblings("input").val();
-              i &&
-                ($.post(
-                  r,
-                  {
-                    emailAddress: i,
+              var btn = n.$newsletterBtn;
+              var r = btn.data("controller-url");
+              var i = $("#EmailAddress").val();
+              var form = $(this);
+              var token = form
+                .find('input[name="__RequestVerificationToken"]')
+                .val();
+              if (i) {
+                $.ajax({
+                  url: r,
+                  type: "POST",
+                  data: {
+                    EmailAddress: i,
+                    __RequestVerificationToken: token,
                   },
-                  function (t) {
+                  headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                  },
+                  success: function (response) {
                     n.$newsletterWrapper.empty();
                     n.$newsletterWrapper.addClass(
                       "newsletter__container--success"
                     );
                     n.$newsletterWrapper.append(
-                      '<span class="newsletter__success">' + t + "</span>"
+                      '<span class="newsletter__success">' +
+                        response.message +
+                        "</span>"
                     );
                   },
-                  "html"
-                ),
-                t.preventDefault());
+                  error: function (xhr, status, error) {
+                    console.error("Subscription error:", error);
+                    n.$newsletterWrapper.append(
+                      '<span class="newsletter__error">An error occurred. Please try again.</span>'
+                    );
+                  },
+                });
+              }
             }
           });
         },
