@@ -13,6 +13,7 @@ using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Infrastructure.Persistence;
+using Umbraco.Cms.Web.Common;
 using Umbraco.Cms.Web.Website.Controllers;
 
 namespace uEspire.Core.Controllers
@@ -21,7 +22,7 @@ namespace uEspire.Core.Controllers
     {
         private readonly IContentService _contentService;
         private readonly ILogger<NewsletterSubscriptionController> _logger;
-
+        private readonly UmbracoHelper _umbracoHelper;
         public NewsletterSubscriptionController(
             IUmbracoContextAccessor umbracoContextAccessor,
             IUmbracoDatabaseFactory databaseFactory,
@@ -30,20 +31,28 @@ namespace uEspire.Core.Controllers
             IProfilingLogger profilingLogger,
             IPublishedUrlProvider publishedUrlProvider,
             IContentService contentService,
-            ILogger<NewsletterSubscriptionController> logger)
+            ILogger<NewsletterSubscriptionController> logger,
+            UmbracoHelper umbracoHelper)
             : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
         {
             _contentService = contentService;
             _logger = logger;
+            _umbracoHelper = umbracoHelper;
         }
 
         [HttpPost]
-        public IActionResult Subscribe(string email)
+        public IActionResult Subscribe(string emailAddress)
         {
-            if (string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(emailAddress))
             {
+               
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { status = "error", message = _umbracoHelper.GetDictionaryValue("Newsletter.EmailIsNotValidaMessage") });
+                }
+
                 TempData["SubscriptionStatus"] = "error";
-                TempData["SubscriptionMessage"] = "Please enter a valid email address.";
+                TempData["SubscriptionMessage"] = _umbracoHelper.GetDictionaryValue("Newsletter.EmailIsNotValidaMessage");
                 return CurrentUmbracoPage();
             }
 
@@ -55,9 +64,7 @@ namespace uEspire.Core.Controllers
                 if (homeNode == null)
                 {
                     _logger.LogError("Home node not found");
-                    TempData["SubscriptionStatus"] = "error";
-                    TempData["SubscriptionMessage"] = "An error occurred. Please try again later.";
-                    return CurrentUmbracoPage();
+                    return HandleResponse("error", _umbracoHelper.GetDictionaryValue("Newsletter.ErrorOccuredMessage"));
                 }
 
                 var childNodes = _contentService.GetPagedChildren(homeNode.Id, 0, int.MaxValue, out _);
@@ -66,32 +73,27 @@ namespace uEspire.Core.Controllers
                 if (subscriberListNode == null)
                 {
                     _logger.LogError("NewsletterSubscriberList node not found");
-                    TempData["SubscriptionStatus"] = "error";
-                    TempData["SubscriptionMessage"] = "An error occurred. Please try again later.";
-                    return CurrentUmbracoPage();
+                    return HandleResponse("error", _umbracoHelper.GetDictionaryValue("Newsletter.ErrorOccuredMessage"));
                 }
 
                 // Check if email already exists
                 var existingSubscribers = _contentService.GetPagedChildren(subscriberListNode.Id, 0, int.MaxValue, out _);
                 var emailExists = existingSubscribers.Any(s =>
-                    s.GetValue<string>("email")?.Equals(email, StringComparison.OrdinalIgnoreCase) ?? false);
+                    s.GetValue<string>("email")?.Equals(emailAddress, StringComparison.OrdinalIgnoreCase) ?? false);
 
                 if (emailExists)
                 {
-                    TempData["SubscriptionStatus"] = "warning";
-                    TempData["SubscriptionMessage"] = "This email is already subscribed.";
-                    return CurrentUmbracoPage();
+                    return HandleResponse("warning", _umbracoHelper.GetDictionaryValue("Newsletter.EmailAlreadySubscribedMessage"));
                 }
 
                 // Create new NewsletterSubscriber
                 var subscriber = _contentService.Create(
-                    $"Subscriber - {email}",
+                    $"Subscriber - {emailAddress}",
                     subscriberListNode.Id,
                     "newsletterSubscriber"
                 );
 
-                subscriber.SetValue("email", email);
-                //subscriber.SetValue("subscribedDate", DateTime.Now); // If you have this property
+                subscriber.SetValue("email", emailAddress);
 
                 // Save and publish
                 var saveResult = _contentService.Save(subscriber);
@@ -102,31 +104,39 @@ namespace uEspire.Core.Controllers
 
                     if (publishResult.Success)
                     {
-                        TempData["SubscriptionStatus"] = "success";
-                        TempData["SubscriptionMessage"] = "Thank you for subscribing!";
+                        return HandleResponse("success", _umbracoHelper.GetDictionaryValue("Newsletter.SubscribtionSuccessMessage"));
                     }
                     else
                     {
                         _logger.LogError("Failed to publish subscriber");
-                        TempData["SubscriptionStatus"] = "error";
-                        TempData["SubscriptionMessage"] = "An error occurred. Please try again.";
+                        return HandleResponse("error", _umbracoHelper.GetDictionaryValue("Newsletter.ErrorOccuredMessage"));
                     }
                 }
                 else
                 {
                     _logger.LogError("Failed to save subscriber");
-                    TempData["SubscriptionStatus"] = "error";
-                    TempData["SubscriptionMessage"] = "An error occurred. Please try again.";
+                    return HandleResponse("error", _umbracoHelper.GetDictionaryValue("Newsletter.ErrorOccuredMessage"));
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error subscribing email: {Email}", email);
-                TempData["SubscriptionStatus"] = "error";
-                TempData["SubscriptionMessage"] = "An error occurred. Please try again later.";
+                _logger.LogError(ex, "Error subscribing email: {Email}", emailAddress);
+                return HandleResponse("error", _umbracoHelper.GetDictionaryValue("Newsletter.ErrorOccuredMessage"));
+            }
+        }
+
+        private IActionResult HandleResponse(string status, string? message)
+        {
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return Json(new { status = status, message = message });
             }
 
+            TempData["SubscriptionStatus"] = status;
+            TempData["SubscriptionMessage"] = message;
             return CurrentUmbracoPage();
         }
+
+       
     }
 }

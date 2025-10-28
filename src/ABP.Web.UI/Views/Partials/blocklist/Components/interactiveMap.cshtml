@@ -1,0 +1,1016 @@
+﻿@using ABP.Web.Models.UmbracoModels
+@using Umbraco.Cms.Core.Models.Blocks
+@inherits UmbracoViewPage<BlockListItem>
+@{
+    var interactiveMap = Model.Content as InteractiveMap;
+}
+  <!-- Map section -->
+<div class="map js-map">
+    <div class="wrap map__wrap js-map-wrap">
+        <div class="map__content js-map-content">
+            <div class="map__category-cont">
+                <span class="map__category">Port Locations</span>
+            </div>
+            <h2 class="map__heading">Map of port locations</h2>
+            <p class="map__desc js-map-desc">Click on the port location to find out more</p>
+            <div class="map__list-wrap">
+                <div class="map__points-list-cont js-map-list">
+                    <ul class="map__points-list">
+                        <li class="map__list-item js-map-list-item" data-id="0">
+                            <div class="map__list-image" style="background-image: url('images/ayr.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Ayr</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="1">
+                            <div class="map__list-image" style="background-image: url('images/barrow.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Barrow</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="2">
+                            <div class="map__list-image" style="background-image: url('images/barry.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Barry</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="3">
+                            <div class="map__list-image" style="background-image: url('images/cardiff.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Cardiff</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="4">
+                            <div class="map__list-image" style="background-image: url('images/fleetwood.jpg');">
+                            </div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Fleetwood</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="5">
+                            <div class="map__list-image" style="background-image: url('images/garston.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Garston</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="6">
+                            <div class="map__list-image" style="background-image: url('images/goole.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Goole</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="7">
+                            <div class="map__list-image" style="background-image: url('images/grimsby.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Grimsby</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="8">
+                            <div class="map__list-image" style="background-image: url('images/hams-hall.jpg');">
+                            </div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Hams Hall Terminal</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="9">
+                            <div class="map__list-image" style="background-image: url('images/hull.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Hull</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="10">
+                            <div class="map__list-image" style="background-image: url('images/immingham.jpg');">
+                            </div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Immingham</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="11">
+                            <div class="map__list-image" style="background-image: url('images/ipswich.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Ipswich</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="12">
+                            <div class="map__list-image" style="background-image: url('images/kings-lynn.jpg');">
+                            </div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">King&#39;s Lynn</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="13">
+                            <div class="map__list-image" style="background-image: url('images/lowestoft.jpg');">
+                            </div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Lowestoft</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="14">
+                            <div class="map__list-image" style="background-image: url('images/newport.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Newport</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="15">
+                            <div class="map__list-image" style="background-image: url('images/plymouth.jpg');">
+                            </div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Plymouth</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="16">
+                            <div class="map__list-image" style="background-image: url('images/port-talbot.jpg');">
+                            </div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Port Talbot</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="17">
+                            <div class="map__list-image" style="background-image: url('images/silloth.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Silloth</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="18">
+                            <div class="map__list-image" style="background-image: url('images/southampton.jpg');">
+                            </div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Southampton</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="19">
+                            <div class="map__list-image" style="background-image: url('images/swansea.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Swansea</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="20">
+                            <div class="map__list-image" style="background-image: url('images/teignmouth.jpg');">
+                            </div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Teignmouth</h4>
+                            </div>
+                        </li>
+                        <li class="map__list-item js-map-list-item" data-id="21">
+                            <div class="map__list-image" style="background-image: url('images/troon.jpg');"></div>
+                            <div class="map__list-heading-cont">
+                                <h4 class="map__list-heading">Troon</h4>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="map__list-control">
+                <button type="button" class="map__control-btn map__control-btn--down js-map-control"
+                        data-direction="down">
+                    <span class="map__control-icon font-ico-ar-left"></span>
+                </button>
+                <button type="button" class="map__control-btn map__control-btn--up js-map-control"
+                        data-direction="up">
+                    <span class="map__control-icon font-ico-ar-left"></span>
+                </button>
+            </div>
+        </div>
+        <div class="map__map-cont js-map-cont">
+            <img src="images/ukmap.png" alt="" class="map__image">
+            <div class="map__point js-map-point" data-x-align="48" data-y-align="45" data-id="0">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="0">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Ayr</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-dryBulks"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Ayr is the first commercial port as vessels enter the
+                    Firth of Clyde, on the West Coast of Scotland. With excellent road and rail connectivity,
+                    and proximity to Glasgow, every year, the Port of Ayr handles 340,000 tonnes of cargo.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Agribulk, Bulk Energy, Construction,
+                        Forest products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                </ul>
+                <a href="/locations/ayr/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Ayr</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="59" data-y-align="57" data-id="1">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="1">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Barrow</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-drops"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-dryBulks"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-wind"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Barrow offers world-class marine engineering services to
+                    the offshore wind industry on the Cumbrian coast. It has 15ha of secure open storage and is
+                    the site of BAE Systems&#39; submarine design and manufacturing facility.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Bulk Energy, Construction, Forest
+                        products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                    <li class="map__info-item js-map-info-item">Liquid Bulk</li>
+                    <li class="map__info-item js-map-info-item">Offshore Wind</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/barrow/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Barrow</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="58" data-y-align="85" data-id="2">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="2">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Barry</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-drops"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-dryBulks"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-train"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Barry, west of Cardiff, is a key facility for the
+                    region&#39;s chemical industry, handling liquid bulks, as well as having expertise in the
+                    handling of steel, scrap metal, containers, dry bulks, coal, and aggregates.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Dry Bulk (Bulk Energy)</li>
+                    <li class="map__info-item js-map-info-item">Liquid Bulk</li>
+                    <li class="map__info-item js-map-info-item">Rail Freight</li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/barry/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Barry</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="60" data-y-align="85" data-id="3">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="3">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Cardiff</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-container"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-drops"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-dryBulks"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Cardiff’s excellent location, transport links and
+                    facilities make Cardiff the ideal choice for customers moving a wide range of commodities,
+                    including: containers, forest products, fresh produce, dry and liquid bulks.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Bulk Energy, Construction, Forest
+                        products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Containers</li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                    <li class="map__info-item js-map-info-item">Liquid Bulk</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/cardiff/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Cardiff</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="63" data-y-align="60" data-id="4">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="4">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Fleetwood</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-shorePower"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Fleetwood’s position on the edge of Morecambe Bay makes it
+                    ideal to service the Irish Sea offshore wind industry. The port also has significant
+                    development opportunities available for the design and construction of bespoke business
+                    space.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Offshore Wind</li>
+                </ul>
+                <a href="/locations/fleetwood/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Fleetwood</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="62" data-y-align="65" data-id="5">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="5">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Garston</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-dryBulks"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Garston, Liverpool, specialises in handling a wide array
+                    of cargo, from dry bulks to steel products; annually handling around 500,000 tonnes of
+                    cargo. New investment has extended its dry bulk storage for a range of cargoes including
+                    grain, ores and sand.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Agribulk, Bulk Energy, Construction)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/garston/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Garston</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="75" data-y-align="62" data-id="6">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="6">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Goole</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-drops"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-dryBulks"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Goole is the UK’s premier inland port, handling around 1.5
+                    million tonnes of various cargoes per year. Constant water level allows heavy-lift working
+                    on most berths and it also has a dedicated rail-freight terminal.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Agribulk, Bulk Energy, Construction,
+                        Forest products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Liquid Bulks</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Steel and other metals</li>
+                </ul>
+                <a href="/locations/goole/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Goole</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="85" data-y-align="65" data-id="7">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="7">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Grimsby</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-container"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-dryBulks"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-electric-car"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-wind"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Grimsby is one of the UK’s leading automotive ports and a
+                    major hub for the burgeoning offshore wind industry. It also handles a wide range of other
+                    cargoes, whilst retaining strong links to the fishing and food industries.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Automotive</li>
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Agribulk, Bulk Energy, Construction,
+                        Forest products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Containers</li>
+                    <li class="map__info-item js-map-info-item">Offshore Wind</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Steel and other metals</li>
+                </ul>
+                <a href="/locations/grimsby/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Grimsby</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="75" data-y-align="75" data-id="8">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="8">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Hams Hall Terminal</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-train"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    ABP owns Hams Hall, which is operated by Maritime Transport Ltd. It is
+                    one of the country&#39;s busiest inland rail freight terminals handling in the region of
+                    120,000 TEUs each year.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Rail Freight</li>
+                </ul>
+                <a href="/locations/hams-hall-rail-freight-terminal/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Hams Hall Rail Freight Terminal</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="81" data-y-align="63" data-id="9">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="9">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Hull</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-container"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-roro"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-wind"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Hull is the UK’s leading softwood timber port and the
+                    focus of the offshore wind sector on the Humber. Key features include the Hull Container
+                    Terminal and the Humber International Enterprise Park, one of the largest development sites
+                    in the UK.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Agribulk, Bulk Energy, Construction,
+                        Forest products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Containers</li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                    <li class="map__info-item js-map-info-item">Offshore Wind</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">RoRo and Ferries</li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/hull/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Hull</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="83" data-y-align="64" data-id="10">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="10">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Immingham</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-car"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-container"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-roro"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-train"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Immingham is the UK’s largest port by tonnage, handling
+                    around 46 million tonnes of cargo every year. The port is a critical part of the supply
+                    chain for sustainable electricity generation and other energy production, helping power the
+                    nation.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Automotive</li>
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Agribulk, Bulk Energy, Construction,
+                        Forest products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Containers</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Rail Freight</li>
+                    <li class="map__info-item js-map-info-item">RoRo and Ferries</li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/immingham/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Immingham</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="94" data-y-align="81" data-id="11">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="11">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Ipswich</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-drops"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Ipswich, at the head of the River Orwell, handles over 2
+                    million tonnes of cargo per year. It is the UK’s leading grain export port and handles a
+                    range of other products such as fertiliser, cement and aggregates.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Agribulk, Bulk Energy, Construction,
+                        Forest products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                    <li class="map__info-item js-map-info-item">Liquid Bulk</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                </ul>
+                <a href="/locations/ipswich/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Ipswich</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="88" data-y-align="73" data-id="12">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="12">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">King&#39;s Lynn</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-drops"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of King’s Lynn has benefited from recent &#163;3.3 million
+                    investment, in storage and equipment. Handling agribulks and aggregates, it also has
+                    expertise in specialist industrial project cargo, supporting the development of major UK
+                    infrastructure construction.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Agribulk, Construction, Forest
+                        products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Liquid Bulk</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/king-s-lynn/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">King&#39;s Lynn</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="99" data-y-align="74" data-id="13">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="13">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Lowestoft</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-drops"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-wind"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Lowestoft handles around 30,000 tonnes of cargo per year.
+                    ABP’s &#163;25 million development of the Lowestoft Eastern Energy Facility (LEEF) will
+                    support the growth of the offshore wind sector, and have a profound, positive economic
+                    impact for the region.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Dry Bulk (Agribulk)</li>
+                    <li class="map__info-item js-map-info-item">Liquid Bulk</li>
+                    <li class="map__info-item js-map-info-item">Offshore Wind</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                </ul>
+                <a href="/locations/lowestoft/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Lowestoft</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="62" data-y-align="85" data-id="14">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="14">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Newport</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-container"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The most easterly of ABP&#39;s South Wales ports, Newport handles
+                    around &#163;1 billion of UK trade every year. With excellent links to the nearby M4 and
+                    direct rail connections, the port occupies a prime location to service the UK&#39;s main
+                    industrial and commercial regions.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Agribulk, Bulk Energy, Construction,
+                        Forest products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Containers</li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/newport/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Newport</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="53" data-y-align="96" data-id="15">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="15">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Plymouth</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-roro"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The historic Port of Plymouth is now a bustling modern port,
+                    contributing over &#163;95 million to the UK economy, handling around 80,000 tonnes of cargo
+                    each year. It is also home to Brittany Ferries&#39; services to France and Spain.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Dry Bulk (Agribulk)</li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                    <li class="map__info-item js-map-info-item">RoRo and Ferries</li>
+                </ul>
+                <a href="/locations/plymouth/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Plymouth</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="55" data-y-align="85" data-id="16">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="16">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Port Talbot</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-wind"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    Port Talbot is one of the few UK’s deep water ports, capable of
+                    handling cape-size vessels of up to 170,000dwt. The port handles project and heavy lift
+                    cargoes, steels and other metals, building aggregates and cargoes to support the offshore
+                    energy sector.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Dry Bulk (Bulk Energy, Construction)</li>
+                    <li class="map__info-item js-map-info-item">Offshore Wind</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/port-talbot/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Port Talbot</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="60" data-y-align="50" data-id="17">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="17">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Silloth</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-drops"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Silloth is located in Cumbria close to Carlisle with good
+                    road connections to the M6. It expertly handles a wider variety of cargoes, from supporting
+                    onshore wind projects and supplying local farming communities, to the specialist handling of
+                    molasses.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Dry Bulk (Agribulk, Forest products)</li>
+                    <li class="map__info-item js-map-info-item">Liquid Bulk</li>
+                </ul>
+                <a href="/locations/silloth/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Silloth</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="74" data-y-align="91" data-id="18">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="18">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Southampton</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-car"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-drops"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-wind"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    Close to major shipping lanes on the South Coast, linking the UK to
+                    European and global markets, Southampton is Britain’s ‘Gateway to the World&#39;. It is the
+                    UK’s number one export port, the UK’s number one port for automotive and Europe’s number one
+                    turnaround port for cruise.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Automotive</li>
+                    <li class="map__info-item js-map-info-item">Dry Bulk (Agribulk, Construction)</li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                    <li class="map__info-item js-map-info-item">Liquid Bulk</li>
+                    <li class="map__info-item js-map-info-item">Offshore wind</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/southampton/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Southampton</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="53" data-y-align="84" data-id="19">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="19">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Swansea</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-girder"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-projectCargo"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-wind"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Swansea has the capacity to handle large vessels and is
+                    equipped to handle a wide range of cargo. The port is an attractive destination for visiting
+                    cruises and offers exciting development opportunities.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">
+                        Dry Bulk (Agribulk, Bulk Energy, Forest
+                        products)
+                    </li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                    <li class="map__info-item js-map-info-item">Offshore Wind</li>
+                    <li class="map__info-item js-map-info-item">Project Cargo</li>
+                    <li class="map__info-item js-map-info-item">Steel and other materials</li>
+                </ul>
+                <a href="/locations/swansea/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Swansea</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="56" data-y-align="94" data-id="20">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="20">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Teignmouth</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Teignmouth, serves South West England and is a key hub for
+                    the construction, agriculture and ball clay markets. Deepening of berths has enabled this
+                    growing port to build on the 460,000 tonnes of cargo it handles each year.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Dry Bulk (Agribulk, Construction)</li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                </ul>
+                <a href="/locations/teignmouth/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Teignmouth</span>
+                </a>
+            </div>
+            <div class="map__point js-map-point" data-x-align="48" data-y-align="43" data-id="21">
+            </div>
+            <div class="map__info-cont js-map-info-cont" data-id="21">
+                <button class="map__info-close js-map-info-close">
+                    <span class="map__close-icon font-ico-close-wider"></span>
+                </button>
+                <h3 class="map__info-title">Troon</h3>
+                <ul class="map__icon-list">
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-bulkEnergy"></span>
+                    </li>
+                    <li class="map__icon-item">
+                        <span class="map__info-icon font-ico-cruise"></span>
+                    </li>
+                </ul>
+                <p class="map__info-desc">
+                    The Port of Troon plays an integral role in Scotland’s supply chains
+                    and is home to TimberLINK, a sustainable distribution service which handles over 100,000
+                    tonnes of timber each year across Scotland and Ireland.
+                </p>
+                <ul class="map__info-list js-map-info-list">
+                    <li class="map__info-item js-map-info-item">Dry Bulk (Construction, Forest products)</li>
+                    <li class="map__info-item js-map-info-item">Cruise</li>
+                </ul>
+                <a href="/locations/troon/" class="map__info-link btn-home btn-home--cta">
+                    <span class="btn-home__text">Troon</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

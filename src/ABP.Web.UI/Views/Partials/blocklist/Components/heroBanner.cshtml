@@ -1,41 +1,65 @@
 ﻿@inherits UmbracoViewPage<BlockListItem>
 @using Umbraco.Cms.Core.Models.Blocks
 @using ABP.Web.Models.UmbracoModels
+
 @{
     var heroBanner = Model.Content as HeroBanner;
-
     string? searchResultPageUrl = heroBanner?.SearchResultPageLink?.Url;
+
+    // ✅ Get nonce and background image URL
+    var nonce = Context.Items["CSPNonce"] as string;
+    var heroBgUrl = heroBanner?.HeroFallbackImage?.Url();
 }
+
 <!-- Hero Banner -->
-<div class="hero has-cover has-video-popup"
-     style="background-image: url('@heroBanner?.HeroFallbackImage?.Url()');">
+<style nonce="@nonce">
+    .hero--dynamic-bg {
+        background-image: url('@heroBgUrl');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+</style>
+
+<div class="hero has-cover has-video-popup hero--dynamic-bg">
     <div class="hero__video">
         <iframe class="hero__video-iframe"
                 src="@heroBanner?.HeroVideo?.Url"
-                frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                frameborder="0"
+                allow="autoplay; fullscreen"
+                allowfullscreen>
+        </iframe>
     </div>
+
     <div class="wrap">
         <div class="hero__content">
             <h1 class="hero__title">@heroBanner?.Title</h1>
+
             <div class="hero__search">
                 <form method="get" action="@searchResultPageUrl">
                     <button type="submit" class="hero__search-btn">
-                        <span class="hero__btn-text">@Umbraco.GetDictionaryValue("Search.SearchButton")</span><span class="icon font-ico-search-2"></span>
+                        <span class="hero__btn-text">
+                            @Umbraco.GetDictionaryValue("Search.SearchButton")
+                        </span>
+                        <span class="icon font-ico-search-2"></span>
                     </button>
-                    <input type="search" name="q" placeholder="@Umbraco.GetDictionaryValue("Hero.SearchInputPalceHolder")" class="hero__input">
+                    <input type="search"
+                           name="q"
+                           placeholder="@Umbraco.GetDictionaryValue("Hero.SearchInputPalceHolder")"
+                           class="hero__input" />
                 </form>
                 <div class="hero__wildcard-list-items js-wildcard"></div>
             </div>
+
             <div class="hero__buttons">
                 @if (heroBanner?.VideoLinks != null)
                 {
                     foreach (var videoLink in heroBanner.VideoLinks)
                     {
-                        <button type="button" class="btn-home btn-home--play js-btn-play"
+                        <button type="button"
+                                class="btn-home btn-home--play js-btn-play"
                                 data-video-url="@videoLink.Url">
-                            <span class="btn-home__text">
-                                @videoLink.Name
-                            </span>
+                            <span class="btn-home__text">@videoLink.Name</span>
                         </button>
                     }
                 }
@@ -44,24 +68,30 @@
                 {
                     foreach (var ctaLink in heroBanner.CtaLinks)
                     {
-                        <a href="@ctaLink.Url" class="btn-home btn-home--cta"
-                           target="@ctaLink.Target"><span class="btn-home__text">@ctaLink.Name</span></a>
+                        <a href="@ctaLink.Url"
+                           class="btn-home btn-home--cta"
+                           target="@ctaLink.Target">
+                            <span class="btn-home__text">@ctaLink.Name</span>
+                        </a>
                     }
                 }
-                          
             </div>
         </div>
     </div>
+
     <button type="button" class="hero__scroll js-home-arrow-down">
         <span class="hero__scroll-text">@Umbraco.GetDictionaryValue("Hero.ScrollMore")</span>
         <span class="icon font-ico-arrow-down"></span>
     </button>
+
     <div class="video">
         <div class="video__overlay">
             <button type="button" class="video__close-btn">
-                <span class="icon font-ico-close"><span class="sr-only">@Umbraco.GetDictionaryValue("Hero.CloseVideoPopup")</span></span>
+                <span class="icon font-ico-close">
+                    <span class="sr-only">@Umbraco.GetDictionaryValue("Hero.CloseVideoPopup")</span>
+                </span>
             </button>
-            <iframe src="javascript:;" width="0" height="0" allowfullscreen></iframe>
+            <iframe src="about:blank" width="0" height="0"  allowfullscreen></iframe>         
         </div>
     </div>
 </div>
