@@ -448,7 +448,7 @@
                             </div>
                         </li>
                         <li class="nav__item has-children" role="menuitem">
-                            <a href="javascript:;"
+                            <a role="button" href="javascript:;"
                                 class="nav__link js-nav-link nav__link--btn btn btn--grey">Contact</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -523,7 +523,7 @@
                                 class="nav__link nav__link--grey icon font-ico-external">Careers</a>
                         </li>
                     </ul>
-                    <button type="button" class="nav__search icon font-ico-search js-search-open"></button>
+                    <button type="button" class="nav__search icon font-ico-search js-search-open" aria-label="Open search"></button>
                 </nav>
             </div>
         </div>
@@ -536,15 +536,17 @@
                 <img src="images/logo.svg" alt="Associated British Ports" class="logo__img" />
                 <img src="images/logo-hover.svg" alt="Associated British Ports" class="logo__img-hover" />
             </a>
-            <button type="button" class="search-overlay__close icon font-ico-close js-search-close"></button>
+            <button type="button" class="search-overlay__close icon font-ico-close js-search-close" aria-label="close button"></button>
         </div>
         <div class="search-overlay__form-wrapper js-search-wrapper"
             data-controller-url="/umbraco/Surface/SearchListing/WildCardSearch">
+
             <div class="search-overlay__form-container">
-                <form class="search-overlay__form" action="/search-page/" method="get">
+                <form class="search-overlay__form" action="/search-page/" method="get" aria-labelledby="search-heading">
+                     
                     <input type="search" name="q" required placeholder="Search" autofocus
                         class="search-overlay__input js-search-wildcards">
-                    <button type="submit" class="icon font-ico-search search-overlay__btn"></button>
+                    <button type="submit" class="icon font-ico-search search-overlay__btn" aria-label="search"></button>
                 </form>
             </div>
             <div class="search-overlay__wildcard-list-items js-wildcard">
@@ -558,16 +560,18 @@
         <div class="hero__video">
             <iframe class="hero__video-iframe"
                 src="https://player.vimeo.com/video/679061897?background=1&autoplay=1&loop=1&byline=0&title=0"
-                frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                frameborder="0" allow="autoplay; fullscreen" allowfullscreen aria-label="ABP background video"></iframe>
         </div>
         <div class="wrap">
             <div class="hero__content">
                 <h1 class="hero__title">ABP: the UK’s leading ports group</h1>
                 <div class="hero__search">
                     <form method="get" action="/search-page/"
-                        data-controller-url="/umbraco/Surface/SearchListing/WildCardSearch">
+                        data-controller-url="/umbraco/Surface/SearchListing/WildCardSearch" aria-labelledby="search-heading">
+                        <h2 id="search-heading" class="visually-hidden">Search What are you looking for</h2>
                         <button type="submit" class="hero__search-btn"><span class="hero__btn-text">Search</span><span
                                 class="icon font-ico-search-2"></span></button>
+                               
                         <input type="search" name="q" placeholder="What are you looking for?" class="hero__input">
                     </form>
                     <div class="hero__wildcard-list-items js-wildcard"></div>
@@ -818,11 +822,11 @@
                 </div>
                 <div class="map__list-control">
                     <button type="button" class="map__control-btn map__control-btn--down js-map-control"
-                        data-direction="down">
+                        data-direction="down" aria-label="down arrow">
                         <span class="map__control-icon font-ico-ar-left"></span>
                     </button>
                     <button type="button" class="map__control-btn map__control-btn--up js-map-control"
-                        data-direction="up">
+                        data-direction="up" aria-label="up arrow">
                         <span class="map__control-icon font-ico-ar-left"></span>
                     </button>
                 </div>
@@ -832,7 +836,7 @@
                 <div class="map__point js-map-point" data-x-align="48" data-y-align="45" data-id="0">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="0">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Ayr</h3>
@@ -859,7 +863,7 @@
                 <div class="map__point js-map-point" data-x-align="59" data-y-align="57" data-id="1">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="1">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Barrow</h3>
@@ -902,7 +906,7 @@
                 <div class="map__point js-map-point" data-x-align="58" data-y-align="85" data-id="2">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="2">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Barry</h3>
@@ -936,7 +940,7 @@
                 <div class="map__point js-map-point" data-x-align="60" data-y-align="85" data-id="3">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="3">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Cardiff</h3>
@@ -979,7 +983,7 @@
                 <div class="map__point js-map-point" data-x-align="63" data-y-align="60" data-id="4">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="4">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Fleetwood</h3>
@@ -1002,7 +1006,7 @@
                 <div class="map__point js-map-point" data-x-align="62" data-y-align="65" data-id="5">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="5">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Garston</h3>
@@ -1030,7 +1034,7 @@
                 <div class="map__point js-map-point" data-x-align="75" data-y-align="62" data-id="6">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="6">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Goole</h3>
@@ -1065,7 +1069,7 @@
                 <div class="map__point js-map-point" data-x-align="85" data-y-align="65" data-id="7">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="7">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Grimsby</h3>
@@ -1108,7 +1112,7 @@
                 <div class="map__point js-map-point" data-x-align="75" data-y-align="75" data-id="8">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="8">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Hams Hall Terminal</h3>
@@ -1134,7 +1138,7 @@
                 <div class="map__point js-map-point" data-x-align="81" data-y-align="63" data-id="9">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="9">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Hull</h3>
@@ -1179,7 +1183,7 @@
                 <div class="map__point js-map-point" data-x-align="83" data-y-align="64" data-id="10">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="10">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Immingham</h3>
@@ -1227,7 +1231,7 @@
                 <div class="map__point js-map-point" data-x-align="94" data-y-align="81" data-id="11">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="11">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Ipswich</h3>
@@ -1262,7 +1266,7 @@
                 <div class="map__point js-map-point" data-x-align="88" data-y-align="73" data-id="12">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="12">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">King&#39;s Lynn</h3>
@@ -1298,7 +1302,7 @@
                 <div class="map__point js-map-point" data-x-align="99" data-y-align="74" data-id="13">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="13">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon"> 
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Lowestoft</h3>
@@ -1333,7 +1337,7 @@
                 <div class="map__point js-map-point" data-x-align="62" data-y-align="85" data-id="14">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="14">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Newport</h3>
@@ -1373,7 +1377,7 @@
                 <div class="map__point js-map-point" data-x-align="53" data-y-align="96" data-id="15">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="15">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Plymouth</h3>
@@ -1403,7 +1407,7 @@
                 <div class="map__point js-map-point" data-x-align="55" data-y-align="85" data-id="16">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="16">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Port Talbot</h3>
@@ -1438,7 +1442,7 @@
                 <div class="map__point js-map-point" data-x-align="60" data-y-align="50" data-id="17">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="17">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Silloth</h3>
@@ -1465,7 +1469,7 @@
                 <div class="map__point js-map-point" data-x-align="74" data-y-align="91" data-id="18">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="18">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Southampton</h3>
@@ -1512,7 +1516,7 @@
                 <div class="map__point js-map-point" data-x-align="53" data-y-align="84" data-id="19">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="19">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Swansea</h3>
@@ -1551,7 +1555,7 @@
                 <div class="map__point js-map-point" data-x-align="56" data-y-align="94" data-id="20">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="20">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Teignmouth</h3>
@@ -1577,7 +1581,7 @@
                 <div class="map__point js-map-point" data-x-align="48" data-y-align="43" data-id="21">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="21">
-                    <button class="map__info-close js-map-info-close">
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Troon</h3>
@@ -1999,14 +2003,16 @@
                 <div class="newsletter__container">
                     <h4 class="newsletter__title">Join our mailing list for information, industry insight and marketing
                         material:</h4>
-                    <form class="newsletter__form" method="post">
+                    <form class="newsletter__form" method="post" aria-labelledby="newsletter-heading">
+                        <h2 id="newsletter-heading" class="visually-hidden">Subscribe to our newsletter</h2>
+                         <label for="EmailAddress" class="visually-hidden">Email address</label>
                         <input class="newsletter__input" data-val="true" data-val-email="The email address is not valid"
                             data-val-required="The email address is required" id="EmailAddress" name="EmailAddress"
                             placeholder="yourname@youraddress.com" type="text" value="" />
                         <span class="field-validation-valid" data-valmsg-for="EmailAddress"
                             data-valmsg-replace="true"></span>
                         <button type="submit" class="btn icon font-ico-arrow-btn newsletter__btn"
-                            data-controller-url="/umbraco/Surface/Subscribe/SubscribeForm"></button>
+                            data-controller-url="/umbraco/Surface/Subscribe/SubscribeForm" aria-label="Subscribe to newsletter"></button>
                     </form>
                 </div>
             </div>
@@ -2137,9 +2143,9 @@
                                 </div>
                                 <div class="footer__social-icons">
                                     <a href="https://twitter.com/abports21?lang=en" target="_blank"
-                                        class="icon font-ico-twitter footer__icon"></a>
+                                        class="icon font-ico-twitter footer__icon" aria-label="twitter icon"></a>
                                     <a href="https://www.linkedin.com/company/associated-british-ports" target="_blank"
-                                        class="icon font-ico-linkedin footer__icon"></a>
+                                        class="icon font-ico-linkedin footer__icon" aria-label="linked in icon"></a>
                                 </div>
                             </div>
                         </div>
