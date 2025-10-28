@@ -66,6 +66,14 @@ namespace ABP.Web.Models.UmbracoModels
 		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops MapImage => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "mapImage");
 
 		///<summary>
+		/// MapvInfo Items
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("mapInfoItems")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel MapInfoItems => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "mapInfoItems");
+
+		///<summary>
 		/// Title First
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]

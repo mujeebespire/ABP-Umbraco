@@ -20,7 +20,7 @@ namespace ABP.Web.Models.UmbracoModels
 {
 	/// <summary>Right Image With left text</summary>
 	[PublishedModel("rightImageWithLeftText")]
-	public partial class RightImageWithLeftText : PublishedContentModel
+	public partial class RightImageWithLeftText : PublishedElementModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -41,7 +41,7 @@ namespace ABP.Web.Models.UmbracoModels
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public RightImageWithLeftText(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public RightImageWithLeftText(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
