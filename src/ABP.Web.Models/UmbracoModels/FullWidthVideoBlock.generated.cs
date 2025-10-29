@@ -18,14 +18,14 @@ using Umbraco.Extensions;
 
 namespace ABP.Web.Models.UmbracoModels
 {
-	/// <summary>Get in Touch</summary>
-	[PublishedModel("getInTouch")]
-	public partial class GetInTouch : PublishedElementModel
+	/// <summary>fullWidthVideoBlock</summary>
+	[PublishedModel("fullWidthVideoBlock")]
+	public partial class FullWidthVideoBlock : PublishedContentModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		public new const string ModelTypeAlias = "getInTouch";
+		public new const string ModelTypeAlias = "fullWidthVideoBlock";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
@@ -34,14 +34,14 @@ namespace ABP.Web.Models.UmbracoModels
 			=> PublishedModelUtility.GetModelContentType(contentTypeCache, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedContentTypeCache contentTypeCache, Expression<Func<GetInTouch, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedContentTypeCache contentTypeCache, Expression<Func<FullWidthVideoBlock, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(contentTypeCache), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public GetInTouch(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public FullWidthVideoBlock(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -50,49 +50,18 @@ namespace ABP.Web.Models.UmbracoModels
 		// properties
 
 		///<summary>
-		/// Contact Title
+		/// Enable Popup
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[ImplementPropertyType("enablePopup")]
+		public virtual bool EnablePopup => this.Value<bool>(_publishedValueFallback, "enablePopup");
+
+		///<summary>
+		/// Vedio Url
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("contactTitle")]
-		public virtual string ContactTitle => this.Value<string>(_publishedValueFallback, "contactTitle");
-
-		///<summary>
-		/// Heading
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("heading")]
-		public virtual string Heading => this.Value<string>(_publishedValueFallback, "heading");
-
-		///<summary>
-		/// Icon
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("icon")]
-		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops Icon => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "icon");
-
-		///<summary>
-		/// OverLay
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[ImplementPropertyType("overLay")]
-		public virtual bool OverLay => this.Value<bool>(_publishedValueFallback, "overLay");
-
-		///<summary>
-		/// Phone Number
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[ImplementPropertyType("phoneNumber")]
-		public virtual int PhoneNumber => this.Value<int>(_publishedValueFallback, "phoneNumber");
-
-		///<summary>
-		/// Title 
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("title")]
-		public virtual string Title => this.Value<string>(_publishedValueFallback, "title");
+		[ImplementPropertyType("vedioUrl")]
+		public virtual string VedioUrl => this.Value<string>(_publishedValueFallback, "vedioUrl");
 	}
 }
