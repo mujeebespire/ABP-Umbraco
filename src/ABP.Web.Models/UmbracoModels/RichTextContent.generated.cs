@@ -50,11 +50,11 @@ namespace ABP.Web.Models.UmbracoModels
 		// properties
 
 		///<summary>
-		/// Content: Enter the content for this rich text item
+		/// Rich Content: Enter the content for this rich text item
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("content")]
-		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString Content => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "content");
+		[ImplementPropertyType("richContent")]
+		public virtual global::Umbraco.Cms.Core.Strings.IHtmlEncodedString RichContent => this.Value<global::Umbraco.Cms.Core.Strings.IHtmlEncodedString>(_publishedValueFallback, "richContent");
 	}
 }
