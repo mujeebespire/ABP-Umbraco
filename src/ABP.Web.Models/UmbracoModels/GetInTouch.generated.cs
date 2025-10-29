@@ -20,7 +20,7 @@ namespace ABP.Web.Models.UmbracoModels
 {
 	/// <summary>Get in Touch</summary>
 	[PublishedModel("getInTouch")]
-	public partial class GetInTouch : PublishedContentModel
+	public partial class GetInTouch : PublishedElementModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -41,7 +41,7 @@ namespace ABP.Web.Models.UmbracoModels
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public GetInTouch(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public GetInTouch(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;

@@ -20,7 +20,7 @@ namespace ABP.Web.Models.UmbracoModels
 {
 	/// <summary>Left Summary Content</summary>
 	[PublishedModel("leftSummaryContent")]
-	public partial class LeftSummaryContent : PublishedContentModel
+	public partial class LeftSummaryContent : PublishedElementModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -41,7 +41,7 @@ namespace ABP.Web.Models.UmbracoModels
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public LeftSummaryContent(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public LeftSummaryContent(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;

@@ -69,10 +69,9 @@
                             <ul class="map__icon-list">
                                 @foreach (var icon in mapInfoItemContent.Icons)
                                 {
-                                    string? iconName = icon.Replace(" ", "").ToLower();
-
+                                   
                                     <li class="map__icon-item">
-                                        <span class="map__info-icon font-ico-@iconName"></span>
+                                        <span class="map__info-icon font-ico-@icon"></span>
                                     </li>
                                 }
                             </ul>
