@@ -1,0 +1,74 @@
+<div class=download-form__popup-inner>
+        <button type="button" class="download-form__popup-close js-download-close">
+                <span class="sr-only">Close popup</span> </button>
+        <div class="download-from__content-holder js-download-content">
+                <form id="downloadForm" data-controller-url=/umbraco/Surface/DownloadForm/SubmitForm>
+                        <input name=__RequestVerificationToken type=hidden
+                                value=nUayUZ2roOTzuLrS3SgFZj8XzWEjRb0SippOHkhVDJI9vzgUmXXtDITDcsRurW4mkeT1pydfrfFISottuYAT7WSimQyEKNQitQeYeX8XXiQ1>
+                        <input data-val=true data-val-required="The FileGuid field is required." id=FileGuid
+                                name=FileGuid type=hidden value=00000000-0000-0000-0000-000000000000><input
+                                data-val=true data-val-required="The RecipientGuid field is required." id=RecipientGuid
+                                name=RecipientGuid type=hidden value=00000000-0000-0000-0000-000000000000>
+                        <div class=download-form__input-holder>
+                                <label for=FullName class="download-form__input-label js-download-label">Full
+                                        Name</label> <input class="download-form__input js-download-input form-control"
+                                        data-val=true data-val-required="Please fill this out" id=FullName name=FullName
+                                        placeholder="Full name" type=text> <span
+                                        class="field-validation-valid text-danger" data-valmsg-for=FullName
+                                        data-valmsg-replace=true></span>
+                        </div>
+                        <div class=download-form__input-holder>
+                                <label for=PhoneNumber class="download-form__input-label js-download-label">Phone
+                                        number</label> <input
+                                        class="download-form__input js-download-input form-control" data-val=true
+                                        data-val-required="Please fill this out" id=PhoneNumber name=PhoneNumber
+                                        placeholder="Phone number" type=tel> <span
+                                        class="field-validation-valid text-danger" data-valmsg-for=PhoneNumber
+                                        data-valmsg-replace=true></span>
+                        </div>
+                        <div class=download-form__input-holder><label for=JobTitle
+                                        class="download-form__input-label js-download-label">Job Title</label> <input
+                                        class="download-form__input js-download-input form-control" data-val=true
+                                        data-val-required="Please fill this out" id=JobTitle name=JobTitle
+                                        placeholder="Job title" type=text> <span
+                                        class="field-validation-valid text-danger" data-valmsg-for=JobTitle
+                                        data-valmsg-replace=true></span></div>
+                        <div class=download-form__input-holder><label for=OrganisationName
+                                        class="download-form__input-label js-download-label">Organisation Name</label>
+                                <input class="download-form__input js-download-input form-control" data-val=true
+                                        data-val-required="Please fill this out" id=OrganisationName
+                                        name=OrganisationName placeholder="Organisation name" type=text> <span
+                                        class="field-validation-valid text-danger" data-valmsg-for=OrganisationName
+                                        data-valmsg-replace=true></span>
+                        </div>
+                        <div class="download-form__input-holder download-form__input-holder--has-message"><label
+                                        for=Email class="download-form__input-label js-download-label">Email</label>
+                                <input class="download-form__input js-download-input form-control" data-val=true
+                                        data-val-email="The Email field is not a valid e-mail address."
+                                        data-val-required="Please fill this out" id=Email name=Email
+                                        placeholder="Your Email" type=text>
+                                <span class="field-validation-valid text-danger" data-valmsg-for=Email
+                                        data-valmsg-replace=true></span>
+                                <span class=download-form__input-message>Please provide your email to receive the latest
+                                        copy of the
+                                        report </span>
+                        </div>
+                        <div class=download-form__input-holder><label
+                                        class="download-form__checkbox-label js-download-consent-label"> <input
+                                                class=js-download-consent data-val=true
+                                                data-val-required="The Consent field is required." id=Consent
+                                                name=Consent type=checkbox value=true><input name=Consent type=hidden
+                                                value=false> <span class=download-form__checkbox-checkmark></span> I
+                                        consent for my details to be used in marketing
+                                </label> <span class="download-form__checkbox-message field-validation-error">Please
+                                        tick the box</span>
+                        </div>
+
+
+                        <div class=download-form__button-holder><button type=submit id=submit
+                                        class="download-form__btn download-form__btn--submit download-form__btn--blue btn js-download-submit">
+                                        <span class=download-form__btn-text>Submit</span> </button></div>
+                        <script>window.initDownloadForm();</script>
+                </form>
+        </div>
+</div>
