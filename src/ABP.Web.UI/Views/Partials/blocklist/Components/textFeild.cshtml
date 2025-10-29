@@ -4,7 +4,8 @@
 
 @{
     var content = Model.Content;
-    var text = content.Value<string>("text"); // Rich Text Editor content
+    var text = content.Value<string>("text");
+    var description = content.Value<string>("description");// Rich Text Editor content
 }
 
 @if (!string.IsNullOrWhiteSpace(text))
@@ -13,8 +14,12 @@
     <div class="inline-image">
         <div class="inline-image__text-wrapper">
             <div class="rte">
+                <h2>@description</h2>
                 @Html.Raw(text)
             </div>
         </div>
     </div>
 }
+
+
+

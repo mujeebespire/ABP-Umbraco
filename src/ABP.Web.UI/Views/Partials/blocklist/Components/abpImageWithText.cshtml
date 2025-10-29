@@ -42,12 +42,21 @@
             }
         </div>
 
+
+        <div class="rte">
+            <p class="intro">ABP is the UK’s leading and largest ports group, providing essential gateways for trade and enabling green infrastructure essential for the UK’s energy transition.</p>
+            <p>Through playing this leading role, we handle more than a quarter of all ports industry volumes, provide support for over half the UK’s offshore wind and catalyse investment, good jobs and prosperity in coastal communities.</p>
+            <p>We are embracing more sustainable operations, innovation and people development – always with a focus on safety – to deliver the gateways for tomorrow.</p>
+        </div>
+
+
+
         <!-- Description Section -->
         <div class="rte">
-            @if (!string.IsNullOrWhiteSpace(footerDescription))
-            {
-                <p class="intro">@Html.Raw(footerDescription)</p>
-            }
+           
+                <p class="intro">@Html.Raw(footerTitle)</p>
+                <p>@Html.Raw(footerDescription)</p>
+            
         </div>
 
         <!-- Inline Image Blocks -->
