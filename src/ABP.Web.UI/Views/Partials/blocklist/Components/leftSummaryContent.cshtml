@@ -1,0 +1,31 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as LeftSummaryContent;
+    if (content == null) { return; }
+
+    var summary = content.Value<string>("summary");
+    var mainContent = content.Value<string>("content");
+}
+
+<div class="block block-quote">
+    <div class="quote">
+        @if (!string.IsNullOrWhiteSpace(summary))
+        {
+            <blockquote class="quote__text">
+                @Html.Raw(summary)
+            </blockquote>
+        }
+    </div>
+
+    <div class="rte">
+        @if (!string.IsNullOrWhiteSpace(mainContent))
+        {
+            @Html.Raw(mainContent)
+        }
+    </div>
+</div>

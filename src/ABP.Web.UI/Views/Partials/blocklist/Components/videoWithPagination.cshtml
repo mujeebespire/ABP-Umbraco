@@ -1,0 +1,91 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as VideoWithPagination;
+    if (content == null) { return; }
+
+    var videos = content.VideoBlocks;
+    if (videos == null || !videos.Any()) { return; }
+
+    int itemsPerPage = 6;
+    int totalVideos = videos.Count();
+    int totalPages = (int)Math.Ceiling((double)totalVideos / itemsPerPage);
+}
+
+<div class="video-gallery has-video-popup">
+    <div class="wrap">
+        <div class="row video-gallery__container" data-controller-url="/umbraco/Surface/Items/GalleryItems">
+
+            @foreach (var item in videos)
+            {
+                var videoItem = item.Content as Videos;
+                if (videoItem == null) { continue; }
+
+                // Get video URL from 'videoLink' field
+                var videoUrl = !string.IsNullOrWhiteSpace(videoItem.Value<string>("videoLink"))
+                ? videoItem.Value<string>("videoLink")
+                : "#";
+
+                // Get thumbnail image from 'thumbnailImage' field
+                var thumb = videoItem.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("thumbnailImage")?.Url()
+                ?? "/images/placeholder-video.jpg";
+
+                // Get title from 'videoTitle' field
+                var title = videoItem.Value<string>("videoTitle") ?? "Untitled Video";
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="video-gallery__item js-btn-play" data-video-url="@videoUrl">
+                        <img src="@thumb" alt="@title" class="video-gallery__img" />
+                        <div class="video-gallery__content">
+                            <div class="video-gallery__btn-holder">
+                                <button type="button" class="btn video-gallery__btn icon font-ico-triangle">
+                                    <span class="sr-only">Video button</span>
+                                </button>
+                            </div>
+                            <div class="video-gallery__text">
+                                <h3 class="video-gallery__title">@title</h3>
+                                <span class="video-gallery__date"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (totalPages > 1)
+            {
+                <ul class="pagination">
+                    <li class="pagination__item">
+                        <a href="javascript:;" class="pagination__link pagination__link--prev pagination__link--disabled" data-page="0">
+                            <span class="icon font-ico-ar-left"><span class="sr-only">Previous page</span></span>
+                        </a>
+                    </li>
+
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="pagination__item">
+                            <a href="javascript:;" class="pagination__link @(i == 1 ? "pagination__link--active" : "")" data-page="@i" pagination-number>@i</a>
+                        </li>
+                    }
+
+                    <li class="pagination__item">
+                        <a href="javascript:;" class="pagination__link pagination__link--next" data-page="2">
+                            <span class="icon font-ico-ar-right"><span class="sr-only">Next page</span></span>
+                        </a>
+                    </li>
+                </ul>
+            }
+        </div>
+    </div>
+
+    <div class="video">
+        <div class="video__overlay">
+            <button type="button" class="video__close-btn">
+                <span class="icon font-ico-close"><span class="sr-only">Close video popup</span></span>
+            </button>
+            <iframe src="javascript:;" width="0" height="0" allow="autoplay" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
