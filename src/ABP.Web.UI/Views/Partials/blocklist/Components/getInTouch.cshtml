@@ -1,0 +1,107 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as GetInTouch;
+    if (content == null) { return; }
+
+    var heading = content.Value<string>("heading");
+    var title = content.Value<string>("title");
+    var icon = content.Value<MediaWithCrops>("icon");
+    var iconUrl = icon?.Url() ?? "";
+
+    var contactTitle = content.Value<string>("contactTitle");
+    var phoneNumber = content.Value<string>("phoneNumber");
+    var overlay = content.Value<bool>("overlay");
+}
+@if (overlay)
+{
+    <!-- Contact card with overlay -->
+    <div class="contact-card">
+        <div class="wrap">
+            <div class="contact-card__wrapper">
+                <div class="contact-card__container contact-card__container--shadow">
+                    <div class="contact-card__img-wrapper">
+                        @if (!string.IsNullOrWhiteSpace(iconUrl))
+                        {
+                            <img src="@iconUrl" alt="@title" class="contact-card__img" />
+                        }
+                    </div>
+
+                    <div class="contact-card__author">
+                        @if (!string.IsNullOrWhiteSpace(heading))
+                        {
+                            <span class="contact-card__subtitle">@heading</span>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(title))
+                        {
+                            <h2 class="contact-card__title">@title</h2>
+                        }
+                    </div>
+
+                    <div class="contact-card__info">
+                        @if (!string.IsNullOrWhiteSpace(contactTitle))
+                        {
+                            <a href="mailto:@contactTitle" class="contact-card__link icon font-ico-mail">
+                                Get in touch
+                            </a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(phoneNumber))
+                        {
+                            <a href="tel:@phoneNumber" class="contact-card__link icon font-ico-phone">
+                                @phoneNumber
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <!-- Contact card without overlay -->
+    <div class="contact-card contact-card--multi">
+        <div class="wrap">
+            <div class="contact-card__wrapper">
+                <div class="contact-card__container contact-card__container--shadow">
+                    <div class="contact-card__img-wrapper">
+                        @if (!string.IsNullOrWhiteSpace(iconUrl))
+                        {
+                            <img src="@iconUrl" alt="@title" class="contact-card__img" />
+                        }
+                    </div>
+
+                    <div class="contact-card__author">
+                        @if (!string.IsNullOrWhiteSpace(heading))
+                        {
+                            <span class="contact-card__subtitle">@heading</span>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(title))
+                        {
+                            <h2 class="contact-card__title">@title</h2>
+                        }
+                    </div>
+
+                    <div class="contact-card__info">
+                        @if (!string.IsNullOrWhiteSpace(contactTitle))
+                        {
+                            <a href="mailto:@contactTitle" class="contact-card__link icon font-ico-mail">
+                                Get in touch
+                            </a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(phoneNumber))
+                        {
+                            <a href="tel:@phoneNumber" class="contact-card__link icon font-ico-phone">
+                                @phoneNumber
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

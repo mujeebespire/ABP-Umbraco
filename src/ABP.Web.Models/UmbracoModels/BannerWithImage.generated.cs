@@ -20,7 +20,7 @@ namespace ABP.Web.Models.UmbracoModels
 {
 	/// <summary>Banner With Image</summary>
 	[PublishedModel("bannerWithImage")]
-	public partial class BannerWithImage : PublishedContentModel
+	public partial class BannerWithImage : PublishedElementModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -41,7 +41,7 @@ namespace ABP.Web.Models.UmbracoModels
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public BannerWithImage(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public BannerWithImage(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;

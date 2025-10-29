@@ -1,0 +1,105 @@
+﻿@using ABP.Web.Models.UmbracoModels
+@using Umbraco.Cms.Core.Models.Blocks
+@inherits UmbracoViewPage<BlockListItem>
+@{
+
+    var mapPrimary = Model.Content as MapPrimary;
+
+
+
+    var mapInfoItems = mapPrimary?.MapInfoItems;
+}
+<!-- Map section -->
+<div class="map js-map">
+    <div class="wrap map__wrap js-map-wrap">
+        <div class="map__content js-map-content">
+            <div class="map__category-cont">
+                <span class="map__category">@mapPrimary?.TitleFirst</span>
+            </div>
+            <h2 class="map__heading">@mapPrimary?.TitleMain</h2>
+            <p class="map__desc js-map-desc">@mapPrimary?.Description</p>
+            <div class="map__list-wrap">
+                <div class="map__points-list-cont js-map-list">
+                    @if (mapInfoItems != null && mapInfoItems.Any())
+                    {
+                        <ul class="map__points-list">
+                            @foreach (var mapInfoItem in mapInfoItems)
+                            {
+                                var mapInfoItemContent = (MapInfoItem)mapInfoItem.Content;
+
+                                <li class="map__list-item js-map-list-item" data-id="@mapInfoItemContent.Key">
+                                    <div class="map__list-image" style="background-image: url('@mapInfoItemContent?.Image?.GetCropUrl(width: 165, height: 120)');"></div>
+                                    <div class="map__list-heading-cont">
+                                        <h4 class="map__list-heading">Ayr</h4>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+
+                </div>
+            </div>
+            <div class="map__list-control">
+                <button type="button" class="map__control-btn map__control-btn--down js-map-control"
+                        data-direction="down">
+                    <span class="map__control-icon font-ico-ar-left"></span>
+                </button>
+                <button type="button" class="map__control-btn map__control-btn--up js-map-control"
+                        data-direction="up">
+                    <span class="map__control-icon font-ico-ar-left"></span>
+                </button>
+            </div>
+        </div>
+        <div class="map__map-cont js-map-cont">
+            <img src="@mapPrimary?.MapImage?.Url()" alt="" class="map__image">
+            @if (mapInfoItems != null && mapInfoItems.Any())
+            {
+                foreach (var mapInfoItem in mapInfoItems)
+                {
+                    var mapInfoItemContent = (MapInfoItem)mapInfoItem.Content;
+                    <div class="map__point js-map-point" data-x-align="48" data-y-align="45" data-id="@mapInfoItemContent.Key">
+                    </div>
+                    <div class="map__info-cont js-map-info-cont" data-id="@mapInfoItemContent.Key">
+                        <button class="map__info-close js-map-info-close">
+                            <span class="map__close-icon font-ico-close-wider"></span>
+                        </button>
+                        <h3 class="map__info-title">@mapInfoItemContent.Title</h3>
+                        @if (mapInfoItemContent.Icons != null && mapInfoItemContent.Icons.Any())
+                        {
+                            <ul class="map__icon-list">
+                                @foreach (var icon in mapInfoItemContent.Icons)
+                                {
+                                    string? iconName = icon.Replace(" ", "").ToLower();
+
+                                    <li class="map__icon-item">
+                                        <span class="map__info-icon font-ico-@iconName"></span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        <p class="map__info-desc">
+                            @mapInfoItemContent.Description
+                        </p>
+                        @if (mapInfoItemContent.InfoItems != null && mapInfoItemContent.InfoItems.Any())
+                        {
+                            <ul class="map__info-list js-map-info-list">
+                                @foreach (var infoItem in mapInfoItemContent.InfoItems)
+                                {
+                                    <li class="map__info-item js-map-info-item">
+                                        @infoItem
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        @if (mapInfoItemContent.Link != null)
+                        {
+                            <a href="@mapInfoItemContent.Link.Url" target="@mapInfoItemContent.Link.Target" class="map__info-link btn-home btn-home--cta">
+                                <span class="btn-home__text">@mapInfoItemContent.Title</span>
+                            </a>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
