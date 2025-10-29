@@ -66,12 +66,27 @@ namespace ABP.Web.Models.UmbracoModels
 		public virtual global::System.Collections.Generic.IEnumerable<string> Icons => this.Value<global::System.Collections.Generic.IEnumerable<string>>(_publishedValueFallback, "icons");
 
 		///<summary>
+		/// Image
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("Image")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops Image => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "Image");
+
+		///<summary>
 		/// Info Items
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("infoItems")]
 		public virtual global::System.Collections.Generic.IEnumerable<string> InfoItems => this.Value<global::System.Collections.Generic.IEnumerable<string>>(_publishedValueFallback, "infoItems");
+
+		///<summary>
+		/// Left Coordinate
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[ImplementPropertyType("leftCoordinate")]
+		public virtual int LeftCoordinate => this.Value<int>(_publishedValueFallback, "leftCoordinate");
 
 		///<summary>
 		/// Link
@@ -88,5 +103,12 @@ namespace ABP.Web.Models.UmbracoModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("title")]
 		public virtual string Title => this.Value<string>(_publishedValueFallback, "title");
+
+		///<summary>
+		/// Top Coordinate
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[ImplementPropertyType("topCoordinate")]
+		public virtual int TopCoordinate => this.Value<int>(_publishedValueFallback, "topCoordinate");
 	}
 }
