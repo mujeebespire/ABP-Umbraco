@@ -1,0 +1,37 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as FullWidthVideoBlock;
+    if (content == null) return;
+
+    var videoUrl = content.Value<string>("videoUrl") ?? "";
+    var showPopup = content.Value<bool>("showPopup");
+}
+
+<!-- full width Video block -->
+<div class="video-wrapper video-wrapper--relative js-iframe-wrapper js-iframe-expand"
+     data-mobile-height="100%">
+    <div>
+        <iframe src="@($"{videoUrl}?controls=0")" width="100%" height="500"
+                class="js-video-iframe"></iframe>
+        <button type="button" class="btn video-wrapper__btn icon font-ico-triangle js-iframe-play">
+            <span class="sr-only">Play video</span>
+        </button>
+    </div>
+
+    @if (showPopup)
+    {
+        <div class="video-wrapper__popup js-iframe-popup">
+            <span class="video-wrapper__popup-overlay js-popup-close"></span>
+            <button type="button" class="video-wrapper__popup-close-btn js-popup-close">
+                <span class="font-ico-close"></span>
+                <span class="sr-only">Close video</span>
+            </button>
+            <iframe class="video-wrapper__popup-iframe js-popup-iframe" src="@videoUrl"></iframe>
+        </div>
+    }
+</div>
