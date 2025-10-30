@@ -36,7 +36,7 @@
                         var image = card.Image;
                         var imageUrl = image?.Url() ?? "";
                         var imageTitle = card.ImageTitle;
-                        var cardDescription = content.Value<string>("card.Description");
+                        var cardDescription = card.Value<string>("description");
                         var cta = card.Cta;
 
                         <article class="cards__article">
@@ -44,18 +44,16 @@
                                 @if (cta != null)
                                 {
                                     <a href="@cta.Url" target="@(cta.Target)" class="cards__content">
-                                        @if (!string.IsNullOrWhiteSpace(imageTitle))
-                                        {
-                                            <h4 class="cards__single-heading">@imageTitle</h4>
-                                        }
 
-                                        @if (!string.IsNullOrWhiteSpace(cardDescription))
-                                        {
+                                            <h4 class="cards__single-heading">@imageTitle</h4>
+
+
+
                                             <div class="cards__description">
                                                 <h4 class="cards__desc-heading">@imageTitle</h4>
                                                 <p class="cards__desc-text">@cardDescription</p>
                                             </div>
-                                        }
+                                        
 
                                         <div class="cards__link">
                                             EXPLORE MORE
