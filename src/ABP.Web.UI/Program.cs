@@ -68,13 +68,14 @@ else
             var csp = new StringBuilder();
             csp.Append("default-src 'self'; ");
             csp.Append("script-src 'self'; ");
+            // ✅ Keep nonce for <style> blocks, allow unsafe-inline only for style attributes
             csp.Append($"style-src 'self' 'nonce-{nonce}'; ");
+            csp.Append("style-src-attr 'unsafe-inline'; "); // Only for inline style="" attributes
             csp.Append("img-src 'self' data: blob:; ");
             csp.Append("font-src 'self'; ");
             csp.Append("frame-src 'self' https://player.vimeo.com https://www.youtube.com; ");
             csp.Append("child-src 'self' https://player.vimeo.com https://www.youtube.com; ");
             csp.Append("media-src 'self' https://player.vimeo.com https://www.youtube.com; ");
-            // ✅ Changed from 'none' to 'self' to allow same-origin framing
             csp.Append("frame-ancestors 'self';");
 
             context.Response.Headers["Content-Security-Policy"] = csp.ToString();
