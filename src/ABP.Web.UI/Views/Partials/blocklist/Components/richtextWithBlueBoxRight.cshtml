@@ -1,0 +1,133 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Extensions
+@using System
+
+@{
+    var content = Model.Content;
+
+    // Main fields
+    var title = content.Value<string>("title");
+    var description = content.Value<string>("description");
+    var mainContent = content.Value<string>("content");
+    var cta = content.Value<Link>("cta");
+    var linkBlocks = content.Value<BlockListModel>("links");
+
+    var currentDomain = Context.Request.Host.Host;
+}
+
+<!-- right column box for documents -->
+<div class="block right">
+
+    <div class="box-inline">
+        <div class="box-inline__container">
+
+
+            @* Loop through Link Blocks *@
+            @if (linkBlocks != null && linkBlocks.Any())
+            {
+                foreach (var block in linkBlocks)
+                {
+                    var linkContent = block.Content;
+                    var linkTitle = linkContent.Value<string>("title");
+                    var links = linkContent.Value<IEnumerable<Link>>("links");
+
+                    @* Optional subheading for group *@
+                    if (!string.IsNullOrWhiteSpace(linkTitle))
+                    {
+                        <h4 class="box-inline__title">@linkTitle</h4>
+                    }
+
+                    @* Loop through actual links *@
+                    if (links != null && links.Any())
+                    {
+                        foreach (var link in links)
+                        {
+                            if (link == null || string.IsNullOrWhiteSpace(link.Url))
+                                continue;
+
+                            var linkClass = "box-inline__link link";
+                            string anchor = "";
+                            string query = "";
+
+                            try
+                            {
+                                var uri = new Uri(link.Url, UriKind.RelativeOrAbsolute);
+
+                                if (uri.IsAbsoluteUri)
+                                {
+                                    anchor = uri.Fragment?.TrimStart('#') ?? "";
+                                    query = uri.Query?.TrimStart('?') ?? "";
+                                }
+                                else if (link.Url.Contains("#") || link.Url.Contains("?"))
+                                {
+                                    if (link.Url.Contains("#"))
+                                        anchor = link.Url.Split('#').Last();
+                                    if (link.Url.Contains("?"))
+                                        query = link.Url.Split('?').Last();
+                                }
+                            }
+                            catch { /* ignore invalid URL formats */ }
+
+                            var meta = (anchor + query).ToLowerInvariant();
+
+                            // Determine link type
+                            if (meta.Contains("download"))
+                                linkClass += " link--download";
+                            else if (meta.Contains("external"))
+                                linkClass += " link--external";
+                            else if (link.Url.Contains(".pdf", StringComparison.OrdinalIgnoreCase))
+                                linkClass += " link--download";
+                            else if (link.Url.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                            && !link.Url.Contains(currentDomain, StringComparison.OrdinalIgnoreCase))
+                                linkClass += " link--external";
+                            else
+                                linkClass += " link--internal";
+
+                            <a href="@link.Url"
+                               class="@linkClass"
+                               target="@link.Target"
+                               title="@link.Name">
+                                @link.Name
+                            </a>
+                        }
+                    }
+                }
+            }
+
+        </div>
+    </div>
+
+    <!-- Rich Text Section -->
+    <div class="rte">
+
+        @if (!string.IsNullOrWhiteSpace(title))
+        {
+            <h4 class="box-inline__title">@Html.Raw(title)</h4>
+        }
+        @if (!string.IsNullOrWhiteSpace(description))
+        {
+            <div class="rte__description">@Html.Raw(description)</div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(mainContent))
+        {
+            <div class="rte__content">@Html.Raw(mainContent)</div>
+        }
+
+        @if (cta != null && !string.IsNullOrWhiteSpace(cta.Url))
+        {
+            <p>
+                <a href="@cta.Url"
+                   class="btn"
+                   target="@cta.Target"
+                   title="@cta.Name">
+                    @cta.Name
+                </a>
+            </p>
+        }
+    </div>
+
+
+</div>
