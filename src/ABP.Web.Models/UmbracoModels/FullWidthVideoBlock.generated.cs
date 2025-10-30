@@ -20,7 +20,7 @@ namespace ABP.Web.Models.UmbracoModels
 {
 	/// <summary>fullWidthVideoBlock</summary>
 	[PublishedModel("fullWidthVideoBlock")]
-	public partial class FullWidthVideoBlock : PublishedContentModel
+	public partial class FullWidthVideoBlock : PublishedElementModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -41,7 +41,7 @@ namespace ABP.Web.Models.UmbracoModels
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public FullWidthVideoBlock(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public FullWidthVideoBlock(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -63,5 +63,12 @@ namespace ABP.Web.Models.UmbracoModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("vedioUrl")]
 		public virtual string VedioUrl => this.Value<string>(_publishedValueFallback, "vedioUrl");
+
+		///<summary>
+		/// Youtube Player
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[ImplementPropertyType("youtubePlayer")]
+		public virtual bool YoutubePlayer => this.Value<bool>(_publishedValueFallback, "youtubePlayer");
 	}
 }

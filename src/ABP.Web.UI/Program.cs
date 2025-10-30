@@ -58,33 +58,31 @@ else
             context.Response.Headers["Permissions-Policy"] =
                 "geolocation=(), camera=(), microphone=()";
 
-            // ✅ Strict COEP for backoffice
             context.Response.Headers["Cross-Origin-Embedder-Policy"] = "require-corp";
             context.Response.Headers["Cross-Origin-Resource-Policy"] = "same-origin";
         }
         else
         {
-            // Remove any CSP header previously set
             context.Response.Headers.Remove("Content-Security-Policy");
 
-            // Strict CSP for frontend with Vimeo/Youtube allowed
             var csp = new StringBuilder();
             csp.Append("default-src 'self'; ");
             csp.Append("script-src 'self'; ");
+            // ✅ Keep nonce for <style> blocks, allow unsafe-inline only for style attributes
             csp.Append($"style-src 'self' 'nonce-{nonce}'; ");
+            csp.Append("style-src-attr 'unsafe-inline'; "); // Only for inline style="" attributes
             csp.Append("img-src 'self' data: blob:; ");
             csp.Append("font-src 'self'; ");
             csp.Append("frame-src 'self' https://player.vimeo.com https://www.youtube.com; ");
             csp.Append("child-src 'self' https://player.vimeo.com https://www.youtube.com; ");
             csp.Append("media-src 'self' https://player.vimeo.com https://www.youtube.com; ");
-            csp.Append("frame-ancestors 'none';");
+            csp.Append("frame-ancestors 'self';");
 
             context.Response.Headers["Content-Security-Policy"] = csp.ToString();
 
             context.Response.Headers["Permissions-Policy"] =
                 "geolocation=(), camera=(), microphone=(), fullscreen=(self \"https://player.vimeo.com\" \"https://www.youtube.com\")";
 
-            // ✅ Relaxed COEP for frontend (allows third-party embeds)
             context.Response.Headers["Cross-Origin-Embedder-Policy"] = "unsafe-none";
             context.Response.Headers["Cross-Origin-Resource-Policy"] = "cross-origin";
         }

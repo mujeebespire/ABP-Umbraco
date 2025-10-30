@@ -1,0 +1,31 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    // Get block content
+    var content = Model.Content;
+
+    var title = content.Value<string>("title");
+    var richContent = content.Value<string>("content"); // Richtext editor content
+    var backgroundColor = content.Value<string>("backgroundColor"); // dropdown value
+
+    // Handle background color (optional CSS-based)
+    var bgClass = !string.IsNullOrWhiteSpace(backgroundColor) ? $"bg-{backgroundColor.Trim()}" : "";
+}
+
+@if (!string.IsNullOrWhiteSpace(richContent))
+{
+    <!-- Table Block -->
+
+
+    <div class="rte">
+        <p>@title</p>
+        <div class="table-wrapper" style="overflow-x: auto;">
+
+            @Html.Raw(richContent)
+
+        </div>
+    </div>
+
+}

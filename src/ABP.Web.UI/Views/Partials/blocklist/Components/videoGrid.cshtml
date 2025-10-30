@@ -1,0 +1,52 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as VideoGrid;
+    if (content == null) { return; }
+
+    var videos = content.Value<IEnumerable<BlockListItem>>("videos");
+    if (videos == null || !videos.Any()) { return; }
+
+    var videoList = videos.Select(v => v.Content).ToList();
+}
+
+<table border="1" style="border-collapse: collapse; width: 100%;">
+    <tbody>
+        @for (int i = 0; i < videoList.Count; i += 2)
+        {
+            <tr>
+                @for (int j = 0; j < 2; j++)
+                {
+                    if (i + j < videoList.Count)
+                    {
+                        var video = videoList[i + j];
+                        var title = video.Value<string>("videoTitle") ?? "";
+                        var link = video.Value<string>("videoLink") ?? "";
+
+                        <td style="width: 50%;">
+                            @if (!string.IsNullOrWhiteSpace(title))
+                            {
+                                <p style="text-align: center;">@title</p>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(link))
+                            {
+                                <div style="padding: 56.25% 0 0 0; position: relative;">
+                                    <iframe src="@link"
+                                            frameborder="0"
+                                            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                            title="@title">
+                                    </iframe>
+                                </div>
+                            }
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>

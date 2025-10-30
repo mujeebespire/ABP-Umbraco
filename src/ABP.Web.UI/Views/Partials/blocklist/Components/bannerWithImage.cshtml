@@ -12,6 +12,9 @@
     var title = content.Value<string>("title");
     var image = content.Value<MediaWithCrops>("image");
     var imageUrl = image?.Url() ?? "";
+
+    // Get CTA field (URL Picker)
+    var cta = content.Value<Link>("cta");
 }
 
 <!-- InnerBanner Section -->
@@ -25,6 +28,14 @@
         @if (!string.IsNullOrWhiteSpace(title))
         {
             <h1 class="banner__title">@title</h1>
+        }
+
+        @* ✅ CTA Button (only visible when assigned) *@
+        @if (cta != null && !string.IsNullOrWhiteSpace(cta.Url))
+        {
+            <a href="@cta.Url" class="btn banner__btn" target="@(cta.Target ?? "_self")">
+                @cta.Name
+            </a>
         }
     </div>
 </div>
