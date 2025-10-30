@@ -28,7 +28,7 @@
                                 <li class="map__list-item js-map-list-item" data-id="@mapInfoItemContent.Key">
                                     <div class="map__list-image" style="background-image: url('@mapInfoItemContent?.Image?.GetCropUrl(width: 165, height: 120)');"></div>
                                     <div class="map__list-heading-cont">
-                                        <h4 class="map__list-heading">@mapInfoItemContent?.Title</h4>
+                                        <h4 class="map__list-heading">Ayr</h4>
                                     </div>
                                 </li>
                             }
@@ -55,7 +55,7 @@
                 foreach (var mapInfoItem in mapInfoItems)
                 {
                     var mapInfoItemContent = (MapInfoItem)mapInfoItem.Content;
-                    <div class="map__point js-map-point" data-x-align="@mapInfoItemContent.LeftCoordinate" data-y-align="@mapInfoItemContent.TopCoordinate" data-id="@mapInfoItemContent.Key">
+                    <div class="map__point js-map-point" data-x-align="48" data-y-align="45" data-id="@mapInfoItemContent.Key">
                     </div>
                     <div class="map__info-cont js-map-info-cont" data-id="@mapInfoItemContent.Key">
                         <button class="map__info-close js-map-info-close">
