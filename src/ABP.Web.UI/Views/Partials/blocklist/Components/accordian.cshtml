@@ -1,0 +1,69 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+    var accordionBlocks = content.Value<BlockListModel>("accordianBlock");
+
+    if (accordionBlocks == null || !accordionBlocks.Any())
+    {
+        return;
+    }
+}
+
+<!-- Accordion block -->
+<div class="accordion js-accordion">
+    @foreach (var block in accordionBlocks)
+    {
+        var item = block.Content;
+
+        var title = item.Value<string>("title");
+        var subHeading = item.Value<string>("subHeading");
+        var description = item.Value<string>("description");
+        var year = item.Value<int?>("year") ?? 0;
+        var links = item.Value<IEnumerable<Umbraco.Cms.Core.Models.Link>>("list"); // multi URL picker
+        <div class="accordion__row">
+                                                               <button class="accordion__button" type="button">
+                                                                   @title
+                                                                   <span class="accordion__button-circle icon font-ico-plus"></span>
+                                                               </button>
+
+            <div class="accordion__content">
+                <div class="rte">
+                    @if (!string.IsNullOrWhiteSpace(subHeading))
+                    {
+                        <h2>@subHeading</h2>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(description))
+                    {
+                        <p>@description</p>
+                    }
+
+                    @if (year > 0)
+                    {
+                        <p><strong>@year</strong></p>
+                    }
+
+                    @if (links != null && links.Any())
+                    {
+                        <ul>
+                            @foreach (var link in links)
+                            {
+                                if (link == null || string.IsNullOrWhiteSpace(link.Url))
+                                {
+                                    continue;
+                                }
+
+                                <li>
+                                    <a href="@link.Url" title="@link.Name" target="@link.Target">@link.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
