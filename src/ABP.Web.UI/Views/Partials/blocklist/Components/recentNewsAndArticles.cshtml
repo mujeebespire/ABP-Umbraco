@@ -2,14 +2,15 @@
 @using Umbraco.Cms.Core.Models.Blocks
 @using ABP.Web.Models.UmbracoModels
 @{
+    var settings = Model.Settings as HideProperty;
+    if (settings?.Hide ?? false) { return; }
+
     var recentNewsAndArticles = Model.Content as RecentNewsAndArticles;
 
-    var homeNode = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == Home.ModelTypeAlias);
+    // var homeNode = Umbraco.ContentAtRoot().FirstOrDefault(x => x.ContentType.Alias == Home.ModelTypeAlias);
 
-    var articleListNode = homeNode?.Children().FirstOrDefault(x => x.ContentType.Alias == ArticleList.ModelTypeAlias);
+    // var articleListNode = homeNode?.Children().FirstOrDefault(x => x.ContentType.Alias == ArticleList.ModelTypeAlias);
 
-    var articlesNodes = articleListNode?.Children()
-     .OrderByDescending(x => x.Value<DateTime>("articleDate"));
 }
 
 <div class="slider-home">
@@ -25,44 +26,44 @@
         <div class="slider-home__container">
             <div class="slider-home__holder">
                 <div class="slider-home__slides js-home-slider">
-                    @if (articlesNodes != null && articlesNodes.Any())
+                    @if (recentNewsAndArticles != null && recentNewsAndArticles?.Articles != null && recentNewsAndArticles.Articles.Any())
                     {
-                        foreach (var articlesNode in articlesNodes)
+                        foreach (var articlesNode in recentNewsAndArticles.Articles)
                         {
                             var article = (Article)articlesNode;
-                            var cats = article?.Categories?.Select(x => x.Name).ToList();
+                            //var cats = article?.Categories?.Select(x => x.Name).ToList();
 
-                            string categories = string.Empty;
+                            string? category = article?.Categories?.Select(x => x.Name).FirstOrDefault();
 
-                            if (cats != null && cats.Any())
+                          @*   if (cats != null && cats.Any())
                             {
                                 categories = string.Join(",", cats);
-                            }
+                            } *@
 
                             string? formattedArticleDate = article?.ArticleDate.ToString("dd MMMM yyyy");
 
-                            string? subTitle = string.Empty;
+                            string? title = string.Empty;
 
-                            if (article != null && !string.IsNullOrEmpty(article.Subtitle) && article.Subtitle.Length > 132)
+                            if (article != null && !string.IsNullOrEmpty(article.Title) && article.Title.Length > 132)
                             {
-                                subTitle = article.Subtitle.Substring(0, 132) + "...";
+                                title = article.Title.Substring(0, 132) + "...";
                             }
                             else
                             {
-                                subTitle = article?.Subtitle;
+                                title = article?.Title;
                             }
 
                             <div class="slider-home__slide">
                                 <div class="slider-home__img has-cover"
                                      style="background-image: url('@article?.MainImage?.Url()');">
                                     <div class="slider-home__tages">
-                                        <span class="slider-home__tag">@categories</span>
+                                        <span class="slider-home__tag">@category</span>
                                     </div>
                                 </div>
                                 <div class="slider-home__content">
                                     <a href="@article?.Url()"
                                        class="slider-home__link">
-                                        @subTitle
+                                        @title
                                     </a>
                                     <span class="slider-home__date">@formattedArticleDate</span>
                                 </div>
