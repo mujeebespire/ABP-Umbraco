@@ -8830,6 +8830,7 @@
         sliderMap: $(".js-slider-map"),
         sliderReport: $(".js-report-slider"),
         sliderHome: $(".js-home-slider"),
+        sliderBanner: $(".js-banner-slider"),
         status: ".slider-counter",
         sum: ".slider-sum",
         init: function () {
@@ -8837,6 +8838,7 @@
           this.initMapSlider();
           this.initReportSlider();
           this.homeSlider();
+          this.bannerSlider();
         },
         initRegularSlider: function () {
           var n = this;
@@ -8862,7 +8864,6 @@
                 '<button class="slick-prev slider__arrow" aria-label="Previous" type="button"><span class="icon font-ico-arrow-left"></span></button>',
               nextArrow:
                 '<button class="slick-next slider__arrow" aria-label="Next" type="button"><span class="icon font-ico-arrow-right"></span></button>',
-              infinite: !1,
               appendArrows: r,
             });
             t.on("afterChange", function (t, r, u) {
@@ -8888,6 +8889,24 @@
               '<button class="slick-prev" aria-label="Previous" type="button"><span class="icon font-ico-arrow-back"></span></button>',
             nextArrow:
               '<button class="slick-next" aria-label="Next" type="button"><span class="icon font-ico-arrow-short-right2"></span></button>',
+          });
+        },
+        bannerSlider: function () {
+          this.sliderBanner.slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 5000,
+             speed: 800,
+            fade: true,
+            cssEase: 'linear',
+            arrows: true,
+            dots: false,
+            prevArrow:
+              '<button class="slick-prev banner__arrow" aria-label="Previous" type="button"><span class="icon font-ico-arrow-left"></span></button>',
+            nextArrow:
+              '<button class="slick-next banner__arrow" aria-label="Next" type="button"><span class="icon font-ico-arrow-right"></span></button>',
           });
         },
         addZeros: function (n) {
