@@ -16982,9 +16982,18 @@ hr {
 
 @media only screen and (min-width: 1025px) {
 
-    /* .no-touch .cards__article_center_img .cards__article-wrap:hover .cards__content {
+    .no-touch .cards__article_center_img .cards__article-wrap:hover .cards__content {
         padding: 20px 26px 28px;
-    } */
+    } 
+
+     .no-touch .cards__article_center_img .cards__article-wrap:hover .cards__content .cards__description {
+      display: none;
+    } 
+
+    .no-touch .cards__article_center_img .cards__article-wrap:hover .cards__single-heading{
+        display: block;
+        color: white;
+    }
 
     .no-touch .cards__article-wrap:hover .cards__content {
         display: -webkit-box;
