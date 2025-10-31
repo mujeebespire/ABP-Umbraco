@@ -20,7 +20,7 @@ namespace ABP.Web.Models.UmbracoModels
 {
 	/// <summary>Video Grid</summary>
 	[PublishedModel("videoGrid")]
-	public partial class VideoGrid : PublishedContentModel
+	public partial class VideoGrid : PublishedElementModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -41,7 +41,7 @@ namespace ABP.Web.Models.UmbracoModels
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public VideoGrid(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public VideoGrid(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;

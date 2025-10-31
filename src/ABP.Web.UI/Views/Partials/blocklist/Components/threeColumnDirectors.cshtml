@@ -1,0 +1,64 @@
+﻿@using ABP.Web.Models.UmbracoModels
+@using Umbraco.Cms.Core.Models.Blocks
+@inherits UmbracoViewPage<BlockListItem>
+@{
+    var threeColumnDirectors = Model.Content as ThreeColumnDirectors;
+    var settings = Model.Settings as HideProperty;
+    if (settings?.Hide ?? false) { return; }
+
+  
+}
+
+<!-- team components -->
+<div class="people-container">
+
+    <div class="people">
+
+        <div class="wrap">
+
+
+            <h2 class="h2 text-center">@threeColumnDirectors?.Title</h2>
+
+            @if (threeColumnDirectors != null && threeColumnDirectors.Directors != null)
+            {
+                <div class="row people__list people__list--big js-equal-heights">
+                    @foreach (var directorContent in threeColumnDirectors.Directors)
+                    {
+                        var directorProfile = (DirectorProfile)directorContent;
+
+                        <div class="col-lg-4 col-md-6 people__item">
+                            <div class="people__widget js-equal-heights-item">
+                                <div class="people__image-wrap">
+                                    <img src="@directorProfile.MainImage?.Url()" alt="@directorProfile.Title" class="people__image">
+                                </div>
+                                <div class="people__info">
+                                    <span class="people__name">@directorProfile.Title</span>
+                                    <span class="people__position">@directorProfile.Subtitle</span>
+                                    <button type="button" class="people__btn">
+                                        <span class="sr-only">
+                                            Button
+                                            plus
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="people__details">
+                                <p class="people__text">
+                                    @directorProfile.Biography
+                                </p>
+
+                            </div>
+                        </div>
+                    }
+
+                
+
+                </div>
+            }
+         
+
+
+        </div>
+    </div>
+
+</div>

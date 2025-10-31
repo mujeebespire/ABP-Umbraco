@@ -3,17 +3,17 @@
 @using ABP.Web.Models.UmbracoModels
 
 @{
-    var row = Model.Content as RichTextRow;
-    var settings = Model.Settings as RichTextRowSettings;
+    var richTextContent = Model.Content as RichTextContent;
+    var settings = Model.Settings as HideProperty;
     if (settings?.Hide ?? false) { return; }
 
-    var spacingClasses = "";
-    if (Model.Settings is ISpacingProperties spacing)
-    {
-        spacingClasses = Clean.Core.Helpers.SpacingHelper.GetSpacingClasses(spacing.PaddingTop, spacing.PaddingBottom, spacing.PaddingLeft, spacing.PaddingRight, spacing.MarginTop, spacing.MarginBottom, spacing.MarginLeft, spacing.MarginRight);
-    }
+    // var spacingClasses = "";
+    // if (Model.Settings is ISpacingProperties spacing)
+    // {
+    //     spacingClasses = Clean.Core.Helpers.SpacingHelper.GetSpacingClasses(spacing.PaddingTop, spacing.PaddingBottom, spacing.PaddingLeft, spacing.PaddingRight, spacing.MarginTop, spacing.MarginBottom, spacing.MarginLeft, spacing.MarginRight);
+    // }
 }
 
-<div class="richtext @(spacingClasses)">
-    @row.Content
+<div class="rte">
+    @richTextContent?.RichContent
 </div>
