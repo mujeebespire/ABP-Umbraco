@@ -10,12 +10,64 @@
     var title = content.Title;
     var description = content.Value<string>("description");
     var cards = content.Cards;
-    var bigTiles = content.Value<bool>("bigTiles"); // toggle
+    var bigTiles = content.Value<bool>("bigTiles"); // toggle 1
+    var squareCards = content.Value<bool>("squareCards"); // toggle 2
 }
 
-@if (bigTiles)
+@if ( squareCards)
 {
-    <!-- New Design: Description per card required -->
+    <!-- ===== SQUARE CARDS DESIGN ===== -->
+    <div class="cards">
+        <div class="wrap wrap--wide"> 
+            <div class="cards__container">
+                @if (cards != null && cards.Any())
+                {
+                    foreach (var item in cards)
+                    {
+                        var card = item.Content as CardsWithImages;
+                        if (card == null) continue;
+
+                        var image = card.Image;
+                        var imageUrl = image?.Url() ?? "";
+
+                        // ✅ Correct title fetching
+                        var imageTitle = card.Value<string>("imageTitle");
+                        var cardDescription = card.Value<string>("description");
+                        var cta = card.Cta;
+
+                        <article class="cards__article cards__article_center_img">
+                            <div class="cards__article-wrap">
+                                @if (!string.IsNullOrWhiteSpace(imageUrl))
+                                {
+                                    <div class="img-block">
+                                        <img src="@imageUrl"  />
+                                    </div>
+                                }
+
+                                @if (cta != null)
+                                {
+                                    <a href="@cta.Url" target="@(cta.Target)" class="cards__content">
+
+                                        <h4 class="cards__single-heading">@imageTitle</h4>
+                                     
+                                        <div class="cards__link">
+                                            EXPLORE MORE
+                                            <span class="cards__link-icon font-ico-arrow-long"></span>
+                                        </div>
+                                    </a>
+                                }
+                            </div>
+                        </article>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+
+else if (bigTiles)
+{
+    <!-- ===== BIG TILES DESIGN ===== -->
     <div class="cards">
         <div class="wrap wrap--wide">
             @if (!string.IsNullOrWhiteSpace(title))
@@ -44,17 +96,11 @@
                                 @if (cta != null)
                                 {
                                     <a href="@cta.Url" target="@(cta.Target)" class="cards__content">
-
-                                            <h4 class="cards__single-heading">@imageTitle</h4>
-
-
-
-                                            <div class="cards__description">
-                                                <h4 class="cards__desc-heading">@imageTitle</h4>
-                                                <p class="cards__desc-text">@cardDescription</p>
-                                            </div>
-                                        
-
+                                        <h4 class="cards__single-heading">@imageTitle</h4>
+                                        <div class="cards__description">
+                                            <h4 class="cards__desc-heading">@imageTitle</h4>
+                                            <p class="cards__desc-text">@cardDescription</p>
+                                        </div>
                                         <div class="cards__link">
                                             EXPLORE MORE
                                             <span class="cards__link-icon font-ico-arrow-long"></span>
@@ -71,7 +117,7 @@
 }
 else
 {
-    <!-- Old Design: Description at parent level required -->
+    <!-- ===== OLD DESIGN ===== -->
     <div class="services">
         <div class="wrap">
             <div class="headline">
