@@ -14,168 +14,42 @@
     var squareCards = content.Value<bool>("squareCards"); // toggle 2
 }
 
-@if ( squareCards)
-{
-    <!-- ===== SQUARE CARDS DESIGN ===== -->
-    <div class="cards">
-        <div class="wrap wrap--wide"> 
-            <div class="cards__container">
-                @if (cards != null && cards.Any())
-                {
-                    foreach (var item in cards)
-                    {
-                        var card = item.Content as CardsWithImages;
-                        if (card == null) continue;
-
-                        var image = card.Image;
-                        var imageUrl = image?.Url() ?? "";
-
-                        // ✅ Correct title fetching
-                        var imageTitle = card.Value<string>("imageTitle");
-                        var cardDescription = card.Value<string>("description");
-                        var cta = card.Cta;
-
-                        <article class="cards__article cards__article_center_img">
-                            <div class="cards__article-wrap">
-                                @if (!string.IsNullOrWhiteSpace(imageUrl))
-                                {
-                                    <div class="img-block">
-                                        <img src="@imageUrl"  />
-                                    </div>
-                                }
-
-                                @if (cta != null)
-                                {
-                                    <a href="@cta.Url" target="@(cta.Target)" class="cards__content">
-
-                                        <h4 class="cards__single-heading">@imageTitle</h4>
-                                     
-                                        <div class="cards__link">
-                                            EXPLORE MORE
-                                            <span class="cards__link-icon font-ico-arrow-long"></span>
-                                        </div>
-                                    </a>
-                                }
-                            </div>
-                        </article>
-                    }
-                }
-            </div>
-        </div>
-    </div>
-}
-
-else if (bigTiles)
-{
-    <!-- ===== BIG TILES DESIGN ===== -->
-    <div class="cards">
-        <div class="wrap wrap--wide">
-            @if (!string.IsNullOrWhiteSpace(title))
-            {
-                <header class="cards__header">
-                    <h2 class="cards__title">@title</h2>
-                </header>
-            }
-
-            <div class="cards__container">
-                @if (cards != null && cards.Any())
-                {
-                    foreach (var item in cards)
-                    {
-                        var card = item.Content as CardsWithImages;
-                        if (card == null) continue;
-
-                        var image = card.Image;
-                        var imageUrl = image?.Url() ?? "";
-                        var imageTitle = card.ImageTitle;
-                        var cardDescription = card.Value<string>("description");
-                        var cta = card.Cta;
-
-                        <article class="cards__article">
-                            <div class="cards__article-wrap" style="background-image: url('@imageUrl');">
-                                @if (cta != null)
-                                {
-                                    <a href="@cta.Url" target="@(cta.Target)" class="cards__content">
-                                        <h4 class="cards__single-heading">@imageTitle</h4>
-                                        <div class="cards__description">
-                                            <h4 class="cards__desc-heading">@imageTitle</h4>
-                                            <p class="cards__desc-text">@cardDescription</p>
-                                        </div>
-                                        <div class="cards__link">
-                                            EXPLORE MORE
-                                            <span class="cards__link-icon font-ico-arrow-long"></span>
-                                        </div>
-                                    </a>
-                                }
-                            </div>
-                        </article>
-                    }
-                }
-            </div>
-        </div>
-    </div>
-}
-else
-{
-    <!-- ===== OLD DESIGN ===== -->
-    <div class="services">
-        <div class="wrap">
-            <div class="headline">
-                <div class="wrap">
-                    <div class="headline__wrap">
-                        @if (!string.IsNullOrWhiteSpace(title))
-                        {
-                            <h2 class="headline__title">@title</h2>
-                        }
-
-                        @if (!string.IsNullOrWhiteSpace(description))
-                        {
-                            <div class="headline__content">
-                                <div class="headline__intro rte">
-                                    @Html.Raw(description)
-                                </div>
-                            </div>
-                        }
+<div class="services">
+    <div class="wrap">
+        <div class="headline">
+            <div class="wrap">
+                <div class="headline__wrap">
+                    <h2 class="headline__title">@title</h2>
+                    <div class="headline__content">
+                        <p class="headline__intro">
+                            @description
+                        </p>
                     </div>
                 </div>
             </div>
-
-            <div class="services__cards">
-                @if (cards != null && cards.Any())
-                {
-                    foreach (var item in cards)
-                    {
-                        var card = item.Content as CardsWithImages;
-                        if (card == null) continue;
-
-                        var image = card.Image;
-                        var imageUrl = image?.Url() ?? "";
-                        var imageTitle = card.ImageTitle;
-                        var cta = card.Cta;
-
-                        <div class="services__card">
-                            <div class="services__content">
-                                @if (!string.IsNullOrWhiteSpace(imageUrl))
-                                {
-                                    <img src="@imageUrl" alt="@imageTitle" class="services__img" />
-                                }
-                                @if (!string.IsNullOrWhiteSpace(imageTitle))
-                                {
-                                    <h4 class="services__title">@imageTitle</h4>
-                                }
-                            </div>
-
-                            @if (cta != null)
-                            {
-                                <span class="services__cta">@cta.Name</span>
-                                <a href="@cta.Url" target="@(cta.Target)" class="services__link">
-                                    <span class="sr-only">Link to page</span>
-                                </a>
-                            }
-                        </div>
-                    }
-                }
-            </div>
         </div>
+        @if (cards != null && cards.Any())
+        {
+            <div class="services__cards">
+                @foreach (var card in cards)
+                {
+                    var cardItem = (CardsWithImages)card.Content;
+                    <div class="services__card">
+                        <div class="services__content">
+                            <img src="@cardItem.Image?.Url()" alt="@cardItem?.ImageTitle" class="services__img">
+                            <h4 class="services__title">@cardItem?.ImageTitle</h4>
+                        </div>
+                        <span class="services__cta">Learn more!</span>
+                        <a href="@cardItem?.Cta?.Url" target="@cardItem?.Cta?.Target" class="services__link">
+                            <span class="sr-only">
+                                Link to
+                                page
+                            </span>
+                        </a>
+                    </div>
+                }           
+            </div>
+        }
+
     </div>
-}
+</div>

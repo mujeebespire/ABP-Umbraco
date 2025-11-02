@@ -16,26 +16,17 @@
     var description = content.Description; // RichText (HTML)
     var cta = content.Cta; // Link picker (Umbraco.Cms.Core.Models.Link)
 }
-
-<!-- Dynamic About Section -->
-<div class="headline">
+ <div class="headline">
     <div class="wrap">
         <div class="headline__wrap">
-
-            @* Title *@
+            <!--Title-->
             @if (!string.IsNullOrWhiteSpace(title))
             {
                 <h2 class="headline__title">@title</h2>
             }
-
             <div class="headline__content">
-
-
-                    <div class="headline__desc">
-                        @Html.Raw(description)
-
-
-                @* CTA Button *@
+                @Html.Raw(description)
+                <!--CTA Button-->
                 @if (cta != null)
                 {
                     <a href="@cta.Url"
@@ -45,7 +36,7 @@
                     </a>
                 }
             </div>
-
         </div>
     </div>
-</div>
+</div> 
+

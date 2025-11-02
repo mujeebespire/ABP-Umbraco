@@ -17,25 +17,27 @@
     var cta = content.Value<Link>("cta");
 }
 
-<!-- InnerBanner Section -->
-<div class="banner banner--small" style="background-image: url('@imageUrl');">
-    <div class="banner__container">
-        @if (!string.IsNullOrWhiteSpace(heading))
-        {
-            <span class="banner__subtitle">@heading</span>
-        }
+<div class="full-image has-cover"
+     style="background-image:url(@imageUrl);">
+    <div class="wrap">
+        <div class="full-image__content">
+            @if (!string.IsNullOrWhiteSpace(heading))
+            {
+                <h4 class="full-image__title">@heading</h4>
+            }
 
-        @if (!string.IsNullOrWhiteSpace(title))
-        {
-            <h1 class="banner__title">@title</h1>
-        }
+            @if (!string.IsNullOrWhiteSpace(title))
+            {
+                <p class="full-image__text">@title</p>
+            }
 
-        @* ✅ CTA Button (only visible when assigned) *@
-        @if (cta != null && !string.IsNullOrWhiteSpace(cta.Url))
-        {
-            <a href="@cta.Url" class="btn banner__btn" target="@(cta.Target ?? "_self")">
-                @cta.Name
-            </a>
-        }
+            @if (cta != null && !string.IsNullOrWhiteSpace(cta.Url))
+            {
+                <a href="@cta.Url" target="@cta.Target" class="btn btn--transparent full-image__btn">
+                    @cta.Name
+                </a>
+            }
+           
+        </div>
     </div>
 </div>

@@ -1,0 +1,45 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var cardsWithImageAndTitle = Model.Content as CardsWithImageAndTitle;
+    var settings = Model.Settings as HideProperty;
+    if (settings?.Hide ?? false) { return; }
+}
+<!-- ABP Businesses -->
+<div class="cards">
+    <div class="wrap wrap--wide">
+        <header class="cards__header">
+            <h2 class="cards__title">@cardsWithImageAndTitle?.Title</h2>
+        </header>
+        @if (cardsWithImageAndTitle != null && cardsWithImageAndTitle.CardItems != null && cardsWithImageAndTitle.CardItems.Any())
+        {
+            <div class="cards__container">
+                @foreach (var cardItem in cardsWithImageAndTitle.CardItems)
+                {
+                    var cardItemWithImageAndDescription = (CardItemWithImageAndDescription)cardItem.Content;
+
+                    <article class="cards__article">
+                        <div class="cards__article-wrap"
+                             style="background-image: url('@cardItemWithImageAndDescription.Image?.Url()');">
+                            <a href="@cardItemWithImageAndDescription.Cta?.Url" class="cards__content" target="@cardItemWithImageAndDescription.Cta?.Target">
+                                <h4 class="cards__single-heading">@cardItemWithImageAndDescription.Title</h4>
+                                <div class="cards__description">
+                                    <h5 class="cards__desc-heading">@cardItemWithImageAndDescription.Title</h5>
+                                    <p class="cards__desc-text">
+                                        @cardItemWithImageAndDescription.Desciption
+                                    </p>
+                                </div>
+                                <div class="cards__link">
+                                    EXPLORE MORE
+                                    <span class="cards__link-icon font-ico-arrow-long"></span>
+                                </div>
+                            </a>
+                        </div>
+                    </article>
+                }               
+            </div>
+        }
+       
+    </div>
+</div>
