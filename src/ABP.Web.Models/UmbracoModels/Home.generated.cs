@@ -20,7 +20,7 @@ namespace ABP.Web.Models.UmbracoModels
 {
 	/// <summary>Home</summary>
 	[PublishedModel("home")]
-	public partial class Home : PublishedContentModel, IContentControls, IFooterComposition, IFooterControls, IHeaderControls, IHumburgerComposition, IMainImageControls, INavigationComposition, ISEocontrols
+	public partial class Home : PublishedContentModel, IContentControls, IHeaderControls, IMainImageControls, ISEocontrols
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -50,6 +50,14 @@ namespace ABP.Web.Models.UmbracoModels
 		// properties
 
 		///<summary>
+		/// Header Navigation Menus
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("headerNavigatioMenus")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel HeaderNavigatioMenus => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "headerNavigatioMenus");
+
+		///<summary>
 		/// Head Tag Scripts
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
@@ -58,20 +66,28 @@ namespace ABP.Web.Models.UmbracoModels
 		public virtual string HeadTagScripts => this.Value<string>(_publishedValueFallback, "headTagScripts");
 
 		///<summary>
+		/// Hover Logo
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("hoverLogo")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops HoverLogo => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "hoverLogo");
+
+		///<summary>
+		/// Logo
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("logo")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops Logo => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "logo");
+
+		///<summary>
 		/// Content Rows: Add the rows of content for the page
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("contentRows")]
 		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel ContentRows => global::ABP.Web.Models.UmbracoModels.ContentControls.GetContentRows(this, _publishedValueFallback);
-
-		///<summary>
-		/// Footer Nav
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("footerNav")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel FooterNav => global::ABP.Web.Models.UmbracoModels.FooterComposition.GetFooterNav(this, _publishedValueFallback);
 
 		///<summary>
 		/// Subtitle: Enter a subtitle for this page
@@ -90,28 +106,12 @@ namespace ABP.Web.Models.UmbracoModels
 		public virtual string Title => global::ABP.Web.Models.UmbracoModels.HeaderControls.GetTitle(this, _publishedValueFallback);
 
 		///<summary>
-		/// SUB MENU
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("subMenu")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel SubMenu => global::ABP.Web.Models.UmbracoModels.HumburgerComposition.GetSubMenu(this, _publishedValueFallback);
-
-		///<summary>
 		/// Main Image: Choose the main image for this page
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("mainImage")]
 		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops MainImage => global::ABP.Web.Models.UmbracoModels.MainImageControls.GetMainImage(this, _publishedValueFallback);
-
-		///<summary>
-		/// NAV MENU
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("navMenu")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel NavMenu => global::ABP.Web.Models.UmbracoModels.NavigationComposition.GetNavMenu(this, _publishedValueFallback);
 
 		///<summary>
 		/// Is Followable: Set this to true if you want the page to be followable by robots

@@ -18,14 +18,14 @@ using Umbraco.Extensions;
 
 namespace ABP.Web.Models.UmbracoModels
 {
-	/// <summary>NavigationComposition</summary>
-	[PublishedModel("navigationComposition")]
-	public partial class NavigationComposition : PublishedContentModel
+	/// <summary>Header Top Menus</summary>
+	[PublishedModel("headerTopMenus")]
+	public partial class HeaderTopMenus : PublishedElementModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		public new const string ModelTypeAlias = "navigationComposition";
+		public new const string ModelTypeAlias = "headerTopMenus";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
@@ -34,14 +34,14 @@ namespace ABP.Web.Models.UmbracoModels
 			=> PublishedModelUtility.GetModelContentType(contentTypeCache, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedContentTypeCache contentTypeCache, Expression<Func<NavigationComposition, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedContentTypeCache contentTypeCache, Expression<Func<HeaderTopMenus, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(contentTypeCache), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public NavigationComposition(IPublishedContent content, IPublishedValueFallback publishedValueFallback)
+		public HeaderTopMenus(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -50,11 +50,11 @@ namespace ABP.Web.Models.UmbracoModels
 		// properties
 
 		///<summary>
-		/// NAV MENU
+		/// Header Top Menu Items
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("navMenu")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel NavMenu => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "navMenu");
+		[ImplementPropertyType("headerTopMenuItems")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel HeaderTopMenuItems => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "headerTopMenuItems");
 	}
 }

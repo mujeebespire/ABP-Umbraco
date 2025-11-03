@@ -73,6 +73,13 @@ namespace ABP.Web.Models.UmbracoModels
 		public virtual string Description => this.Value<string>(_publishedValueFallback, "description");
 
 		///<summary>
+		/// Square Cards
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[ImplementPropertyType("squareCards")]
+		public virtual bool SquareCards => this.Value<bool>(_publishedValueFallback, "squareCards");
+
+		///<summary>
 		/// Title 
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]

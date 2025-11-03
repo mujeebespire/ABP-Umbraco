@@ -1,0 +1,15 @@
+﻿@using ABP.Web.Models.UmbracoModels
+@inherits UmbracoViewPage<IPublishedContent>
+
+@{
+    var homePage = Model.AncestorOrSelf<Home>();
+}
+
+
+@if (homePage != null && homePage.HeaderNavigatioMenus != null)
+{
+    <!-- Header Section -->
+    <header class="header">     
+        @Html.GetBlockListHtml(homePage.HeaderNavigatioMenus)           
+    </header>  
+}
