@@ -11956,6 +11956,10 @@ hr {
     word-wrap: break-word;
 }
 
+.table-wrapper table.thead-dark {
+    margin: 20px 0;
+}
+
 @media only screen and (max-width: 575.98px) {
     .table-wrapper table {
         position: relative;
