@@ -1,0 +1,17 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+
+    var richtext = Model.Content.Value<string>("content");
+}
+
+@if (!string.IsNullOrWhiteSpace(richtext))
+{
+    <div class="wrap wrap--small">
+        <div class="rte">
+            @Html.Raw(richtext)
+        </div>
+    </div>
+}
