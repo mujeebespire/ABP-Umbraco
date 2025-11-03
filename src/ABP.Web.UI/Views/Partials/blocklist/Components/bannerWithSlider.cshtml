@@ -1,12 +1,11 @@
 ﻿@inherits UmbracoViewPage<BlockListItem>
-@using Umbraco.Cms.Core.Models
 @using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
 @using Umbraco.Extensions
 
 @{
-    var content = Model.Content;
-    var images = content.Value<IEnumerable<MediaWithCrops>>("images");
-    var totalSlides = images?.Count() ?? 0;
+    // Get the nested block list field
+    var images = Model.Content.Value<BlockListModel>("images");
 }
 
 @if (images != null && images.Any())
@@ -16,45 +15,44 @@
             <div class="gallery__wrap">
                 <div class="gallery__container">
                     <div class="gallery__overflow">
-                        <span class="slider-counter" aria-live="polite" aria-atomic="true">
+                        <span class="slider-counter" aria-live="polite" aria-atomic="true" style="display: none;">
                             <span class="sr-only">Current slide: </span>
                         </span>
-                        <span class="slider-sum" aria-live="polite" aria-atomic="true">
+                        <span class="slider-sum" aria-live="polite" aria-atomic="true" style="display: none;">
                             <span class="sr-only">Total slides: </span>
                         </span>
 
                         <div class="slider gallery__slider" role="region" aria-label="Image carousel" aria-roledescription="carousel">
                             <div class="slider__wrap js-banner-slider">
-                                @{
-                                    var index = 1;
-                                }
 
-                                @foreach (var image in images)
+                                @foreach (var item in images)
                                 {
-                                    if (image == null) continue;
+                                    var image = item.Content.Value<MediaWithCrops>("image");
+                                    var title = item.Content.Value<string>("title");
 
-                                    var imageUrl = image.Url();
-                                    if (string.IsNullOrWhiteSpace(imageUrl)) continue;
+                                    var imageUrl = image?.Url() ?? string.Empty;
+                                    var altText = !string.IsNullOrWhiteSpace(title) ? title : "Banner image";
 
-                                    var altText = image.Value<string>("altText") ?? image.Name ?? "";
-                                    var title = image.Value<string>("title") ?? image.Name ?? "";
-
-                                    <div class="slider__element slider__element--gallery has-cover"
-                                         role="group"
-                                         aria-roledescription="@title"
-                                         aria-label="Slide @index of @totalSlides">
-
-                                        <img src="@imageUrl" alt="@altText" />
-
-                                        <div class="hero__content">
-                                            <h1 class="hero__title">@title</h1>
+                                    if (!string.IsNullOrWhiteSpace(imageUrl))
+                                    {
+                                        <div class="slider__element slider__element--gallery has-cover"
+                                             role="group"
+                                             aria-roledescription="@title"
+                                             aria-label="Slide">
+                                            <img src="@imageUrl" alt="@altText" />
+                                            @if (!string.IsNullOrWhiteSpace(title))
+                                            {
+                                                <div class="hero__content">
+                                                    <h1 class="hero__title">@title</h1>
+                                                </div>
+                                            }
                                         </div>
-                                    </div>
-
-                                    index++;
+                                    }
                                 }
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
