@@ -1,0 +1,64 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+
+
+    var settings = Model.Settings as HideProperty;
+    if (settings?.Hide ?? false) { return; }
+
+    var headerTopMenus = Model.Content as HeaderTopMenus;
+    var headerTopMenuItems = headerTopMenus?.HeaderTopMenuItems;
+
+    if (headerTopMenuItems?.Any() != true) { return; }
+
+    HeaderTopMegaMenuItem? headerTopMegaMenuItem = null;
+
+    foreach (var headerTopMenuItem in headerTopMenuItems)
+    {
+        if (headerTopMenuItem.Content.ContentType.Alias == HeaderTopMegaMenuItem.ModelTypeAlias)
+        {
+            headerTopMegaMenuItem = (HeaderTopMegaMenuItem)headerTopMenuItem.Content;
+        }
+    }
+
+}
+<div class="header__top">
+    <div class="header__container header__container--top">
+        @Html.GetBlockListHtml(headerTopMenuItems)
+    </div>
+</div>
+ <div class="header__dropdown js-header-dropdown">
+    <div class="wrap">
+        <div class="header__dropdown-container">
+            <h3 class="header__dropdown-title">@headerTopMegaMenuItem?.MenuTitle</h3>
+            <div class="row">
+                @if (headerTopMegaMenuItem?.MenuItems != null && headerTopMegaMenuItem.MenuItems.Any())
+                {
+                    foreach (var menuItem in headerTopMegaMenuItem.MenuItems)
+                    {
+                        var headerTopMegaMenuItemDetails = (HeaderTopMegaMenuItemDetails)menuItem.Content;
+                        string externalLinkClass = string.Empty;
+
+                        if (headerTopMegaMenuItemDetails.IsExternalLink)
+                        {
+                            externalLinkClass = "icon font-ico-external";
+                        }
+
+                        <div class="col-lg-3">
+                            <h4 class="header__dropdown-subtitle">
+                                <a class="header__dropdown-link @externalLinkClass" href="@headerTopMegaMenuItemDetails.Link?.Url"
+                                   target="@headerTopMegaMenuItemDetails.Link?.Target">@headerTopMegaMenuItemDetails.Link?.Name</a>
+                            </h4>
+                            <p class="header__dropdown-text">
+                                @headerTopMegaMenuItemDetails.Description
+                            </p>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div> 
+

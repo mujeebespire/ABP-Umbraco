@@ -1,0 +1,15 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var headerTopLinks = Model.Content as HeaderTopLinks;
+}
+
+@if (headerTopLinks?.Links !=null)
+{
+    foreach (var link in headerTopLinks.Links)
+    {
+        <a href="@link.Url" target="@link.Target" class="header__btn">@link.Name</a>
+    }
+}
+
