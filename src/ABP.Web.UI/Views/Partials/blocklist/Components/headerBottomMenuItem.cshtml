@@ -1,0 +1,24 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+  
+
+    var headerBottomMenuItem = Model.Content as HeaderBottomMenuItem;
+
+}
+<li class="nav__item has-children" role="menuitem">
+    <a href="javascript:;" class="nav__link js-nav-link">@headerBottomMenuItem?.Title</a>
+    <div class="nav__submenu js-submenu">
+        <ul class="nav__container row">
+            <li class="nav__submenu-item nav__submenu-item--back icon font-ico-arrow-left">
+                <a href="javascript:;" class="nav__submenu-link">@headerBottomMenuItem?.Title</a>
+            </li>
+            <li class="col-lg-3 nav__block">
+                <h3 class="nav__submenu-title">@headerBottomMenuItem?.Title</h3>
+            </li>
+            @Html.GetBlockListHtml(headerBottomMenuItem?.MegaMenuItems)
+           
+        </ul>
+    </div>
+</li>

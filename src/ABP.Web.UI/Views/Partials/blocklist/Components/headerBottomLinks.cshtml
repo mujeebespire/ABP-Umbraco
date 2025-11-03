@@ -1,0 +1,22 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var headerBottomLinks = Model.Content as HeaderBottomLinks;
+
+}
+@if (headerBottomLinks?.Links != null && headerBottomLinks.Links.Any())
+{
+    <li class="col-lg-3 nav__block">
+        <ul class="nav__sub-block">
+            @foreach (var link in headerBottomLinks.Links)
+            {
+                <li class="nav__submenu-item">
+                    <a href="@link" target="@link.Target"
+                       class="nav__submenu-link">@link.Name</a>
+                </li>
+           }
+           
+       </ul>
+    </li>
+}
