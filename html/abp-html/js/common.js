@@ -8902,7 +8902,7 @@
             fade: true,
             cssEase: 'linear',
             arrows: true,
-            dots: false,
+            // dots: false,
             prevArrow:
               '<button class="slick-prev banner__arrow" aria-label="Previous" type="button"><span class="icon font-ico-arrow-left"></span></button>',
             nextArrow:
@@ -10004,6 +10004,18 @@
                 ? i.css("padding-top", "70px")
                 : i.css("padding-top", "134px"));
             t.on("scroll", function () {
+              var u = t.scrollTop(),
+                i = $("body"),
+                f = n.scrollTop();
+              t.width() < 992
+                ? u + f >= r
+                  ? (n.addClass("header--sticky"), i.css("padding-top", "70px"))
+                  : (n.removeClass("header--sticky"), i.css("padding-top", "0"))
+                : u + f >= r
+                ? (n.addClass("header--sticky"), i.css("padding-top", "134px"))
+                : (n.removeClass("header--sticky"), i.css("padding-top", "0"));
+            });
+            t.on("resize", function () {
               var u = t.scrollTop(),
                 i = $("body"),
                 f = n.scrollTop();
