@@ -1,0 +1,63 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+    var images = content.Value<IEnumerable<MediaWithCrops>>("images");
+    var totalSlides = images?.Count() ?? 0;
+}
+
+@if (images != null && images.Any())
+{
+    <div class="banner-slider static">
+        <div class="gallery">
+            <div class="gallery__wrap">
+                <div class="gallery__container">
+                    <div class="gallery__overflow">
+                        <span class="slider-counter" aria-live="polite" aria-atomic="true">
+                            <span class="sr-only">Current slide: </span>
+                        </span>
+                        <span class="slider-sum" aria-live="polite" aria-atomic="true">
+                            <span class="sr-only">Total slides: </span>
+                        </span>
+
+                        <div class="slider gallery__slider" role="region" aria-label="Image carousel" aria-roledescription="carousel">
+                            <div class="slider__wrap js-banner-slider">
+                                @{
+                                    var index = 1;
+                                }
+
+                                @foreach (var image in images)
+                                {
+                                    if (image == null) continue;
+
+                                    var imageUrl = image.Url();
+                                    if (string.IsNullOrWhiteSpace(imageUrl)) continue;
+
+                                    var altText = image.Value<string>("altText") ?? image.Name ?? "";
+                                    var title = image.Value<string>("title") ?? image.Name ?? "";
+
+                                    <div class="slider__element slider__element--gallery has-cover"
+                                         role="group"
+                                         aria-roledescription="@title"
+                                         aria-label="Slide @index of @totalSlides">
+
+                                        <img src="@imageUrl" alt="@altText" />
+
+                                        <div class="hero__content">
+                                            <h1 class="hero__title">@title</h1>
+                                        </div>
+                                    </div>
+
+                                    index++;
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

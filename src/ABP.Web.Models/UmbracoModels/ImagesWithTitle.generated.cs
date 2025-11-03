@@ -18,14 +18,14 @@ using Umbraco.Extensions;
 
 namespace ABP.Web.Models.UmbracoModels
 {
-	/// <summary>Text With Multiple Cards</summary>
-	[PublishedModel("textWithMultipleCards")]
-	public partial class TextWithMultipleCards : PublishedElementModel
+	/// <summary>Images with Title</summary>
+	[PublishedModel("imagesWithTitle")]
+	public partial class ImagesWithTitle : PublishedElementModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		public new const string ModelTypeAlias = "textWithMultipleCards";
+		public new const string ModelTypeAlias = "imagesWithTitle";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
@@ -34,14 +34,14 @@ namespace ABP.Web.Models.UmbracoModels
 			=> PublishedModelUtility.GetModelContentType(contentTypeCache, ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedContentTypeCache contentTypeCache, Expression<Func<TextWithMultipleCards, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(IPublishedContentTypeCache contentTypeCache, Expression<Func<ImagesWithTitle, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(contentTypeCache), selector);
 #pragma warning restore 0109
 
 		private IPublishedValueFallback _publishedValueFallback;
 
 		// ctor
-		public TextWithMultipleCards(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
+		public ImagesWithTitle(IPublishedElement content, IPublishedValueFallback publishedValueFallback)
 			: base(content, publishedValueFallback)
 		{
 			_publishedValueFallback = publishedValueFallback;
@@ -50,30 +50,23 @@ namespace ABP.Web.Models.UmbracoModels
 		// properties
 
 		///<summary>
-		/// Big Tiles
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[ImplementPropertyType("bigTiles")]
-		public virtual bool BigTiles => this.Value<bool>(_publishedValueFallback, "bigTiles");
-
-		///<summary>
-		/// Cards
+		/// CTA
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("cards")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel Cards => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "cards");
+		[ImplementPropertyType("cta")]
+		public virtual global::Umbraco.Cms.Core.Models.Link Cta => this.Value<global::Umbraco.Cms.Core.Models.Link>(_publishedValueFallback, "cta");
 
 		///<summary>
-		/// Description
+		/// Image
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("description")]
-		public virtual string Description => this.Value<string>(_publishedValueFallback, "description");
+		[ImplementPropertyType("image")]
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops Image => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "image");
 
 		///<summary>
-		/// Title 
+		/// Title
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
