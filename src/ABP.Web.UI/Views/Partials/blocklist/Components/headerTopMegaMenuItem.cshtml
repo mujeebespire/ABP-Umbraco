@@ -1,0 +1,9 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var headerTopMegaMenuItem = Model.Content as HeaderTopMegaMenuItem;
+}
+<button type="button" class="header__btn icon font-ico-chevron-down js-dropdown-btn">
+    @headerTopMegaMenuItem?.MenuTitle
+</button>

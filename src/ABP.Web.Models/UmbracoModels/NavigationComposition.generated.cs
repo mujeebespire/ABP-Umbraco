@@ -18,19 +18,9 @@ using Umbraco.Extensions;
 
 namespace ABP.Web.Models.UmbracoModels
 {
-	// Mixin Content Type with alias "navigationComposition"
-	/// <summary>NavigationComposition</summary>
-	public partial interface INavigationComposition : IPublishedContent
-	{
-		/// <summary>NAV MENU</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		global::Umbraco.Cms.Core.Models.Blocks.BlockListModel NavMenu { get; }
-	}
-
 	/// <summary>NavigationComposition</summary>
 	[PublishedModel("navigationComposition")]
-	public partial class NavigationComposition : PublishedContentModel, INavigationComposition
+	public partial class NavigationComposition : PublishedContentModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -65,11 +55,6 @@ namespace ABP.Web.Models.UmbracoModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("navMenu")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel NavMenu => GetNavMenu(this, _publishedValueFallback);
-
-		/// <summary>Static getter for NAV MENU</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
-		[return: global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		public static global::Umbraco.Cms.Core.Models.Blocks.BlockListModel GetNavMenu(INavigationComposition that, IPublishedValueFallback publishedValueFallback) => that.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(publishedValueFallback, "navMenu");
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel NavMenu => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "navMenu");
 	}
 }

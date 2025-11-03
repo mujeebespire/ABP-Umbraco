@@ -1,0 +1,23 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var headerTopSocialLinks = Model.Content as HeaderTopSocialLinks;
+}
+
+@if (headerTopSocialLinks?.SocialLinkItems != null)
+{
+    
+    <ul class="header__social">
+        @foreach (var socialLinkItem in headerTopSocialLinks.SocialLinkItems)
+        {
+            var socialLinkItemContent = (SocialLinksItem)socialLinkItem.Content;
+
+            <li class="header__social-item">
+                <a href="@socialLinkItemContent.SocialLink?.Url" class="header__social-link" target="@socialLinkItemContent.SocialLink?.Target">
+                    <span class="icon font-ico-@socialLinkItemContent.SocialIcon"><span class="sr-only">@socialLinkItemContent.SocialIcon icon</span></span>
+                </a>
+            </li>
+        }    
+    </ul>
+}

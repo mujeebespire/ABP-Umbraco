@@ -1,0 +1,15 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var headerTopExternalLinks = Model.Content as HeaderTopExternalLinks;
+}
+
+@if (headerTopExternalLinks?.ExternalLinks != null && headerTopExternalLinks.ExternalLinks.Any())
+{
+    foreach (var externalLink in headerTopExternalLinks.ExternalLinks)
+    {
+        <a href="@externalLink.Url" target="@externalLink.Target"
+           class="header__btn header__btn--external icon font-ico-external">@externalLink.Name</a>
+    }
+}

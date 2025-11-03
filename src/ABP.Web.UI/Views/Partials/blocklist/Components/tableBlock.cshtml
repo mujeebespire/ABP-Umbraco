@@ -17,15 +17,16 @@
 @if (!string.IsNullOrWhiteSpace(richContent))
 {
     <!-- Table Block -->
-
-
+    <div class="main">
+    <div class="wrap wrap--small">
     <div class="rte">
         <p>@title</p>
-        <div class="table-wrapper" style="overflow-x: auto;">
+        
 
             @Html.Raw(richContent)
+            </div>
 
-        </div>
     </div>
 
+    </div>
 }

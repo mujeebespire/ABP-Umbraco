@@ -1,0 +1,61 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Extensions
+
+@{
+    // Get the nested block list field
+    var images = Model.Content.Value<BlockListModel>("images");
+}
+
+@if (images != null && images.Any())
+{
+    <div class="banner-slider static">
+        <div class="gallery">
+            <div class="gallery__wrap">
+                <div class="gallery__container">
+                    <div class="gallery__overflow">
+                        <span class="slider-counter" aria-live="polite" aria-atomic="true" style="display: none;">
+                            <span class="sr-only">Current slide: </span>
+                        </span>
+                        <span class="slider-sum" aria-live="polite" aria-atomic="true" style="display: none;">
+                            <span class="sr-only">Total slides: </span>
+                        </span>
+
+                        <div class="slider gallery__slider" role="region" aria-label="Image carousel" aria-roledescription="carousel">
+                            <div class="slider__wrap js-banner-slider">
+
+                                @foreach (var item in images)
+                                {
+                                    var image = item.Content.Value<MediaWithCrops>("image");
+                                    var title = item.Content.Value<string>("title");
+
+                                    var imageUrl = image?.Url() ?? string.Empty;
+                                    var altText = !string.IsNullOrWhiteSpace(title) ? title : "Banner image";
+
+                                    if (!string.IsNullOrWhiteSpace(imageUrl))
+                                    {
+                                        <div class="slider__element slider__element--gallery has-cover"
+                                             role="group"
+                                             aria-roledescription="@title"
+                                             aria-label="Slide">
+                                            <img src="@imageUrl" alt="@altText" />
+                                            @if (!string.IsNullOrWhiteSpace(title))
+                                            {
+                                                <div class="hero__content">
+                                                    <h1 class="hero__title">@title</h1>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

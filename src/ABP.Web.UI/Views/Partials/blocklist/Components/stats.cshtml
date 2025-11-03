@@ -1,0 +1,40 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+    var informationBlocks = content.Value<IEnumerable<BlockListItem>>("information");
+}
+
+@if (informationBlocks != null && informationBlocks.Any())
+{
+    <div class="stats">
+        @foreach (var block in informationBlocks)
+        {
+            var stat = block.Content;
+            if (stat == null) continue;
+
+            var title = stat.Value<string>("title");
+            var description = stat.Value<string>("description");
+            var subTitle = stat.Value<string>("subTitle");
+
+            <div class="stats__block">
+                <div class="stats__wrapper">
+                    @if (!string.IsNullOrWhiteSpace(title))
+                    {
+                        <h5 class="stats__title">@title</h5>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(description))
+                    {
+                        <span class="stats__value">@description</span>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(subTitle))
+                    {
+                        <span class="h4 stats__info">@subTitle</span>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}

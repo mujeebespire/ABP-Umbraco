@@ -1,0 +1,70 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+    var titleCards = content.Value<IEnumerable<BlockListItem>>("titleCards");
+}
+
+@if (titleCards != null && titleCards.Any())
+{
+    <div class="cards">
+        <div class="wrap wrap--wide">
+            <div class="cards__container">
+                @foreach (var item in titleCards)
+                {
+                    var card = item.Content;
+                    if (card == null) continue;
+
+                    var image = card.Value<MediaWithCrops>("image");
+                    var imageUrl = image?.Url() ?? "";
+                    var title = card.Value<string>("title");
+                    var cta = card.Value<Link>("cta");
+
+                    <article class="cards__article cards__article_center_img">
+                        <div class="cards__article-wrap">
+
+                            @if (!string.IsNullOrWhiteSpace(imageUrl))
+                            {
+                                <div class="img-block">
+                                    <img src="@imageUrl" alt="@title" />
+                                </div>
+                            }
+
+                            @if (cta != null)
+                            {
+                                <a href="@cta.Url"
+                                   class="cards__content"
+                                   target="@(cta.Target ?? "_self")">
+
+                                    @if (!string.IsNullOrWhiteSpace(title))
+                                    {
+                                        <h4 class="cards__single-heading">@title</h4>
+                                    }
+
+                                    <div class="cards__description">
+                                        @if (!string.IsNullOrWhiteSpace(title))
+                                        {
+                                            <h5 class="cards__desc-heading">@title</h5>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(cta.Name))
+                                        {
+                                            <p class="cards__desc-text">@cta.Name</p>
+                                        }
+                                    </div>
+
+                                    <div class="cards__link">
+                                        @cta.Name
+                                        <span class="cards__link-icon font-ico-arrow-long"></span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </article>
+                }
+            </div>
+        </div>
+    </div>
+}
