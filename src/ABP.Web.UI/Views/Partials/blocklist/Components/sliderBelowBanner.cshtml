@@ -1,0 +1,75 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as SliderBelowBanner;
+    if (content == null) { return; }
+
+    var sliderItems = content.Value<BlockListModel>("sliderItems");
+    if (sliderItems == null || !sliderItems.Any()) { return; }
+
+    var totalCount = sliderItems.Count();
+}
+
+<div class="report-overlaying">
+    <div class="report">
+        <!-- Slider counter -->
+        <span class="slider-counter">01</span>
+        <span class="slider-sum">@totalCount.ToString("00")</span>
+
+        <div class="report__slider">
+            <div class="report__wrap js-slider">
+                @foreach (var item in sliderItems)
+                {
+                    var block = item.Content as CardItemWithImageAndDescription;
+                    if (block == null) { continue; }
+
+                    var title = block.Value<string>("title");
+                    var description = block.Value<string>("desciption");
+                    var cta = block.Value<Link>("cta");
+                    var image = block.Value<MediaWithCrops>("image");
+                    var imageUrl = image?.Url() ?? "";
+
+
+                    <div class="report__container">
+                        <div class="report__text-wrapper">
+                            @if (!string.IsNullOrWhiteSpace(title))
+                            {
+                                <h4 class="report__title">@title</h4>
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(description))
+                            {
+                                <h5 class="report__subtitle">@description</h5>
+                            }
+
+                            @if (cta != null && !string.IsNullOrWhiteSpace(cta.Url))
+                            {
+                                <a href="@cta.Url" target="@cta.Target" class="report__link link link--download">
+                                    @cta.Name
+                                    @if (cta.Url.Contains(".pdf"))
+                                    {
+                                        <span class="link__text">(PDF)</span>
+                                    }
+                                </a>
+                            }
+                        </div>
+
+                        @if (!string.IsNullOrWhiteSpace(imageUrl))
+                        {
+                            <div class="report__img-wrapper">
+                                <img src="@imageUrl" alt="@title" class="report__img" />
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -13,31 +13,57 @@
     var image = content.Value<MediaWithCrops>("image");
     var imageUrl = image?.Url() ?? "";
 
-    // Get CTA field (URL Picker)
     var cta = content.Value<Link>("cta");
+
+    // ✅ Overlay toggle (true means show overlay version)
+    var overlay = content.Value<bool>("overlay");
+
 }
 
-<div class="full-image has-cover"
-     style="background-image:url(@imageUrl);">
-    <div class="wrap">
-        <div class="full-image__content">
+@if (overlay)
+{
+    <!-- 🧊 Overlay banner version -->
+    <div class="banner banner--small banner--overlay" style="background-image: url('@imageUrl');">
+        <div class="banner__container">
+
+                <span class="banner__icon icon font-ico-agribulk @image"></span>
+
+
             @if (!string.IsNullOrWhiteSpace(heading))
             {
-                <h4 class="full-image__title">@heading</h4>
+                <span class="banner__subtitle">@heading</span>
             }
 
             @if (!string.IsNullOrWhiteSpace(title))
             {
-                <p class="full-image__text">@title</p>
+                <h1 class="banner__title banner__title--">@title</h1>
             }
-
-            @if (cta != null && !string.IsNullOrWhiteSpace(cta.Url))
-            {
-                <a href="@cta.Url" target="@cta.Target" class="btn btn--transparent full-image__btn">
-                    @cta.Name
-                </a>
-            }
-           
         </div>
     </div>
-</div>
+}
+else
+{
+    <!-- 🌄 Regular full-image banner -->
+    <div class="full-image has-cover" style="background-image:url('@imageUrl');">
+        <div class="wrap">
+            <div class="full-image__content">
+                @if (!string.IsNullOrWhiteSpace(heading))
+                {
+                    <h4 class="full-image__title">@heading</h4>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(title))
+                {
+                    <p class="full-image__text">@title</p>
+                }
+
+                @if (cta != null && !string.IsNullOrWhiteSpace(cta.Url))
+                {
+                    <a href="@cta.Url" target="@cta.Target" class="btn btn--transparent full-image__btn">
+                        @cta.Name
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+}
