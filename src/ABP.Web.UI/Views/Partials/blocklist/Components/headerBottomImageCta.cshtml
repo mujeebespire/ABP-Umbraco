@@ -14,6 +14,12 @@
                      src="@headerBottomImageCta.Image.Url()" />
             </li>
         }
+        @if (!string.IsNullOrEmpty(headerBottomImageCta?.Title))
+        {
+            <li>
+                <h4 class="nav__submenu-img-title">@headerBottomImageCta?.Title</h4>
+            </li>
+        }    
         @if (headerBottomImageCta?.Cta !=null)
         {
             <li>

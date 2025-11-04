@@ -57,6 +57,13 @@ namespace ABP.Web.Models.UmbracoModels
 		public virtual bool EnablePopup => this.Value<bool>(_publishedValueFallback, "enablePopup");
 
 		///<summary>
+		/// Normal Layout
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[ImplementPropertyType("normalLayout")]
+		public virtual bool NormalLayout => this.Value<bool>(_publishedValueFallback, "normalLayout");
+
+		///<summary>
 		/// Vedio Url
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
