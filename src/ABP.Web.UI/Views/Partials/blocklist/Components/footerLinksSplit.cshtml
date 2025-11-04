@@ -2,14 +2,14 @@
 @using Umbraco.Cms.Core.Models.Blocks
 @using ABP.Web.Models.UmbracoModels
 @{
-    var footerLinks = Model.Content as FooterLinks;
+    var footerLinksSplit = Model.Content as FooterLinksSplit;
 }
 <div class="col-lg-4 col-md-8 col-sm-12">
-    <h4 class="footer__title-small">@footerLinks?.Title</h4>
-    @if (footerLinks?.Links != null && footerLinks.Links.Any())
+    <h4 class="footer__title-small">@footerLinksSplit?.Title</h4>
+    @if (footerLinksSplit?.Links != null && footerLinksSplit.Links.Any())
     {
         <ul class="footer__list-small split">
-            @foreach (var link in footerLinks.Links)
+            @foreach (var link in footerLinksSplit.Links)
             {
                 <li class="footer__item-small">
                     <a href="@link.Url" class="footer__link-small" target="@link.Target">@link.Name</a>
