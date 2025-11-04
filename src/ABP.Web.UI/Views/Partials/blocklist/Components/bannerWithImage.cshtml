@@ -12,6 +12,7 @@
     var title = content.Value<string>("title");
     var image = content.Value<MediaWithCrops>("image");
     var imageUrl = image?.Url() ?? "";
+    var iconclass = content.Value<string>("iconClass");
 
     var cta = content.Value<Link>("cta");
 
@@ -26,7 +27,7 @@
     <div class="banner banner--small banner--overlay" style="background-image: url('@imageUrl');">
         <div class="banner__container">
 
-                <span class="banner__icon icon font-ico-agribulk @image"></span>
+                <span class="banner__icon icon font-ico-@iconclass"></span>
 
 
             @if (!string.IsNullOrWhiteSpace(heading))
