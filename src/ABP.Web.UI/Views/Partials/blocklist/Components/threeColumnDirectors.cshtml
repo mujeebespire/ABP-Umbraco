@@ -17,12 +17,12 @@
         <div class="wrap">
 
 
-            <h2 class="h2 text-center">@threeColumnDirectors?.Title</h2>
+            <h2 class="h2 text-center">@threeColumnDirectors?.Section1Title</h2>
 
-            @if (threeColumnDirectors != null && threeColumnDirectors.Directors != null)
+            @if (threeColumnDirectors != null && threeColumnDirectors.DirectorsWithImages != null)
             {
                 <div class="row people__list people__list--big js-equal-heights">
-                    @foreach (var directorContent in threeColumnDirectors.Directors)
+                    @foreach (var directorContent in threeColumnDirectors.DirectorsWithImages)
                     {
                         var directorProfile = (DirectorProfile)directorContent;
 
@@ -55,8 +55,46 @@
 
                 </div>
             }
-         
 
+
+            <h2 class="h2 text-center">@threeColumnDirectors?.Section2Title</h2>
+
+            @if (threeColumnDirectors != null && threeColumnDirectors.DirectorsWithoutImage != null)
+            {
+                <div class="row people__list people__list--big js-equal-heights">
+                    @foreach (var directorContent in threeColumnDirectors.DirectorsWithoutImage)
+                    {
+                        var directorProfile = (DirectorProfile)directorContent;
+
+                        <div class="col-lg-4 col-md-6 people__item">
+                            <div class="people__widget js-equal-heights-item">
+                              @*   <div class="people__image-wrap">
+                                    <img src="@directorProfile.MainImage?.Url()" alt="@directorProfile.Title" class="people__image">
+                                </div> *@
+                                <div class="people__info">
+                                    <span class="people__name">@directorProfile.Title</span>
+                                    <span class="people__position">@directorProfile.Subtitle</span>
+                                    <button type="button" class="people__btn">
+                                        <span class="sr-only">
+                                            Button
+                                            plus
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="people__details">
+                                <p class="people__text">
+                                    @directorProfile.Biography
+                                </p>
+
+                            </div>
+                        </div>
+                    }
+
+
+
+                </div>
+            }
 
         </div>
     </div>
