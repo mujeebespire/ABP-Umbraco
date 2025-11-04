@@ -19,43 +19,8 @@
                 <span class="sr-only">@headerBottomMenus?.Title</span>
             </button>
             <ul class="nav__list" role="menubar">
-                @Html.GetBlockListHtml(headerBottomMenus?.MenuItems)  
-                <li class="nav__item has-children" role="menuitem">
-                            <a role="button" href="javascript:;"
-                                class="nav__link js-nav-link nav__link--btn btn btn--grey">Contact</a>
-                            <div class="nav__submenu js-submenu">
-                                <ul class="nav__container row">
-                                    <li class="nav__submenu-item nav__submenu-item--back icon font-ico-arrow-left">
-                                        <a href="javascript:;" class="nav__submenu-link">Contact</a>
-                                    </li>
-                                    <li class="col-lg-3 nav__block">
-                                        <h3 class="nav__submenu-title">Contact</h3>
-                                    </li>
-                                    <li class="col-lg-6 nav__block">
-                                        <ul class="nav__sub-block nav__sub-block--large">
-                                            <li class="nav__submenu-item "><a href="/contacts/london-office/"
-                                                    class="nav__submenu-link">London Office</a></li>
-                                            <li class="nav__submenu-item "><a href="/contacts/commercial/"
-                                                    class="nav__submenu-link">Commercial</a></li>
-                                            <li class="nav__submenu-item "><a href="/contacts/regions-and-ports/"
-                                                    class="nav__submenu-link">Regions and Ports</a></li>
-                                            <li class="nav__submenu-item "><a href="/contacts/media/"
-                                                    class="nav__submenu-link">Media</a></li>
-                                            <li class="nav__submenu-item "><a href="/contacts/investor-relations/"
-                                                    class="nav__submenu-link">Investor Relations</a></li>
-                                            <li class="nav__submenu-item "><a href="/contacts/abp-careers/"
-                                                    class="nav__submenu-link">ABP Careers</a></li>
-                                            <li class="nav__submenu-item "><a href="/contacts/suppliers/"
-                                                    class="nav__submenu-link">Suppliers</a></li>
-                                            <li class="nav__submenu-item "><a href="/contacts/complaints/"
-                                                    class="nav__submenu-link">Complaints</a></li>
-                                            <li class="nav__submenu-item "><a href="/contacts/abp-property/"
-                                                    class="nav__submenu-link">ABP Property</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                @Html.GetBlockListHtml(headerBottomMenus?.MenuItems)
+               
             </ul>
             <button type="button" class="nav__search icon font-ico-search js-search-open" aria-label="Open search"></button>
         </nav>

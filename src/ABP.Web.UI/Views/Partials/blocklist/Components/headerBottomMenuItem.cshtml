@@ -8,7 +8,16 @@
 
 }
 <li class="nav__item has-children" role="menuitem">
-    <a href="javascript:;" class="nav__link js-nav-link">@headerBottomMenuItem?.Title</a>
+    @if (headerBottomMenuItem?.IsAbutton??false)
+    {
+        <a role="button" href="javascript:;"
+           class="nav__link js-nav-link nav__link--btn btn btn--grey">@headerBottomMenuItem?.Title</a>
+    }
+    else
+    {
+        <a href="javascript:;" class="nav__link js-nav-link">@headerBottomMenuItem?.Title</a>
+    }
+   
     <div class="nav__submenu js-submenu">
         <ul class="nav__container row">
             <li class="nav__submenu-item nav__submenu-item--back icon font-ico-arrow-left">

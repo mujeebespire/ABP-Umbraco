@@ -1,0 +1,20 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var footerList = Model.Content as FooterList;
+}
+<div class="col-lg-4 col-md-12">
+    <h4 class="footer__title-large">@footerList?.Title</h4>
+    @if (footerList?.Links != null && footerList.Links.Any())
+    {
+        <ul class="footer__list-large">
+            @foreach (var link in footerList.Links)
+            {
+                <li class="footer__item-large">
+                    <a href="@link.Url" class="footer__link-large" target="@link.Target">@link.Name</a>
+                </li>
+            }                     
+        </ul>
+    } 
+</div>

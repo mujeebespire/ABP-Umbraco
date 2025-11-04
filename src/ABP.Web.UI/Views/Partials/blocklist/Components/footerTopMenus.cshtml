@@ -1,0 +1,15 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var footerTopMenus = Model.Content as FooterTopMenus;
+}
+<div class="footer__top">
+    <div class="wrap">
+        <div class="footer__container footer__container--top">
+            <div class="row">
+                @Html.GetBlockListHtml(footerTopMenus?.FooterTopMenuItems)              
+            </div>
+        </div>
+    </div>
+</div>
