@@ -7,18 +7,30 @@
     var content = Model.Content;
     var videoUrl = content.Value<string>("vedioUrl") ?? "";
     var showPopup = content.Value<bool>("enablePopup");
-    var videoPlayer = content.Value<bool>("youtubePlayer"); // the toggle
+    var videoPlayer = content.Value<bool>("youtubePlayer");
+    var normalLayout = content.Value<bool>("normalLayout"); // new toggle
 
     if (string.IsNullOrWhiteSpace(videoUrl))
     {
-        <p style="color:red;">⚠️ Please provide a Vimeo video URL.</p>
+        <p style="color:red;">⚠️ Please provide a valid video URL.</p>
         return;
     }
 }
 
-@if (videoPlayer)
+@if (normalLayout)
 {
-    <!-- Video Inside Block -->
+    <!-- 🎥 Normal full-width layout -->
+    <div class="video-wrapper video-wrapper--full">
+        <iframe src="@videoUrl"
+                title="Embedded Video"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen>
+        </iframe>
+    </div>
+}
+else if (videoPlayer)
+{
+    <!-- 🎞️ Inline video version (YouTube style) -->
     <div class="video-wrapper video-wrapper--relative js-iframe-wrapper" data-mobile-height="100%">
         <div>
             <iframe src="@($"{videoUrl}?controls=0")"
@@ -54,7 +66,7 @@
 }
 else
 {
-    <!-- Full Width Video Block -->
+    <!-- 🧱 Expanded full-width player layout -->
     <div class="video-wrapper video-wrapper--relative js-iframe-wrapper js-iframe-expand"
          data-mobile-height="100%">
         <div>

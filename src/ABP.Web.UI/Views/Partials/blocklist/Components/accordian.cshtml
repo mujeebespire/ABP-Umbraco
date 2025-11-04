@@ -1,5 +1,6 @@
 ﻿@inherits UmbracoViewPage<BlockListItem>
 @using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
 @using Umbraco.Extensions
 
 @{
@@ -10,24 +11,70 @@
     {
         return;
     }
+
+    // Separate out accordianList and accordianListWithImage
+    var listBlocks = accordionBlocks.Where(b => b.Content.ContentType.Alias == "accordianList").ToList();
+    var imageBlocks = accordionBlocks.Where(b => b.Content.ContentType.Alias == "accordianListWithImage").ToList();
 }
 
 <!-- Accordion block -->
 <div class="accordion js-accordion">
-    @foreach (var block in accordionBlocks)
+    <div class="wrap wrap--small">
+
+    <!-- ✅ Case 1: Grouped accordianListWithImage -->
+    @if (imageBlocks.Any())
+    {
+        var firstTitle = imageBlocks.First().Content.Value<string>("title") ?? "Accordion";
+
+        <div class="accordion__row">
+            <button class="accordion__button" type="button">
+                @firstTitle
+                <span class="accordion__button-circle icon font-ico-plus"></span>
+            </button>
+
+            <div class="accordion__content">
+                <div class="rte">
+                    @foreach (var block in imageBlocks)
+                    {
+                        var item = block.Content;
+                        var title = item.Value<string>("title");
+                        var text = item.Value<string>("text");
+                        var image = item.Value<MediaWithCrops>("image");
+                        var imageUrl = image?.Url() ?? "";
+
+                        <p>
+                            @if (!string.IsNullOrWhiteSpace(imageUrl))
+                            {
+                                <img style="float: left; margin-right:10px;" src="@imageUrl" alt="@title" width="58" height="58" />
+                            }
+                            @if (!string.IsNullOrWhiteSpace(text))
+                            {
+                    
+                                         @Html.Raw(text)
+                                                }
+                        </p>
+                        <div style="clear:both;"></div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- ✅ Case 2: Individual accordianList items -->
+    @foreach (var block in listBlocks)
     {
         var item = block.Content;
-
         var title = item.Value<string>("title");
         var subHeading = item.Value<string>("subHeading");
         var description = item.Value<string>("description");
         var year = item.Value<int?>("year") ?? 0;
-        var links = item.Value<IEnumerable<Umbraco.Cms.Core.Models.Link>>("list"); // multi URL picker
+        var links = item.Value<IEnumerable<Link>>("list");
+
         <div class="accordion__row">
-                                                               <button class="accordion__button" type="button">
-                                                                   @title
-                                                                   <span class="accordion__button-circle icon font-ico-plus"></span>
-                                                               </button>
+            <button class="accordion__button" type="button">
+                @title
+                <span class="accordion__button-circle icon font-ico-plus"></span>
+            </button>
 
             <div class="accordion__content">
                 <div class="rte">
@@ -38,7 +85,7 @@
 
                     @if (!string.IsNullOrWhiteSpace(description))
                     {
-                        <p>@description</p>
+                        @Html.Raw(description)
                     }
 
                     @if (year > 0)
@@ -51,14 +98,12 @@
                         <ul>
                             @foreach (var link in links)
                             {
-                                if (link == null || string.IsNullOrWhiteSpace(link.Url))
+                                if (!string.IsNullOrWhiteSpace(link?.Url))
                                 {
-                                    continue;
+                                    <li>
+                                        <a href="@link.Url" title="@link.Name" target="@link.Target">@link.Name</a>
+                                    </li>
                                 }
-
-                                <li>
-                                    <a href="@link.Url" title="@link.Name" target="@link.Target">@link.Name</a>
-                                </li>
                             }
                         </ul>
                     }
@@ -66,4 +111,5 @@
             </div>
         </div>
     }
+</div>
 </div>
