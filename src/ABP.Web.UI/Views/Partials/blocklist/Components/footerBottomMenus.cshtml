@@ -1,0 +1,24 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var footerBottomMenus = Model.Content as FooterBottomMenus;
+}
+<div class="footer__bottom">
+    <div class="wrap">
+        <div class="footer__container footer__container--bottom">
+            <p class="footer__copyright">&#169; @footerBottomMenus?.Copyright</p>
+            @if (footerBottomMenus?.Links != null && footerBottomMenus.Links.Any())
+            {
+                <ul class="footer__nav">
+                    @foreach (var link in footerBottomMenus.Links)
+                    {
+                        <li class="footer__nav-item">
+                            <a href="@link.Url" class="footer__nav-link" target="@link.Target">@link.Name</a>
+                        </li>
+                    }                   
+                </ul>
+            }           
+        </div>
+    </div>
+</div>

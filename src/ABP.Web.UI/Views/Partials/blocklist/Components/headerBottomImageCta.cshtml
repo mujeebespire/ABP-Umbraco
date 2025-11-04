@@ -1,0 +1,26 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var headerBottomImageCta = Model.Content as HeaderBottomImageCta;
+
+}
+<li class="col-lg-3 nav__block">
+    <ul class="nav__sub-block nav__sub-block--image">
+        @if (headerBottomImageCta?.Image != null)
+        {
+            <li>
+                <img class="nav__submenu-img" alt="@headerBottomImageCta.Image.Name"
+                     src="@headerBottomImageCta.Image.Url()" />
+            </li>
+        }
+        @if (headerBottomImageCta?.Cta !=null)
+        {
+            <li>
+                <a href="@headerBottomImageCta?.Cta.Url"
+                   target="_blank" class="btn nav__submenu-btn">@headerBottomImageCta?.Cta.Name</a>
+            </li>
+        }
+      
+    </ul>
+</li>

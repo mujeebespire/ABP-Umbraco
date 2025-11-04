@@ -1,0 +1,33 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var footerCtaAndSocialLinks = Model.Content as FooterCtaAndSocialLinks;
+}
+<div class="col-lg-12">
+    <div class="footer__social-wrapper">
+        @if (footerCtaAndSocialLinks?.Cta != null)
+        {
+            <div class="footer__social-btns">
+                <a href="@footerCtaAndSocialLinks.Cta.Url" target="@footerCtaAndSocialLinks.Cta.Target"
+                   class="btn btn--transparent icon font-ico-user footer__btn">@footerCtaAndSocialLinks.Cta.Name</a>
+            </div>
+        }
+        @if (footerCtaAndSocialLinks?.FooterSocialLinks !=null)
+        {
+           
+            <div class="footer__social-icons">
+                @foreach (var footerSocialLink in footerCtaAndSocialLinks.FooterSocialLinks)
+                {
+                    var footerSocialLinkContent = (SocialLinksItem)footerSocialLink.Content;
+                    if (footerSocialLinkContent.SocialLink != null)
+                    {
+                        <a href="@footerSocialLinkContent.SocialLink.Url" target="@footerSocialLinkContent.SocialLink.Target"
+                           class="icon font-ico-@footerSocialLinkContent.SocialIcon footer__icon" aria-label="@footerSocialLinkContent.SocialIcon icon"></a>
+                    }               
+                }
+            </div>
+        }
+        
+    </div>
+</div>

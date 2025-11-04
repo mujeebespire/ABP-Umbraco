@@ -1,0 +1,17 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    
+    var tableMarkup = Model.Content.Value<string>("tableEditor");
+}
+
+@if (!string.IsNullOrWhiteSpace(tableMarkup))
+{
+     <div class="wrap wrap--small">
+    <div class="rte">
+        @Html.Raw(tableMarkup)
+        </div>
+    </div>
+}
