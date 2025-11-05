@@ -18,7 +18,7 @@
 
 <body>
 
-    <!-- Header Section -->
+   <!-- Header Section -->
     <header class="header">
         <div class="header__top">
             <div class="header__container header__container--top">
@@ -75,12 +75,12 @@
                     <img src="images/logo.svg" alt="Associated British Ports" class="logo__img" />
                     <img src="images/logo-hover.svg" alt="Associated British Ports" class="logo__img-hover" />
                 </a>
-                <nav class="nav js-navigation">
+                <nav class="nav js-navigation" aria-label="Main navigation">
                     <button class="nav__toggle js-nav-toggle">
                         <span class="sr-only">Open menu</span>
                     </button>
                     <ul class="nav__list" role="menubar">
-                        <li class="nav__item has-children" role="menuitem">
+                        <li class="nav__item has-children" role="menuitem" aria-label="About ABP">
                             <a href="javascript:;" class="nav__link js-nav-link">About ABP</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -105,7 +105,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item has-children" role="menuitem">
+                        <li class="nav__item has-children" role="menuitem" aria-label="Services">
                             <a href="javascript:;" class="nav__link js-nav-link">Services</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -152,7 +152,7 @@
                                     <li class="col-lg-3 nav__block">
                                         <ul class="nav__sub-block nav__sub-block--image">
                                             <li>
-                                                <img class="nav__submenu-img" alt="" src="/media/edcl5zkb/2_3_1.jpg" />
+                                                <img class="nav__submenu-img" alt="" src="images/2_3_1.jpg" />
                                             </li>
                                             <li>
                                                 <h4 class="nav__submenu-img-title">Safety at ABP</h4>
@@ -164,7 +164,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item has-children" role="menuitem">
+                        <li class="nav__item has-children" role="menuitem" aria-label="Sustainability">
                             <a href="javascript:;" class="nav__link js-nav-link">Sustainability</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -193,16 +193,16 @@
                                         <ul class="nav__sub-block nav__sub-block--image">
                                             <li>
                                                 <img class="nav__submenu-img" alt=""
-                                                    src="/media/xwjfuihh/promobanner_399x215px_opt3.png" />
+                                                    src="images/promobanner_399x215px_opt3.png" />
                                             </li>
-                                            <li><a href="/media/fo2ii2cv/abp-ready-for-tomorrow.pdf" target="_blank"
-                                                    class="btn nav__submenu-btn">Read here</a></li>
+                                            <li><a href="https://www.abports.co.uk/media/fo2ii2cv/abp-ready-for-tomorrow.pdf"
+                                                    target="_blank" class="btn nav__submenu-btn">Read here</a></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item has-children" role="menuitem">
+                        <li class="nav__item has-children" role="menuitem" aria-label="Locations">
                             <a href="javascript:;" class="nav__link js-nav-link">Locations</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -280,7 +280,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item has-children" role="menuitem">
+                        <li class="nav__item has-children" role="menuitem" aria-label="Property Opportunities">
                             <a href="javascript:;" class="nav__link js-nav-link">Property Opportunities</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -299,7 +299,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item has-children" role="menuitem">
+                        <li class="nav__item has-children" role="menuitem" aria-label="News and Media">
                             <a href="javascript:;" class="nav__link js-nav-link">News and Media</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -343,7 +343,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item has-children" role="menuitem">
+                        <li class="nav__item has-children" role="menuitem" aria-label="Marine Information and Assurance">
                             <a href="javascript:;" class="nav__link js-nav-link">Marine Information and Assurance</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -408,7 +408,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item has-children" role="menuitem">
+                        <li class="nav__item has-children" role="menuitem" aria-label="Investor Relations">
                             <a href="javascript:;" class="nav__link js-nav-link">Investor Relations</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -444,8 +444,8 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item has-children" role="menuitem">
-                            <a href="javascript:;"
+                        <li class="nav__item has-children" role="menuitem" aria-label="Contact">
+                            <a role="button" href="javascript:;"
                                 class="nav__link js-nav-link nav__link--btn btn btn--grey">Contact</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -480,7 +480,7 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item nav__item--grey has-children" role="menuitem">
+                        <li class="nav__item nav__item--grey has-children" role="menuitem" aria-label="Other Businesses">
                             <a href="javascript:;" class="nav__link nav__link--grey js-nav-link">Other Businesses</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -508,19 +508,19 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="nav__item nav__item--grey" role="menuitem">
+                        <li class="nav__item nav__item--grey" role="menuitem" aria-label="Future Ports: Wales">
                             <a href="/future-ports-wales-vision/" class="nav__link nav__link--grey">Future Ports: Wales
                                 Vision</a>
                         </li>
-                        <li class="nav__item nav__item--grey" role="menuitem">
+                        <li class="nav__item nav__item--grey" role="menuitem" aria-label="Suppliers">
                             <a href="/contacts/suppliers/" class="nav__link nav__link--grey">Suppliers</a>
                         </li>
-                        <li class="nav__item nav__item--grey" role="menuitem">
+                        <li class="nav__item nav__item--grey" role="menuitem" aria-label="Careers">
                             <a href="https://careers.abports.co.uk/" target="_blank"
                                 class="nav__link nav__link--grey icon font-ico-external">Careers</a>
                         </li>
                     </ul>
-                    <button type="button" class="nav__search icon font-ico-search js-search-open"></button>
+                    <button type="button" class="nav__search icon font-ico-search js-search-open" aria-label="Open search"></button>
                 </nav>
             </div>
         </div>
@@ -533,15 +533,17 @@
                 <img src="images/logo.svg" alt="Associated British Ports" class="logo__img" />
                 <img src="images/logo-hover.svg" alt="Associated British Ports" class="logo__img-hover" />
             </a>
-            <button type="button" class="search-overlay__close icon font-ico-close js-search-close"></button>
+            <button type="button" class="search-overlay__close icon font-ico-close js-search-close" aria-label="close button"></button>
         </div>
         <div class="search-overlay__form-wrapper js-search-wrapper"
             data-controller-url="/umbraco/Surface/SearchListing/WildCardSearch">
+
             <div class="search-overlay__form-container">
-                <form class="search-overlay__form" action="/search-page/" method="get">
+                <form class="search-overlay__form" action="/search-page/" method="get" aria-labelledby="search-heading">
+                     
                     <input type="search" name="q" required placeholder="Search" autofocus
                         class="search-overlay__input js-search-wildcards">
-                    <button type="submit" class="icon font-ico-search search-overlay__btn"></button>
+                    <button type="submit" class="icon font-ico-search search-overlay__btn" aria-label="search"></button>
                 </form>
             </div>
             <div class="search-overlay__wildcard-list-items js-wildcard">
@@ -977,35 +979,38 @@
 
 
 
-    <!-- Newsletter Form Section -->
+    
+    <!-- Newsletter section -->
     <div class="newsletter">
         <div class="wrap">
             <div class="newsletter__wrapper">
                 <div class="newsletter__container">
-                    <h4 class="newsletter__title">Join our mailing list for information, industry insight and marketing
-                        material:</h4>
-                    <form class="newsletter__form" method="post">
+                    <h3 class="newsletter__title">Join our mailing list for information, industry insight and marketing
+                        material:</h3>
+                    <form class="newsletter__form" method="post" aria-labelledby="newsletter-heading">
+                        <h2 id="newsletter-heading" class="visually-hidden">Subscribe to our newsletter</h2>
+                         <label for="EmailAddress" class="visually-hidden">Email address</label>
                         <input class="newsletter__input" data-val="true" data-val-email="The email address is not valid"
                             data-val-required="The email address is required" id="EmailAddress" name="EmailAddress"
                             placeholder="yourname@youraddress.com" type="text" value="" />
                         <span class="field-validation-valid" data-valmsg-for="EmailAddress"
                             data-valmsg-replace="true"></span>
                         <button type="submit" class="btn icon font-ico-arrow-btn newsletter__btn"
-                            data-controller-url="/umbraco/Surface/Subscribe/SubscribeForm"></button>
+                            data-controller-url="/umbraco/Surface/Subscribe/SubscribeForm" aria-label="Subscribe to newsletter"></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer Section -->
+    <!-- footer Section -->
     <footer class="footer">
         <div class="footer__top">
             <div class="wrap">
                 <div class="footer__container footer__container--top">
                     <div class="row">
                         <div class="col-lg-4 col-md-12">
-                            <h4 class="footer__title-large">HOW CAN WE HELP?</h4>
+                            <h3 class="footer__title-large">HOW CAN WE HELP?</h3>
                             <ul class="footer__list-large">
                                 <li class="footer__item-large">
                                     <a href="/contacts/london-office/" class="footer__link-large">Head Office</a>
@@ -1122,9 +1127,9 @@
                                 </div>
                                 <div class="footer__social-icons">
                                     <a href="https://twitter.com/abports21?lang=en" target="_blank"
-                                        class="icon font-ico-twitter footer__icon"></a>
+                                        class="icon font-ico-twitter footer__icon" aria-label="twitter icon"></a>
                                     <a href="https://www.linkedin.com/company/associated-british-ports" target="_blank"
-                                        class="icon font-ico-linkedin footer__icon"></a>
+                                        class="icon font-ico-linkedin footer__icon" aria-label="linked in icon"></a>
                                 </div>
                             </div>
                         </div>
@@ -1132,6 +1137,7 @@
                 </div>
             </div>
         </div>
+
         <div class="footer__bottom">
             <div class="wrap">
                 <div class="footer__container footer__container--bottom">
@@ -1187,6 +1193,7 @@
             </div>
         </div>
     </footer>
+
     <button class="scroll-to-top js-scroll-top icon font-ico-ar-right" type="button">
         <span class="sr-only">Scroll top</span>
     </button>
