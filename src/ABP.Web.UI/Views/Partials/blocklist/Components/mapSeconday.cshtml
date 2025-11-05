@@ -1,0 +1,43 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+@{
+    var mapSeconday = Model.Content as MapSeconday;
+}
+<!-- location at map -->
+<div class="map-locations">
+    <div class="map-locations__image has-cover js-grid-bg-img"
+         style="background-image: url(@mapSeconday?.Image?.Url());" data-desktop-img="@mapSeconday?.Image?.Url()"
+         data-tablet-img="@mapSeconday?.Image?.Url()" data-mobile-img="@mapSeconday?.Image?.Url()">
+        @if (mapSeconday?.Items != null && mapSeconday.Items.Any())
+        {
+            foreach (var item in mapSeconday.Items)
+            {
+                var map = (MapSecondaryItem)item.Content;
+
+                <span class="map-locations__dot" data-top="28%" data-left="36%"
+                      data-dot="@map.Key" style="top: @map.TopCoordinate%; left: @map.RightCoordinate%;">
+                    <span class="sr-only">Map locations</span>
+                </span>
+            }
+        }
+      
+    </div>
+    <div class="map-locations__text">
+        <h4 class="map-locations__title">@mapSeconday?.Title</h4>
+        @if (mapSeconday?.Items != null && mapSeconday.Items.Any())
+        {
+            <ul class="map-locations__list">
+                @foreach (var item in mapSeconday.Items)
+                {
+                    var map = (MapSecondaryItem)item.Content;
+
+                    <li class="map-locations__item" data-link="@map.Key"
+                        style="text-decoration: none;">
+                        <a href="@map.Link?.Url" target="@map.Link?.Target" class="map-locations__link">@map.Link?.Name</a>
+                    </li>
+                }             
+            </ul>
+        }
+    </div>
+</div>
