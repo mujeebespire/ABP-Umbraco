@@ -28,7 +28,7 @@
                                 <li class="map__list-item js-map-list-item" data-id="@mapInfoItemContent.Key">
                                     <div class="map__list-image" style="background-image: url('@mapInfoItemContent?.Image?.GetCropUrl(width: 165, height: 120)');"></div>
                                     <div class="map__list-heading-cont">
-                                        <h4 class="map__list-heading">@mapInfoItemContent?.Title</h4>
+                                        <h3 class="map__list-heading">@mapInfoItemContent?.Title</h3>
                                     </div>
                                 </li>
                             }
@@ -39,17 +39,17 @@
             </div>
             <div class="map__list-control">
                 <button type="button" class="map__control-btn map__control-btn--down js-map-control"
-                        data-direction="down">
+                        data-direction="down" aria-label="down arrow">
                     <span class="map__control-icon font-ico-ar-left"></span>
                 </button>
                 <button type="button" class="map__control-btn map__control-btn--up js-map-control"
-                        data-direction="up">
+                        data-direction="up" aria-label="up arrow">
                     <span class="map__control-icon font-ico-ar-left"></span>
                 </button>
             </div>
         </div>
         <div class="map__map-cont js-map-cont">
-            <img src="@mapPrimary?.MapImage?.Url()" alt="" class="map__image">
+            <img src="@mapPrimary?.MapImage?.Url()" alt="map" class="map__image">
             @if (mapInfoItems != null && mapInfoItems.Any())
             {
                 foreach (var mapInfoItem in mapInfoItems)
@@ -58,7 +58,7 @@
                     <div class="map__point js-map-point" data-x-align="@mapInfoItemContent.LeftCoordinate" data-y-align="@mapInfoItemContent.TopCoordinate" data-id="@mapInfoItemContent.Key">
                     </div>
                     <div class="map__info-cont js-map-info-cont" data-id="@mapInfoItemContent.Key">
-                        <button class="map__info-close js-map-info-close">
+                        <button class="map__info-close js-map-info-close" aria-label="map close icon">
                             <span class="map__close-icon font-ico-close-wider"></span>
                         </button>
                         <h3 class="map__info-title">@mapInfoItemContent.Title</h3>

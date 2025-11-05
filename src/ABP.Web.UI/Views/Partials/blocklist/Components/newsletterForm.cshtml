@@ -5,10 +5,11 @@
     <div class="wrap">
         <div class="newsletter__wrapper">
             <div class="newsletter__container">
-                <h4 class="newsletter__title">
+                <h3 class="newsletter__title">
                     @Umbraco.GetDictionaryValue("Newsletter.Title")
-                </h4>
-                <form class="newsletter__form" method="post">
+                </h3>
+                <form class="newsletter__form" method="post" aria-label="newsletter-heading">
+                <h2 id="newsletter-heading" class="visually-hidden">Subscribe to our newsletter</h2>
                     @Html.AntiForgeryToken()
                     <input class="newsletter__input" data-val="true" data-val-email="@Umbraco.GetDictionaryValue("Newsletter.EmailIsNotValidaMessage")"
                            data-val-required="@Umbraco.GetDictionaryValue("Newsletter.EmailRequiredMessage")" id="EmailAddress" name="EmailAddress"
@@ -16,7 +17,7 @@
                     <span class="field-validation-valid" data-valmsg-for="EmailAddress"
                           data-valmsg-replace="true"></span>
                     <button type="submit" class="btn icon font-ico-arrow-btn newsletter__btn"
-                            data-controller-url="/umbraco/surface/newslettersubscription/subscribe"></button>
+                            data-controller-url="/umbraco/surface/newslettersubscription/subscribe" aria-label="Subscribe to newsletter"></button>
                     
                 </form>
             </div>

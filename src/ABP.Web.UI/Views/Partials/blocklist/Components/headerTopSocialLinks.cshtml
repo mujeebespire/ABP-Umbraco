@@ -14,7 +14,7 @@
             var socialLinkItemContent = (SocialLinksItem)socialLinkItem.Content;
 
             <li class="header__social-item">
-                <a href="@socialLinkItemContent.SocialLink?.Url" class="header__social-link" target="@socialLinkItemContent.SocialLink?.Target">
+                <a href="@socialLinkItemContent.SocialLink?.Url" class="header__social-link" target="@socialLinkItemContent.SocialLink?.Target" aria-label="font-ico-@socialLinkItemContent.SocialIcon">
                     <span class="icon font-ico-@socialLinkItemContent.SocialIcon"><span class="sr-only">@socialLinkItemContent.SocialIcon icon</span></span>
                 </a>
             </li>

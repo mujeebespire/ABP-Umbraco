@@ -5,7 +5,7 @@
     var footerList = Model.Content as FooterList;
 }
 <div class="col-lg-4 col-md-12">
-    <h4 class="footer__title-large">@footerList?.Title</h4>
+    <h3 class="footer__title-large">@footerList?.Title</h3>
     @if (footerList?.Links != null && footerList.Links.Any())
     {
         <ul class="footer__list-large">
