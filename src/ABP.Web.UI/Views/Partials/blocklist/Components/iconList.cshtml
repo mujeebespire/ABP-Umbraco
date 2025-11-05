@@ -1,0 +1,40 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as IconList;
+    if (content == null) { return; }
+
+    var iconItems = content.Value<BlockListModel>("iconItems");
+}
+
+@if (iconItems != null && iconItems.Any())
+{
+    <div class="related-services">
+        <div class="wrap">
+            <div class="indent">
+                <h2 class="h2-bold related-services__title">Services available</h2>
+                <div class="related-services__link-wrapper">
+                    @foreach (var item in iconItems)
+                    {
+                        var row = item.Content as IconLinkRow;
+                        if (row == null) continue;
+
+                        var link = row.Value<Link>("link");
+                        var iconList = row.Value<string>("iconList");
+
+                        if (link != null)
+                        {
+                            <a href="@link.Url" target="@link.Target" class="related-services__link icon font-ico-@iconList">
+                                @link.Name
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
