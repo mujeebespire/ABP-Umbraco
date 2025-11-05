@@ -55,7 +55,7 @@ namespace ABP.Web.Models.UmbracoModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("contactTitle")]
-		public virtual string ContactTitle => this.Value<string>(_publishedValueFallback, "contactTitle");
+		public virtual global::Umbraco.Cms.Core.Models.Link ContactTitle => this.Value<global::Umbraco.Cms.Core.Models.Link>(_publishedValueFallback, "contactTitle");
 
 		///<summary>
 		/// Heading
@@ -84,8 +84,9 @@ namespace ABP.Web.Models.UmbracoModels
 		/// Phone Number
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("phoneNumber")]
-		public virtual int PhoneNumber => this.Value<int>(_publishedValueFallback, "phoneNumber");
+		public virtual string PhoneNumber => this.Value<string>(_publishedValueFallback, "phoneNumber");
 
 		///<summary>
 		/// Title 

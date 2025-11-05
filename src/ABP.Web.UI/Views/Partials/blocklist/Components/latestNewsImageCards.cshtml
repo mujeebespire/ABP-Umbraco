@@ -8,7 +8,7 @@
     if (content == null) return;
 
     var heading = content.Value<string>("heading");
-    var imageCards = content.ImageCards; // BlockList<CardsWithImages>
+    var imageCards = content.ImageCards;
 }
 
 <div class="related-content has-margin-bottom">
@@ -35,6 +35,7 @@
                     var description = card.Value<string>("description");
                     var date = card.Value<DateTime?>("date");
                     var cta = card.Cta;
+
                     var formattedDate = (date.HasValue && date.Value != DateTime.MinValue)
                     ? date.Value.ToString("dd MMMM yyyy")
                     : null;
@@ -47,13 +48,17 @@
                                 @if (!string.IsNullOrWhiteSpace(group) || latestNews)
                                 {
                                     <div class="related-content__category-wrapper">
-                                        @if (!string.IsNullOrWhiteSpace(group))
+                                        @* ✅ If both are ON — show side by side *@
+                                        @if (!string.IsNullOrWhiteSpace(group) && latestNews)
                                         {
                                             <span class="related-content__category">@group</span>
-                                        }
-                                        @if (latestNews)
-                                        {
                                             <span class="related-content__category-date">Latest News</span>
+                                        }
+                                      
+                                        @* ✅ If only latestNews — show as usual *@
+                                        else
+                                        {
+                                            <span class="related-content__category-date">@group</span>
                                         }
                                     </div>
                                 }
