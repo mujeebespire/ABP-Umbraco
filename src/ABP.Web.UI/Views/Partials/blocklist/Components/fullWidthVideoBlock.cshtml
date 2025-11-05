@@ -75,10 +75,12 @@ else
                     height="500"
                     class="js-video-iframe"
                     allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen>
+                    allowfullscreen
+                    title="Embedded Video"
+                    >
             </iframe>
 
-            <button type="button" class="btn video-wrapper__btn icon font-ico-triangle js-iframe-play">
+            <button type="button" class="btn video-wrapper__btn icon font-ico-triangle js-iframe-play" aria-label="Open video">
                 <span class="sr-only">Play video</span>
             </button>
         </div>
@@ -87,7 +89,7 @@ else
         {
             <div class="video-wrapper__popup js-iframe-popup">
                 <span class="video-wrapper__popup-overlay js-popup-close"></span>
-                <button type="button" class="video-wrapper__popup-close-btn js-popup-close">
+                <button type="button" class="video-wrapper__popup-close-btn js-popup-close" aria-label="Close video">
                     <span class="font-ico-close"></span>
                     <span class="sr-only">Close video</span>
                 </button>

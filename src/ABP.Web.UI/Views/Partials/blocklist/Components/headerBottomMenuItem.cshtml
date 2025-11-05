@@ -7,7 +7,7 @@
     var headerBottomMenuItem = Model.Content as HeaderBottomMenuItem;
 
 }
-<li class="nav__item has-children" role="menuitem">
+<li class="nav__item has-children" role="menuitem" aria-label="@headerBottomMenuItem?.Title">
     @if (headerBottomMenuItem?.IsAbutton??false)
     {
         <a role="button" href="javascript:;"
