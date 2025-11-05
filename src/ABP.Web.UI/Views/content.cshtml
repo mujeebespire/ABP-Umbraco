@@ -1,16 +1,22 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Content>
-
 @using Clean.Core.Models.ViewModels
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
 @using ABP.Web.Models.UmbracoModels
-
-
 @{
     Layout = "abpMaster.cshtml";
 }
 
+@if (Model.TopContent != null)
+{
+    @Html.GetBlockListHtml(Model.TopContent)
+}
 
 @if (Model.ContentRows != null)
 {
-    @Html.GetBlockListHtml(Model.ContentRows)
+    <main class="main  ">
+        <div class="wrap wrap--small">
+            @Html.GetBlockListHtml(Model.ContentRows)
+        </div>
+    </main>  
 }
+
