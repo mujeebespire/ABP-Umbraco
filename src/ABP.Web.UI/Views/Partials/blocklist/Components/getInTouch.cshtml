@@ -13,7 +13,8 @@
     var icon = content.Value<MediaWithCrops>("icon");
     var iconUrl = icon?.Url() ?? "";
 
-    var contactTitle = content.Value<string>("contactTitle");
+    // Updated fields
+    var contactLink = content.Value<Link>("contactTitle"); // single URL picker
     var phoneNumber = content.Value<string>("phoneNumber");
     var overlay = content.Value<bool>("overlay");
 }
@@ -43,10 +44,10 @@
                     </div>
 
                     <div class="contact-card__info">
-                        @if (!string.IsNullOrWhiteSpace(contactTitle))
+                        @if (contactLink != null && !string.IsNullOrWhiteSpace(contactLink.Url))
                         {
-                            <a href="mailto:@contactTitle" class="contact-card__link icon font-ico-mail">
-                                Get in touch
+                            <a href="@contactLink.Url" target="@contactLink.Target" class="contact-card__link icon font-ico-mail">
+                                @(string.IsNullOrWhiteSpace(contactLink.Name) ? "Get in touch" : contactLink.Name)
                             </a>
                         }
                         @if (!string.IsNullOrWhiteSpace(phoneNumber))
@@ -87,10 +88,10 @@ else
                     </div>
 
                     <div class="contact-card__info">
-                        @if (!string.IsNullOrWhiteSpace(contactTitle))
+                        @if (contactLink != null && !string.IsNullOrWhiteSpace(contactLink.Url))
                         {
-                            <a href="mailto:@contactTitle" class="contact-card__link icon font-ico-mail">
-                                Get in touch
+                            <a href="@contactLink.Url" target="@contactLink.Target" class="contact-card__link icon font-ico-mail">
+                                @(string.IsNullOrWhiteSpace(contactLink.Name) ? "Get in touch" : contactLink.Name)
                             </a>
                         }
                         @if (!string.IsNullOrWhiteSpace(phoneNumber))

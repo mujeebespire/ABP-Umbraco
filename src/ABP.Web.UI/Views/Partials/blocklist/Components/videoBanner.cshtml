@@ -1,0 +1,40 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+
+    // Get field values
+    var videoLink = content.Value<string>("videoLink");
+    var title = content.Value<string>("title");
+    var subtitle = content.Value<string>("subtitle");
+
+    if (string.IsNullOrWhiteSpace(videoLink))
+    {
+        <p style="color: red;">⚠️ Please provide a Vimeo video link.</p>
+        return;
+    }
+
+    // Ensure the Vimeo URL includes autoplay/background params
+    var finalVideoUrl = videoLink.Contains("?")
+        ? $"{videoLink}&background=1&autopause=0&api=1"
+        : $"{videoLink}?background=1&autopause=0&api=1";
+}
+
+<!-- 🎥 Dynamic Video Banner -->
+<div class="banner banner--small banner--overlay">
+    <iframe src="@finalVideoUrl" class="banner__iframe" title="@title"></iframe>
+
+    <div class="banner__container" style="@(string.IsNullOrWhiteSpace(title) && string.IsNullOrWhiteSpace(subtitle) ? "display:none;" : "")">
+        @if (!string.IsNullOrWhiteSpace(subtitle))
+        {
+            <span class="banner__subtitle">@subtitle</span>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(title))
+        {
+            <h1 class="banner__title banner__title--">@title</h1>
+        }
+    </div>
+</div>
