@@ -672,35 +672,38 @@
 
     </div>
 
-    <!-- Newsletter Form Section -->
+    
+    <!-- Newsletter section -->
     <div class="newsletter">
         <div class="wrap">
             <div class="newsletter__wrapper">
                 <div class="newsletter__container">
-                    <h4 class="newsletter__title">Join our mailing list for information, industry insight and marketing
-                        material:</h4>
-                    <form class="newsletter__form" method="post">
+                    <h3 class="newsletter__title">Join our mailing list for information, industry insight and marketing
+                        material:</h3>
+                    <form class="newsletter__form" method="post" aria-labelledby="newsletter-heading">
+                        <h2 id="newsletter-heading" class="visually-hidden">Subscribe to our newsletter</h2>
+                         <label for="EmailAddress" class="visually-hidden">Email address</label>
                         <input class="newsletter__input" data-val="true" data-val-email="The email address is not valid"
                             data-val-required="The email address is required" id="EmailAddress" name="EmailAddress"
                             placeholder="yourname@youraddress.com" type="text" value="" />
                         <span class="field-validation-valid" data-valmsg-for="EmailAddress"
                             data-valmsg-replace="true"></span>
                         <button type="submit" class="btn icon font-ico-arrow-btn newsletter__btn"
-                            data-controller-url="/umbraco/Surface/Subscribe/SubscribeForm"></button>
+                            data-controller-url="/umbraco/Surface/Subscribe/SubscribeForm" aria-label="Subscribe to newsletter"></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer Section -->
+    <!-- footer Section -->
     <footer class="footer">
         <div class="footer__top">
             <div class="wrap">
                 <div class="footer__container footer__container--top">
                     <div class="row">
                         <div class="col-lg-4 col-md-12">
-                            <h4 class="footer__title-large">HOW CAN WE HELP?</h4>
+                            <h3 class="footer__title-large">HOW CAN WE HELP?</h3>
                             <ul class="footer__list-large">
                                 <li class="footer__item-large">
                                     <a href="/contacts/london-office/" class="footer__link-large">Head Office</a>
@@ -817,9 +820,9 @@
                                 </div>
                                 <div class="footer__social-icons">
                                     <a href="https://twitter.com/abports21?lang=en" target="_blank"
-                                        class="icon font-ico-twitter footer__icon"></a>
+                                        class="icon font-ico-twitter footer__icon" aria-label="twitter icon"></a>
                                     <a href="https://www.linkedin.com/company/associated-british-ports" target="_blank"
-                                        class="icon font-ico-linkedin footer__icon"></a>
+                                        class="icon font-ico-linkedin footer__icon" aria-label="linked in icon"></a>
                                 </div>
                             </div>
                         </div>
@@ -827,6 +830,7 @@
                 </div>
             </div>
         </div>
+
         <div class="footer__bottom">
             <div class="wrap">
                 <div class="footer__container footer__container--bottom">
@@ -882,6 +886,7 @@
             </div>
         </div>
     </footer>
+    
     <button class="scroll-to-top js-scroll-top icon font-ico-ar-right" type="button">
         <span class="sr-only">Scroll top</span>
     </button>

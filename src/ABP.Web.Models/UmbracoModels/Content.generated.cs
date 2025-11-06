@@ -50,6 +50,14 @@ namespace ABP.Web.Models.UmbracoModels
 		// properties
 
 		///<summary>
+		/// Top Content: The components added to this block will be displayed above the main content, similar to a Page Banner.
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("topContent")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel TopContent => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "topContent");
+
+		///<summary>
 		/// Content Rows: Add the rows of content for the page
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
