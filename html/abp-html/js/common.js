@@ -10001,18 +10001,18 @@
               ((i = $("body")),
               n.addClass("header--sticky"),
               t.width() < 992
-                ? i.css("padding-top", "70px")
-                : i.css("padding-top", "134px"));
+                ? i.css("padding-top", n.innerHeight())
+                : i.css("padding-top", n.innerHeight()));
             t.on("scroll", function () {
               var u = t.scrollTop(),
                 i = $("body"),
                 f = n.scrollTop();
               t.width() < 992
                 ? u + f >= r
-                  ? (n.addClass("header--sticky"), i.css("padding-top", "70px"))
+                  ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
                   : (n.removeClass("header--sticky"), i.css("padding-top", "0"))
                 : u + f >= r
-                ? (n.addClass("header--sticky"), i.css("padding-top", "134px"))
+                ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
                 : (n.removeClass("header--sticky"), i.css("padding-top", "0"));
             });
             t.on("resize", function () {
@@ -10021,10 +10021,10 @@
                 f = n.scrollTop();
               t.width() < 992
                 ? u + f >= r
-                  ? (n.addClass("header--sticky"), i.css("padding-top", "70px"))
+                  ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
                   : (n.removeClass("header--sticky"), i.css("padding-top", "0"))
                 : u + f >= r
-                ? (n.addClass("header--sticky"), i.css("padding-top", "134px"))
+                ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
                 : (n.removeClass("header--sticky"), i.css("padding-top", "0"));
             });
           });

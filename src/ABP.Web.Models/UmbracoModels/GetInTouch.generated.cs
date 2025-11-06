@@ -89,6 +89,14 @@ namespace ABP.Web.Models.UmbracoModels
 		public virtual string PhoneNumber => this.Value<string>(_publishedValueFallback, "phoneNumber");
 
 		///<summary>
+		/// SubTitle
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("subTitle")]
+		public virtual string SubTitle => this.Value<string>(_publishedValueFallback, "subTitle");
+
+		///<summary>
 		/// Title 
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]

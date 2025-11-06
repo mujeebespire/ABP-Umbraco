@@ -1,0 +1,73 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as ImageWithRteAndCta;
+    if (content == null) { return; }
+
+    var title = content.Value<string>("title");
+    var imageCardItems = content.Value<BlockListModel>("imageCardItems");
+}
+
+@if (imageCardItems != null && imageCardItems.Any())
+{
+    <div class=" wrap wrap--small">
+    <div class="wrapper-image-cover-text">
+        @if (!string.IsNullOrWhiteSpace(title))
+        {
+            <h2 class="text-center">@title</h2>
+        }
+
+
+        @foreach (var item in imageCardItems)
+        {
+            var card = item.Content as ImageCardsAndRte;
+            if (card == null) continue;
+
+            var imageTitle = card.Value<string>("imageTitle");
+            var image = card.Value<MediaWithCrops>("image");
+            var contentTitle = card.Value<string>("contentTitle");
+            var contentText = card.Value<string>("content");
+            var cta = card.Value<Link>("cta");
+
+            var imageUrl = image?.Url() ?? string.Empty;
+                <h3><strong>@imageTitle</strong></h3>
+            <div class="inline-image">
+                <div class="inline-image__img-wrapper">
+                    
+                    @if (!string.IsNullOrWhiteSpace(imageUrl))
+                    {
+                        <img src="@imageUrl" alt="@imageTitle" />
+                    }
+                </div>
+
+                <div class="inline-image__text-wrapper">
+                    <div class="rte">
+                        @if (!string.IsNullOrWhiteSpace(contentTitle))
+                        {
+                            <h2>@contentTitle</h2>
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(contentText))
+                        {
+                                <p> @Html.Raw(contentText)</p>
+                        }
+
+                        @if (cta != null)
+                        {
+                            <p>
+                                <a href="@cta.Url" target="@cta.Target" class="btn btn-primary">
+                                    @cta.Name
+                                </a>
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    </div>
+}
