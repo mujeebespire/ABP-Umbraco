@@ -27,6 +27,8 @@
     <iframe src="@finalVideoUrl" class="banner__iframe" title="@title"></iframe>
 
     <div class="banner__container" style="@(string.IsNullOrWhiteSpace(title) && string.IsNullOrWhiteSpace(subtitle) ? "display:none;" : "")">
+
+        <span class="banner__icon icon font-ico-car"></span>
         @if (!string.IsNullOrWhiteSpace(subtitle))
         {
             <span class="banner__subtitle">@subtitle</span>

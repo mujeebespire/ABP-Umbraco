@@ -10,6 +10,7 @@
 
     var heading = content.Value<string>("heading");
     var title = content.Value<string>("title");
+    var subtitle = content.Value<string>("subTitle");
     var icon = content.Value<MediaWithCrops>("icon");
     var iconUrl = icon?.Url() ?? "";
 
@@ -40,6 +41,10 @@
                         @if (!string.IsNullOrWhiteSpace(title))
                         {
                             <h2 class="contact-card__title">@title</h2>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(subtitle))
+                        {
+                            <span class="contact-card__subtitle">@subtitle</span>
                         }
                     </div>
 
@@ -84,6 +89,10 @@ else
                         @if (!string.IsNullOrWhiteSpace(title))
                         {
                             <h2 class="contact-card__title">@title</h2>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(subtitle))
+                        {
+                            <span class="contact-card__subtitle">@subtitle</span>
                         }
                     </div>
 
