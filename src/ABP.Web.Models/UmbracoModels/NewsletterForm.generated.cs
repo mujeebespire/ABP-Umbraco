@@ -48,5 +48,29 @@ namespace ABP.Web.Models.UmbracoModels
 		}
 
 		// properties
+
+		///<summary>
+		/// Email Input Placeholder
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("emailInputPlaceholder")]
+		public virtual string EmailInputPlaceholder => this.Value<string>(_publishedValueFallback, "emailInputPlaceholder");
+
+		///<summary>
+		/// Newletter API Path
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("newletterApiPath")]
+		public virtual string NewletterApiPath => this.Value<string>(_publishedValueFallback, "newletterApiPath");
+
+		///<summary>
+		/// Title
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("title")]
+		public virtual string Title => this.Value<string>(_publishedValueFallback, "title");
 	}
 }

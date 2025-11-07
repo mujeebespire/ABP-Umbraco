@@ -4,7 +4,9 @@
 @{
     var homePage = Model.AncestorOrSelf<Home>();
 }
-   <!-- footer Section -->
+
+@Html.GetBlockListHtml(homePage?.FooterContents)
+<!-- footer Section -->
 <footer class="footer">
     @Html.GetBlockListHtml(homePage?.FooterNavigationMenus)  
 </footer>

@@ -50,12 +50,28 @@ namespace ABP.Web.Models.UmbracoModels
 		// properties
 
 		///<summary>
+		/// Footer Contents
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("footerContents")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel FooterContents => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "footerContents");
+
+		///<summary>
 		/// Footer Navigation Menus
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("footerNavigationMenus")]
 		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel FooterNavigationMenus => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "footerNavigationMenus");
+
+		///<summary>
+		/// Header Contents
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("headerContents")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel HeaderContents => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "headerContents");
 
 		///<summary>
 		/// Header Navigation Menus

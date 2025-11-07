@@ -2,6 +2,9 @@
 @using Umbraco.Cms.Core.Models.Blocks
 @using ABP.Web.Models.UmbracoModels
 @{
+    var currentPage = Umbraco.AssignedContentItem;
+    var homePage = (Home)currentPage.AncestorOrSelf(Home.ModelTypeAlias);
+
     var searchOverlay = Model.Content as SearchOverlay;
 
     string? searchResultPageUrl = searchOverlay?.SearchResultPageLink?.Url;
@@ -9,9 +12,9 @@
 <!-- Overlay Search Section -->
 <div class="search-overlay">
     <div class="search-overlay__top-wrapper">
-        <a href="/" class="logo">
-            <img src="/abp/images/logo.svg" alt="Associated British Ports" class="logo__img" />
-            <img src="/abp/images/logo-hover.svg" alt="Associated British Ports" class="logo__img-hover" />
+        <a href="@homePage?.Url()" class="logo">
+            <img src="@homePage?.Logo?.Url()" alt="@homePage?.Title" class="logo__img" />
+            <img src="@homePage?.HoverLogo?.Url()" alt="@homePage?.Title" class="logo__img-hover" />
         </a>
         <button type="button" class="search-overlay__close icon font-ico-close js-search-close"></button>
     </div>
