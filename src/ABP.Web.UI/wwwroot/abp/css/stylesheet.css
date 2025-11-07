@@ -6270,6 +6270,10 @@ textarea {
     .header__top {
         display: none;
     }
+
+    .js-header-dropdown {
+        display: none !important;
+    }
 }
 
 .header__bottom {
@@ -7195,6 +7199,26 @@ textarea {
         color: #2a61ff;
     }
 }
+
+.filters__info.filters__info_static {
+    position: static;
+    padding: 0 8px;
+    position: relative;
+    top: 14px;
+    left: 25px !important;
+}
+
+.flter-button {
+    width: 100%;
+    border: 0;
+    padding: 10px 29px 25px;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #2a61ff;
+}
+
 
 .footer {
     background-color: #16181a;
@@ -11623,6 +11647,7 @@ textarea {
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
         height: 100%;
+        position: absolute;
     }
 
     .contact-card--sticky .contact-card__img-wrapper {
@@ -13230,27 +13255,24 @@ hr {
     color: #fff;
 }
 
-.wrapper-image-cover-text > h2 {
+.wrapper-image-cover-text > h2,
+.wrapper-image-cover-text > h3 {
     font-family: "Roboto", sans-serif;
     font-weight: normal;
     color: #273238;
     max-width: 838px;
-    margin: 0 auto;
-    font-size: 60px;
     line-height: 60px;
+    margin: 0 auto;
     font-weight: 100;
+}
+
+.wrapper-image-cover-text > h2 {
+    font-size: 60px;
     margin-bottom: 20px;
 }
 
 .wrapper-image-cover-text > h3 {
     font-size: 40px;
-    line-height: 60px;
-    font-weight: 100;
-    font-family: "Roboto", sans-serif;
-    font-weight: normal;
-    color: #273238;
-    max-width: 838px;
-    margin: 0 auto;
     margin-bottom: 31px;
 }
 
@@ -13275,6 +13297,16 @@ hr {
 @media only screen and (max-width: 767.98px) {
     .inline-image {
         margin-bottom: 18px;
+    }
+
+    .wrapper-image-cover-text > h2 {
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    .wrapper-image-cover-text > h3 {
+        font-size: 24px;
+        margin-bottom: 35px;
     }
 }
 
@@ -17860,6 +17892,9 @@ hr {
         -ms-flex-direction: column;
         flex-direction: column;
     }
+}
+.contact-card__wrapper + .contact-card__wrapper {
+    margin-top: 30px; /* space between stacked cards */
 }
 
 .download-form__submit-message {
