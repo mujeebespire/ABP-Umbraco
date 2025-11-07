@@ -38,8 +38,8 @@
 
     <div class="filters">
         <form class="filters__container" id="typeFilterForm">
-            <span class="filters__info">FILTER BY</span>
-            <select class="filters__dropdown " id="typeFilter" name="Categories">
+            <span class="filters__info filters__info_static">FILTER BY</span>
+            <select class="filters__dropdown flter-button " id="typeFilter" name="Categories">
                 <option value="">TYPE</option>
                 @foreach (var type in types)
                 {
@@ -49,8 +49,8 @@
         </form>
 
         <form class="filters__container" id="yearFilterForm">
-            <span class="filters__info">FILTER BY</span>
-            <select class="filters__dropdown " id="yearFilter" name="Years">
+            <span class="filters__info filters__info_static">FILTER BY</span>
+            <select class="filters__dropdown flter-button " id="yearFilter" name="Years">
                 <option value="">YEAR</option>
                 @foreach (var y in years)
                 {
@@ -119,62 +119,93 @@
 
 
     <!-- PAGINATION -->
-    <ul class="pagination" id="pagination"></ul>
-</div>
+    <div class="pagination-container">
+        <ul class="pagination" id="pagination"></ul>
+    </div>
 
-<!-- ✅ SCRIPT FOR FILTER + PAGINATION -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const itemsPerPage = 6;
-        const list = Array.from(document.querySelectorAll(".downloads__item-wrapper"));
-        const pagination = document.getElementById("pagination");
-        const typeFilter = document.getElementById("typeFilter");
-        const yearFilter = document.getElementById("yearFilter");
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const itemsPerPage = 6;
+            const list = Array.from(document.querySelectorAll(".downloads__item-wrapper"));
+            const pagination = document.getElementById("pagination");
+            const typeFilter = document.getElementById("typeFilter");
+            const yearFilter = document.getElementById("yearFilter");
+            let currentPage = 1;
 
-        function filterItems() {
-            const type = typeFilter.value.toLowerCase();
-            const year = yearFilter.value;
-            list.forEach(item => {
-                const itemType = item.dataset.type?.toLowerCase() || "";
-                const itemYear = item.dataset.year || "";
-                const matchType = !type || itemType === type;
-                const matchYear = !year || itemYear === year;
-                item.style.display = (matchType && matchYear) ? "" : "none";
-            });
-            paginate();
-        }
-
-        function paginate() {
-            const visible = list.filter(i => i.style.display !== "none");
-            const totalPages = Math.ceil(visible.length / itemsPerPage);
-            pagination.innerHTML = "";
-
-            visible.forEach((item, i) => {
-                item.style.display = (i < itemsPerPage) ? "" : "none";
-            });
-
-            for (let i = 1; i <= totalPages; i++) {
-                const li = document.createElement("li");
-                li.classList.add("pagination__item");
-                li.innerHTML = `<a href="javascript:;" class="pagination__link ${i === 1 ? "pagination__link--active" : ""}" data-page="${i}">${i}</a>`;
-                li.addEventListener("click", () => showPage(i, visible, totalPages));
-                pagination.appendChild(li);
+            function filterItems() {
+                const type = typeFilter.value.toLowerCase();
+                const year = yearFilter.value;
+                list.forEach(item => {
+                    const itemType = item.dataset.type?.toLowerCase() || "";
+                    const itemYear = item.dataset.year || "";
+                    const matchType = !type || itemType === type;
+                    const matchYear = !year || itemYear === year;
+                    item.style.display = (matchType && matchYear) ? "" : "none";
+                });
+                currentPage = 1;
+                paginate();
             }
-        }
 
-        function showPage(page, visible, totalPages) {
-            const links = pagination.querySelectorAll(".pagination__link");
-            links.forEach(l => l.classList.remove("pagination__link--active"));
-            links[page - 1]?.classList.add("pagination__link--active");
+            function paginate() {
+                const visible = list.filter(i => i.style.display !== "none");
+                const totalPages = Math.ceil(visible.length / itemsPerPage);
+                pagination.innerHTML = "";
 
-            visible.forEach((item, i) => {
-                item.style.display = (i >= (page - 1) * 6 && i < page * 6) ? "" : "none";
-            });
-        }
+                if (totalPages <= 1) {
+                    visible.forEach(i => i.style.display = "");
+                    return;
+                }
 
-        typeFilter.addEventListener("change", filterItems);
-        yearFilter.addEventListener("change", filterItems);
+                // Previous arrow
+                const prev = document.createElement("li");
+                prev.classList.add("pagination__item");
+                prev.innerHTML = `<a href="javascript:;" class="pagination__link pagination__arrow" data-dir="prev">←</a>`;
+                prev.addEventListener("click", () => changePage("prev", totalPages, visible));
+                pagination.appendChild(prev);
 
-        filterItems();
-    });
-</script>
+                // Page numbers
+                for (let i = 1; i <= totalPages; i++) {
+                    const li = document.createElement("li");
+                    li.classList.add("pagination__item");
+                    li.innerHTML = `<a href="javascript:;" class="pagination__link ${i === currentPage ? "pagination__link--active" : ""}" data-page="${i}">${i}</a>`;
+                    li.addEventListener("click", () => showPage(i, visible, totalPages));
+                    pagination.appendChild(li);
+                }
+
+                // Next arrow
+                const next = document.createElement("li");
+                next.classList.add("pagination__item");
+                next.innerHTML = `<a href="javascript:;" class="pagination__link pagination__arrow" data-dir="next">→</a>`;
+                next.addEventListener("click", () => changePage("next", totalPages, visible));
+                pagination.appendChild(next);
+
+                showPage(currentPage, visible, totalPages);
+            }
+
+            function changePage(direction, totalPages, visible) {
+                if (direction === "prev" && currentPage > 1) currentPage--;
+                else if (direction === "next" && currentPage < totalPages) currentPage++;
+                showPage(currentPage, visible, totalPages);
+            }
+
+            function showPage(page, visible, totalPages) {
+                currentPage = page;
+                const links = pagination.querySelectorAll(".pagination__link");
+                links.forEach(l => l.classList.remove("pagination__link--active"));
+                links.forEach(l => {
+                    if (l.dataset.page == page) {
+                        l.classList.add("pagination__link--active");
+                    }
+                });
+
+                visible.forEach((item, i) => {
+                    item.style.display = (i >= (page - 1) * itemsPerPage && i < page * itemsPerPage) ? "" : "none";
+                });
+            }
+
+            typeFilter.addEventListener("change", filterItems);
+            yearFilter.addEventListener("change", filterItems);
+
+            filterItems();
+        });
+    </script>
