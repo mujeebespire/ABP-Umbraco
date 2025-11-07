@@ -5,7 +5,7 @@
 @using ABP.Web.Models.UmbracoModels
 
 @{
-    Layout = "master.cshtml";
+    Layout = "abpMaster.cshtml";
 }
 
 @await Html.PartialAsync("~/Views/Partials/pageHeader.cshtml", new PageHeaderViewModel(Model.Name, Model.Title, Model.Subtitle, Model.MainImage))
