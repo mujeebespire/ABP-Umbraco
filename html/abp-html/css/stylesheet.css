@@ -11358,6 +11358,11 @@ input[type="email"]::-ms-clear {
     }
 }
 
+/* new style 07112025 */
+.contact-card__wrapper + .contact-card__wrapper {
+  margin-top: 30px; /* space between stacked cards */
+}
+
 .contact-card--multi {
     margin-top: 0;
     padding: 40px 0;
