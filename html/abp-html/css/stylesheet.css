@@ -7238,6 +7238,27 @@ input[type="email"]::-ms-clear {
     }
 }
 
+.filters__info.filters__info_static{
+    position: static;
+        padding: 0 8px;
+    position: relative;
+    top: 16px;
+
+}
+
+.flter-button{
+    width: 100%;
+    height: 58%;
+    border: 0;
+    padding: 10px 29px;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #2a61ff;
+}
+
+
 .footer {
     background-color: #16181a;
     color: #fff;
