@@ -1,0 +1,180 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+@using Umbraco.Cms.Core.Models
+@using System.Globalization
+
+@{
+    var content = Model.Content as PdfListWithFilterAndPagination;
+    if (content == null) return;
+
+    var pdfList = content.Value<IEnumerable<BlockListItem>>("pdfList") ?? Enumerable.Empty<BlockListItem>();
+
+    var items = pdfList
+        .Select(i => i.Content as PdfBlock)
+        .Where(x => x != null)
+        .OrderByDescending(x => x.Value<DateTime?>("date"))
+        .ToList();
+
+    var types = items
+        .Select(x => x.Value<string>("type"))
+        .Where(t => !string.IsNullOrWhiteSpace(t))
+        .Distinct()
+        .OrderBy(t => t)
+        .ToList();
+
+    var years = items
+        .Select(x => x.Value<DateTime?>("date")?.Year)
+        .Where(y => y.HasValue)
+        .Select(y => y.Value)
+        .Distinct()
+        .OrderByDescending(y => y)
+        .ToList();
+}
+
+<div class="wrap wrap--small">
+    <!-- FILTERS -->
+
+    <div class="filters">
+        <form class="filters__container" id="typeFilterForm">
+            <span class="filters__info">FILTER BY</span>
+            <select class="filters__dropdown " id="typeFilter" name="Categories">
+                <option value="">TYPE</option>
+                @foreach (var type in types)
+                {
+                    <option value="@type">@type.ToUpperInvariant()</option>
+                }
+            </select>
+        </form>
+
+        <form class="filters__container" id="yearFilterForm">
+            <span class="filters__info">FILTER BY</span>
+            <select class="filters__dropdown " id="yearFilter" name="Years">
+                <option value="">YEAR</option>
+                @foreach (var y in years)
+                {
+                    <option value="@y">@y</option>
+                }
+            </select>
+        </form>
+
+
+    </div>
+
+    <!-- DOWNLOAD LIST -->
+    <div class="downloads" id="downloadsList">
+        @foreach (var pdf in items)
+        {
+            var title = pdf.Value<string>("title");
+            var date = pdf.Value<DateTime?>("date");
+            var type = pdf.Value<string>("type");
+            var link = pdf.Value<Link>("cta"); // ✅ single URL picker
+
+            <div class="downloads__item-wrapper"
+                 data-type="@type"
+                 data-year="@date?.Year">
+                <div class="downloads__item">
+                    <h2 class="downloads__title">@title</h2>
+                    <div class="downloads__category-wrapper">
+                        @if (date.HasValue)
+                        {
+                            <span class="downloads__category-date">
+                                @date.Value.ToString("dd MMMM yyyy", CultureInfo.InvariantCulture)
+                            </span>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(type))
+                        {
+                            <span class="downloads__category-type">@type</span>
+                        }
+                    </div>
+                </div>
+
+                @if (link != null && !string.IsNullOrWhiteSpace(link.Url))
+                {
+                    var size = 0.0;
+
+                    // ✅ if the link points to a media item (like PDF), try to calculate file size
+                    if (link.Udi != null)
+                    {
+                        var media = Umbraco.Media(link.Udi);
+                        if (media != null)
+                        {
+                            var bytes = media.Value<long>("umbracoBytes");
+                            size = bytes > 0 ? bytes / 1024.0 / 1024.0 : 0;
+                        }
+                    }
+
+                    <a href="@link.Url" target="@link.Target" class="downloads__file link link--download" download>
+                        @(link.Name ?? "Download file")
+                        @if (size > 0)
+                        {
+                            <span class="link__text">(@size.ToString("0.0")mb)</span>
+                        }
+                    </a>
+                }
+            </div>
+        }
+    </div>
+
+
+    <!-- PAGINATION -->
+    <ul class="pagination" id="pagination"></ul>
+</div>
+
+<!-- ✅ SCRIPT FOR FILTER + PAGINATION -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const itemsPerPage = 6;
+        const list = Array.from(document.querySelectorAll(".downloads__item-wrapper"));
+        const pagination = document.getElementById("pagination");
+        const typeFilter = document.getElementById("typeFilter");
+        const yearFilter = document.getElementById("yearFilter");
+
+        function filterItems() {
+            const type = typeFilter.value.toLowerCase();
+            const year = yearFilter.value;
+            list.forEach(item => {
+                const itemType = item.dataset.type?.toLowerCase() || "";
+                const itemYear = item.dataset.year || "";
+                const matchType = !type || itemType === type;
+                const matchYear = !year || itemYear === year;
+                item.style.display = (matchType && matchYear) ? "" : "none";
+            });
+            paginate();
+        }
+
+        function paginate() {
+            const visible = list.filter(i => i.style.display !== "none");
+            const totalPages = Math.ceil(visible.length / itemsPerPage);
+            pagination.innerHTML = "";
+
+            visible.forEach((item, i) => {
+                item.style.display = (i < itemsPerPage) ? "" : "none";
+            });
+
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement("li");
+                li.classList.add("pagination__item");
+                li.innerHTML = `<a href="javascript:;" class="pagination__link ${i === 1 ? "pagination__link--active" : ""}" data-page="${i}">${i}</a>`;
+                li.addEventListener("click", () => showPage(i, visible, totalPages));
+                pagination.appendChild(li);
+            }
+        }
+
+        function showPage(page, visible, totalPages) {
+            const links = pagination.querySelectorAll(".pagination__link");
+            links.forEach(l => l.classList.remove("pagination__link--active"));
+            links[page - 1]?.classList.add("pagination__link--active");
+
+            visible.forEach((item, i) => {
+                item.style.display = (i >= (page - 1) * 6 && i < page * 6) ? "" : "none";
+            });
+        }
+
+        typeFilter.addEventListener("change", filterItems);
+        yearFilter.addEventListener("change", filterItems);
+
+        filterItems();
+    });
+</script>

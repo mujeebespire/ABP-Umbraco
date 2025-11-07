@@ -23,52 +23,7 @@
 
 @if (leftImage)
 {
-    <!-- When toggle = true : Download block design -->
-    <section class="download-form">
-        <div class="download-form__content">
-            <div class="download-form__info">
-                @if (!string.IsNullOrWhiteSpace(title))
-                {
-                    <h2 class="download-form__title">@title</h2>
-                }
 
-                @if (ctas != null && ctas.Any())
-                {
-                    <div class="download-form__cta-holder">
-                        @foreach (var link in ctas)
-                        {
-                            if (link != null)
-                            {
-                                var btnClass = ctas.ToList().IndexOf(link) == 0
-                                ? "download-form__btn download-form__btn--blue download-form__btn--download btn js-download-btn"
-                                : "download-form__btn download-form__btn--white download-form__btn--download btn js-download-btn";
-
-                                <a href="@link.Url" target="@(link.Target)" class="@btnClass">
-                                    <span class="download-form__btn-text">@link.Name</span>
-                                </a>
-                            }
-                        }
-                    </div>
-                }
-            </div>
-
-            @if (!string.IsNullOrWhiteSpace(imageUrl))
-            {
-                <div class="download-form__image-holder">
-                    <img class="download-form__img" src="@imageUrl" alt="@title" />
-                </div>
-            }
-        </div>
-
-        <!-- Optional popup container if needed -->
-        <div class="download-form__popup js-download-popup">
-            <span class="download-form__popup-overlay"></span>
-            <div id="response-container" class="download-form__popup-content"></div>
-        </div>
-    </section>
-}
-else
-{
     <!-- When toggle = false : Contact block design -->
     <div class="contact">
         <div class="wrap">
@@ -110,4 +65,57 @@ else
             </div>
         </div>
     </div>
+   
+}
+else
+{
+
+
+    <!-- When toggle = true : Download block design -->
+    <section class="download-form">
+        <div class="download-form__content">
+            <div class="download-form__info">
+                @if (!string.IsNullOrWhiteSpace(title))
+                {
+                    <h2 class="download-form__title">@title</h2>
+                }
+                @if (!string.IsNullOrWhiteSpace(description))
+                {
+                    <p class="contact__text">@Html.Raw(description)</p>
+                }
+
+                @if (ctas != null && ctas.Any())
+                {
+                    <div class="download-form__cta-holder">
+                        @foreach (var link in ctas)
+                        {
+                            if (link != null)
+                            {
+                                var btnClass = ctas.ToList().IndexOf(link) == 0
+                                ? "download-form__btn download-form__btn--blue download-form__btn--download btn js-download-btn"
+                                : "download-form__btn download-form__btn--white download-form__btn--download btn js-download-btn";
+
+                                <a href="@link.Url" target="@(link.Target)" class="@btnClass">
+                                    <span class="download-form__btn-text">@link.Name</span>
+                                </a>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(imageUrl))
+            {
+                <div class="download-form__image-holder">
+                    <img class="download-form__img" src="@imageUrl" alt="@title" />
+                </div>
+            }
+        </div>
+
+        <!-- Optional popup container if needed -->
+        <div class="download-form__popup js-download-popup">
+            <span class="download-form__popup-overlay"></span>
+            <div id="response-container" class="download-form__popup-content"></div>
+        </div>
+    </section>
 }
