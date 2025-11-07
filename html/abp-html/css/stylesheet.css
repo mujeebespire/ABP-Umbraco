@@ -7240,9 +7240,10 @@ input[type="email"]::-ms-clear {
 
 .filters__info.filters__info_static{
     position: static;
-        padding: 0 8px;
+    padding: 0 8px;
     position: relative;
-    top: 16px;
+    top: 14px;
+    left: 25px !important;
 
 }
 
