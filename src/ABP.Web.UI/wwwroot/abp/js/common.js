@@ -10001,18 +10001,18 @@
               ((i = $("body")),
               n.addClass("header--sticky"),
               t.width() < 992
-                ? i.css("padding-top", "70px")
-                : i.css("padding-top", "134px"));
+                ? i.css("padding-top", n.innerHeight())
+                : i.css("padding-top", n.innerHeight()));
             t.on("scroll", function () {
               var u = t.scrollTop(),
                 i = $("body"),
                 f = n.scrollTop();
               t.width() < 992
                 ? u + f >= r
-                  ? (n.addClass("header--sticky"), i.css("padding-top", "70px"))
+                  ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
                   : (n.removeClass("header--sticky"), i.css("padding-top", "0"))
                 : u + f >= r
-                ? (n.addClass("header--sticky"), i.css("padding-top", "134px"))
+                ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
                 : (n.removeClass("header--sticky"), i.css("padding-top", "0"));
             });
             t.on("resize", function () {
@@ -10021,10 +10021,10 @@
                 f = n.scrollTop();
               t.width() < 992
                 ? u + f >= r
-                  ? (n.addClass("header--sticky"), i.css("padding-top", "70px"))
+                  ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
                   : (n.removeClass("header--sticky"), i.css("padding-top", "0"))
                 : u + f >= r
-                ? (n.addClass("header--sticky"), i.css("padding-top", "134px"))
+                ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
                 : (n.removeClass("header--sticky"), i.css("padding-top", "0"));
             });
           });
@@ -10108,6 +10108,9 @@
           init: function () {
             this.bindClickEvents();
             this.navigationFunction();
+
+            // new resize added 
+            this.bindNavigationResizeHandler();
           },
           bindClickEvents: function () {
             function c() {
@@ -10368,7 +10371,7 @@
                 t.removeClass("btn btn--grey"),
                 (o = f.find(".nav__link")),
                 (s = f.find(".nav__submenu-item--back")),
-                o.on("click", function () {
+                o.off("click.navigation").on("click.navigation", function () {
                   var n = $(this),
                     i = n.parents(".nav"),
                     t = $(".nav__submenu"),
@@ -10388,7 +10391,7 @@
                       overflow: "auto",
                     });
                 }),
-                s.on("click", function () {
+                s.off("click.navigation").on("click.navigation", function () {
                   var n = $(this);
                   n.parents(".nav")
                     .find(".nav__list")
@@ -10398,8 +10401,9 @@
                 })),
               e.width() > 991)
             ) {
+              v.off("click.navigation-close");
               h = $("body");
-              v.on("click", function (n) {
+              v.on("click.navigation-close", function (n) {
                 $("#downloadForm").length ||
                   u.is(n.target) ||
                   i.is(n.target) ||
@@ -10419,7 +10423,7 @@
               l = c.height(),
               a = $(window).height(),
               w = n.height();
-            y.on("click", function () {
+            y.off("click.navigation-toggle").on("click.navigation-toggle", function () {
               function i() {
                 $(".nav__item").show();
                 n.stop().slideDown(200);
@@ -10450,6 +10454,39 @@
                     500
                   ));
             });
+          },
+          bindNavigationResizeHandler: function () {
+            var n = this,
+              t = $(window),
+              i = n.getNavigationBreakpoint(t.width());
+            t.off("resize.navigation-breakpoint").on(
+              "resize.navigation-breakpoint",
+              function () {
+                var r = n.getNavigationBreakpoint(t.width());
+                r !== i &&
+                  ((i = r),
+                  n.resetNavigationState(),
+                  n.navigationFunction());
+              }
+            );
+          },
+          resetNavigationState: function () {
+            var n = this.navigation,
+              t = n.find(".nav__list"),
+              i = $("body");
+            n.find(".nav__link").off(".navigation");
+            n.find(".nav__submenu-item--back").off(".navigation");
+            $(document).off(".navigation-close");
+            this.navToggle.off(".navigation-toggle").removeClass("nav__toggle--open");
+            t.stop(!0, !0).removeAttr("style").removeClass("nav__list--open");
+            n.find(".nav__submenu").stop(!0, !0).removeAttr("style");
+            n.find(".nav__item").show();
+            $(".nav__link").removeClass("nav__link--active");
+            i.removeClass("scroll-disabled");
+            r.default.enableScroll();
+          },
+          getNavigationBreakpoint: function (n) {
+            return n >= 992 ? "desktop" : "mobile";
           },
         };
       t.default = f;
