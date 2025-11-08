@@ -1,0 +1,43 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+@using System.Globalization
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as NewsDetailBanner;
+    if (content == null) { return; }
+
+    var title = content.Value<string>("title");
+    var category = content.Value<string>("category");
+    var date = content.Value<DateTime?>("date");
+}
+
+<div class="banner banner--big">
+    <div class="banner__container">
+        @if (!string.IsNullOrWhiteSpace(category) || date.HasValue)
+        {
+            <div class="banner__category-wrapper">
+                @if (!string.IsNullOrWhiteSpace(category))
+                {
+                    <span class="banner__category">@category</span>
+                }
+                <span class="banner__category-date">Latest News</span>
+            </div>
+        }
+
+        <span class="banner__subtitle"></span>
+
+        @if (!string.IsNullOrWhiteSpace(title))
+        {
+            <h1 class="banner__title banner__title--article">@title</h1>
+        }
+
+        @if (date.HasValue)
+        {
+            <span class="banner__date">
+                @date.Value.ToString("dd MMMM yyyy", CultureInfo.InvariantCulture)
+            </span>
+        }
+    </div>
+</div>

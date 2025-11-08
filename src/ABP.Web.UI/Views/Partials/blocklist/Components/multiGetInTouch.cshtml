@@ -1,0 +1,81 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var content = Model.Content as MultiGetInTouch;
+    if (content == null) { return; }
+
+    var getInTouchBlocks = content.Value<BlockListModel>("multiGetInTouchBlock");
+}
+
+@if (getInTouchBlocks != null && getInTouchBlocks.Any())
+{
+    <div class="contact-card contact-card--multi">
+        <div class="wrap">
+            @foreach (var item in getInTouchBlocks)
+            {
+                var block = item.Content as GetInTouch;
+                if (block == null) { continue; }
+
+                var heading = block.Value<string>("heading");
+                var title = block.Value<string>("title");
+                var subTitle = block.Value<string>("subTitle");
+                var icon = block.Value<MediaWithCrops>("icon");
+                var contactLink = block.Value<Link>("contactTitle");
+                var phoneNumber = block.Value<string>("phoneNumber");
+
+                <!-- Each block gets its own wrapper so it stacks vertically -->
+                <div class="contact-card__wrapper" style="top: 0px;">
+                    <div class="contact-card__container contact-card__container--shadow">
+                        @* ICON *@
+                        @if (icon != null)
+                        {
+                            <div class="contact-card__img-wrapper">
+                                <img src="@icon?.Url()" alt="@title" class="contact-card__img" />
+                            </div>
+                        }
+
+                        @* AUTHOR / TEXT SECTION *@
+                        <div class="contact-card__author">
+                            @if (!string.IsNullOrWhiteSpace(subTitle))
+                            {
+                                <span class="contact-card__subtitle">@heading</span>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(title))
+                            {
+                                <h2 class="contact-card__title">@title</h2>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(heading))
+                            {
+                                <p class="contact-card__descr">@subTitle</p>
+                            }
+                        </div>
+
+                        @* CONTACT DETAILS *@
+                        <div class="contact-card__info">
+                            @if (contactLink != null && !string.IsNullOrWhiteSpace(contactLink.Url))
+                            {
+                                <a href="@contactLink.Url"
+                                   target="@contactLink.Target"
+                                   class="contact-card__link icon font-ico-mail">
+                                    @(contactLink.Name ?? "Get in touch")
+                                </a>
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(phoneNumber))
+                            {
+                                <a href="tel:@phoneNumber"
+                                   class="contact-card__link icon font-ico-phone">
+                                    @phoneNumber
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

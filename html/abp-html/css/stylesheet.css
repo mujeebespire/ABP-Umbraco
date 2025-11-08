@@ -3999,6 +3999,7 @@ body {
     margin-top: -120px;
     padding: 0 20px;
     overflow: hidden;
+    z-index: 1;
 }
 
 @media only screen and (max-width: 1199.98px) {
@@ -7238,6 +7239,27 @@ input[type="email"]::-ms-clear {
     }
 }
 
+.filters__info.filters__info_static{
+    position: static;
+    padding: 0 8px;
+    position: relative;
+    top: 14px;
+    left: 25px !important;
+
+}
+
+.flter-button{
+    width: 100%;
+    border: 0;
+    padding: 10px 29px 25px;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #2a61ff;
+}
+
+
 .footer {
     background-color: #16181a;
     color: #fff;
@@ -7658,8 +7680,21 @@ input[type="email"]::-ms-clear {
     background-color: #113373;
 }
 
+.banner--big .banner-img{
+    width: 100%;
+}
+
+.banner--big .banner-img img{
+    height: 626px;
+    object-fit: cover;
+    width: 100%;
+}
+
 @media only screen and (max-width: 767.98px) {
     .banner--big {
+        height: 400px;
+    }
+    .banner--big .banner-img img{
         height: 400px;
     }
 }
@@ -11335,6 +11370,11 @@ input[type="email"]::-ms-clear {
     .contact-card+.main {
         padding-top: 250px;
     }
+}
+
+/* new style 07112025 */
+.contact-card__wrapper + .contact-card__wrapper {
+  margin-top: 30px; /* space between stacked cards */
 }
 
 .contact-card--multi {
