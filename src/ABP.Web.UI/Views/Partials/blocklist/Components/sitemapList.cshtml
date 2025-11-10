@@ -1,0 +1,58 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    // Get the block content strongly typed
+    var content = Model.Content;
+    var header = content.Value<string>("header");
+    var siteMapItems = content.Value<BlockListModel>("siteMapItems");
+}
+
+@if (siteMapItems != null && siteMapItems.Any())
+{
+    <div class="sitemap">
+        <div class="wrap">
+
+            @if (!string.IsNullOrEmpty(header))
+            {
+                <h2 class="sitemap__title text-center">@header</h2>
+            }
+
+            <div class="row">
+                @foreach (var item in siteMapItems)
+                {
+                    var linkList = item.Content;
+                    var title = linkList.Value<string>("title");
+                    var links = linkList.Value<IEnumerable<Link>>("links");
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="sitemap__col">
+                            @if (!string.IsNullOrEmpty(title))
+                            {
+                                <h4 class="sitemap__col-title">@title</h4>
+                            }
+
+                            @if (links != null && links.Any())
+                            {
+                                <ul class="sitemap__list">
+                                    @foreach (var l in links)
+                                    {
+                                        if (l != null)
+                                        {
+                                            <li class="sitemap__item">
+                                                <a href="@l.Url" target="@l.Target" class="sitemap__link">@l.Name</a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+}
