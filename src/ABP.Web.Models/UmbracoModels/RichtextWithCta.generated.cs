@@ -64,5 +64,12 @@ namespace ABP.Web.Models.UmbracoModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("cta")]
 		public virtual global::Umbraco.Cms.Core.Models.Link Cta => this.Value<global::Umbraco.Cms.Core.Models.Link>(_publishedValueFallback, "cta");
+
+		///<summary>
+		/// Title margin
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[ImplementPropertyType("titleMargin")]
+		public virtual bool TitleMargin => this.Value<bool>(_publishedValueFallback, "titleMargin");
 	}
 }
