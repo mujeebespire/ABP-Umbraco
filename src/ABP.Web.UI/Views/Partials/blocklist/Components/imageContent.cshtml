@@ -1,0 +1,21 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using Clean.Core.Extensions
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var row = Model.Content as ImageContent;
+
+    var settings = Model.Settings as ImageRowSettings;
+
+    if (settings?.Hide ?? false) { return; }
+
+  
+}
+
+@if (row?.Image != null)
+{
+    <div class="image-wrapper">
+        <img src="@row?.Image.Url()" alt="@row?.Image.Name">
+    </div>
+}
