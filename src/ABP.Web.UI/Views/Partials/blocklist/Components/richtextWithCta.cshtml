@@ -1,30 +1,63 @@
-﻿@inherits UmbracoViewPage<BlockListItem>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
 @using Umbraco.Cms.Core.Models.Blocks
 @using Umbraco.Cms.Core.Models
 @using Umbraco.Extensions
 @using ABP.Web.Models.UmbracoModels
 
 @{
-    var richTextContent = Model.Content as RichtextWithCta;
-    var settings = Model.Settings as HideProperty;
-    if (settings?.Hide ?? false) { return; }
-
-    var content = richTextContent?.Value<string>("content");
-    var cta = richTextContent?.Value<Link>("cta");
+    var content = Model.Content;
+    var titleMargin = content.Value<bool>("titleMargin");   // toggle field
+    var richTextContent = content.Value<string>("content"); // rich text field
+    var cta = content.Value<Link>("cta");                   // multi-URL picker
 }
 
-<div class="rte">
-    @if (!string.IsNullOrWhiteSpace(content))
-    {
-        @Html.Raw(content)
-    }
+@if (titleMargin)
+{
+    <!-- When toggle is TRUE -->
+    <section class="download-form">
+        <div class="download-form__content">
+            <div class="download-form__info">
+                @* Use the existing rich text content *@
+                @if (!string.IsNullOrWhiteSpace(richTextContent))
+                {
+                    <h2 class="download-form__title">@Html.Raw(richTextContent)</h2>
+                }
 
-    @if (cta != null)
-    {
-        <p style="text-align: left;">
-            <a href="@cta.Url" target="@cta.Target">
-                <span class="btn"><strong>@cta.Name</strong></span>
-            </a>
-        </p>
-    }
-</div>
+                @* Use existing CTA link *@
+                @if (cta != null)
+                {
+                    <div class="download-form__cta-holder">
+                        <a href="@cta.Url" target="@cta.Target"
+                           class="download-form__btn download-form__btn--download btn js-download-btn">
+                            <span class="download-form__btn-text">@cta.Name</span>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="download-form__popup js-download-popup">
+            <span class="download-form__popup-overlay"></span>
+            <div id="response-container" class="download-form__popup-content"></div>
+        </div>
+    </section>
+}
+else
+{
+    <!-- When toggle is FALSE -->
+    <div class="rte">
+        @if (!string.IsNullOrWhiteSpace(richTextContent))
+        {
+            @Html.Raw(richTextContent)
+        }
+
+        @if (cta != null)
+        {
+            <p style="text-align: left;">
+                <a href="@cta.Url" target="@cta.Target">
+                    <span class="btn"><strong>@cta.Name</strong></span>
+                </a>
+            </p>
+        }
+    </div>
+}
