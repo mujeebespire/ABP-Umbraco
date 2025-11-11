@@ -17,6 +17,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using System.Web;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.IO;
@@ -100,6 +101,82 @@ namespace ABP.Web.UI.Controllers
 
         }
 
+
+        public async Task<IActionResult> ProcessAllArticles()
+        {
+            const string articleLinksPath = @"C:\ABP Repo Archive\Migration\ArticleLinks.txt";
+            var results = new List<object>();
+            var errors = new List<object>();
+
+            try
+            {
+                if (!System.IO.File.Exists(articleLinksPath))
+                {
+                    return Json(new { success = false, error = "ArticleLinks.txt file not found" });
+                }
+
+                var lines = await System.IO.File.ReadAllLinesAsync(articleLinksPath);
+                var totalArticles = lines.Length;
+                var processedCount = 0;
+
+                foreach (var line in lines)
+                {
+                    if (string.IsNullOrWhiteSpace(line))
+                        continue;
+
+                    try
+                    {
+                        // Split by comma to get URL and Region
+                        var parts = line.Split(',');
+                        if (parts.Length >= 2)
+                        {
+                            var url = parts[0].Trim();
+                            var region = parts[1].Trim();
+
+                            // Call ExtractArticleData for each URL
+                            var articleData = await ExtractArticleDataAsync(url, region);
+
+                            var result = ImportArticleData(articleData);
+
+                            processedCount++;
+
+                            results.Add(new
+                            {
+                                url = url,
+                                region = region,
+                                success = true,
+                                data = articleData
+                            });
+
+                            // Optional: Add a small delay to avoid overwhelming the server
+                            await Task.Delay(500);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        errors.Add(new
+                        {
+                            line = line,
+                            error = ex.Message
+                        });
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    totalProcessed = processedCount,
+                    totalErrors = errors.Count,
+                   // results = results,
+                    errors = errors
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
+
         public async Task<IActionResult> ExtractArticleData(string url, string region)
         {
             try
@@ -147,7 +224,7 @@ namespace ABP.Web.UI.Controllers
 
             // Extract Title
             var titleNode = htmlDoc.DocumentNode.SelectSingleNode("//h1[contains(@class, 'banner__title') and contains(@class, 'banner__title--article')]");
-            articleData.Title = titleNode?.InnerText.Trim();
+            articleData.Title = HttpUtility.HtmlDecode(titleNode?.InnerText.Trim()); 
 
             // Extract Category - from span with class banner__category
             var categoryNode = htmlDoc.DocumentNode.SelectSingleNode("//span[contains(@class, 'banner__category')]");
@@ -155,7 +232,7 @@ namespace ABP.Web.UI.Controllers
 
             // Extract SubTitle - from span with class banner__category-date
             var subTitleNode = htmlDoc.DocumentNode.SelectSingleNode("//span[contains(@class, 'banner__category-date')]");
-            articleData.SubTitle = subTitleNode?.InnerText.Trim();
+            articleData.SubTitle = HttpUtility.HtmlDecode(subTitleNode?.InnerText.Trim());
 
             // Extract Date
             var dateNode = htmlDoc.DocumentNode.SelectSingleNode("//span[contains(@class, 'banner__date')]");
@@ -184,12 +261,12 @@ namespace ABP.Web.UI.Controllers
             var titleTag = htmlDoc.DocumentNode.SelectSingleNode("//head/title");
             if (titleTag != null)
             {
-                articleData.SEOTitle = titleTag.InnerText.Replace("Associated British Ports |", "").Trim();
+                articleData.SEOTitle = HttpUtility.HtmlDecode(titleTag.InnerText.Replace("Associated British Ports |", "").Trim());
             }
 
             // Extract SEO Description
             var metaDesc = htmlDoc.DocumentNode.SelectSingleNode("//meta[@name='description']");
-            articleData.SEODescription = metaDesc?.GetAttributeValue("content", "");
+            articleData.SEODescription = HttpUtility.HtmlDecode(metaDesc?.GetAttributeValue("content", ""));
 
             // Extract Article Content Items
             var wrapNode = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'wrap') and contains(@class, 'wrap--small')]");
@@ -323,6 +400,9 @@ namespace ABP.Web.UI.Controllers
                     var rteContent = childNode.InnerHtml.Trim();
                     if (!string.IsNullOrEmpty(rteContent))
                     {
+                        // Decode HTML entities (e.g., &#163; to £)
+                        //rteContent = HttpUtility.HtmlDecode(rteContent);
+
                         items.Add(new ArticleDataItem
                         {
                             ArticleDataType = ArticleContentTypes.RichText,
