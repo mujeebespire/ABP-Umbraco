@@ -40,7 +40,7 @@
 
                         @* AUTHOR / TEXT SECTION *@
                         <div class="contact-card__author">
-                            @if (!string.IsNullOrWhiteSpace(subTitle))
+                            @if (!string.IsNullOrWhiteSpace(heading))
                             {
                                 <span class="contact-card__subtitle">@heading</span>
                             }
@@ -48,7 +48,7 @@
                             {
                                 <h2 class="contact-card__title">@title</h2>
                             }
-                            @if (!string.IsNullOrWhiteSpace(heading))
+                            @if (!string.IsNullOrWhiteSpace(subTitle))
                             {
                                 <p class="contact-card__descr">@subTitle</p>
                             }
