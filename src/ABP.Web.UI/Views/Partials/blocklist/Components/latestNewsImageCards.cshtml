@@ -41,8 +41,7 @@
                     : null;
 
                     <div class="col-lg-6 col-md-6 related-content__box js-clickable">
-                        @if (cta != null)
-                        {
+                      
                             <div class="related-content__container" style="background-image: url('@imageUrl');">
 
                                 @if (!string.IsNullOrWhiteSpace(group) || latestNews)
@@ -77,10 +76,13 @@
                                 {
                                     <span class="related-content__date">@formattedDate</span>
                                 }
-                    
-                                <a href="@cta.Url" target="@(cta.Target)" class="related-content__link icon font-ico-ar-right" aria-label="@imageTitle"></a>
+                                @if (cta != null)
+                                {
+                                    <a href="@cta.Url" target="@(cta.Target)" class="related-content__link icon font-ico-ar-right" aria-label="@imageTitle"></a>
+                                }
+
                             </div>
-                        }
+                        
                     </div>
                 }
             }
