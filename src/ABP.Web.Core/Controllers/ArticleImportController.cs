@@ -1,6 +1,7 @@
 ﻿using ABP.Web.Models.UmbracoModels;
 using CsvHelper;
 using CsvHelper.Configuration;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -15,6 +16,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.IO;
@@ -62,6 +64,10 @@ namespace ABP.Web.UI.Controllers
         private readonly MediaFileManager _mediaFileManager;
         private readonly MediaUrlGeneratorCollection _mediaUrlGeneratorCollection;
 
+        private const string BASE_URL = "https://www.abports.co.uk";
+        private readonly HttpClient _httpClient;
+
+
 
         public ArticleImportController(
             IUmbracoContextAccessor umbracoContextAccessor,
@@ -90,7 +96,497 @@ namespace ABP.Web.UI.Controllers
             _contentTypeBaseServiceProvider = contentTypeBaseServiceProvider;
             _mediaUrlGeneratorCollection = mediaUrlGenerators;
             _mediaFileManager = mediaFileManager;
+            _httpClient = new HttpClient();
+
         }
+
+        public async Task<IActionResult> ExtractArticleData(string url, string region)
+        {
+            try
+            {
+                var articleData = await ExtractArticleDataAsync(url, region);
+
+                var result = ImportArticleData(articleData);
+
+                return result;
+                // return Json(new { success = true});
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
+
+        private async Task<ArticleData> ExtractArticleDataAsync(string url, string region)
+        {
+            // Ensure IMAGES_BASE_PATH directory exists
+            if (!Directory.Exists(IMAGES_BASE_PATH))
+            {
+                Directory.CreateDirectory(IMAGES_BASE_PATH);
+            }
+
+            var articleData = new ArticleData
+            {
+                Region = region,
+                ArticleDataItems = new List<ArticleDataItem>()
+            };
+
+            // Extract NewsMediaPath from URL
+            articleData.NewsMediaPath = ExtractNewsMediaPath(url);
+
+            // Extract Year from URL
+            articleData.Year = ExtractYearFromUrl(url);
+
+            // Fetch the HTML content
+            var fullUrl = BASE_URL + url;
+            var html = await _httpClient.GetStringAsync(fullUrl);
+
+            // Load HTML document
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(html);
+
+            // Extract Title
+            var titleNode = htmlDoc.DocumentNode.SelectSingleNode("//h1[contains(@class, 'banner__title') and contains(@class, 'banner__title--article')]");
+            articleData.Title = titleNode?.InnerText.Trim();
+
+            // Extract Category - from span with class banner__category
+            var categoryNode = htmlDoc.DocumentNode.SelectSingleNode("//span[contains(@class, 'banner__category')]");
+            articleData.Category = categoryNode?.InnerText.Trim();
+
+            // Extract SubTitle - from span with class banner__category-date
+            var subTitleNode = htmlDoc.DocumentNode.SelectSingleNode("//span[contains(@class, 'banner__category-date')]");
+            articleData.SubTitle = subTitleNode?.InnerText.Trim();
+
+            // Extract Date
+            var dateNode = htmlDoc.DocumentNode.SelectSingleNode("//span[contains(@class, 'banner__date')]");
+            if (dateNode != null)
+            {
+                var dateText = dateNode.InnerText.Trim();
+                if (DateTime.TryParse(dateText, out DateTime parsedDate))
+                {
+                    articleData.Date = parsedDate;
+                }
+            }
+
+            // Extract and Download Banner Image
+            var bannerNode = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'banner') and contains(@class, 'banner--big')]");
+            if (bannerNode != null)
+            {
+                var style = bannerNode.GetAttributeValue("style", "");
+                var imageUrl = ExtractBackgroundImageUrl(style);
+                if (!string.IsNullOrEmpty(imageUrl))
+                {
+                    articleData.BanerImageId = await DownloadImageAsync(imageUrl);
+                }
+            }
+
+            // Extract SEO Title
+            var titleTag = htmlDoc.DocumentNode.SelectSingleNode("//head/title");
+            if (titleTag != null)
+            {
+                articleData.SEOTitle = titleTag.InnerText.Replace("Associated British Ports |", "").Trim();
+            }
+
+            // Extract SEO Description
+            var metaDesc = htmlDoc.DocumentNode.SelectSingleNode("//meta[@name='description']");
+            articleData.SEODescription = metaDesc?.GetAttributeValue("content", "");
+
+            // Extract Article Content Items
+            var wrapNode = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'wrap') and contains(@class, 'wrap--small')]");
+            if (wrapNode != null)
+            {
+                await ExtractArticleContentItems(wrapNode, articleData.ArticleDataItems);
+            }
+
+            return articleData;
+        }
+
+        private string ExtractNewsMediaPath(string url)
+        {
+            if (url.Contains("/news-and-media/articles-and-blog/"))
+            {
+                return "Articles And Blog";
+            }
+            else if (url.Contains("/news-and-media/latest-news/"))
+            {
+                return "Latest News";
+            }
+            return null;
+        }
+
+        private string ExtractYearFromUrl(string url)
+        {
+            var match = Regex.Match(url, @"/(\d{4})/");
+            return match.Success ? match.Groups[1].Value : null;
+        }
+
+        private string ExtractBackgroundImageUrl(string style)
+        {
+            var match = Regex.Match(style, @"url\(['""]?([^'""]+)['""]?\)");
+            if (match.Success)
+            {
+                var imageUrl = match.Groups[1].Value;
+                if (!imageUrl.StartsWith("http"))
+                {
+                    imageUrl = BASE_URL + imageUrl;
+                }
+                return imageUrl;
+            }
+            return null;
+        }
+
+        private async Task<string> DownloadImageAsync(string imageUrl)
+        {
+            try
+            {
+                var uniqueId = Guid.NewGuid().ToString();
+                var folderPath = Path.Combine(IMAGES_BASE_PATH, uniqueId);
+                Directory.CreateDirectory(folderPath);
+
+                var imageBytes = await _httpClient.GetByteArrayAsync(imageUrl);
+                var extension = Path.GetExtension(imageUrl.Split('?')[0]);
+                if (string.IsNullOrEmpty(extension))
+                {
+                    extension = ".jpg";
+                }
+
+                var fileName = "image" + extension;
+                var filePath = Path.Combine(folderPath, fileName);
+
+                await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
+
+                return uniqueId;
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                return null;
+            }
+        }
+
+        private async Task ExtractArticleContentItems(HtmlNode wrapNode, List<ArticleDataItem> items)
+        {
+            foreach (var childNode in wrapNode.ChildNodes)
+            {
+                // Check for image wrapper
+                if (childNode.NodeType == HtmlNodeType.Element &&
+                    childNode.HasClass("image-wrapper"))
+                {
+                    var imageNode = childNode.SelectSingleNode(".//div[contains(@class, 'banner') and contains(@class, 'banner--big')]");
+                    if (imageNode == null)
+                    {
+                        // Try to find img tag
+                        var imgTag = childNode.SelectSingleNode(".//img");
+                        if (imgTag != null)
+                        {
+                            var imgSrc = imgTag.GetAttributeValue("src", "");
+                            if (!string.IsNullOrEmpty(imgSrc))
+                            {
+                                if (!imgSrc.StartsWith("http"))
+                                {
+                                    imgSrc = BASE_URL + imgSrc;
+                                }
+                                var uniqueId = await DownloadImageAsync(imgSrc);
+                                if (!string.IsNullOrEmpty(uniqueId))
+                                {
+                                    items.Add(new ArticleDataItem
+                                    {
+                                        ArticleDataType = ArticleContentTypes.Image,
+                                        data = uniqueId
+                                    });
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var style = imageNode.GetAttributeValue("style", "");
+                        var imageUrl = ExtractBackgroundImageUrl(style);
+                        if (!string.IsNullOrEmpty(imageUrl))
+                        {
+                            var uniqueId = await DownloadImageAsync(imageUrl);
+                            if (!string.IsNullOrEmpty(uniqueId))
+                            {
+                                items.Add(new ArticleDataItem
+                                {
+                                    ArticleDataType = ArticleContentTypes.Image,
+                                    data = uniqueId
+                                });
+                            }
+                        }
+                    }
+                }
+                // Check for RTE content
+                else if (childNode.NodeType == HtmlNodeType.Element &&
+                         childNode.HasClass("rte"))
+                {
+                    var rteContent = childNode.InnerHtml.Trim();
+                    if (!string.IsNullOrEmpty(rteContent))
+                    {
+                        items.Add(new ArticleDataItem
+                        {
+                            ArticleDataType = ArticleContentTypes.RichText,
+                            data = rteContent
+                        });
+                    }
+                }
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _httpClient?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private JsonResult ImportArticleData(ArticleData? articleData)
+        {
+            var summary = new ImportSummary();
+
+            if (articleData == null)
+            {
+                return Json(new { success = false, message = "Article Data not found" });
+            }
+
+            try
+            {
+                _logger.LogInformation("Starting article import from CSV");
+
+                // Find Abports root node
+                var abportsNode = FindAbportsNode();
+                if (abportsNode == null)
+                {
+                    return Json(new { success = false, message = "Abports root node not found" });
+                }
+
+                // Navigate to Articles And Blog folder
+                var articlesAndBlogNode = FindOrCreatePath(abportsNode, new[] { "News And Media", articleData.NewsMediaPath ?? "" });
+                if (articlesAndBlogNode == null)
+                {
+                    return Json(new { success = false, message = "Could not find or create Articles And Blog path" });
+                }
+
+                // Find/Create Media folders
+                var mediaYearFolders = new Dictionary<string, IMedia>();
+
+                //// Read and process CSV
+                //if (!System.IO.File.Exists(CSV_FILE_PATH))
+                //{
+                //    return Json(new { success = false, message = $"CSV file not found at {CSV_FILE_PATH}" });
+                //}
+
+                var record = articleData;
+
+                try
+                {
+                    _logger.LogInformation($"Processing article: {record.Title}");
+
+                    // Get or create year folder
+                    var yearFolder = GetOrCreateYearFolder(articlesAndBlogNode, record.Year, summary);
+
+                    // Check if article already exists
+                    if (ArticleExists(yearFolder, record.Title))
+                    {
+                        summary.Skipped++;
+                        _logger.LogInformation($"Skipped (already exists): {record.Title}");
+                    }
+
+                    // Get or create media year folder
+                    if (!mediaYearFolders.ContainsKey(record.Year))
+                    {
+                        mediaYearFolders[record.Year] = GetOrCreateMediaYearFolder(record.Year, summary);
+                    }
+                    var mediaYearFolder = mediaYearFolders[record.Year];
+
+                    // Upload media files
+                    IMedia? bannerMedia = null;
+                    //IMedia? mainMedia = null;
+
+                    if (!string.IsNullOrEmpty(record.BanerImageId))
+                    {
+                        bannerMedia = UploadImage(record.BanerImageId, mediaYearFolder, summary);
+                    }
+
+                    //if (!string.IsNullOrEmpty(record.mail))
+                    //{
+                    //    mainMedia = UploadImage(record.MainImageId, mediaYearFolder, summary);
+                    //}
+
+                    // Create article
+                    var article = CreateArticleFromData(yearFolder, record, bannerMedia, summary, mediaYearFolder);
+
+                    if (article != null)
+                    {
+                        summary.Created++;
+                        summary.CreatedArticles.Add(record.Title);
+                        _logger.LogInformation($"Created Article: {record.Title}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    summary.Errors++;
+                    summary.ErrorMessages.Add($"Error processing {record.Title}: {ex.Message}");
+                    _logger.LogError(ex, $"Error processing article: {record.Title}");
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    summary = new
+                    {
+                        total = summary.Created + summary.Skipped + summary.Errors,
+                        created = summary.Created,
+                        skipped = summary.Skipped,
+                        errors = summary.Errors,
+                        createdArticles = summary.CreatedArticles,
+                        createdYearFolders = summary.CreatedYearFolders,
+                        uploadedMedia = summary.UploadedMedia,
+                        errorMessages = summary.ErrorMessages
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fatal error during article import");
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        private IContent? CreateArticleFromData(IContent parent, ArticleData record, IMedia? bannerMedia,
+           ImportSummary summary, IMedia mediaYearFolder)
+        {
+            try
+            {
+                string regions = record.Region ?? "";
+
+                var article = _contentService.Create(record.Title, parent.Id, ARTICLE_ALIAS);
+
+                // Set basic properties
+                article.SetValue("title", record.Title);
+                article.SetValue("subtitle", record.SubTitle);
+                article.SetValue("metaName", record.SEOTitle);
+                article.SetValue("metaDescription", record.SEODescription);
+
+                if (record.Date != null)
+                {
+                    var articleDate = (DateTime)record.Date;
+                    article.SetValue("articleDate", articleDate);
+                }
+
+                // Set main image (banner)
+                if (bannerMedia != null)
+                {
+                    var mainImageValue = new List<object>
+                    {
+                        new
+                        {
+                            key = Guid.NewGuid(),
+                            mediaKey = bannerMedia.Key,
+                            crops = Array.Empty<object>(),
+                            focalPoint = (object?)null
+                        }
+                    };
+                    article.SetValue("mainImage", System.Text.Json.JsonSerializer.Serialize(mainImageValue));
+                }
+
+                // Set categories
+                if (!string.IsNullOrEmpty(record.Category))
+                {
+                    var categories = record.Category.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(c => c.Trim())
+                        .ToList();
+
+                    var ctagoryIds = GetCtagoryIds(categories);
+
+
+                    if (ctagoryIds != null && ctagoryIds.Any())
+                    {
+                        article.SetValue("categories", string.Join(", ", ctagoryIds));
+                    }
+
+
+                    // This is a simplified version
+                    _logger.LogInformation($"Categories for {record.Title}: {string.Join(", ", categories)}");
+                }
+
+
+                if (!string.IsNullOrEmpty(regions))
+                {
+                    var regionsList = regions.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(c => c.Trim())
+                        .ToList();
+
+                    var regionsIds = GetRegionIds(regionsList);
+
+
+                    if (regionsIds != null && regionsIds.Any())
+                    {
+                        article.SetValue("region", string.Join(", ", regionsIds));
+                    }
+
+
+                    // This is a simplified version
+                    _logger.LogInformation($"Regions for {record.Title}: {string.Join(", ", regionsList)}");
+                }
+
+                var contentItems = new List<ArticleContent>();
+
+                if(record.ArticleDataItems != null && record.ArticleDataItems.Any())
+                {
+                    foreach (var item in record.ArticleDataItems)
+                    {
+                        if (item.ArticleDataType == ArticleContentTypes.Image)
+                        {
+                            if (!string.IsNullOrEmpty(item.data))
+                            {
+                                var mainMedia = UploadImage(item.data, mediaYearFolder, summary);
+
+                                contentItems.Add(new ArticleContent
+                                {
+                                    ContentType = ArticleContentTypes.Image,
+                                    Image = mainMedia
+                                });
+                            }
+                        }
+                        else if (item.ArticleDataType == ArticleContentTypes.RichText)
+                        {
+                            contentItems.Add(new ArticleContent
+                            {
+                                ContentType = ArticleContentTypes.RichText,
+                                RichText = item.data
+                            });
+                        }
+                    }
+
+                    CreateContentRowsBlockList(article, contentItems);
+                }
+                
+
+             
+                //CreateContentRowsBlockList(mainMedia, record.Richtext);
+                // Save and publish
+                var result = _contentService.Save(article);
+                _contentService.Publish(article, new[] { "*" });
+                if (result.Success)
+                {
+                    return article;
+                }
+                else
+                {
+                    _logger.LogError($"Failed to publish article: {string.Join(", ", result.EventMessages.GetAll().Select(m => m.Message))}");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error creating article: {record.Title}");
+                return null;
+            }
+        }
+
 
         /// <summary>
         /// Import articles from CSV file
@@ -336,11 +832,10 @@ namespace ABP.Web.UI.Controllers
                 var existingMedia = _mediaService.GetPagedChildren(parentFolder.Id, 0, int.MaxValue, out _)
                     .FirstOrDefault(x => x.Name.Equals(fileName, StringComparison.OrdinalIgnoreCase));
 
-                if (existingMedia != null)
-                {
-                    return existingMedia;
-                }
-
+                //if (existingMedia != null)
+                //{
+                //    return existingMedia;
+                //}
 
 
                 var media = UploadImageFromLocalFolder(imageFile, parentFolder.Id);
@@ -573,7 +1068,7 @@ namespace ABP.Web.UI.Controllers
                             contentTypeKey = richTextElementTypeKey.Value,
                             udi = contentUdi,
                             content = contentItem.RichText // Your actual property alias
-                            
+
                         };
                         contentDataItems.Add(blockItem);
 
@@ -621,7 +1116,7 @@ namespace ABP.Web.UI.Controllers
                 // Serialize to JSON
                 var json = JsonConvert.SerializeObject(blockListValue, new JsonSerializerSettings
                 {
-                   // ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    // ContractResolver = new CamelCasePropertyNamesContractResolver(),
                     NullValueHandling = NullValueHandling.Ignore,
                     Formatting = Formatting.None
                 });
@@ -870,5 +1365,28 @@ namespace ABP.Web.UI.Controllers
         public ArticleContentTypes ContentType { get; set; }
         public string? RichText { get; set; }
         public IMedia? Image { get; set; }
+    }
+
+    public class ArticleData
+    {
+        public string? Year { get; set; }
+        public string? Title { get; set; }
+        public string? SubTitle { get; set; }
+        public string? BanerImageId { get; set; }
+        public string? Category { get; set; }
+        public DateTime? Date { get; set; }
+        public string? Region { get; set; }
+
+        public string? SEOTitle { get; set; }
+        public string? SEODescription { get; set; }
+
+        public string? NewsMediaPath { get; set; }
+        public List<ArticleDataItem>? ArticleDataItems { get; set; }
+    }
+
+    public class ArticleDataItem
+    {
+        public ArticleContentTypes ArticleDataType { get; set; }
+        public string? data { get; set; }
     }
 }
