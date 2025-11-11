@@ -15,7 +15,7 @@
             {
                 var map = (MapSecondaryItem)item.Content;
 
-                <span class="map-locations__dot" data-top="28%" data-left="36%"
+                <span class="map-locations__dot" data-top="@map.TopCoordinate%" data-left="@map.RightCoordinate%"
                       data-dot="@map.Key" style="top: @map.TopCoordinate%; left: @map.RightCoordinate%;">
                     <span class="sr-only">Map locations</span>
                 </span>
