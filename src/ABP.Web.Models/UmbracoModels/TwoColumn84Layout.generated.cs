@@ -50,11 +50,19 @@ namespace ABP.Web.Models.UmbracoModels
 		// properties
 
 		///<summary>
-		/// Block Grid Area
+		/// Left Column
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
-		[ImplementPropertyType("blockGridArea")]
-		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel BlockGridArea => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockGridModel>(_publishedValueFallback, "blockGridArea");
+		[ImplementPropertyType("leftColumn")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel LeftColumn => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "leftColumn");
+
+		///<summary>
+		/// Right Column
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("rightColumn")]
+		public virtual global::Umbraco.Cms.Core.Models.Blocks.BlockListModel RightColumn => this.Value<global::Umbraco.Cms.Core.Models.Blocks.BlockListModel>(_publishedValueFallback, "rightColumn");
 	}
 }
