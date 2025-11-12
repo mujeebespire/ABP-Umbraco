@@ -1,0 +1,26 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var richTextWithImage = Model.Content as RichTextWithImage;
+
+}
+
+<div class="inline-image">
+	@if (richTextWithImage?.Image != null)
+	{
+		<div class="inline-image__img-wrapper">
+			<img src="@richTextWithImage.Image.Url()" alt="@richTextWithImage.Image.Name">
+		</div>
+	}
+	@if (richTextWithImage?.Text != null)
+	{
+		<div class="inline-image__text-wrapper">
+			<div class="rte">
+				@richTextWithImage?.Text
+			</div>
+		</div>
+	}
+	
+</div>
