@@ -9,10 +9,31 @@
 @{
     Layout = "abpMaster.cshtml";
     var author = Model.Author;
+
+    var categories = Model.Categories != null && Model.Categories.Any()
+        ? string.Join(", ", Model.Categories.Select(c => c.Name))
+        : "";
+
+    string formattedDate = Model.ArticleDate.ToString("dd MMMM yyyy");
 }
 
-
-
+<div class="banner banner--big">
+    <div class="banner__container">
+        <div class="banner__category-wrapper">
+            @if (!string.IsNullOrEmpty(categories))
+            {
+                <span class="banner__category">Property</span>
+            }
+            @if (!string.IsNullOrEmpty(Model.Subtitle))
+            {
+                <span class="banner__category-date">@Model.Subtitle</span>
+            }
+        </div>
+        <span class="banner__subtitle"></span>
+        <h1 class="banner__title banner__title--article">@Model.Title</h1>
+        <span class="banner__date">@formattedDate</span>
+    </div>
+</div>
 
 <div class="content-up">
     <div class="content-up__container">
