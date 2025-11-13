@@ -32,6 +32,8 @@ using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Infrastructure.Persistence;
 using Umbraco.Cms.Web.Website.Controllers;
 using Umbraco.Extensions;
+using static System.Net.Mime.MediaTypeNames;
+using static Umbraco.Cms.Core.Constants.HttpContext;
 using JsonExtensionDataAttribute = System.Text.Json.Serialization.JsonExtensionDataAttribute;
 using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
 
@@ -341,13 +343,184 @@ namespace ABP.Web.UI.Controllers
             }
         }
 
+        //private async Task ExtractArticleContentItems(HtmlNode wrapNode, List<ArticleDataItem> items)
+        //{
+        //    foreach (var childNode in wrapNode.ChildNodes)
+        //    {
+        //        // Check for image wrapper
+        //        if (childNode.NodeType == HtmlNodeType.Element &&
+        //            childNode.HasClass("image-wrapper"))
+        //        {
+        //            var imageNode = childNode.SelectSingleNode(".//div[contains(@class, 'banner') and contains(@class, 'banner--big')]");
+        //            if (imageNode == null)
+        //            {
+        //                // Try to find img tag
+        //                var imgTag = childNode.SelectSingleNode(".//img");
+        //                if (imgTag != null)
+        //                {
+        //                    var imgSrc = imgTag.GetAttributeValue("src", "");
+        //                    if (!string.IsNullOrEmpty(imgSrc))
+        //                    {
+        //                        if (!imgSrc.StartsWith("http"))
+        //                        {
+        //                            imgSrc = BASE_URL + imgSrc;
+        //                        }
+        //                        var uniqueId = await DownloadImageAsync(imgSrc);
+        //                        if (!string.IsNullOrEmpty(uniqueId))
+        //                        {
+        //                            items.Add(new ArticleDataItem
+        //                            {
+        //                                ArticleDataType = ArticleContentTypes.Image,
+        //                                ImageId = uniqueId
+        //                            });
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                var style = imageNode.GetAttributeValue("style", "");
+        //                var imageUrl = ExtractBackgroundImageUrl(style);
+        //                if (!string.IsNullOrEmpty(imageUrl))
+        //                {
+        //                    var uniqueId = await DownloadImageAsync(imageUrl);
+        //                    if (!string.IsNullOrEmpty(uniqueId))
+        //                    {
+        //                        items.Add(new ArticleDataItem
+        //                        {
+        //                            ArticleDataType = ArticleContentTypes.Image,
+        //                            ImageId = uniqueId
+        //                        });
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        // Check for RTE content
+        //        else if (childNode.NodeType == HtmlNodeType.Element &&
+        //                 childNode.HasClass("rte"))
+        //        {
+        //            var rteContent = childNode.InnerHtml.Trim();
+        //            if (!string.IsNullOrEmpty(rteContent))
+        //            {
+        //                // Decode HTML entities (e.g., &#163; to £)
+        //                //rteContent = HttpUtility.HtmlDecode(rteContent);
+
+        //                items.Add(new ArticleDataItem
+        //                {
+        //                    ArticleDataType = ArticleContentTypes.RichText,
+        //                    richText = rteContent
+        //                });
+        //            }
+        //        }
+        //        // Check for RTE content
+        //        else if (childNode.NodeType == HtmlNodeType.Element &&
+        //                 childNode.HasClass("rte"))
+        //        {
+        //            var rteContent = childNode.InnerHtml.Trim();
+        //            if (!string.IsNullOrEmpty(rteContent))
+        //            {
+        //                // Decode HTML entities (e.g., &#163; to £)
+        //                //rteContent = HttpUtility.HtmlDecode(rteContent);
+
+        //                items.Add(new ArticleDataItem
+        //                {
+        //                    ArticleDataType = ArticleContentTypes.RichText,
+        //                    richText = rteContent
+        //                });
+        //            }
+        //        }
+        //    }
+        //}
+
         private async Task ExtractArticleContentItems(HtmlNode wrapNode, List<ArticleDataItem> items)
         {
             foreach (var childNode in wrapNode.ChildNodes)
             {
-                // Check for image wrapper
-                if (childNode.NodeType == HtmlNodeType.Element &&
-                    childNode.HasClass("image-wrapper"))
+                if (childNode.NodeType != HtmlNodeType.Element)
+                    continue;
+
+                // Handle inline-image with text wrapper
+                if (childNode.HasClass("inline-image"))
+                {
+                    var item = new ArticleDataItem
+                    {
+                        ArticleDataType = ArticleContentTypes.RichTextAndImage
+                    };
+
+                    // Extract image
+                    var imgNode = childNode.SelectSingleNode(".//img");
+                    if (imgNode != null)
+                    {
+                        var imgSrc = imgNode.GetAttributeValue("src", "");
+                        var imgAlt = imgNode.GetAttributeValue("alt", "");
+
+                        if (!string.IsNullOrEmpty(imgSrc))
+                        {
+                            if (!imgSrc.StartsWith("http"))
+                            {
+                                imgSrc = BASE_URL + imgSrc;
+                            }
+                            var uniqueId = await DownloadImageAsync(imgSrc);
+                            item.ImageId = uniqueId;
+                        }
+
+                        // Use alt as title if available
+                        if (!string.IsNullOrEmpty(imgAlt))
+                        {
+                            item.Title = imgAlt;
+                        }
+                    }
+
+                    // Extract caption/text from inline-image__text-wrapper
+                    var textWrapperNode = childNode.SelectSingleNode(".//div[contains(@class, 'inline-image__text-wrapper')]//div[contains(@class, 'rte')]");
+                    if (textWrapperNode != null)
+                    {
+                        var rte = textWrapperNode.InnerHtml.Trim();
+                        if (!string.IsNullOrEmpty(rte))
+                        {
+                            item.RichText = HttpUtility.HtmlDecode(rte);
+                        }
+                    }
+
+                    items.Add(item);
+                }
+                // Handle block-quote
+                else if (childNode.HasClass("block") && childNode.HasClass("block-quote"))
+                {
+                    var item = new ArticleDataItem
+                    {
+                        ArticleDataType = ArticleContentTypes.Quote
+                    };
+
+                    // Extract quote name and position
+                    var nameNode = childNode.SelectSingleNode(".//span[contains(@class, 'quote__name')]");
+                    var positionNode = childNode.SelectSingleNode(".//span[contains(@class, 'quote__position')]");
+
+                    if (nameNode != null)
+                    {
+                        item.Title = nameNode.InnerText.Trim();
+                    }
+
+                    if (positionNode != null)
+                    {
+                        item.Caption = positionNode.InnerText.Trim();
+                    }
+
+                    // Extract quote text from rte
+                    var rteNode = childNode.SelectSingleNode(".//div[contains(@class, 'rte')]");
+                    if (rteNode != null)
+                    {
+                        var quoteText = rteNode.InnerHtml.Trim();
+                        if (!string.IsNullOrEmpty(quoteText))
+                        {
+                            item.RichText = HttpUtility.HtmlDecode(quoteText);
+                        }
+                    }
+
+                    items.Add(item);
+                }
+                // Handle standalone image-wrapper
+                else if (childNode.HasClass("image-wrapper"))
                 {
                     var imageNode = childNode.SelectSingleNode(".//div[contains(@class, 'banner') and contains(@class, 'banner--big')]");
                     if (imageNode == null)
@@ -357,6 +530,8 @@ namespace ABP.Web.UI.Controllers
                         if (imgTag != null)
                         {
                             var imgSrc = imgTag.GetAttributeValue("src", "");
+                            var imgAlt = imgTag.GetAttributeValue("alt", "");
+
                             if (!string.IsNullOrEmpty(imgSrc))
                             {
                                 if (!imgSrc.StartsWith("http"))
@@ -369,7 +544,8 @@ namespace ABP.Web.UI.Controllers
                                     items.Add(new ArticleDataItem
                                     {
                                         ArticleDataType = ArticleContentTypes.Image,
-                                        data = uniqueId
+                                        ImageId = uniqueId,
+                                        Title = imgAlt
                                     });
                                 }
                             }
@@ -387,32 +563,30 @@ namespace ABP.Web.UI.Controllers
                                 items.Add(new ArticleDataItem
                                 {
                                     ArticleDataType = ArticleContentTypes.Image,
-                                    data = uniqueId
+                                    ImageId = uniqueId
                                 });
                             }
                         }
                     }
                 }
-                // Check for RTE content
-                else if (childNode.NodeType == HtmlNodeType.Element &&
-                         childNode.HasClass("rte"))
+                // Handle standalone RTE content
+                else if (childNode.HasClass("rte"))
                 {
                     var rteContent = childNode.InnerHtml.Trim();
                     if (!string.IsNullOrEmpty(rteContent))
                     {
                         // Decode HTML entities (e.g., &#163; to £)
-                        //rteContent = HttpUtility.HtmlDecode(rteContent);
+                        rteContent = HttpUtility.HtmlDecode(rteContent);
 
                         items.Add(new ArticleDataItem
                         {
                             ArticleDataType = ArticleContentTypes.RichText,
-                            data = rteContent
+                            RichText = rteContent
                         });
                     }
                 }
             }
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -477,7 +651,7 @@ namespace ABP.Web.UI.Controllers
                     // Get or create media year folder
                     if (!mediaYearFolders.ContainsKey(record.Year))
                     {
-                        mediaYearFolders[record.Year] = GetOrCreateMediaYearFolder(record.Year, summary);
+                        mediaYearFolders[record.Year] = GetOrCreateMediaYearFolder(articleData?.NewsMediaPath, record.Year, summary);
                     }
                     var mediaYearFolder = mediaYearFolders[record.Year];
 
@@ -614,38 +788,38 @@ namespace ABP.Web.UI.Controllers
 
                 var contentItems = new List<ArticleContent>();
 
-                if(record.ArticleDataItems != null && record.ArticleDataItems.Any())
-                {
-                    foreach (var item in record.ArticleDataItems)
-                    {
-                        if (item.ArticleDataType == ArticleContentTypes.Image)
-                        {
-                            if (!string.IsNullOrEmpty(item.data))
-                            {
-                                var mainMedia = UploadImage(item.data, mediaYearFolder, summary);
+                //if(record.ArticleDataItems != null && record.ArticleDataItems.Any())
+                //{
+                //    foreach (var item in record.ArticleDataItems)
+                //    {
+                //        if (item.ArticleDataType == ArticleContentTypes.Image)
+                //        {
+                //            if (!string.IsNullOrEmpty(item.data))
+                //            {
+                //                var mainMedia = UploadImage(item.data, mediaYearFolder, summary);
 
-                                contentItems.Add(new ArticleContent
-                                {
-                                    ContentType = ArticleContentTypes.Image,
-                                    Image = mainMedia
-                                });
-                            }
-                        }
-                        else if (item.ArticleDataType == ArticleContentTypes.RichText)
-                        {
-                            contentItems.Add(new ArticleContent
-                            {
-                                ContentType = ArticleContentTypes.RichText,
-                                RichText = item.data
-                            });
-                        }
-                    }
+                //                contentItems.Add(new ArticleContent
+                //                {
+                //                    ContentType = ArticleContentTypes.Image,
+                //                    Image = mainMedia
+                //                });
+                //            }
+                //        }
+                //        else if (item.ArticleDataType == ArticleContentTypes.RichText)
+                //        {
+                //            contentItems.Add(new ArticleContent
+                //            {
+                //                ContentType = ArticleContentTypes.RichText,
+                //                RichText = item.data
+                //            });
+                //        }
+                //    }
 
-                    CreateContentRowsBlockList(article, contentItems);
-                }
-                
+                //    CreateContentRowsBlockList(article, contentItems);
+                //}
 
-             
+                CreateContentRowsBlockList(article, record.ArticleDataItems, mediaYearFolder, summary);
+
                 //CreateContentRowsBlockList(mainMedia, record.Richtext);
                 // Save and publish
                 var result = _contentService.Save(article);
@@ -726,7 +900,7 @@ namespace ABP.Web.UI.Controllers
                         // Get or create media year folder
                         if (!mediaYearFolders.ContainsKey(record.Year))
                         {
-                            mediaYearFolders[record.Year] = GetOrCreateMediaYearFolder(record.Year, summary);
+                            mediaYearFolders[record.Year] = GetOrCreateMediaYearFolder("Articles And Blog", record.Year, summary);
                         }
                         var mediaYearFolder = mediaYearFolders[record.Year];
 
@@ -840,15 +1014,16 @@ namespace ABP.Web.UI.Controllers
             return children.Any(x => x.Name.Equals(title, StringComparison.OrdinalIgnoreCase));
         }
 
-        private IMedia GetOrCreateMediaYearFolder(string year, ImportSummary summary)
+        private IMedia GetOrCreateMediaYearFolder(string? newsMediaPath, string year, ImportSummary summary)
         {
             // Find or create: Media > Abports > News And Media > Blogs And Article > {Year}
             var mediaRoot = _mediaService.GetRootMedia();
 
             var abportsMedia = FindOrCreateMediaFolder(null, MEDIA_ABPORTS_NAME, mediaRoot);
             var newsAndMediaFolder = FindOrCreateMediaFolder(abportsMedia, MEDIA_NEWS_AND_MEDIA_NAME);
-            var blogsAndArticleFolder = FindOrCreateMediaFolder(newsAndMediaFolder, MEDIA_BLOGS_AND_ARTICLE_NAME);
-            var yearFolder = FindOrCreateMediaFolder(blogsAndArticleFolder, year);
+            var blogsAndArticleFolder = FindOrCreateMediaFolder(newsAndMediaFolder, newsMediaPath??"");
+
+            var  yearFolder = FindOrCreateMediaFolder(blogsAndArticleFolder, year);
 
             return yearFolder;
         }
@@ -877,10 +1052,14 @@ namespace ABP.Web.UI.Controllers
             return folder;
         }
 
-        private IMedia? UploadImage(string imageId, IMedia parentFolder, ImportSummary summary)
+        private IMedia? UploadImage(string? imageId, IMedia parentFolder, ImportSummary summary)
         {
             try
             {
+                if (string.IsNullOrEmpty(imageId))
+                {
+                    return null;
+                }
                 var imageFolderPath = Path.Combine(IMAGES_BASE_PATH, imageId);
 
                 if (!Directory.Exists(imageFolderPath))
@@ -1032,19 +1211,19 @@ namespace ABP.Web.UI.Controllers
                     _logger.LogInformation($"Regions for {record.Title}: {string.Join(", ", regionsList)}");
                 }
 
-                CreateContentRowsBlockList(article, new List<ArticleContent>
-                {
-                    new ArticleContent
-                    {
-                        ContentType = ArticleContentTypes.Image,
-                        Image = mainMedia
-                    },
-                    new ArticleContent
-                    {
-                        ContentType = ArticleContentTypes.RichText,
-                        RichText = record.Richtext
-                    }
-                });
+                //CreateContentRowsBlockList(article, new List<ArticleContent>
+                //{
+                //    new ArticleContent
+                //    {
+                //        ContentType = ArticleContentTypes.Image,
+                //        Image = mainMedia
+                //    },
+                //    new ArticleContent
+                //    {
+                //        ContentType = ArticleContentTypes.RichText,
+                //        RichText = record.Richtext
+                //    }
+                //});
                 //CreateContentRowsBlockList(mainMedia, record.Richtext);
                 // Save and publish
                 var result = _contentService.Save(article);
@@ -1116,17 +1295,30 @@ namespace ABP.Web.UI.Controllers
 
 
         // The import method builds JSON and assigns it to the Block List property
-        private void CreateContentRowsBlockList(IContent article, IList<ArticleContent> contentItems)
+        private void CreateContentRowsBlockList(IContent article, IList<ArticleDataItem>? articleDataItems, IMedia mediaYearFolder, ImportSummary summary)//IList<ArticleContent> contentItems
         {
             try
             {
+                if(articleDataItems == null || !articleDataItems.Any())
+                {
+                    _logger?.LogWarning("No content items provided for Block List creation");
+                    return;
+                }
+
                 // Get element type keys
                 var richTextElementTypeKey = _contentTypeService.GetAll()
                     .FirstOrDefault(x => x.Alias == "richTextContent")?.Key;
+
                 var imageElementTypeKey = _contentTypeService.GetAll()
                     .FirstOrDefault(x => x.Alias == "imageContent")?.Key;
 
-                if (richTextElementTypeKey == null || imageElementTypeKey == null)
+                var richTextWithImageTypeKey = _contentTypeService.GetAll()
+                   .FirstOrDefault(x => x.Alias == "richTextWithImage")?.Key;
+
+                var quoteTypeKey = _contentTypeService.GetAll()
+                    .FirstOrDefault(x => x.Alias == "quote")?.Key;
+
+                if (richTextElementTypeKey == null || imageElementTypeKey == null || richTextWithImageTypeKey == null || quoteTypeKey== null)
                 {
                     throw new InvalidOperationException("Element type keys not found");
                 }
@@ -1135,19 +1327,19 @@ namespace ABP.Web.UI.Controllers
                 var layoutItems = new List<object>();
                 var contentDataItems = new List<object>();
 
-                foreach (var contentItem in contentItems)
+                foreach (var articleDataItem in articleDataItems)
                 {
                     var contentKey = Guid.NewGuid();
                     var contentUdi = $"umb://element/{contentKey:N}";
 
-                    if (contentItem.ContentType == ArticleContentTypes.RichText && !string.IsNullOrEmpty(contentItem.RichText))
+                    if (articleDataItem.ArticleDataType == ArticleContentTypes.RichText && !string.IsNullOrEmpty(articleDataItem.RichText))
                     {
                         // Create content data item with properties at root level
                         var blockItem = new
                         {
                             contentTypeKey = richTextElementTypeKey.Value,
                             udi = contentUdi,
-                            content = contentItem.RichText // Your actual property alias
+                            content = articleDataItem.RichText // Your actual property alias
 
                         };
                         contentDataItems.Add(blockItem);
@@ -1155,25 +1347,85 @@ namespace ABP.Web.UI.Controllers
                         // Add to layout
                         layoutItems.Add(new { contentUdi = contentUdi });
                     }
-                    else if (contentItem.ContentType == ArticleContentTypes.Image && contentItem.Image != null)
+                    else if (articleDataItem.ArticleDataType == ArticleContentTypes.Image)
                     {
+
+                        var media = UploadImage(articleDataItem.ImageId, mediaYearFolder, summary);
+
+                        if (media == null)
+                        {
+                            _logger?.LogWarning($"Image upload failed for ID: {articleDataItem.ImageId}");
+                            continue;
+                        }
+
                         // Media Picker 3 format
                         var mediaValue = new[]
                         {
-                        new
-                        {
-                            key = Guid.NewGuid(),
-                            mediaKey = contentItem.Image.Key,
-                            crops = new object[] { },
-                            focalPoint = (object)null
-                        }
-                    };
+                            new
+                            {
+                                key = Guid.NewGuid(),
+                                mediaKey = media.Key,
+                                crops = new object[] { },
+                                focalPoint = (object)null
+                            }
+                        };
 
                         var blockItem = new
                         {
                             contentTypeKey = imageElementTypeKey.Value,
                             udi = contentUdi,
                             image = mediaValue // Your actual property alias
+                        };
+                        contentDataItems.Add(blockItem);
+
+                        // Add to layout
+                        layoutItems.Add(new { contentUdi = contentUdi });
+                    }
+                    else if (articleDataItem.ArticleDataType == ArticleContentTypes.RichTextAndImage)
+                    {
+
+                        var media = UploadImage(articleDataItem.ImageId, mediaYearFolder, summary);
+
+                        object? mediaValue = null;
+
+                        if (media != null)
+                        {
+                            // Media Picker 3 format
+                            mediaValue = new[]
+                           {
+                             new
+                             {
+                                key = Guid.NewGuid(),
+                                mediaKey = media.Key,
+                                crops = new object[] { },
+                                focalPoint = (object)null
+                               }
+                            };
+                        }
+                       
+                        var blockItem = new
+                        {
+                            contentTypeKey = richTextWithImageTypeKey.Value,
+                            udi = contentUdi,
+                            image = mediaValue, // Your actual property alias
+                            text = articleDataItem.RichText
+                        };
+                        contentDataItems.Add(blockItem);
+
+                        // Add to layout
+                        layoutItems.Add(new { contentUdi = contentUdi });
+                    }
+                    else if (articleDataItem.ArticleDataType == ArticleContentTypes.Quote)
+                    {
+
+                        
+                        var blockItem = new
+                        {
+                            contentTypeKey = quoteTypeKey.Value,
+                            udi = contentUdi,
+                            authorName = articleDataItem.Title,
+                            authorPosition = articleDataItem.Caption,
+                            mainText = articleDataItem.RichText
                         };
                         contentDataItems.Add(blockItem);
 
@@ -1203,7 +1455,7 @@ namespace ABP.Web.UI.Controllers
 
                 article.SetValue(propertyAlias, json);
 
-                _logger?.LogInformation($"Created Block List for article: {article.Name} with {contentItems.Count} content items");
+                _logger?.LogInformation($"Created Block List for article: {article.Name} with {articleDataItems.Count} content items");
             }
             catch (Exception ex)
             {
@@ -1437,7 +1689,7 @@ namespace ABP.Web.UI.Controllers
 
     public enum ArticleContentTypes
     {
-        RichText = 1, Image = 2
+        RichText = 1, Image = 2, RichTextAndImage = 3, Quote = 4
     }
 
     public class ArticleContent
@@ -1467,6 +1719,9 @@ namespace ABP.Web.UI.Controllers
     public class ArticleDataItem
     {
         public ArticleContentTypes ArticleDataType { get; set; }
-        public string? data { get; set; }
+        public string? ImageId { get; set; }
+        public string? Title { get; set; }
+        public string? Caption { get; set; }
+        public string? RichText { get; set; }
     }
 }

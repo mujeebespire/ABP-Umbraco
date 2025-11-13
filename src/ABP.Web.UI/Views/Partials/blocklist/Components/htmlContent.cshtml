@@ -1,0 +1,10 @@
+﻿@inherits UmbracoViewPage<BlockListItem>
+@using Umbraco.Cms.Core.Models.Blocks
+@using ABP.Web.Models.UmbracoModels
+
+@{
+    var htmlEmbed = Model.Content as HtmlContent;
+   
+}
+
+@htmlEmbed?.HtmlMarkup
