@@ -16,8 +16,13 @@
 
     string formattedDate = Model.ArticleDate.ToString("dd MMMM yyyy");
 }
-
 <div class="banner banner--big">
+    <div class="banner-img">
+        @if (@Model.MainImage != null)
+        {
+            <img src="@Model.MainImage?.Url()" alt="@Model.MainImage?.Name" />
+        }           
+    </div>
     <div class="banner__container">
         <div class="banner__category-wrapper">
             @if (!string.IsNullOrEmpty(categories))
@@ -34,11 +39,8 @@
         <span class="banner__date">@formattedDate</span>
     </div>
 </div>
-
 <div class="content-up">
     <div class="content-up__container">
-
         @Html.GetBlockListHtml(Model.ContentRows)
-
     </div>
 </div>

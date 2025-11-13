@@ -3,16 +3,23 @@
 @using ABP.Web.Models.UmbracoModels
 @{
     var quote = Model.Content as Quote;
-
 }
 <div class="block block-quote">
     <div class="quote">
         <blockquote class="quote__text">
-            <span class="quote__name">@quote?.AuthorName</span>
-            <span class="quote__position">@quote?.AuthorPosition</span>
+            @quote?.Text
+            @if (!string.IsNullOrEmpty(quote?.AuthorName))
+            {
+                <span class="quote__name">@quote?.AuthorName</span>
+            }
+            @if (!string.IsNullOrEmpty(quote?.AuthorPosition))
+            {
+                <span class="quote__position">@quote?.AuthorPosition</span>
+            }  
         </blockquote>
     </div>
     <div class="rte">
         @quote?.MainText
     </div>
 </div>
+

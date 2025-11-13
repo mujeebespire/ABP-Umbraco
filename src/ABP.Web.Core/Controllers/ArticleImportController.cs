@@ -17,6 +17,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Cache;
@@ -24,11 +25,13 @@ using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.Blocks;
+using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Strings;
 using Umbraco.Cms.Core.Web;
+using Umbraco.Cms.Infrastructure;
 using Umbraco.Cms.Infrastructure.Persistence;
 using Umbraco.Cms.Web.Website.Controllers;
 using Umbraco.Extensions;
@@ -70,7 +73,8 @@ namespace ABP.Web.UI.Controllers
         private const string BASE_URL = "https://www.abports.co.uk";
         private readonly HttpClient _httpClient;
 
-
+        //private readonly IMediaUrlGenerator _mediaUrlGenerator;
+        private readonly IPublishedContentQuery _publishedContentQuery;
 
         public ArticleImportController(
             IUmbracoContextAccessor umbracoContextAccessor,
@@ -87,7 +91,10 @@ namespace ABP.Web.UI.Controllers
             IShortStringHelper shortStringHelper,
             IContentTypeBaseServiceProvider contentTypeBaseServiceProvider,
             MediaUrlGeneratorCollection mediaUrlGenerators,
-            MediaFileManager mediaFileManager)
+            MediaFileManager mediaFileManager,
+           // IMediaUrlGenerator mediaUrlGenerator
+           IPublishedContentQuery publishedContentQuery
+            )
             : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
         {
             _contentService = contentService;
@@ -100,7 +107,8 @@ namespace ABP.Web.UI.Controllers
             _mediaUrlGeneratorCollection = mediaUrlGenerators;
             _mediaFileManager = mediaFileManager;
             _httpClient = new HttpClient();
-
+            // _mediaUrlGenerator = mediaUrlGenerator;
+            _publishedContentQuery = publishedContentQuery;
         }
 
 
@@ -179,6 +187,55 @@ namespace ABP.Web.UI.Controllers
             }
         }
 
+        public static string ExtractName(string url)
+        {
+            // Remove leading/trailing slashes
+            url = url.Trim('/');
+
+            // Split by slash and get the last segment (the slug)
+            string[] segments = url.Split('/');
+            string slug = segments[segments.Length - 1];
+
+            // Replace hyphens with spaces
+            string title = slug.Replace('-', ' ');
+
+            // Capitalize each word properly
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            title = textInfo.ToTitleCase(title);
+
+            // Handle special cases for common words that should be lowercase
+            string[] lowercaseWords = { "a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "by", "with", "from", "of", "in", "s" };
+
+            string[] words = title.Split(' ');
+            for (int i = 1; i < words.Length; i++) // Start from 1 to keep first word capitalized
+            {
+                if (lowercaseWords.Contains(words[i].ToLower()))
+                {
+                    words[i] = words[i].ToLower();
+                }
+            }
+
+            // Handle possessive 's (change "S" to "'s")
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (i > 0 && words[i].Equals("s", StringComparison.OrdinalIgnoreCase) &&
+                    !words[i - 1].EndsWith("'"))
+                {
+                    words[i - 1] = words[i - 1] + "'s";
+                    words[i] = null; // Mark for removal
+                }
+            }
+
+            // Remove null entries and join
+            title = string.Join(" ", words.Where(w => w != null));
+
+            // Add colons where appropriate (after common title patterns)
+            title = Regex.Replace(title, @"\b(from|to|how|why|what|when|where)\b(.+?)\b(to|from|with|in|on|at)\b",
+                "$1$2: $3", RegexOptions.IgnoreCase);
+
+            return title;
+        }
+
         public async Task<IActionResult> ExtractArticleData(string url, string region)
         {
             try
@@ -206,6 +263,7 @@ namespace ABP.Web.UI.Controllers
 
             var articleData = new ArticleData
             {
+                Name = ExtractName(url),
                 Region = region,
                 ArticleDataItems = new List<ArticleDataItem>()
             };
@@ -275,9 +333,110 @@ namespace ABP.Web.UI.Controllers
             if (wrapNode != null)
             {
                 await ExtractArticleContentItems(wrapNode, articleData.ArticleDataItems);
+
+                if (articleData.ArticleDataItems != null)
+                {
+                    // Process Rich Text Media for each item
+                    foreach (var item in articleData.ArticleDataItems)
+                    {
+                        if (!string.IsNullOrEmpty(item.RichText))
+                        {
+                            item.RichText = await ProcessRichTextMediaAsync(item.RichText);
+                        }
+                    }
+                }
             }
 
+
             return articleData;
+        }
+
+        private async Task<string> ProcessRichTextMediaAsync(string richText)
+        {
+            if (string.IsNullOrEmpty(richText))
+                return richText;
+
+            var processedText = richText;
+
+            // Process images in <img> tags
+            var imgRegex = new Regex(@"<img[^>]*src=[""']([^""']+)[""'][^>]*>", RegexOptions.IgnoreCase);
+            var imgMatches = imgRegex.Matches(richText);
+
+            foreach (Match match in imgMatches)
+            {
+                var fullImgTag = match.Value;
+                var imgSrc = match.Groups[1].Value;
+
+                // Check if it's an internal ABP link
+                if (IsInternalAbpUrl(imgSrc))
+                {
+                    var fullUrl = imgSrc.StartsWith("http") ? imgSrc : BASE_URL + imgSrc;
+
+                    try
+                    {
+                        var mediaId = await DownloadImageAsync(fullUrl);
+                        if (!string.IsNullOrEmpty(mediaId))
+                        {
+                            // Replace the src with <mediaid>uniqueId</mediaid>
+                            var newImgTag = fullImgTag.Replace(imgSrc, $"<mediaid>{mediaId}</mediaid>");
+                            processedText = processedText.Replace(fullImgTag, newImgTag);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log error but continue processing
+                    }
+                }
+            }
+
+            // Process PDFs and other documents in <a> tags
+            var linkRegex = new Regex(@"<a[^>]*href=[""']([^""']+\.(?:pdf|doc|docx|xls|xlsx|ppt|pptx))[""'][^>]*>", RegexOptions.IgnoreCase);
+            var linkMatches = linkRegex.Matches(richText);
+
+            foreach (Match match in linkMatches)
+            {
+                var fullLinkTag = match.Value;
+                var linkHref = match.Groups[1].Value;
+
+                // Check if it's an internal ABP link
+                if (IsInternalAbpUrl(linkHref))
+                {
+                    var fullUrl = linkHref.StartsWith("http") ? linkHref : BASE_URL + linkHref;
+
+                    try
+                    {
+                        var mediaId = await DownloadDocumentAsync(fullUrl);
+                        if (!string.IsNullOrEmpty(mediaId))
+                        {
+                            // Replace the href with <mediaid>uniqueId</mediaid>
+                            var newLinkTag = fullLinkTag.Replace(linkHref, $"<mediaid>{mediaId}</mediaid>");
+                            processedText = processedText.Replace(fullLinkTag, newLinkTag);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log error but continue processing
+                    }
+                }
+            }
+
+            return processedText;
+        }
+
+        private bool IsInternalAbpUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+                return false;
+
+            // Check if it's a relative URL (starts with /)
+            if (url.StartsWith("/"))
+                return true;
+
+            // Check if it contains abports.co.uk domain
+            if (url.Contains("abports.co.uk"))
+                return true;
+
+            return false;
         }
 
         private string ExtractNewsMediaPath(string url)
@@ -314,6 +473,38 @@ namespace ABP.Web.UI.Controllers
             return null;
         }
 
+        private async Task<string> DownloadDocumentAsync(string documentUrl)
+        {
+            try
+            {
+                var uniqueId = Guid.NewGuid().ToString();
+                var folderPath = Path.Combine(IMAGES_BASE_PATH, uniqueId);
+                Directory.CreateDirectory(folderPath);
+
+                var documentBytes = await _httpClient.GetByteArrayAsync(documentUrl);
+
+                // Get file extension from URL
+                var uri = new Uri(documentUrl);
+                var extension = Path.GetExtension(uri.LocalPath.Split('?')[0]);
+                if (string.IsNullOrEmpty(extension))
+                {
+                    extension = ".pdf"; // Default to PDF if no extension found
+                }
+
+                var fileName = "document" + extension;
+                var filePath = Path.Combine(folderPath, fileName);
+
+                await System.IO.File.WriteAllBytesAsync(filePath, documentBytes);
+
+                return uniqueId;
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                return null;
+            }
+        }
+
         private async Task<string> DownloadImageAsync(string imageUrl)
         {
             try
@@ -341,96 +532,7 @@ namespace ABP.Web.UI.Controllers
                 // Log error
                 return null;
             }
-        }
-
-        //private async Task ExtractArticleContentItems(HtmlNode wrapNode, List<ArticleDataItem> items)
-        //{
-        //    foreach (var childNode in wrapNode.ChildNodes)
-        //    {
-        //        // Check for image wrapper
-        //        if (childNode.NodeType == HtmlNodeType.Element &&
-        //            childNode.HasClass("image-wrapper"))
-        //        {
-        //            var imageNode = childNode.SelectSingleNode(".//div[contains(@class, 'banner') and contains(@class, 'banner--big')]");
-        //            if (imageNode == null)
-        //            {
-        //                // Try to find img tag
-        //                var imgTag = childNode.SelectSingleNode(".//img");
-        //                if (imgTag != null)
-        //                {
-        //                    var imgSrc = imgTag.GetAttributeValue("src", "");
-        //                    if (!string.IsNullOrEmpty(imgSrc))
-        //                    {
-        //                        if (!imgSrc.StartsWith("http"))
-        //                        {
-        //                            imgSrc = BASE_URL + imgSrc;
-        //                        }
-        //                        var uniqueId = await DownloadImageAsync(imgSrc);
-        //                        if (!string.IsNullOrEmpty(uniqueId))
-        //                        {
-        //                            items.Add(new ArticleDataItem
-        //                            {
-        //                                ArticleDataType = ArticleContentTypes.Image,
-        //                                ImageId = uniqueId
-        //                            });
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //            else
-        //            {
-        //                var style = imageNode.GetAttributeValue("style", "");
-        //                var imageUrl = ExtractBackgroundImageUrl(style);
-        //                if (!string.IsNullOrEmpty(imageUrl))
-        //                {
-        //                    var uniqueId = await DownloadImageAsync(imageUrl);
-        //                    if (!string.IsNullOrEmpty(uniqueId))
-        //                    {
-        //                        items.Add(new ArticleDataItem
-        //                        {
-        //                            ArticleDataType = ArticleContentTypes.Image,
-        //                            ImageId = uniqueId
-        //                        });
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        // Check for RTE content
-        //        else if (childNode.NodeType == HtmlNodeType.Element &&
-        //                 childNode.HasClass("rte"))
-        //        {
-        //            var rteContent = childNode.InnerHtml.Trim();
-        //            if (!string.IsNullOrEmpty(rteContent))
-        //            {
-        //                // Decode HTML entities (e.g., &#163; to £)
-        //                //rteContent = HttpUtility.HtmlDecode(rteContent);
-
-        //                items.Add(new ArticleDataItem
-        //                {
-        //                    ArticleDataType = ArticleContentTypes.RichText,
-        //                    richText = rteContent
-        //                });
-        //            }
-        //        }
-        //        // Check for RTE content
-        //        else if (childNode.NodeType == HtmlNodeType.Element &&
-        //                 childNode.HasClass("rte"))
-        //        {
-        //            var rteContent = childNode.InnerHtml.Trim();
-        //            if (!string.IsNullOrEmpty(rteContent))
-        //            {
-        //                // Decode HTML entities (e.g., &#163; to £)
-        //                //rteContent = HttpUtility.HtmlDecode(rteContent);
-
-        //                items.Add(new ArticleDataItem
-        //                {
-        //                    ArticleDataType = ArticleContentTypes.RichText,
-        //                    richText = rteContent
-        //                });
-        //            }
-        //        }
-        //    }
-        //}
+        } 
 
         private async Task ExtractArticleContentItems(HtmlNode wrapNode, List<ArticleDataItem> items)
         {
@@ -492,6 +594,17 @@ namespace ABP.Web.UI.Controllers
                         ArticleDataType = ArticleContentTypes.Quote
                     };
 
+                    // Extract quote text from blockquote (without child nodes)
+                    var quoteTextNode = childNode.SelectSingleNode(".//blockquote[contains(@class, 'quote__text')]");
+                    if (quoteTextNode != null)
+                    {
+                        var quoteText = quoteTextNode.InnerText.Trim();
+                        if (!string.IsNullOrEmpty(quoteText))
+                        {
+                            item.Text = HttpUtility.HtmlDecode(quoteText);
+                        }
+                    }
+
                     // Extract quote name and position
                     var nameNode = childNode.SelectSingleNode(".//span[contains(@class, 'quote__name')]");
                     var positionNode = childNode.SelectSingleNode(".//span[contains(@class, 'quote__position')]");
@@ -510,10 +623,10 @@ namespace ABP.Web.UI.Controllers
                     var rteNode = childNode.SelectSingleNode(".//div[contains(@class, 'rte')]");
                     if (rteNode != null)
                     {
-                        var quoteText = rteNode.InnerHtml.Trim();
-                        if (!string.IsNullOrEmpty(quoteText))
+                        var rteContent = rteNode.InnerHtml.Trim();
+                        if (!string.IsNullOrEmpty(rteContent))
                         {
-                            item.RichText = HttpUtility.HtmlDecode(quoteText);
+                            item.RichText = HttpUtility.HtmlDecode(rteContent);
                         }
                     }
 
@@ -661,7 +774,7 @@ namespace ABP.Web.UI.Controllers
 
                     if (!string.IsNullOrEmpty(record.BanerImageId))
                     {
-                        bannerMedia = UploadImage(record.BanerImageId, mediaYearFolder, summary);
+                        bannerMedia = UploadMedia(record.BanerImageId, mediaYearFolder, summary);
                     }
 
                     //if (!string.IsNullOrEmpty(record.mail))
@@ -709,14 +822,14 @@ namespace ABP.Web.UI.Controllers
             }
         }
 
-        private IContent? CreateArticleFromData(IContent parent, ArticleData record, IMedia? bannerMedia,
+        private async Task<IContent?> CreateArticleFromData(IContent parent, ArticleData record, IMedia? bannerMedia,
            ImportSummary summary, IMedia mediaYearFolder)
         {
             try
             {
                 string regions = record.Region ?? "";
 
-                var article = _contentService.Create(record.Title, parent.Id, ARTICLE_ALIAS);
+                var article = _contentService.Create(record.Name??"", parent.Id, ARTICLE_ALIAS);
 
                 // Set basic properties
                 article.SetValue("title", record.Title);
@@ -787,38 +900,8 @@ namespace ABP.Web.UI.Controllers
                 }
 
                 var contentItems = new List<ArticleContent>();
-
-                //if(record.ArticleDataItems != null && record.ArticleDataItems.Any())
-                //{
-                //    foreach (var item in record.ArticleDataItems)
-                //    {
-                //        if (item.ArticleDataType == ArticleContentTypes.Image)
-                //        {
-                //            if (!string.IsNullOrEmpty(item.data))
-                //            {
-                //                var mainMedia = UploadImage(item.data, mediaYearFolder, summary);
-
-                //                contentItems.Add(new ArticleContent
-                //                {
-                //                    ContentType = ArticleContentTypes.Image,
-                //                    Image = mainMedia
-                //                });
-                //            }
-                //        }
-                //        else if (item.ArticleDataType == ArticleContentTypes.RichText)
-                //        {
-                //            contentItems.Add(new ArticleContent
-                //            {
-                //                ContentType = ArticleContentTypes.RichText,
-                //                RichText = item.data
-                //            });
-                //        }
-                //    }
-
-                //    CreateContentRowsBlockList(article, contentItems);
-                //}
-
-                CreateContentRowsBlockList(article, record.ArticleDataItems, mediaYearFolder, summary);
+               
+               await  CreateContentRowsBlockList(article, record.ArticleDataItems, mediaYearFolder, summary);
 
                 //CreateContentRowsBlockList(mainMedia, record.Richtext);
                 // Save and publish
@@ -910,12 +993,12 @@ namespace ABP.Web.UI.Controllers
 
                         if (!string.IsNullOrEmpty(record.BannerImageId))
                         {
-                            bannerMedia = UploadImage(record.BannerImageId, mediaYearFolder, summary);
+                            bannerMedia = UploadMedia(record.BannerImageId, mediaYearFolder, summary);
                         }
 
                         if (!string.IsNullOrEmpty(record.MainImageId))
                         {
-                            mainMedia = UploadImage(record.MainImageId, mediaYearFolder, summary);
+                            mainMedia = UploadMedia(record.MainImageId, mediaYearFolder, summary);
                         }
 
                         // Create article
@@ -1052,7 +1135,7 @@ namespace ABP.Web.UI.Controllers
             return folder;
         }
 
-        private IMedia? UploadImage(string? imageId, IMedia parentFolder, ImportSummary summary)
+        private IMedia? UploadMedia(string? imageId, IMedia parentFolder, ImportSummary summary)
         {
             try
             {
@@ -1072,7 +1155,9 @@ namespace ABP.Web.UI.Controllers
                     .Where(f => f.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
                                f.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
                                f.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                               f.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
+                               f.EndsWith(".gif", StringComparison.OrdinalIgnoreCase) ||
+                                f.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase)
+                               )
                     .ToList();
 
                 if (!imageFiles.Any())
@@ -1295,7 +1380,8 @@ namespace ABP.Web.UI.Controllers
 
 
         // The import method builds JSON and assigns it to the Block List property
-        private void CreateContentRowsBlockList(IContent article, IList<ArticleDataItem>? articleDataItems, IMedia mediaYearFolder, ImportSummary summary)//IList<ArticleContent> contentItems
+        private async Task CreateContentRowsBlockList(IContent article, IList<ArticleDataItem>? articleDataItems,
+            IMedia mediaYearFolder, ImportSummary summary)//IList<ArticleContent> contentItems
         {
             try
             {
@@ -1332,6 +1418,8 @@ namespace ABP.Web.UI.Controllers
                     var contentKey = Guid.NewGuid();
                     var contentUdi = $"umb://element/{contentKey:N}";
 
+                    articleDataItem.RichText =  RestoreRichTextMediaAsync(articleDataItem.RichText, mediaYearFolder, summary);
+
                     if (articleDataItem.ArticleDataType == ArticleContentTypes.RichText && !string.IsNullOrEmpty(articleDataItem.RichText))
                     {
                         // Create content data item with properties at root level
@@ -1350,7 +1438,7 @@ namespace ABP.Web.UI.Controllers
                     else if (articleDataItem.ArticleDataType == ArticleContentTypes.Image)
                     {
 
-                        var media = UploadImage(articleDataItem.ImageId, mediaYearFolder, summary);
+                        var media = UploadMedia(articleDataItem.ImageId, mediaYearFolder, summary);
 
                         if (media == null)
                         {
@@ -1384,7 +1472,7 @@ namespace ABP.Web.UI.Controllers
                     else if (articleDataItem.ArticleDataType == ArticleContentTypes.RichTextAndImage)
                     {
 
-                        var media = UploadImage(articleDataItem.ImageId, mediaYearFolder, summary);
+                        var media = UploadMedia(articleDataItem.ImageId, mediaYearFolder, summary);
 
                         object? mediaValue = null;
 
@@ -1425,7 +1513,8 @@ namespace ABP.Web.UI.Controllers
                             udi = contentUdi,
                             authorName = articleDataItem.Title,
                             authorPosition = articleDataItem.Caption,
-                            mainText = articleDataItem.RichText
+                            mainText = articleDataItem.RichText,
+                            text = articleDataItem.Text
                         };
                         contentDataItems.Add(blockItem);
 
@@ -1462,6 +1551,64 @@ namespace ABP.Web.UI.Controllers
                 _logger?.LogError(ex, "Error creating Block List");
                 throw;
             }
+        }
+
+        private string? RestoreRichTextMediaAsync(string? richText, IMedia parentFolder, ImportSummary summary)// string year, string destinationBasePath
+        {
+            if (string.IsNullOrEmpty(richText))
+                return null;
+
+            var processedText = richText;
+
+            // Find all <mediaid>uniqueId</mediaid> tags
+            var mediaIdRegex = new Regex(@"<mediaid>([^<]+)</mediaid>", RegexOptions.IgnoreCase);
+            var matches = mediaIdRegex.Matches(richText);
+
+            foreach (Match match in matches)
+            {
+                var mediaIdTag = match.Value; // Full tag: <mediaid>abc-123</mediaid>
+                var uniqueId = match.Groups[1].Value; // Just the ID: abc-123
+
+                try
+                {
+                    var media = UploadMedia(uniqueId, parentFolder, summary);
+
+
+                    if (media == null)
+                    {
+                        _logger.LogWarning($"Media upload failed for ID: {uniqueId}");
+                        continue;
+                    }
+
+                    string? mediaUrl = GetMediaUrl(media);
+
+                    // Replace <mediaid>uniqueId</mediaid> with the new URL
+                    processedText = processedText.Replace(mediaIdTag, mediaUrl);
+
+                    
+                }
+                catch (Exception ex)
+                {
+                    // Log error but continue processing
+                    // Could also leave the <mediaid> tag in place if upload fails
+                }
+            }
+
+            return processedText;
+        }
+
+        private string? GetMediaUrl(IMedia? media)
+        {
+            if (media == null)
+            {
+                return string.Empty;
+            }
+
+            // Convert to IPublishedContent and get URL
+            var publishedMedia = _publishedContentQuery.Media(media.Id);
+            return publishedMedia?.Url()??string.Empty;
+
+           
         }
 
         private Guid GetElementTypeKey(string alias)
@@ -1701,6 +1848,7 @@ namespace ABP.Web.UI.Controllers
 
     public class ArticleData
     {
+        public string? Name { get; set; } 
         public string? Year { get; set; }
         public string? Title { get; set; }
         public string? SubTitle { get; set; }
@@ -1719,6 +1867,7 @@ namespace ABP.Web.UI.Controllers
     public class ArticleDataItem
     {
         public ArticleContentTypes ArticleDataType { get; set; }
+        public string? Text { get; set; }
         public string? ImageId { get; set; }
         public string? Title { get; set; }
         public string? Caption { get; set; }
