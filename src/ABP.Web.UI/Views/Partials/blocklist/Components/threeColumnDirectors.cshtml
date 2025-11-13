@@ -1,102 +1,115 @@
 ﻿@using ABP.Web.Models.UmbracoModels
 @using Umbraco.Cms.Core.Models.Blocks
 @inherits UmbracoViewPage<BlockListItem>
+
 @{
     var threeColumnDirectors = Model.Content as ThreeColumnDirectors;
     var settings = Model.Settings as HideProperty;
-    if (settings?.Hide ?? false) { return; }
+    if (settings?.Hide ?? false || threeColumnDirectors == null) { return; }
 
-  
+    bool isTwoColumn = threeColumnDirectors.TwoColumn;
 }
 
-<!-- team components -->
 <div class="people-container">
-
     <div class="people">
-
         <div class="wrap">
 
-
-            <h2 class="h2 text-center">@threeColumnDirectors?.Section1Title</h2>
-
-            @if (threeColumnDirectors != null && threeColumnDirectors.DirectorsWithImages != null)
+            @if (isTwoColumn)
             {
-                <div class="row people__list people__list--big js-equal-heights">
+                <!-- 2-COLUMN LAYOUT -->
+                <h2 class="h2 text-center">@threeColumnDirectors.Section1Title</h2>
+
+                <div class="row people__list people__list--small js-equal-heights">
                     @foreach (var directorContent in threeColumnDirectors.DirectorsWithImages)
                     {
                         var directorProfile = (DirectorProfile)directorContent;
 
-                        <div class="col-lg-4 col-md-6 people__item">
+                        <div class="col-lg-6 col-md-6 people__item">
                             <div class="people__widget js-equal-heights-item">
-                                <div class="people__image-wrap">
-                                    <img src="@directorProfile.MainImage?.Url()" alt="@directorProfile.Title" class="people__image">
-                                </div>
+                                @if (directorProfile.MainImage != null)
+                                {
+                                    <div class="people__image-wrap">
+                                        <img src="@directorProfile.MainImage.Url()" alt="@directorProfile.Title" class="people__image" />
+                                    </div>
+                                }
                                 <div class="people__info">
                                     <span class="people__name">@directorProfile.Title</span>
                                     <span class="people__position">@directorProfile.Subtitle</span>
                                     <button type="button" class="people__btn">
-                                        <span class="sr-only">
-                                            Button
-                                            plus
-                                        </span>
+                                        <span class="sr-only">Button plus</span>
                                     </button>
                                 </div>
                             </div>
                             <div class="people__details">
-                                <p class="people__text">
-                                    @directorProfile.Biography
-                                </p>
-
+                                <p class="people__text">@Html.Raw(directorProfile.Biography)</p>
                             </div>
                         </div>
                     }
-
-                
-
                 </div>
             }
-
-
-            <h2 class="h2 text-center">@threeColumnDirectors?.Section2Title</h2>
-
-            @if (threeColumnDirectors != null && threeColumnDirectors.DirectorsWithoutImage != null)
+            else
             {
-                <div class="row people__list people__list--big js-equal-heights">
-                    @foreach (var directorContent in threeColumnDirectors.DirectorsWithoutImage)
-                    {
-                        var directorProfile = (DirectorProfile)directorContent;
+                <!-- 3-COLUMN LAYOUT -->
+                <h2 class="h2 text-center">@threeColumnDirectors.Section1Title</h2>
 
-                        <div class="col-lg-4 col-md-6 people__item">
-                            <div class="people__widget js-equal-heights-item">
-                              @*   <div class="people__image-wrap">
-                                    <img src="@directorProfile.MainImage?.Url()" alt="@directorProfile.Title" class="people__image">
-                                </div> *@
-                                <div class="people__info">
-                                    <span class="people__name">@directorProfile.Title</span>
-                                    <span class="people__position">@directorProfile.Subtitle</span>
-                                    <button type="button" class="people__btn">
-                                        <span class="sr-only">
-                                            Button
-                                            plus
-                                        </span>
-                                    </button>
+                @if (threeColumnDirectors.DirectorsWithImages != null)
+                {
+                    <div class="row people__list people__list--big js-equal-heights">
+                        @foreach (var directorContent in threeColumnDirectors.DirectorsWithImages)
+                        {
+                            var directorProfile = (DirectorProfile)directorContent;
+
+                            <div class="col-lg-4 col-md-6 people__item">
+                                <div class="people__widget js-equal-heights-item">
+                                    @if (directorProfile.MainImage != null)
+                                    {
+                                        <div class="people__image-wrap">
+                                            <img src="@directorProfile.MainImage.Url()" alt="@directorProfile.Title" class="people__image" />
+                                        </div>
+                                    }
+                                    <div class="people__info">
+                                        <span class="people__name">@directorProfile.Title</span>
+                                        <span class="people__position">@directorProfile.Subtitle</span>
+                                        <button type="button" class="people__btn">
+                                            <span class="sr-only">Button plus</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="people__details">
+                                    <p class="people__text">@Html.Raw(directorProfile.Biography)</p>
                                 </div>
                             </div>
-                            <div class="people__details">
-                                <p class="people__text">
-                                    @directorProfile.Biography
-                                </p>
+                        }
+                    </div>
+                }
 
+                <h2 class="h2 text-center">@threeColumnDirectors.Section2Title</h2>
+
+                @if (threeColumnDirectors.DirectorsWithoutImage != null)
+                {
+                    <div class="row people__list people__list--big js-equal-heights">
+                        @foreach (var directorContent in threeColumnDirectors.DirectorsWithoutImage)
+                        {
+                            var directorProfile = (DirectorProfile)directorContent;
+
+                            <div class="col-lg-4 col-md-6 people__item">
+                                <div class="people__widget js-equal-heights-item">
+                                    <div class="people__info">
+                                        <span class="people__name">@directorProfile.Title</span>
+                                        <span class="people__position">@directorProfile.Subtitle</span>
+                                        <button type="button" class="people__btn">
+                                            <span class="sr-only">Button plus</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="people__details">
+                                    <p class="people__text">@Html.Raw(directorProfile.Biography)</p>
+                                </div>
                             </div>
-                        </div>
-                    }
-
-
-
-                </div>
+                        }
+                    </div>
+                }
             }
-
         </div>
     </div>
-
 </div>

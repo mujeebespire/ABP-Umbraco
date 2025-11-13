@@ -80,5 +80,12 @@ namespace ABP.Web.Models.UmbracoModels
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("section2Title")]
 		public virtual string Section2Title => this.Value<string>(_publishedValueFallback, "section2Title");
+
+		///<summary>
+		/// Two Column
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "16.2.0+4eae48e")]
+		[ImplementPropertyType("twoColumn")]
+		public virtual bool TwoColumn => this.Value<bool>(_publishedValueFallback, "twoColumn");
 	}
 }
