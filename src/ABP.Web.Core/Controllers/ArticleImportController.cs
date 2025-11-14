@@ -23,6 +23,7 @@ using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.Logging;
+using Umbraco.Cms.Core.Media.EmbedProviders;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.Blocks;
 using Umbraco.Cms.Core.Models.PublishedContent;
@@ -55,16 +56,22 @@ namespace ABP.Web.UI.Controllers
         private readonly IShortStringHelper _shortStringHelper;
 
         private const string CSV_FILE_PATH = @"C:\ABP Repo Archive\Migration\articles-and-blog\articles.csv";
+
+        private const string PDF_CSV_FILE_PATH = @"C:\ABP Repo Archive\Migration\abp_reports.csv";
+
         private const string IMAGES_BASE_PATH = @"C:\ABP Repo Archive\Migration\articles-and-blog\images";
 
         // Document Type Aliases
         private const string REPOSITORY_ALIAS = "repository";
         private const string ARTICLE_ALIAS = "article";
+        private const string DOWNLOAD_ITEM_ALIAS = "downloadItem";
 
         // Media Folder Structure
         private const string MEDIA_ABPORTS_NAME = "Abports";
         private const string MEDIA_NEWS_AND_MEDIA_NAME = "News And Media";
         private const string MEDIA_BLOGS_AND_ARTICLE_NAME = "Blogs And Article";
+
+        private const string INVESTOR_RELATION_NAME = "Investor Relations";
 
         private readonly IContentTypeBaseServiceProvider _contentTypeBaseServiceProvider;
         private readonly MediaFileManager _mediaFileManager;
@@ -111,6 +118,136 @@ namespace ABP.Web.UI.Controllers
             _publishedContentQuery = publishedContentQuery;
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> ImportDownloadItems(string documentPath)
+        {
+            if(string.IsNullOrEmpty(documentPath))
+            {
+                return Json(new { success = false, message = "Document path is required" });
+            }
+
+            var summary = new ImportSummary();
+
+            try
+            {
+                _logger.LogInformation("Starting article import from CSV");
+
+                // Find Abports root node
+                var abportsNode = FindAbportsNode();
+                if (abportsNode == null)
+                {
+                    return Json(new { success = false, message = "Abports root node not found" });
+                }
+
+                // Read and process CSV
+                if (!System.IO.File.Exists(PDF_CSV_FILE_PATH))
+                {
+                    return Json(new { success = false, message = $"CSV file not found at {PDF_CSV_FILE_PATH}" });
+                }
+
+                // Navigate to Articles And Blog folder
+                var investorRelationsNode = FindOrCreatePath(abportsNode, new[] { INVESTOR_RELATION_NAME, documentPath });
+
+                if (investorRelationsNode == null)
+                {
+                    return Json(new { success = false, message = "Could not find or create Investor Relations path" });
+                }
+
+                var records = ReadDownloadFileCsvFile();
+
+                
+                // Find/Create Media folders
+                var mediaYearFolders = new Dictionary<string, IMedia>();
+
+               
+
+                foreach (var record in records)
+                {
+                    try
+                    {
+                        _logger.LogInformation($"Processing article: {record.Title}");
+
+                        string year = string.Empty;
+
+                        if (DateTime.TryParseExact(record.Date,
+                   new[] { "dd MMM yyyy", "d MMM yyyy", "dd MMMM yyyy", "d MMMM yyyy" },
+                   CultureInfo.InvariantCulture,
+                   DateTimeStyles.None,
+                   out var recordDate))
+                        {
+                            year = recordDate.Year.ToString();
+                        }
+
+                        // Get or create year folder
+                        var yearFolder = GetOrCreateYearFolder(investorRelationsNode, year, summary);
+
+                        // Check if article already exists
+                        if (ArticleExists(yearFolder, record.Title))
+                        {
+                            summary.Skipped++;
+                            _logger.LogInformation($"Skipped (already exists): {record.Title}");
+                            continue;
+                        }
+
+                        // Get or create media year folder
+                        if (!mediaYearFolders.ContainsKey(year))
+                        {
+                            mediaYearFolders[year] = GetOrCreateInvestorRelationMediaYearFolder(documentPath, year, summary);
+                        }
+                        var mediaYearFolder = mediaYearFolders[year];
+
+                        string  fileId = await DownloadDocumentAsync(record.File);
+
+                        // Upload media files
+                        IMedia?fileMedia = null;
+
+                        if (!string.IsNullOrEmpty(fileId))
+                        {
+                            fileMedia = UploadFile(fileId, mediaYearFolder, summary);
+                        }
+
+
+                        // Create article
+                        var article = CreateDownloadItem(yearFolder, record, fileMedia, recordDate, summary);
+
+                        if (article != null)
+                        {
+                            summary.Created++;
+                            summary.CreatedArticles.Add(record.Title);
+                            _logger.LogInformation($"Created Article: {record.Title}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        summary.Errors++;
+                        summary.ErrorMessages.Add($"Error processing {record.Title}: {ex.Message}");
+                        _logger.LogError(ex, $"Error processing article: {record.Title}");
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    summary = new
+                    {
+                        total = summary.Created + summary.Skipped + summary.Errors,
+                        created = summary.Created,
+                        skipped = summary.Skipped,
+                        errors = summary.Errors,
+                       // createdArticles = summary.CreatedArticles,
+                        createdYearFolders = summary.CreatedYearFolders,
+                       // uploadedMedia = summary.UploadedMedia,
+                        errorMessages = summary.ErrorMessages
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fatal error during article import");
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
 
         public async Task<IActionResult> ProcessAllArticles()
         {
@@ -177,7 +314,7 @@ namespace ABP.Web.UI.Controllers
                     success = true,
                     totalProcessed = processedCount,
                     totalErrors = errors.Count,
-                   // results = results,
+                    // results = results,
                     errors = errors
                 });
             }
@@ -284,7 +421,7 @@ namespace ABP.Web.UI.Controllers
 
             // Extract Title
             var titleNode = htmlDoc.DocumentNode.SelectSingleNode("//h1[contains(@class, 'banner__title') and contains(@class, 'banner__title--article')]");
-            articleData.Title = HttpUtility.HtmlDecode(titleNode?.InnerText.Trim()); 
+            articleData.Title = HttpUtility.HtmlDecode(titleNode?.InnerText.Trim());
 
             // Extract Category - from span with class banner__category
             var categoryNode = htmlDoc.DocumentNode.SelectSingleNode("//span[contains(@class, 'banner__category')]");
@@ -452,6 +589,8 @@ namespace ABP.Web.UI.Controllers
             return null;
         }
 
+       
+
         private string ExtractYearFromUrl(string url)
         {
             var match = Regex.Match(url, @"/(\d{4})/");
@@ -486,12 +625,15 @@ namespace ABP.Web.UI.Controllers
                 // Get file extension from URL
                 var uri = new Uri(documentUrl);
                 var extension = Path.GetExtension(uri.LocalPath.Split('?')[0]);
+
+                var filenameWithoutExtension = Path.GetFileNameWithoutExtension(uri.LocalPath.Split('?')[0]);
+
                 if (string.IsNullOrEmpty(extension))
                 {
                     extension = ".pdf"; // Default to PDF if no extension found
                 }
 
-                var fileName = "document" + extension;
+                var fileName = filenameWithoutExtension + extension;
                 var filePath = Path.Combine(folderPath, fileName);
 
                 await System.IO.File.WriteAllBytesAsync(filePath, documentBytes);
@@ -515,12 +657,15 @@ namespace ABP.Web.UI.Controllers
 
                 var imageBytes = await _httpClient.GetByteArrayAsync(imageUrl);
                 var extension = Path.GetExtension(imageUrl.Split('?')[0]);
+
+                var filenameWithoutExtension = Path.GetFileNameWithoutExtension(imageUrl.Split('?')[0]);
+
                 if (string.IsNullOrEmpty(extension))
                 {
                     extension = ".jpg";
                 }
 
-                var fileName = "image" + extension;
+                var fileName = filenameWithoutExtension + extension;
                 var filePath = Path.Combine(folderPath, fileName);
 
                 await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
@@ -532,7 +677,7 @@ namespace ABP.Web.UI.Controllers
                 // Log error
                 return null;
             }
-        } 
+        }
 
         private async Task ExtractArticleContentItems(HtmlNode wrapNode, List<ArticleDataItem> items)
         {
@@ -829,7 +974,7 @@ namespace ABP.Web.UI.Controllers
             {
                 string regions = record.Region ?? "";
 
-                var article = _contentService.Create(record.Name??"", parent.Id, ARTICLE_ALIAS);
+                var article = _contentService.Create(record.Name ?? "", parent.Id, ARTICLE_ALIAS);
 
                 // Set basic properties
                 article.SetValue("title", record.Title);
@@ -900,8 +1045,8 @@ namespace ABP.Web.UI.Controllers
                 }
 
                 var contentItems = new List<ArticleContent>();
-               
-               await  CreateContentRowsBlockList(article, record.ArticleDataItems, mediaYearFolder, summary);
+
+                await CreateContentRowsBlockList(article, record.ArticleDataItems, mediaYearFolder, summary);
 
                 //CreateContentRowsBlockList(mainMedia, record.Richtext);
                 // Save and publish
@@ -1104,9 +1249,23 @@ namespace ABP.Web.UI.Controllers
 
             var abportsMedia = FindOrCreateMediaFolder(null, MEDIA_ABPORTS_NAME, mediaRoot);
             var newsAndMediaFolder = FindOrCreateMediaFolder(abportsMedia, MEDIA_NEWS_AND_MEDIA_NAME);
-            var blogsAndArticleFolder = FindOrCreateMediaFolder(newsAndMediaFolder, newsMediaPath??"");
+            var blogsAndArticleFolder = FindOrCreateMediaFolder(newsAndMediaFolder, newsMediaPath ?? "");
 
-            var  yearFolder = FindOrCreateMediaFolder(blogsAndArticleFolder, year);
+            var yearFolder = FindOrCreateMediaFolder(blogsAndArticleFolder, year);
+
+            return yearFolder;
+        }
+
+        private IMedia GetOrCreateInvestorRelationMediaYearFolder(string? downloadPath, string year, ImportSummary summary)
+        {
+            // Find or create: Media > Abports > News And Media > Blogs And Article > {Year}
+            var mediaRoot = _mediaService.GetRootMedia();
+
+            var abportsMedia = FindOrCreateMediaFolder(null, MEDIA_ABPORTS_NAME, mediaRoot);
+            var newsAndMediaFolder = FindOrCreateMediaFolder(abportsMedia, INVESTOR_RELATION_NAME);
+            var blogsAndArticleFolder = FindOrCreateMediaFolder(newsAndMediaFolder, downloadPath ?? "");
+
+            var yearFolder = FindOrCreateMediaFolder(blogsAndArticleFolder, year);
 
             return yearFolder;
         }
@@ -1155,8 +1314,7 @@ namespace ABP.Web.UI.Controllers
                     .Where(f => f.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
                                f.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
                                f.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                               f.EndsWith(".gif", StringComparison.OrdinalIgnoreCase) ||
-                                f.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase)
+                               f.EndsWith(".gif", StringComparison.OrdinalIgnoreCase) 
                                )
                     .ToList();
 
@@ -1181,7 +1339,6 @@ namespace ABP.Web.UI.Controllers
                 //    return existingMedia;
                 //}
 
-
                 var media = UploadImageFromLocalFolder(imageFile, parentFolder.Id);
 
                 return media;
@@ -1193,6 +1350,82 @@ namespace ABP.Web.UI.Controllers
             }
         }
 
+        private IMedia? UploadFile(string? imageId, IMedia parentFolder, ImportSummary summary)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(imageId))
+                {
+                    return null;
+                }
+                var imageFolderPath = Path.Combine(IMAGES_BASE_PATH, imageId);
+
+                if (!Directory.Exists(imageFolderPath))
+                {
+                    _logger.LogWarning($"Image folder not found: {imageFolderPath}");
+                    return null;
+                }
+
+                var imageFiles = Directory.GetFiles(imageFolderPath, "*.*")
+                    .Where(f => f.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                if (!imageFiles.Any())
+                {
+                    _logger.LogWarning($"No image files found in: {imageFolderPath}");
+                    return null;
+                }
+
+                var imageFile = imageFiles.First();
+                var fileName = Path.GetFileName(imageFile);
+
+                // Read the file
+                // byte[] fileBytes = System.IO.File.ReadAllBytes(localFilePath);
+
+                // Check if media already exists
+                var existingMedia = _mediaService.GetPagedChildren(parentFolder.Id, 0, int.MaxValue, out _)
+                    .FirstOrDefault(x => x.Name.Equals(fileName, StringComparison.OrdinalIgnoreCase));
+
+                //if (existingMedia != null)
+                //{
+                //    return existingMedia;
+                //}
+
+                var media = UploadFileFromLocalFolder(imageFile, parentFolder.Id);
+
+                return media;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error uploading image {imageId}");
+                return null;
+            }
+        }
+
+        private IMedia UploadFileFromLocalFolder(string localFilePath, int parentMediaFolderId)
+        {
+            // Get the file name from the local path
+            string fileName = Path.GetFileName(localFilePath);
+
+            // Open the file stream
+            using (var fileStream = System.IO.File.OpenRead(localFilePath))
+            {
+                // Create a new media item
+                // The parentMediaFolderId specifies where in the media library the image should be placed.
+                // Constants.Conventions.MediaTypes.Image is the alias for the default image media type.
+                var media = _mediaService.CreateMedia(fileName, parentMediaFolderId, Constants.Conventions.MediaTypes.File);
+
+                // Set the 'umbracoFile' property with the file stream
+                // This handles the actual storage of the image file
+                media.SetValue(_mediaFileManager, _mediaUrlGeneratorCollection, _shortStringHelper, _contentTypeBaseServiceProvider,
+                               Constants.Conventions.Media.File, fileName, fileStream);
+
+                // Save the media item to persist it in Umbraco
+                _mediaService.Save(media);
+
+                return media;
+            }
+        }
 
         private IMedia UploadImageFromLocalFolder(string localFilePath, int parentMediaFolderId)
         {
@@ -1217,6 +1450,63 @@ namespace ABP.Web.UI.Controllers
 
                 return media;
             }
+        }
+
+        private IContent? CreateDownloadItem(IContent parent, DownloadFileCsvRecord record, IMedia? fileMedia, DateTime date,
+        ImportSummary summary)
+        {
+            try
+            {
+                var downloadItem = _contentService.Create(record.Title, parent.Id, DOWNLOAD_ITEM_ALIAS);
+
+                // Set basic properties
+                downloadItem.SetValue("title", record.Title);
+                downloadItem.SetValue("date", date);
+
+                // Set main image (banner)
+                if (fileMedia != null)
+                {
+                    var fileValue = new List<object>
+                    {
+                        new
+                        {
+                            key = Guid.NewGuid(),
+                            mediaKey = fileMedia.Key
+                            //,
+                            //crops = Array.Empty<object>(),
+                            //focalPoint = (object?)null
+                        }
+                    };
+                    downloadItem.SetValue("file", System.Text.Json.JsonSerializer.Serialize(fileValue));
+                }
+
+                // Set categories
+                if (!string.IsNullOrEmpty(record.Type))
+                {
+                    var downloadItemTypeId = GetDownloadItemTypeId(record.Type);
+
+                    downloadItem.SetValue("type", downloadItemTypeId);
+                
+                }
+
+                var result = _contentService.Save(downloadItem);
+                _contentService.Publish(downloadItem, new[] { "*" });
+                if (result.Success)
+                {
+                    return downloadItem;
+                }
+                else
+                {
+                    _logger.LogError($"Failed to publish article: {string.Join(", ", result.EventMessages.GetAll().Select(m => m.Message))}");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error creating article: {record.Title}");
+                return null;
+            }
+           
         }
 
         private IContent? CreateArticle(IContent parent, ArticleCsvRecord record, IMedia? bannerMedia, IMedia? mainMedia,
@@ -1330,6 +1620,32 @@ namespace ABP.Web.UI.Controllers
             }
         }
 
+        private GuidUdi? GetDownloadItemTypeId(string? itemTypeName)
+        {
+            if (string.IsNullOrEmpty(itemTypeName))
+            {
+                return null;
+            }
+
+            itemTypeName = itemTypeName.Trim().ToLower();
+
+            var abportsNode = FindAbportsNode();
+            var downloadItemTypes = FindOrCreatePath(abportsNode, new[] { "Repository", "Download Item Types" });
+
+            var children = _contentService.GetPagedChildren(downloadItemTypes?.Id??0, 0, int.MaxValue, out _);
+
+            var downloadItemTypeNode = children.FirstOrDefault(x => x.Name?.ToLower() == itemTypeName);
+
+            if (downloadItemTypeNode == null)
+            {
+                return null;
+            }
+
+            var udid = new GuidUdi(Constants.UdiEntityType.Document, downloadItemTypeNode.Key);
+
+            return udid;
+        }
+
         private IList<GuidUdi>? GetCtagoryIds(IList<string>? categories)
         {
             if (categories == null || !categories.Any())
@@ -1385,7 +1701,7 @@ namespace ABP.Web.UI.Controllers
         {
             try
             {
-                if(articleDataItems == null || !articleDataItems.Any())
+                if (articleDataItems == null || !articleDataItems.Any())
                 {
                     _logger?.LogWarning("No content items provided for Block List creation");
                     return;
@@ -1404,7 +1720,7 @@ namespace ABP.Web.UI.Controllers
                 var quoteTypeKey = _contentTypeService.GetAll()
                     .FirstOrDefault(x => x.Alias == "quote")?.Key;
 
-                if (richTextElementTypeKey == null || imageElementTypeKey == null || richTextWithImageTypeKey == null || quoteTypeKey== null)
+                if (richTextElementTypeKey == null || imageElementTypeKey == null || richTextWithImageTypeKey == null || quoteTypeKey == null)
                 {
                     throw new InvalidOperationException("Element type keys not found");
                 }
@@ -1418,7 +1734,7 @@ namespace ABP.Web.UI.Controllers
                     var contentKey = Guid.NewGuid();
                     var contentUdi = $"umb://element/{contentKey:N}";
 
-                    articleDataItem.RichText =  RestoreRichTextMediaAsync(articleDataItem.RichText, mediaYearFolder, summary);
+                    articleDataItem.RichText = RestoreRichTextMediaAsync(articleDataItem.RichText, mediaYearFolder, summary);
 
                     if (articleDataItem.ArticleDataType == ArticleContentTypes.RichText && !string.IsNullOrEmpty(articleDataItem.RichText))
                     {
@@ -1490,7 +1806,7 @@ namespace ABP.Web.UI.Controllers
                                }
                             };
                         }
-                       
+
                         var blockItem = new
                         {
                             contentTypeKey = richTextWithImageTypeKey.Value,
@@ -1506,7 +1822,7 @@ namespace ABP.Web.UI.Controllers
                     else if (articleDataItem.ArticleDataType == ArticleContentTypes.Quote)
                     {
 
-                        
+
                         var blockItem = new
                         {
                             contentTypeKey = quoteTypeKey.Value,
@@ -1585,7 +1901,7 @@ namespace ABP.Web.UI.Controllers
                     // Replace <mediaid>uniqueId</mediaid> with the new URL
                     processedText = processedText.Replace(mediaIdTag, mediaUrl);
 
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -1606,9 +1922,9 @@ namespace ABP.Web.UI.Controllers
 
             // Convert to IPublishedContent and get URL
             var publishedMedia = _publishedContentQuery.Media(media.Id);
-            return publishedMedia?.Url()??string.Empty;
+            return publishedMedia?.Url() ?? string.Empty;
 
-           
+
         }
 
         private Guid GetElementTypeKey(string alias)
@@ -1741,6 +2057,25 @@ namespace ABP.Web.UI.Controllers
 
             return csv.GetRecords<ArticleCsvRecord>().ToList();
         }
+
+        private List<DownloadFileCsvRecord> ReadDownloadFileCsvFile()
+        {
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true,
+                TrimOptions = TrimOptions.Trim,
+                MissingFieldFound = null,
+                Delimiter = ",", // Add this line to specify pipe as delimiter,
+                                 // Add these configurations to handle multiline fields and bad data
+                BadDataFound = null,  // Ignore bad data
+                Mode = CsvMode.Escape  // Handle escaped delimiters properly
+            };
+
+            using var reader = new StreamReader(PDF_CSV_FILE_PATH);
+            using var csv = new CsvReader(reader, config);
+
+            return csv.GetRecords<DownloadFileCsvRecord>().ToList();
+        }
     }
 
     // Model classes for Block List structure
@@ -1820,6 +2155,14 @@ namespace ABP.Web.UI.Controllers
         //public string Region { get; set; } = string.Empty;
     }
 
+
+    public class DownloadFileCsvRecord
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Date { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty;
+        public string File { get; set; } = string.Empty;
+    }
     /// <summary>
     /// Import summary tracking
     /// </summary>
@@ -1848,7 +2191,7 @@ namespace ABP.Web.UI.Controllers
 
     public class ArticleData
     {
-        public string? Name { get; set; } 
+        public string? Name { get; set; }
         public string? Year { get; set; }
         public string? Title { get; set; }
         public string? SubTitle { get; set; }
