@@ -1,0 +1,54 @@
+
+
+<div class="content">
+	<div class="image">
+		<img src="inline/img/info/dp-world.jpg" alt="#">
+		<div class="label industrial"><p>Industrial</p></div>
+	</div>
+	<div class="text lightbox-scroll">
+		<div class="text-inner">
+			<h3>DP World</h3>
+			<p>DP World operates the container terminal at the Port of Southampton.  It is the 2nd largest container terminal in the UK. <br><br>
+                Visit <a href="https://www.dpworld.com/southampton" target="_blank">DP World Southampton</a> for more information.</p>
+		</div>	
+		<div class="gradient"></div>
+		<a class="scroll-down"></a>			
+	</div>
+	
+</div>
+
+<script>
+$(document).ready(function() {
+    function checkScrollPositionLightbox() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollHeight = scrollDiv.prop('scrollHeight');
+        var divHeight = scrollDiv.height();
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        if (currentScrollTop + divHeight >= scrollHeight || scrollHeight <= divHeight) {
+            $('.scroll-down').hide();
+        } else {
+            $('.scroll-down').show();
+        }
+    }
+
+    $('.scroll-down').on('click', function() {
+        var scrollDiv = $('.lightbox-scroll');
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        scrollDiv.animate({
+            scrollTop: currentScrollTop + 200
+        }, 400, function() {
+            checkScrollPositionLightbox();
+        });
+    });
+
+    $('.lightbox-scroll').on('scroll', function() {
+        checkScrollPositionLightbox();
+    });
+
+    // Initial check in case the content is already scrolled or doesn't need scrolling
+    checkScrollPositionLightbox();
+
+});
+</script>

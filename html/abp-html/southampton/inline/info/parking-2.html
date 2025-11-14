@@ -1,0 +1,57 @@
+
+
+<div class="content">
+	<div class="image">
+		<img src="inline/img/info/abparking-horizon-2.jpg" alt="#">
+		<div class="label parking"><p>Parking</p></div>
+	</div>
+	<div class="text lightbox-scroll">
+		<div class="text-inner">
+			<h3>Cruise Parking</h3>
+			<p>We offer car parking on site.  For your convinience, you can park your car and walk straight to the cruise terminal for a hassle free start to your holiday.<br><br>
+
+ABParking is the only official cruise car parking provider with on-site car parks located within the secure port estate for Celebrity Cruises, Disney Cruise Line, Fred. Olsen Cruise Lines, MSC Cruises, Norwegian Cruise Line, Oceania
+Cruises, Regent Seven Seas Cruises, Royal Caribbean International and Silversea Cruises.<br><br>
+
+To park at QEII, Ocean or Mayflower Cruise terminals please contact CPS -  <a href="https://www.cruiseparking.co.uk/ports/southampton/" target="_blank">www.cruiseparking.co.uk/ports/southampton/</a></p>
+		</div>	
+        <div class="gradient"></div>    
+        <a class="scroll-down"></a> 		
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+    function checkScrollPositionLightbox() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollHeight = scrollDiv.prop('scrollHeight');
+        var divHeight = scrollDiv.height();
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        if (currentScrollTop + divHeight >= scrollHeight || scrollHeight <= divHeight) {
+            $('.scroll-down').hide();
+        } else {
+            $('.scroll-down').show();
+        }
+    }
+
+    $('.scroll-down').on('click', function() {
+        var scrollDiv = $('.lightbox-scroll');
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        scrollDiv.animate({
+            scrollTop: currentScrollTop + 200
+        }, 400, function() {
+            checkScrollPositionLightbox();
+        });
+    });
+
+    $('.lightbox-scroll').on('scroll', function() {
+        checkScrollPositionLightbox();
+    });
+
+    // Initial check in case the content is already scrolled or doesn't need scrolling
+    checkScrollPositionLightbox();
+
+});
+</script>

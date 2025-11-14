@@ -1,0 +1,55 @@
+
+
+<div class="content">
+	<div class="image">
+		<img src="inline/img/info/west-bay-house.jpg" alt="#">
+		<div class="label industrial"><p>Industrial</p></div>
+	</div>
+	<div class="text lightbox-scroll">
+		<div class="text-inner">
+			<h3>West Bay House</h3>
+			<p>West Bay House is the only ABP office in the Western Docks and is home to our Stevedoring, Shift Technicians and Maintenance Engineering Teams including mechanical and electrical engineers.<br><br>
+
+                ABP offers a variety of Maritime, Engineering and Corporate Careers, check out our current vacancies - <a target="_blank" href="https://www.abports.co.uk/contacts/abp-careers/">https://www.abports.co.uk/contacts/abp-careers/</a> </p>
+		</div>	
+		<div class="gradient"></div>
+		<a class="scroll-down"></a>			
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+    function checkScrollPositionLightbox() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollHeight = scrollDiv.prop('scrollHeight');
+        var divHeight = scrollDiv.height();
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        if (currentScrollTop + divHeight >= scrollHeight || scrollHeight <= divHeight) {
+            $('.scroll-down').hide();
+        } else {
+            $('.scroll-down').show();
+        }
+    }
+
+    $('.scroll-down').on('click', function() {
+        var scrollDiv = $('.lightbox-scroll');
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        scrollDiv.animate({
+            scrollTop: currentScrollTop + 200
+        }, 400, function() {
+            checkScrollPositionLightbox();
+        });
+    });
+
+    $('.lightbox-scroll').on('scroll', function() {
+        checkScrollPositionLightbox();
+    });
+
+    // Initial check in case the content is already scrolled or doesn't need scrolling
+    checkScrollPositionLightbox();
+
+});
+</script>
+

@@ -1,0 +1,632 @@
+/* //////////////////////////////// CUSTOM LIGHTBOX WITH AJAX //////////////////////////////// */
+
+/* Lightbox */
+
+.lightbox-overlay { backdrop-filter: blur(2px); width: 100%; height: 100%; position: absolute; z-index: 8000; background: rgba(0,0,0,0.5); display: none; overflow: hidden; top: 0; right: 0; }
+
+.lightbox { position: absolute; z-index: 9999; width: 100%; height: 100%; display: none; top: 0; margin: 0; padding: 0px; overflow: auto; }
+
+.lightbox .close-wrapper { position: relative; overflow: visible; width: 100%; height: auto; }
+.lightbox.simple .close-wrapper { width: 300px; }
+
+.lightbox .lightbox-container { display: block; padding: 0; background-color: #FFF; position: relative; width: 100%; height: 100%; }
+.lightbox.video .lightbox-container { background-color: #000; }
+
+.lightbox .header { display: block; padding: 0 20px; height: 50px; background-color: #2a61ff !important; overflow: hidden; position: relative; }
+.lightbox .header.blue { background-color: #f7aa33 !important; }
+.lightbox .header.white h5 { color: #FFF !important; font-weight: 600 !important; }
+
+.lightbox .header.icon.info { background: url(../img/icon-info-white.png) no-repeat left 20px center; background-size: 30px; }
+.lightbox .header.icon.video { background: url(../img/icon-video-dark.png) no-repeat left 20px center; background-size: 30px; }
+.lightbox .header.icon.threed { background: url(../img/icon-3d-white.png) no-repeat left 20px center; background-size: 30px; }
+
+.lightbox .header.icon.white.info { background: url(../img/icon-info.png) no-repeat left 20px center; background-size: 30px; }
+.lightbox .header.icon.white.video { background: url(../img/icon-video-dark.png) no-repeat left 20px center; background-size: 30px; }
+
+.lightbox .header.icon { background-size: 30px; background-position: left 20px center; padding-left: 60px; }
+
+.lightbox .header h5 { margin: 0; padding: 0; font-size: 18px; line-height: 50px; color: #FFF; font-family: 'Roboto', "helvetica nenu", helvetica, arial, sans-serif; font-weight: 600 !important; }
+
+.lightbox .content { display: block; overflow: hidden; background-color: #FFF; }
+
+.lightbox .caption { padding: 20px; color: #EEE; font-size: 16px; line-height: 20px; }
+
+/* Fixed aspect ratio container to prevent layout shift */
+.lightbox .image { 
+    display: block; 
+    width: 100%; 
+    height: 0; 
+    padding-bottom: 100%; /* 16:9 aspect ratio */
+    overflow: hidden; 
+    align-items: center; 
+    justify-content: center; 
+    position: relative; 
+    background-color: #f5f5f5; /* Light gray background while loading */
+    background-image: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+}
+
+/* Loading animation for image placeholder */
+@keyframes loading-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Image styling with proper positioning */
+.lightbox .image img { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Maintains aspect ratio and covers container */
+    object-position: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Show image when loaded */
+.lightbox .image img.loaded {
+    opacity: 1;
+    animation: none; /* Stop loading animation when image is loaded */
+}
+
+/* Fallback for older browsers */
+.lightbox .image img {
+    width: 105%; 
+    height: auto; 
+    display: block; 
+}
+
+.lightbox .image .fancybox-view { 
+	width: 60px; height: 60px; position: absolute; z-index: 1000; left: 50%; top: 50%; margin: -30px 0 0 -30px; display: block; cursor: pointer !important;
+	background: url(../img/icon-view-green.png) no-repeat center; background-size: 60px; 
+	-webkit-transition: all .3s ease-in; transition: all .3s ease-in;
+}
+
+.lightbox .image .fancybox-view.threed { 
+	background: url(../img/icon-view-3d-green.png) no-repeat center; background-size: 60px; 
+}
+
+/* .lightbox .image .fancybox-view:hover { width: 70px; height: 70px; margin: -35px 0 0 -35px; cursor: pointer !important; } */
+
+
+/* .lightbox .image .fancybox-view { width: 100%; height: 100%; position: absolute; z-index: 1000; background: url(../img/icon-view.png) no-repeat center; background-size: 60px; background-color: rgba(0,0,0,0.1); } */
+
+.lightbox .text { display: block; overflow: hidden; padding: 20px; }
+
+.lightbox p { margin: 0; padding: 0; color: #666; font-size: 16px; line-height: 22px; text-transform: none; }
+.lightbox a { color: #336699; cursor: pointer; }
+
+.lightbox .close-btn { 
+	width: 50px; height: 50px; 
+	top: 20px; right: 20px; 
+	padding: 0; display: block; 
+	position: fixed; 
+	background: url('../assets/img/close3.png') no-repeat center; background-size: 20px; 
+	background-color: #2a61ff; cursor: pointer; 
+	border-radius: 100px; border-radius: 100px; 
+	z-index: 1000;
+	-webkit-transition: all .2s ease-in; transition: all .2s ease-in; 
+}
+.lightbox .close-btn:hover { background-color: #113274; transform: rotate(90deg); }
+
+.lightbox.video .close-btn { width: 50px; height: 50px; top: 0px; right: 0px; padding: 0; display: block; position: absolute; background: url('../assets/img/icon-cross-white.png') no-repeat center; background-size: 20px; background-color: rgba(255,255,255,0.2); cursor: pointer; border-radius: 0px; border-radius: 0px; }
+.lightbox.video .close-btn:hover { background-color: rgba(255,255,255,0.2); }
+
+.lightbox .close-btn.white { background: url('../assets/img/close3.png') no-repeat center; background-size: 20px; }
+
+.lightbox .caption { padding: 20px; }
+
+.lightbox hr { border-top: 1px solid #CCC; margin: 20px 0; border-bottom: 0; }
+.lightbox h3 { font-size: 22px; line-height: 30px; color: #333; font-weight: 600 !important; margin: 10px 0 20px 0; padding-bottom: 15px; border-bottom: 2px solid #2a61ff; }
+.lightbox h4 { font-size: 22px; line-height: 30px; color: #333; font-weight: 600 !important; margin: 10px 0 20px 0; padding-bottom: 15px; border-bottom: 2px solid #2a61ff; }
+.lightbox p { font-size: 16px; line-height: 25px; color: #666; margin-bottom: 10px; }
+
+.lightbox h3.yellow { border-bottom: 2px solid #efd500; }
+.lightbox h3.green { border-bottom: 2px solid #38a433; }
+.lightbox h3.blue { border-bottom: 2px solid #113274; }
+.lightbox h3.lightblue { border-bottom: 2px solid #2a61ff; }
+.lightbox h3.red { border-bottom: 2px solid #e61843; }
+.lightbox h3.orange { border-bottom: 2px solid #fd4f00; }
+.lightbox h3.purple { border-bottom: 2px solid #990066; }
+
+
+.lightbox .text ul { margin: 20px 0; }
+.lightbox .text ul li { margin-left: 20px; color: #666; padding: 2px 0; }
+
+.lightbox .box { padding: 20px; background-color: #EEE; display: block; overflow: hidden; margin-top: 20px; }
+
+/* Lightbox Simple */
+
+.lightbox.simple { display: flex; justify-content: center; align-items: center; align-content: center; background-color: rgba(0, 0, 0, 0.8); }
+.lightbox.simple .lightbox-container { background-color: #FFF; width: 300px; height: auto; border-radius: 10px; -webkit-border-radius: 10px; }
+
+.lightbox.simple .content { border-radius: 10px; -webkit-border-radius: 10px; }
+
+.lightbox.simple .text { height: auto; width: auto; }
+
+.lightbox.simple .lightbox-container h5 { color: #000; }
+.lightbox.simple .lightbox-container p { color: #000; }
+
+.lightbox.simple .close-btn { width: 40px; height: 40px; top: -20px; right: -20px; padding: 0px; display: block; position: absolute; z-index: 1000; background: url('../assets/img/close3.png') no-repeat center; background-size: 50%; background-color: #2a61ff; cursor: pointer; border-radius: 100px; -webkit-border-radius: 100px; }
+
+.lightbox.simple .close-btn:hover { background-color: #113274; transform: rotate(90deg); }
+
+.lightbox .btn { 
+	padding: 10px 20px; margin: 20px 0 0 0; 
+	text-align: center; color: #FFF; 
+	background-color: #2a61ff; 
+	border-radius: 5px; -webkit-border-radius: 5px;  
+	text-decoration: none;
+	display: block;
+}
+
+
+/* More Button */
+
+.more { padding: 10px 20px; background: #EEE; color: #000 !important; text-transform: uppercase; text-decoration: none; display: inline-block; margin-top: 20px; font-size: 14px; line-height: 14px; }
+.more:hover { background: #CCC; }
+
+/* CTA - Share Box */
+
+.share-box-wrapper { position: absolute; z-index: 9999; width: 100%; height: 100%; display: none; top: 0; margin: 0; padding: 0px; overflow: auto; background-color: rgba(0,0,0,0.6);}
+
+.share-box { display: flex; justify-content: center; align-items: center; align-content: center; width: 100%; height: 100%; text-align: center; }
+.share-box-container { background-color: #FFF; width: 70%; height: auto; border-radius: 10px; -webkit-border-radius: 10px; position: relative; padding: 20px; }
+
+.share-box h5 { margin: 0 0 15px 0; font-size: 20px; line-height: 30px; color: #113274; }
+.share-box p { margin: 0 0 0 0; font-size: 16px; line-height: 20px; color: #666; }
+
+.share-box .close-btn { width: 40px; height: 40px; top: -20px; right: -20px;padding: 0px;display: block; position: absolute;background: url('../assets/img/close3.png') no-repeat center; background-size: 20px; background-color: #2a61ff; cursor: pointer; border-radius: 100px; -webkit-border-radius: 100px; }
+
+/* Share URL Button */
+
+.share-box .result { position: relative; overflow: hidden; margin-top: 20px; }
+
+.share-box .copy-btn { 
+	position: absolute; border: transparent; border-radius: 0 3px 3px 0; padding: 18px 40px 19px 16px; min-width: 100px; right: 0; top: 0; z-index: 500; 
+	font-size: 14px; line-height: 14px; color: #FFF; text-transform: uppercase; cursor: pointer; font-weight: 900; 
+	background: url('../assets/img/icon-clipboard-white.png') no-repeat right 15px center; background-size: 20px; background-color: #2a61ff; 
+}
+.share-box .copy-btn.copied { color: #FFF; background: url('../assets/img/icon-tick-circle-white.png') no-repeat right 15px center; background-size: 20px; background-color: green; }
+
+.share-box .url-result { 
+	width: 90%; padding: 15px; font-size: 16px; line-height: 16px; color: #666; display: block; background-color: #f6f6f6; border: 1px solid #CCC;
+}
+
+.share-box .social-btns { margin-top: 20px; display: block; overflow: hidden; }
+
+/* Video Embed Container */
+
+.embed-container { position: relative; padding-bottom: 56.6%; height: 0; overflow: hidden; max-width: 100%; background-color: #222; } 
+.embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+.embed-container.sketchfab { position: relative; padding-bottom: 0; width: 100%; height: calc(100vh - 50px); overflow: hidden; max-width: 100%; background-color: #222; } 
+.embed-container.sketchfab iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+
+/* Fancybox */
+
+.fancybox-slide--iframe .fancybox-content {
+    width  : 800px;
+    height : 600px;
+    max-width  : 80%;
+    max-height : 80%;
+    margin: 0;
+}
+
+/* Responsive Slides */
+
+.rslides { position: relative; list-style: none; overflow: hidden; width: 100%; height: 100%; padding: 0; margin: 0;  }
+.rslides li { -webkit-backface-visibility: hidden; position: absolute; display: none; width: 100%; height: 100%; left: 0; top: 0; max-height: 300px; }
+.rslides li:first-child { position: relative; display: block; float: left; }
+.rslides img { display: block; height: auto; float: left; width: 100%; border: 0; }
+.rslides li span { bottom: 55px; position: absolute; z-index: 1000; background-color: rgba(0,0,0,0.5); right: 0; color: #FFF; padding: 10px; line-height: 14px; }
+
+.lightbox .image span { bottom: 0; position: absolute; z-index: 1000; background-color: rgba(0,0,0,0.5); right: 0; color: #FFF; padding: 10px; line-height: 14px; }
+
+
+/* Lightbox Label */
+
+div.label { position: absolute; top: 25px; padding: 15px 40px 15px 20px; background: #2a61ff; color: #FFF; clip-path: polygon(0% 0.5%, 100% 0%, 90% 100%, 0% 100%); }
+div.label p { margin: 0 0 0 10px; padding: 0; font-size: 14px; line-height: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: #FFF; font-weight: bold; }
+
+div.label.industrial { background: url('../assets/img/icon-crane.png') no-repeat left 20px center; background-size: 30px; background-color: #efd500; }
+div.label.industrial p { color: #222; margin-left: 45px; }
+
+div.label.automotive { background: url('../assets/img/icon-car-white.png') no-repeat left 20px center; background-size: 30px; background-color: #e61843; }
+div.label.automotive p { color: #FFF; margin-left: 45px; }
+
+div.label.cruise { background: url('../assets/img/icon-cruise-white.png') no-repeat left 20px center; background-size: 30px; background-color: #113274; }
+div.label.cruise p { color: #FFF; margin-left: 45px; }
+
+div.label.tourism { background: url('../assets/img/icon-tourism-white.png') no-repeat left 20px center; background-size: 30px; background-color: #fd4f00; }
+div.label.tourism p { color: #FFF; margin-left: 45px; }
+
+div.label.marina { background: url('../assets/img/icon-marina-white.png') no-repeat left 20px center; background-size: 30px; background-color: #2a61ff; }
+div.label.marina p { color: #FFF; margin-left: 45px; }
+
+div.label.parking { background: url('../assets/img/icon-car-blue.png') no-repeat left 20px center; background-size: 30px; background-color: #FFF; }
+div.label.parking p { color: #333; margin-left: 45px; }
+
+div.label.gate { background: url('../assets/img/icon-gate.png') no-repeat left 20px center; background-size: 30px; background-color: #38a433; }
+div.label.gate p { color: #333; margin-left: 45px; }
+
+div.label.education { background: url('../assets/img/icon-education-white.png') no-repeat left 20px center; background-size: 30px; background-color: #990066; }
+div.label.education p { color: #FFF; margin-left: 45px; }
+
+/* Info Popup Buttons */
+
+div.info-btns { position: absolute; bottom: 25px; left: 25px; display: block; overflow: hidden; }
+div.info-btns a { padding: 14px 20px 14px 50px; color: #FFF; text-decoration: none; border-radius: 100px; display: inline-block; margin: 0 5px 5px 0; font-size: 14px; line-height: 14px;  -webkit-transition: all .3s ease-in; transition: all .3s ease-in;  }
+
+div.info-btns a:hover { padding: 14px 25px 14px 50px; } 
+
+div.info-btns a.gate { background: url('../assets/img/icon-gate-white.png') no-repeat left 15px center; background-size: 25px; background-color: #38a433; color: #FFF; }
+div.info-btns a.parking { background: url('../assets/img/icon-car-blue.png') no-repeat left 15px center; background-size: 25px; background-color: #FFF; color: #333; }
+
+.maps-btn-group { display: block; overflow: hidden; margin-top: 20px; }
+.maps-btn-group a { font-size: 14px; line-height: 20px; display: block; border: 2px solid #f4f4f4; padding: 15px 20px 15px 70px !important; text-decoration: none; margin: 0 0 10px 0; border-radius: 10px; -webkit-border-radius: 10px; background-color: #f4f4f4; color: #666;  }
+
+.maps-btn-group a.google { background: url('../assets/img/maps-google.png') no-repeat left 20px center; background-size: 35px; background-color: #F4f4f4; }
+.maps-btn-group a.apple { background: url('../assets/img/maps-apple.png') no-repeat left 20px center; background-size: 35px; background-color: #F4f4f4; }
+
+.maps-btn-group a:hover { border: 2px solid #CCC; }
+
+
+/* Scroll text */
+
+.lightbox .scroll-down { 
+	width: 40px; height: 40px; 
+	right: 20px; bottom: 20px;
+	position: absolute; 
+	background: url('../assets/img/arrow-down3.png') no-repeat center; 
+	background-size: 50%; 
+	background-color: #555; 
+	border-radius: 100px; 
+	-webkit-border-radius: 100px;
+	cursor: pointer;
+	display: none; /* Hidden by default, will be shown via JavaScript when needed */
+	z-index: 10;
+}
+.lightbox .scroll-down:focus, .lightbox .scroll-down:hover { background-color: #333; }
+
+/* Hide scroll button on mobile devices (below 768px) */
+@media screen and (max-width: 767px) {
+	.lightbox .scroll-down {
+		display: none !important;
+	}
+}
+
+/* INTRO */
+
+/* #intro-bkg { width: 100%; height: 100%; position: absolute; z-index: 7000; background-color: #2a4b55; display: block; } */
+
+#intro-container { 
+	width: 100%; height: 100%; 
+	position: absolute; z-index: 2000; 
+	display: flex; justify-content: center; align-items: flex-end; align-content: left;
+	overflow: hidden; top: 0; right: 0; text-decoration: none; 
+	/* background: url('/inline/img/banner/background-2.jpg') no-repeat center; background-size: cover;  */ /* background-color: rgba(48,63,71,0.8); */
+}
+
+.intro-top { display: none; }
+
+.back-to-site { top: 25px; left: 25px; font-size: 14px; font-weight: 800; color: #FFF; text-decoration: none; position: absolute; text-transform: uppercase; }
+.back-to-site:hover { color: #FFF; }
+
+.logo-3deep { width: 80px; height: 40px; top: 20px; right: 15px; position: absolute; z-index: 2000; background: url('../assets/img/3deep-aerial.png') no-repeat right top; background-size: 100%; opacity: 0.5; -webkit-opacity: 0.5; }
+.logo-3deep:hover { opacity: 0.8; -webkit-opacity: 0.8; }
+
+#intro { display:none; width: 100%; height: auto; position: relative; padding: 0; text-align: left; overflow: hidden; color: #FFF; } 
+
+#intro .content { width: 100%; display: block; padding: 30px; margin: 0; bottom: 0; background-color: rgba(255,255,255,0.2); backdrop-filter: blur(2px); }
+
+#intro .intro-logo { width: 250px; height: 60px; display: block; background: url('../assets/img/logo-abp-white.svg') no-repeat center; background-size: 100%; margin-bottom: 30px; }
+
+.intro-title { display: block; overflow: hidden; width: 80%; }
+
+#intro h1 { font-size: 22px; line-height: 40px; margin: 0; padding: 10px 20px 10px 20px; color: #113274; background-color: #FFF; vertical-align: top; }
+#intro p { color: #FFF; font-size: 14px; line-height: 20px; padding: 20px 20px 15px 20px; background: #2a61ff; text-transform: uppercase; letter-spacing: 0.5em; vertical-align: top; }
+
+.intro-desc { max-width: 90%; font-size: 16px; line-height: 22px; margin-top: 30px; }
+
+#intro .btn-group {
+	width: 100%; max-width: 100%; margin: 30px auto 0 auto; overflow: hidden; display: flex; gap: 10px; justify-content: space-between; align-content: stretch;
+}
+
+#intro .btn { 
+	font-weight: normal;
+	margin: 0 auto 10px auto; font-size: 16px; padding: 60px 10px 15px 10px; 
+	background-color: #FFF; 
+	text-decoration: none; text-align: center; 
+	color: #000 !important; display: inline-block; border-radius: 5px; -webkit-border-radius: 5px;
+	 -webkit-transition: all .3s ease-in; transition: all .3s ease-in; font-size: 12px;
+	 cursor: pointer; align-content: stretch; flex: 1; text-transform: uppercase; font-weight: bold;
+}
+
+#intro .btn span { margin-right: 5px; display: none; position: absolute; bottom: 15px; }
+
+#intro .btn:hover { background-color: #2a61ff !important; color: #FFF !important; }
+
+#intro .btn.areas { background: url('../assets/img/icon-area.png') no-repeat center top 20px; background-size: 25px; background-color: #FFF; color: #222; }
+#intro .btn.areas:hover { background: url('../assets/img/icon-area-white.png') no-repeat center top 20px; background-size: 25px; }
+
+#intro .btn.facilities { background: url('../assets/img/icon-facilities-blue.png') no-repeat center top 20px; background-size: 25px; background-color: #FFF; color: #222; }
+#intro .btn.facilities:hover { background: url('../assets/img/icon-facilities-white.png') no-repeat center top 20px; background-size: 25px; }
+
+#intro .btn.cruise { background: url('../assets/img/icon-cruise-blue.png') no-repeat center top 20px; background-size: 25px; background-color: #FFF; color: #222; }
+#intro .btn.cruise:hover { background: url('../assets/img/icon-cruise-white.png') no-repeat center top 20px; background-size: 25px; }
+
+
+
+/* //////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////// START OF RESPONSIVE STYLES //////////////////////////////// */
+/* //////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+/* ////////////////////////////////  bigger than mobile version //////////////////////////////// */
+
+@media screen and (min-width: 480px) {
+
+	/* Maintain aspect ratio for mobile */
+	.lightbox .image { 
+		height: 0; 
+		padding-bottom: 56.25%; /* 16:9 aspect ratio */
+		max-height: none;
+	}
+	.splash .banner-logo a { width: 50%; margin-bottom: 0; }
+
+	#intro .intro-logo { width: 350px; height: 70px; }
+
+	.intro-title h1 { font-size: 25px; line-height: 40px; padding: 20px 30px 20px 30px; }
+	.intro-title p { font-size: 16px; line-height: 20px; padding: 20px 30px 20px 30px; }
+
+}
+
+/* //////////////////////////////// ipad mini or galaxy note version //////////////////////////////// */  
+
+@media screen and (min-width: 480px) and (max-width: 768px) {
+
+    .splash { height: auto; }
+
+    /* Maintain aspect ratio for tablet */
+    .lightbox .image { 
+		height: 0; 
+		padding-bottom: 56.25%; /* 16:9 aspect ratio */
+		max-height: none;
+	}
+
+}
+
+/* //////////////////////////////// big ipad version //////////////////////////////// */
+
+@media screen and (min-width: 768px) {
+
+	.lightbox { width: 100%; height: 100%; display: none; justify-content: center; align-items: center; align-content: center; background-color: rgba(0,0,0,0.8);}
+	.lightbox .lightbox-container  { width: 600px; height: auto; border-radius: 15px; }
+	.lightbox .close-wrapper { width: 600px; }
+	.lightbox.video .lightbox-container  { width: 600px; height: auto; border-radius: 10px; -webkit-border-radius: 10px; overflow: hidden;}
+
+	.lightbox.simple .lightbox-container  { width: 400px; height: auto; border-radius: 10px; -webkit-border-radius: 10px; overflow: visible; }
+	.lightbox.simple .close-btn { width: 50px; height: 50px; top: -25px; right: -25px; }
+	.lightbox.simple .close-wrapper { width: 400px; }
+
+	.lightbox .content { border-radius: 15px; -webkit-border-radius: 15px; }
+
+	.lightbox .close-btn { top: -20px; right: -20px; position: absolute; }
+	.lightbox.video .close-btn { border-radius: 0; -webkit-border-radius: 0; }
+
+	.embed-container.sketchfab { padding-bottom: 56.6%; width: 100%; height: 0; } 
+
+	.lightbox .gradient {
+		position: absolute;
+		bottom: 0;
+		width: 47%;
+		display: block;
+		height: 120px;
+		background: rgb(255,255,255);
+		background: linear-gradient(0deg, rgba(255,255,255,0.8561625333727241) 0%, rgba(255,255,255,0) 100%);
+		pointer-events: none;
+	}
+
+	.lightbox .content { display: block; }
+
+	/* Desktop layout - side by side */
+	.lightbox .image { 
+		display: inline-block; 
+		float: left; 
+		width: 50%; 
+		height: 370px; /* Fixed height for desktop */
+		padding-bottom: 0; /* Remove aspect ratio padding for desktop */
+	}
+	.lightbox .image img { 
+		margin-top: 0; 
+		width: 100%; 
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.lightbox .text { display: inline-block; float: left; padding: 0; width: 50%; height: 370px; overflow-y: auto; }
+	.lightbox .text .text-inner { padding: 20px 20px 60px 20px; }
+
+    .lightbox .image.wide { width: 70%; border-radius: 15px 0 0 15px; }
+    .lightbox .image.wide img { width: 100%; }
+	.lightbox .text.thin { width: 30%; }
+
+	.lightbox p { font-size: 16px; line-height: 20px; }
+
+	div.label { top: 40px; }
+
+	/* .share-box { width: 400px; height: auto; margin: -100px 0 0 -200px; top: 50%; left: 50%; } */
+
+	.share-box .close-btn {  width: 40px; height: 40px;  top: -20px; right: -20px; padding: 0px; display: block; position: absolute; z-index: 1000; background: url('../assets/img/close3.png') no-repeat center; background-size: 20px; background-color: #2a61ff; }
+
+	.lightbox .image .fancybox-view { width: 60px; height: 60px; margin: -70px 0 0 -30px; }
+
+	.rslides li { max-height: 325px; }
+	.rslides li span { bottom: 0; right: auto; left: 0;} 
+	.lightbox .image span { bottom: 0; right: auto; left: 0; } 
+	.splash { width: 70%; height: auto; }
+	.splash .upper.shift-up { margin-top: -40px; } 
+	.splash .upper.shift-up2 { margin-top: -100px; } 
+	.splash .banner	{ height: 300px; }
+	.splash .banner-logo { padding: 40px; }
+	.splash .banner-logo a { max-width: 200px; }
+
+	.splash .upper { padding: 20px; }
+	.splash h1 { font-size: 30px; line-height: 30px; }
+	.splash p { font-size: 16px; line-height: 22px; display: block; }
+
+	.splash .logos a { width: 80px; }
+	.splash .logos a.wide { width: 100px; }
+
+	#intro .content { width: auto; display: block; padding: 20px; margin: 0 0 5% 5%; border-radius: 10px; -webkit-border-radius: 10px; }
+
+	#intro .intro-logo { width: 350px; height: 70px; }
+
+	.intro-title { display: block; overflow: hidden; }
+
+	#intro h1 { padding: 20px 30px 20px 30px; }
+	#intro p { padding: 20px 30px 20px 30px; }
+
+    #intro h1 { font-size: 30px; line-height: 40px; }
+    #intro p { font-size: 18px; line-height: 25px; }
+
+    #intro .btn span { margin-right: 5px; display: inline-block; }
+
+    #intro .btn-group { align-content: flex-start; gap: 5px; }
+
+    #intro .btn.areas { background: url('../assets/img/icon-area.png') no-repeat right 20px center; background-size: 25px; padding: 20px 50px 20px 20px; }
+	#intro .btn.areas:hover { background: url('../assets/img/icon-area-white.png') no-repeat right 20px center; background-size: 25px; }
+	
+	#intro .btn.facilities { background: url('../assets/img/icon-facilities-blue.png') no-repeat right 20px center; background-size: 25px; padding: 20px 50px 20px 20px; }
+	#intro .btn.facilities:hover { background: url('../assets/img/icon-facilities-white.png') no-repeat right 20px center; background-size: 25px; }
+	
+	#intro .btn.cruise { background: url('../assets/img/icon-cruise-blue.png') no-repeat right 20px center; background-size: 25px; padding: 20px 50px 20px 20px; }
+	#intro .btn.cruise:hover { background: url('../assets/img/icon-cruise-white.png') no-repeat right 20px center; background-size: 25px; }
+
+	#intro .btn { background-color: #FFF !important; border-radius: 1000px; -webkit-border-radius: 1000px; }
+	#intro .btn:hover { background-color: #2a61ff !important; color: #FFF !important; }
+
+    .logo-3deep { width: 100px; height: 50px; top: 30px; right: 25px; }
+    .back-to-site { top: 35px; left: 40px; font-size: 18px; }
+
+    .share-box-container { max-width: 400px; }
+
+    .maps-btn-group a { font-size: 16px; line-height: 23px; }
+
+    .lightbox .scroll-down { display: block; }
+
+}
+
+/* //////////////////////////////// full wide version //////////////////////////////// */ 
+
+@media screen and (min-width: 960px) {
+
+	.lightbox h5 { font-size: 25px; line-height: 35px; }
+
+	/* .share-box { width: 500px; margin: -100px 0 0 -250px; top: 50%; left: 50%; } */
+
+	.lightbox .close-wrapper { width: 600px; }
+
+}
+
+/* //////////////////////////////// full wide version //////////////////////////////// */ 
+
+@media screen and (min-width: 1200px) {
+
+	.lightbox .lightbox-container  { width: 900px; height: auto; }
+	.lightbox .close-wrapper {width: 900px; }
+
+	.lightbox.simple .close-wrapper { width: 400px; }
+	.lightbox.simple .close-wrapper { width: 400px; }
+
+	.lightbox .header { height: 60px; }
+	.lightbox .header.icon { background-size: 35px; background-position: left 20px center; padding-left: 70px; }
+	.lightbox .header h5 { line-height: 60px; font-size: 20px; }
+
+	.lightbox .close-btn { width: 50px; height: 50px; right: -25px; top: -25px; }
+
+	.lightbox.video .lightbox-container  { width: 800px; }
+	.lightbox.video .close-btn { width: 60px; height: 60px; }
+
+	/* Larger desktop layout */
+	.lightbox .image { width: 50%; height: 540px; }
+	.lightbox .text { width: 50%; height: 540px; }
+	.lightbox .text .text-inner { padding: 20px 20px 60px 20px; }
+
+	.rslides li { max-height: 415px; }
+
+	.lightbox p { font-size: 16px; line-height: 22px; }
+
+	.splash { width: 40%; max-width: 700px; }
+	.splash .upper.shift-up { margin-top: -40px; } 
+	.splash .upper { padding: 20px; }
+	.splash .banner-logo { padding: 40px; }
+	.splash .banner-logo a { max-width: 300px; }
+	.splash .banner	{ height: 300px; }
+	.splash .logos .item { max-width: 80px; padding: 10px 30px; }
+	.splash .logos .item.wide { max-width: 110px; }
+	.splash .btn { margin-top: 0px; }
+
+	.splash .logos a { width: 100px; }
+	.splash .logos a.wide { width: 120px; }
+
+	.splash .splash-close-btn { width: 50px; height: 50px; top: -25px; right: -25px; }
+
+	#intro .content { padding: 40px; margin: 0 0 5% 5%; }
+	#intro .intro-logo { width: 500px; height: 80px; }
+    #intro h1 { font-size: 40px; line-height: 50px; }
+    #intro p { font-size: 20px; line-height: 30px; }
+
+    .intro-desc { max-width: 80%; font-size: 18px; line-height: 18px; margin-top: 40px; }
+
+	#intro .btn-group { align-content: flex-start; gap: 0; }
+    #intro .btn { margin: 0 20px 0 auto; padding: 15px 30px; font-size: 14px; line-height: 22px; }
+    #intro .btn.areas { background-position: right 20px center; background-size: 25px; padding-right: 50px; background-color: #FFF; }
+    #intro .btn.facilities { background-position: right 20px center; background-size: 25px; padding-right: 50px; background-color: #FFF; }
+    #intro .btn.cruise { background-position: right 20px center; background-size: 25px; padding-right: 50px; background-color: #FFF; }
+
+    .logo-3deep { width: 100px; height: 50px; top: 40px; right: 45px; }
+    .back-to-site { top: 60px; left: 60px; font-size: 18px; }
+
+}
+
+/* //////////////////////////////// very wide version //////////////////////////////// */ 
+
+@media screen and (min-width: 1500px) { 
+
+	.splash h1 { font-size: 30px; line-height: 30px; }
+	.splash p { font-size: 16px; line-height: 20px; }
+
+	#intro h1 { padding: 20px 30px 20px 30px; }
+	#intro p { padding: 20px 30px 20px 30px; }
+
+}
+
+/* //////////////////////////////// extra wide version //////////////////////////////// */ 
+
+@media screen and (min-width: 1750px) {
+
+	.lightbox.video .lightbox-container  { width: 1000px; }
+
+	.lightbox .lightbox-container  { width: 900px; height: auto; }
+	.splash .upper.shift-up { margin-top: -60px; } 
+
+	.splash { width: 40%; max-width: 800px; }
+	.splash .upper { padding: 30px; }
+
+}
+
+/* //////////////////////////////// extra extra wide version //////////////////////////////// */ 
+
+@media screen and (min-width: 2000px) {
+
+	#intro .content {  }
+
+	.intro-title { }
+
+}

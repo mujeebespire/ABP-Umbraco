@@ -1,0 +1,56 @@
+
+
+<div class="content">
+	<div class="image">
+		<img src="inline/img/info/solent-gateway.jpg" alt="#">
+		<div class="label industrial"><p>Industrial</p></div>
+	</div>
+	<div class="text lightbox-scroll">
+		<div class="text-inner">
+			<h3>Solent Gateway</h3>
+			<p>ABP Solent Gateway Limited (SGL), the operator of Marchwood Port, has been part of ABP Southampton since 2023. Traditionally a military port owned by the Ministry of Defence (MoD), Marchwood Port is operated under a 35-year lease held by ABP Solent Gateway, covering a 200 acre site. <br><br>
+
+ABP SGL supports military and commercial port operations in various sectors, including aggregates, automotive, heavy plant export, break bulk, project cargoes, container storage, repair and maintenance, and renewable energy. As a multi-modal site, ABP SGL is one of the premier locations for importing and exporting cargo, boasting excellent sea, rail, and road connectivity. 
+
+</p>
+		</div>	
+		<div class="gradient"></div>
+		<a class="scroll-down"></a>			
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+    function checkScrollPositionLightbox() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollHeight = scrollDiv.prop('scrollHeight');
+        var divHeight = scrollDiv.height();
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        if (currentScrollTop + divHeight >= scrollHeight || scrollHeight <= divHeight) {
+            $('.scroll-down').hide();
+        } else {
+            $('.scroll-down').show();
+        }
+    }
+
+    $('.scroll-down').on('click', function() {
+        var scrollDiv = $('.lightbox-scroll');
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        scrollDiv.animate({
+            scrollTop: currentScrollTop + 200
+        }, 400, function() {
+            checkScrollPositionLightbox();
+        });
+    });
+
+    $('.lightbox-scroll').on('scroll', function() {
+        checkScrollPositionLightbox();
+    });
+
+    // Initial check in case the content is already scrolled or doesn't need scrolling
+    checkScrollPositionLightbox();
+
+});
+</script>

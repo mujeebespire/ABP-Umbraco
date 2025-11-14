@@ -1,0 +1,71 @@
+
+
+<div class="content">
+	<div class="image">
+		<img src="inline/img/info/cruise-mayflower.jpg" alt="#">
+		<div class="label cruise"><p>Cruise</p></div>
+        <div class="info-btns">
+            <a class="gate toggle-link-simple" data-link="dock-gate-20.html">Dock Gate 20</a>
+            <a class="parking toggle-link" data-link="parking-2.html">Parking Info</a>
+	   </div>
+    </div>
+
+	<div class="text lightbox-scroll">
+		<div class="text-inner">
+			<h3>Mayflower Cruise Terminal</h3>
+			<p>Mayflower Cruise Terminal opened in 1960 and was modernised in 2003 and 2015.  Major cruise lines use the terminal such as Cunard and P&O Cruises. <br><br>
+
+It is easily accessible from A33, West Quay Road, please follow signs for Dock Gate 10. Once through Dock Gate 10, turn right at the roundabout and follow the signs to the terminal. <br><br>
+
+Mayflower Cruise Terminal can also be accessed through Dock Gate 20, which is easily accessible from the M271 and Redbridge Road. It is a 2-mile drive through the docks to reach the terminal. <br><br>
+
+Mayflower Cruise Terminal is a 25-minute walk from the train station.<br><br>
+
+Short stay parking is located just behind the coach bays, to your right as you face the terminal. There is also long stay parking available on the port, this will need to be booked prior to your arrival.<br><br>
+
+
+</p>
+		</div>	
+		<div class="gradient"></div>
+		<a class="scroll-down"></a>			
+	</div>
+
+</div>
+
+<script>
+$(document).ready(function() {
+    function checkScrollPositionLightbox() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollHeight = scrollDiv.prop('scrollHeight');
+        var divHeight = scrollDiv.height();
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        // Show or hide the scroll down button
+        if (currentScrollTop + divHeight >= scrollHeight || scrollHeight <= divHeight) {
+            $('.scroll-down').hide();
+        } else {
+            $('.scroll-down').show();
+        }
+    }
+
+    $('.scroll-down').on('click', function() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollAmount = 200; // Adjust scroll amount
+        var targetScroll = scrollDiv.scrollTop() + scrollAmount;
+
+        scrollDiv.stop().animate({
+            scrollTop: targetScroll
+        }, 400, function() {
+            checkScrollPositionLightbox();
+        });
+    });
+
+    // Bind both scroll and touchmove events for better mobile support
+    $('.lightbox-scroll').on('scroll touchmove', function() {
+        checkScrollPositionLightbox();
+    });
+
+    // Initial check
+    checkScrollPositionLightbox();
+});
+</script>

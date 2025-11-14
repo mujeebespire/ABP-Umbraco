@@ -1,0 +1,1104 @@
+<krpano version="1.22" title="Virtual Tour" onstart="intro();">
+
+<cursors standard="grab" dragging="grabbing" moving="grabbing" />
+
+<control usercontrol="all"
+mousetype="dragto"
+zoomtocursor="false"
+zoomoutcursor="true"
+mouseaccelerate="1.0"
+mousespeed="10.0"
+mousefriction="0.8"
+mousefovchange="0.0"
+keybaccelerate="0.5"
+keybspeed="10.0"
+keybfriction="0.9"
+keybfovchange="0.75"
+keybinvert="false"
+fovspeed="3.0"
+fovfriction="0.9"
+movetocursor="none"
+cursorsize="10.0"
+headswing="0.0"
+keycodesleft="37"
+keycodesright="39"
+keycodesup="38"
+keycodesdown="40"
+trackpadzoom="false"
+/>
+
+<include url="plugins/tooltip.xml" />
+<include url="plugins/hotspots.xml"></include>
+
+<!-- Add fullscreen plugin for HTML5 fullscreen support -->
+<plugin name="fullscreen" />
+
+<!-- Little Planet View -->
+
+<action name="intro">
+
+<!-- This action is now deprecated - intro logic moved to scene_aa_splash onstart -->
+<!-- Keeping for reference but not used -->
+
+</action>
+
+<action name="run_intro_animation">
+	<!-- Check if this is the initial load (no scene parameter in URL) or if scene was explicitly requested -->
+	if (get(url.scene) == null OR get(url.scene) == 'scene_aa_splash',
+		<!-- Run the intro animation -->
+    wait(1);
+		tween(view.hlookat, -50, 2.5, easeInOutQuad );
+		tween(view.vlookat, 20, 2.5, easeInOutQuad );
+    <!-- Add final position - adjust these values to your desired end direction -->
+		tween(view.hlookat, 44.0, 3.0, easeInOutQuad );
+		tween(view.vlookat, 21.0, 3.0, easeInOutQuad );
+		tween(view.fov, 30, 2.5, easeInOutQuad );
+		tween(view.fisheyefovlink, .3, 2.5, easeInOutQuad );
+		tween(view.fisheye, 0.33, 2.5, easeInOutQuad);
+		tween(view.architectural, .35, 2.5, easeInOutQuad);
+			tween(view.architectural, 0.0, 2.5, easeInOutQuad);
+			tween(view.pannini,       0.0, 2.5,easeInOutQuad);
+			tween(view.fisheye,       0.0, 2.5,easeInOutQuad);
+		tween(view.fov, 120, 2.5, easeInOutQuad );
+	);
+</action>
+
+<!-- Action to reset view to architectural mode -->
+<action name="reset_to_architectural_view">
+	wait(0.1);
+	set(view.architectural, 1);
+	set(view.architecturalonlymiddle, false);
+	set(view.projection, normal);
+	set(view.fovtype, MFOV);
+	set(view.fisheye, 0);
+	set(view.fisheyefovlink, 0);
+	set(view.stereographic, false);
+	set(view.pannini, 0);
+</action>
+
+<!-- Event handler to ensure architectural view is applied when scenes load -->
+<events onnewscene="reset_to_architectural_view();" />
+
+<!-- Autorotate -->
+
+<autorotate enabled="true"
+	waittime="1.5"
+	accel="1.0"
+	speed="-1.0"
+	horizon="10.0"
+	tofov="off"
+	oneroundrange="360.0"
+	zoomslowdown="true"
+	interruptionevents="userviewchange|layers|keyboard"
+	
+/>
+<events onautorotatestop="set(autorotate.waittime, 5)"></events>
+
+<loadcompleteactions name="handle_autocomplete_autorotate" value="handle_autocomplete_autorotate" />
+
+<action name="handle_autocomplete_autorotate">
+		if (get(xml.scene) == "model" || get(xml.scene) == "intromodel",
+			set(autorotate.enabled, true);
+			set(autorotate.horizon, 30);
+			set(autorotate.speed, 5);
+			set(autorotate.waittime, 1.5);
+		,			
+			set(autorotate.enabled, true);
+			set(autorotate.horizon, 0);
+			set(autorotate.speed, 5);			
+			set(autorotate.waittime, 3);
+		);
+
+</action>
+
+<!-- Context Menu -->
+
+<contextmenu>
+  <!-- Hide default items if needed -->
+  <item name="autorotate" visible="false" />
+  <item name="vr" visible="false" />
+  <item name="openurl" visible="false" />
+  <item name="copyurl" visible="false" />
+
+  <!-- View Mode Options -->
+<!--   <item name="standard" caption="Standard View" onclick="set_standard_view();" />
+  <item name="planet" caption="Little Planet View" onclick="set_littleplanet_view();" /> -->
+  
+  <!-- Navigation Options -->
+<!--   <item name="reset_view" caption="Reset View" onclick="reset_current_view();" />
+  <item name="fullscreen" caption="Toggle Fullscreen" onclick="toggle_fullscreen();" /> -->
+    <!-- Separator -->
+<!--   <item name="separator1" caption="─────────────" enabled="false" /> -->
+  <!-- Author Information -->
+  <item name="author" caption="Created by: 3DEEP MEDIA" onclick="open_author_website();" />
+</contextmenu>
+
+<action name="set_standard_view">
+  reset_current_view();
+</action>
+
+<action name="reset_current_view">
+  if(scene[get(xml.scene)].view.hlookat != null AND scene[get(xml.scene)].view.vlookat != null AND scene[get(xml.scene)].view.fov != null,
+  if(scene[get(xml.scene)].view.hlookat != null,
+    lookto(scene[get(xml.scene)].view.hlookat, scene[get(xml.scene)].view.vlookat, scene[get(xml.scene)].view.fov, 2.0);
+    set(view.fov, scene[get(xml.scene)].view.fov);
+    set(view.fovmin, scene[get(xml.scene)].view.fovmin);
+    set(view.fovmax, scene[get(xml.scene)].view.fovmax);
+    set(view.fovtype, scene[get(xml.scene)].view.fovtype);
+    set(view.projection, scene[get(xml.scene)].view.projection);
+    set(view.architectural, scene[get(xml.scene)].view.architectural);
+    set(view.architecturalonlymiddle, scene[get(xml.scene)].view.architecturalonlymiddle);
+    set(view.fisheye, scene[get(xml.scene)].view.fisheye);
+    set(view.fisheyefovlink, scene[get(xml.scene)].view.fisheyefovlink);
+  ,
+    lookto(0, 0, 90, 2.0);
+  );
+</action>
+
+<action name="toggle_fullscreen">
+  if(display.fullscreen,
+    exitfullscreen();
+  ,
+    enterfullscreen();
+  );
+</action>
+
+<action name="show_help">
+  <!-- Display help information -->
+  set(help_text, 'Virtual Tour Controls:%0A%0A' +
+                 '• Mouse: Drag to look around%0A' +
+                 '• Mouse Wheel: Zoom in/out%0A' +
+                 '• Right-click: Context menu%0A' +
+                 '• Hotspots: Click to navigate%0A%0A' +
+                 'View Modes:%0A' +
+                 '• Standard View: Normal panorama view%0A' +
+                 '• Architectural View: Corrected for straight lines%0A' +
+                 '• Little Planet: Stereographic projection%0A%0A' +
+                 'Navigation:%0A' +
+                 '• Use hotspots to move between scenes%0A' +
+                 '• Reset View returns to scene default%0A%0A' +
+                 'Note: Architectural view prevents marker distortion');
+  showtext(get(help_text), help_style);
+</action>
+
+<action name="open_author_website">
+  <!-- Open 3DEEP MEDIA website in new tab/window -->
+  js(openWebsite('https://3deepmedia.com'));
+</action>
+
+<!-- Global view settings - updated for better marker alignment -->
+<view architectural="1" architecturalonlymiddle="true" projection="normal" fovtype="MFOV" fov="90" fovmin="70" fovmax="100" fisheye="0" fisheyefovlink="0" limitview="auto"></view>
+
+<!-- ///////////////////////////////////// SCENES /////////////////////////////////////// -->
+
+<scene name="scene_aa_splash" title="Intro" thumburl="panos/AA_splash.tiles/thumb.jpg" lat="50.91269706" lng="-1.46086536" alt="112.16" heading="0.0" onstart="run_intro_animation();">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+<view hlookat ="-180.0"
+		vlookat ="90.0"
+		camroll ="0.000000"
+		fov ="130"
+		fovmin="70"
+		fovmax="130"
+		maxpixelzoom ="1.000000"
+		limitfov ="true"
+		fisheye ="1.00"
+		fisheyefovlink="0.50"
+		stereographic ="true"
+		architecturalonlymiddle="true"
+		limitview="auto"
+		/>
+
+		<preview url="panos/AA_splash.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/AA_splash.tiles/pano_%s.jpg" />
+		</image>
+
+	</scene>
+
+<scene name="scene_city_cruise_terminal" title="City Cruise Terminal" description="City Cruise Terminal opened in 2003 and was upgraded in in 2007. It is one of the busiest terminals, designed to accommodate the largest ships. Close to the Old Town, the terminal serves major cruise lines including Royal Caribbean, MSC Cruises, Disney Cruise Line and Celebrity Cruises. &amp;lt;br&amp;gt;City Cruise Terminal is easily accessible from the A33, West Quay Road, please follow signs for Dock Gate 10. Once through Dock Gate 10, take a left and the terminal is on the right-hand side of the road. The terminal can also be accessed via Dock Gate 8." thumburl="panos/city_cruise_terminal.tiles/thumb.jpg" lat="50.90122631" lng="-1.41444919" alt="8.80" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="-8.4" vlookat="25.4" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true" />
+
+	<preview url="panos/city_cruise_terminal.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/city_cruise_terminal.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="city_cruise_terminal" style="spot_cruise|tooltip" ath="24.37438742364452" atv="28.631061176328842" tooltip="City Cruise Terminal" onclick="js(openInfoPopup('cruise-city.html'))"/>
+
+	<hotspot name="horizon_cruise_terminal" style="spot_cruise|tooltip" ath="85.5629024925579" atv="9.282726334739205" tooltip="Horizon Cruise Terminal" onclick="js(openInfoPopup('cruise-horizon.html'))"/>
+
+	<hotspot name="dock_gate_8" style="spot_gate|tooltip" ath="-72.4319383950239" atv="10.678842542089585" tooltip="Dock Gate 8" onclick="js(openInfoPopupSimple('dock-gate-8.html'))"/>
+
+	<hotspot name="dock_gate_10" style="spot_gate|tooltip" ath="130.95286793564" atv="8.429821457368572" tooltip="Dock Gate 10" onclick="js(openInfoPopupSimple('dock-gate-10.html'))"/>
+
+	<hotspot name="abparking_areas" style="spot_parking|tooltip" ath="-178.28872883500372" atv="35.80311220447954" tooltip="ABParking Areas" onclick="js(openInfoPopup('parking.html'))"/>
+
+	<hotspot name="eastern_docks" style="spot_link_balloon" ath="-81.69601939453514" atv="3.7391598005798619" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_1" />
+
+	<hotspot name="horizon_cruise_terminal_1" style="spot_link_balloon" ath="115.89175662808171" atv="12.034232639244598" tooltip="Horizon Cruise Terminal" onclick="loadscene(scene_horizon_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_horizon_cruise_terminal" />
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon_small" ath="40.069549138403204" atv="3.7205047752517668" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_5, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_5" />
+
+  <hotspot name="mayflower_cruise_terminal" style="spot_link_balloon_small" ath="96.6792052513922" atv="3.721207293271581" tooltip="Mayflower Cruise Terminal" onclick="loadscene(scene_mayflower_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_mayflower_cruise_terminal" />
+
+</scene>
+
+<scene name="scene_eastern_docks_1" title="Eastern Docks" description="The origins of the modern Port of Southampton go back to the mid-eighteenth century, with the development of the Eastern Docks at the confluence of the Rivers Test and Itchen. &amp;lt;br&amp;gt;Whilst a number of the earliest docks constructed have been redeveloped as marinas or in-filled and put to other uses because they were too small to accommodate modern ships, the majority of the original Eastern Docks remains as a thriving part of the Port of Southampton now principally serving the automotive and cruise sectors. &amp;lt;br&amp;gt;The Eastern is home to two of our five cruise terminals and also the Wallenius Wilhelmsen Automotive terminal. The area houses multi-deck car storage parks and supports import and export auto operations. The Grain Terminal at Dock Head is a very recognisable sight for all seafarers and supports the import and export of grains including animal feed." thumburl="panos/eastern_docks_1.tiles/thumb.jpg" lat="50.89528892" lng="-1.39845289" alt="71.89" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="-93.3" vlookat="20.8" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/eastern_docks_1.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/eastern_docks_1.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="ocean_cruise_terminal" style="spot_cruise|tooltip" ath="-71.29783321978891" atv="15.113584329316193" tooltip="Ocean Cruise Terminal" onclick="js(openInfoPopup('cruise-ocean.html'))"/>
+
+	<hotspot name="ocean_cruise_terminal_1" style="spot_link_balloon" ath="-43.25896409236185" atv="19.235491303970935" tooltip="Ocean Cruise Terminal" onclick="loadscene(scene_ocean_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_ocean_cruise_terminal" />
+
+	<hotspot name="dock_gate_5" style="spot_gate|tooltip" ath="2.9543270662401824" atv="24.154658937777658" tooltip="Dock Gate 5" onclick="js(openInfoPopupSimple('dock-gate-5.html'))"/>
+
+	<hotspot name="dock_gate_4" style="spot_gate|tooltip" ath="77.38760231260221" atv="37.6090280598695" tooltip="Dock Gate 4" onclick="js(openInfoPopupSimple('dock-gate-4.html'))"/>
+
+	<hotspot name="ab_parking" style="spot_parking|tooltip" ath="29.21240366438235" atv="34.32894354065927" tooltip="AB Parking" onclick="js(openInfoPopup('parking-2.html'))"/>
+
+	<hotspot name="empress_dock" style="spot_industrial_dock|tooltip" ath="-124.91045733621266" atv="7.8343717245346625" tooltip="Empress Dock" onclick="js(openInfoPopup('empress-dock.html'))"/>
+
+	<hotspot name="itchen_quays" style="spot_industrial_dock|tooltip" ath="-131.98974629192486" atv="4.248343355845674" tooltip="Itchen Quays" onclick="js(openInfoPopup('itchen-quays.html'))"/>
+
+	<hotspot name="national_oceanography_centre_(noc)" style="spot_education|tooltip" ath="-141.15765248386333" atv="7.62656441458271" tooltip="National Oceanography Centre (NOC)" onclick="js(openInfoPopup('noc.html'))"/>
+
+	<hotspot name="southampton_university" style="spot_education|tooltip" ath="-151.37133118536394" atv="8.166350705258525" tooltip="Southampton University" onclick="js(openInfoPopup('university.html'))"/>
+
+	<hotspot name="eastern_docks" style="spot_link_balloon" ath="-110.15624252981652" atv="5.6536852534691677" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_2, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_2" />
+
+	<hotspot name="city_cruise_terminal" style="spot_link_balloon" ath="15.943065217717049" atv="4.28287204710058" tooltip="City Cruise Terminal" onclick="loadscene(scene_city_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_city_cruise_terminal" />
+
+	<hotspot name="horizon_cruise_terminal" style="spot_link_balloon_small" ath="29.224817429234918" atv="1.5314177258359609" tooltip="Horizon Cruise Terminal" onclick="loadscene(scene_horizon_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_horizon_cruise_terminal" />
+</scene>
+
+<scene name="scene_eastern_docks_2" title="Eastern Docks" description="The origins of the modern Port of Southampton go back to the mid-eighteenth century, with the development of the Eastern Docks at the confluence of the Rivers Test and Itchen. &amp;lt;br&amp;gt;Whilst a number of the earliest docks constructed have been redeveloped as marinas or in-filled and put to other uses because they were too small to accommodate modern ships, the majority of the original Eastern Docks remains as a thriving part of the Port of Southampton now principally serving the automotive and cruise sectors. &amp;lt;br&amp;gt;The Eastern is home to two of our five cruise terminals and also the Wallenius Wilhelmsen Automotive terminal. The area houses multi-deck car storage parks and supports import and export auto operations. The Grain Terminal at Dock Head is a very recognisable sight for all seafarers and supports the import and export of grains including animal feed." thumburl="panos/eastern_docks_2.tiles/thumb.jpg" lat="50.88903894" lng="-1.39759011" alt="81.54" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="31.8" vlookat="15.2" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/eastern_docks_2.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/eastern_docks_2.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="qeii_cruise_terminal" style="spot_cruise|tooltip" ath="-158.0883840885691" atv="8.406495253863525" tooltip="QEII Cruise Terminal" onclick="js(openInfoPopup('cruise-qe2.html'))"/>
+
+	<hotspot name="qeii_cruise_terminal_1" style="spot_link_balloon" ath="-170.06640669756257" atv="10.225478221686643" tooltip="QEII Cruise Terminal" onclick="loadscene(scene_qe2_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_qe2_cruise_terminal" />
+
+	<hotspot name="multi-decks_(eastern_docks)" style="spot_automotive|tooltip" ath="162.72770348785286" atv="18.180748784063656" tooltip="Multi-decks (Eastern Docks)" onclick="js(openInfoPopup('automotive-multideck-east.html'))"/>
+
+	<hotspot name="empress_dock" style="spot_industrial_dock|tooltip" ath="84.2920656426038" atv="21.484211529114955" tooltip="Empress Dock" onclick="js(openInfoPopup('empress-dock.html'))"/>
+
+	<hotspot name="itchen_quays" style="spot_industrial_dock|tooltip" ath="117.76777272080409" atv="12.00839942355975" tooltip="Itchen Quays" onclick="js(openInfoPopup('itchen-quays.html'))"/>
+
+	<hotspot name="national_oceanography_centre_(noc)" style="spot_education|tooltip" ath="68.05027938317266" atv="10.075651626388666" tooltip="National Oceanography Centre (NOC)" onclick="js(openInfoPopup('noc.html'))"/>
+
+	<hotspot name="automotive_terminal_1" style="spot_automotive|tooltip" ath="41.076606911581734" atv="20.404348683929694" tooltip="Automotive Terminal" onclick="js(openInfoPopupSimple('automotive-terminal.html'))"/>
+
+	<hotspot name="ocean_cruise_terminal" style="spot_cruise|tooltip" ath="10.635692794248769" atv="10.161006666103667" tooltip="Ocean Cruise Terminal" onclick="js(openInfoPopup('cruise-ocean.html'))"/>
+
+	<hotspot name="horizon_cruise_terminal" style="spot_link_balloon_small" ath="-5.788169063359248" atv="1.96606089406929541" tooltip="Horizon Cruise Terminal" onclick="loadscene(scene_horizon_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_horizon_cruise_terminal" />
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon_small" ath="-36.88862054323448" atv="2.5981972021957027" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_5, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_5" />
+
+  <hotspot name="ocean_cruise_terminal_1" style="spot_link_balloon" linked_scene="scene_ocean_cruise_terminal" ath="13.332810984475088" atv="3.6332421920138396" tooltip="Ocean Cruise Terminal" onclick="loadscene(scene_ocean_cruise_terminal, null, MERGE, BLEND(1));" />
+
+	<hotspot name="eastern_docks" style="spot_link_balloon" linked_scene="scene_eastern_docks_1" ath="29.815182074435825" atv="3.6139398996109406" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1));" />
+
+</scene>
+
+<scene name="scene_eling_wharf_1" title="Eling Wharf" description="The 41 acre site, which sits adjacent to the A35 and is predominantly used for storage, is currently home to 24 tenants running a variety of businesses.&amp;lt;br&amp;gt;The site has a long history of industrial use associated with its waterside location, making a significant contribution to the local economy and providing employment opportunities to support the Totton and Eling community for generations.&amp;lt;br&amp;gt;In medieval times the wharf was used for shipbuilding and there was a thriving timber trade. In more recent times a number of industries occupied the site including a chemical works and coal importers." thumburl="panos/eling_wharf_1.tiles/thumb.jpg" lat="50.91570989" lng="-1.47953606" alt="27.12" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="-11.2" vlookat="21.5" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/eling_wharf_1.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/eling_wharf_1.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="eling_wharf" style="spot_link_balloon" ath="-13.948736389455348" atv="10.21305917763256" tooltip="Eling Wharf" onclick="loadscene(scene_eling_wharf_3, null, MERGE, BLEND(1));" linked_scene="scene_eling_wharf_3" />
+
+	<hotspot name="eling_wharf_1" style="spot_industrial_container|tooltip" ath="16.84567839370186" atv="21.78359001431323" tooltip="Eling Wharf" onclick="js(openInfoPopupSimple('eling-wharf.html'))" />
+
+	<hotspot name="eling_wharf_entrance_and_exit" style="spot_gate|tooltip" ath="85.10284033621781" atv="20.79187968110877" tooltip="Eling Wharf Entrance and Exit" onclick="js(openInfoPopupSimple('dock-gate-eling-wharf.html'))" />
+
+	<hotspot name="western_extension" style="spot_link_balloon_small" ath="-106.0304420931914" atv="2.8321044337857950" tooltip="Western Extension" onclick="loadscene(scene_western_extension, null, MERGE, BLEND(1));" linked_scene="scene_western_extension" />
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon_small" ath="-69.17437403795321" atv="1.978309102288630550" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_1, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_1" />
+</scene>
+
+<scene name="scene_eling_wharf_3" title="Eling Wharf" description="The 41 acre site, which sits adjacent to the A35 and is predominantly used for storage, is currently home to 24 tenants running a variety of businesses.&amp;lt;br&amp;gt;The site has a long history of industrial use associated with its waterside location, making a significant contribution to the local economy and providing employment opportunities to support the Totton and Eling community for generations.&amp;lt;br&amp;gt;In medieval times the wharf was used for shipbuilding and there was a thriving timber trade. In more recent times a number of industries occupied the site including a chemical works and coal importers." thumburl="panos/eling_wharf_3.tiles/thumb.jpg" lat="50.91400681" lng="-1.48241269" alt="23.85" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="-7.2" vlookat="32.5" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/eling_wharf_3.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/eling_wharf_3.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="eling_wharf" style="spot_industrial_container|tooltip" ath="-24.813980473745175" atv="28.6471160567821" tooltip="Eling Wharf" onclick="js(openInfoPopupSimple('eling-wharf.html'))" />
+
+	<hotspot name="eling_wharf_1" style="spot_link_balloon" ath="-10.458321713721318" atv="10.023239486690692" tooltip="Eling Wharf" onclick="loadscene(scene_eling_wharf_1, null, MERGE, BLEND(1));" linked_scene="scene_eling_wharf_1" />
+
+	<hotspot name="eling_wharf_entrance_and_exit" style="spot_gate|tooltip" ath="-60.96173886617231" atv="13.082980013131637" tooltip="Eling Wharf Entrance and Exit" onclick="js(openInfoPopupSimple('dock-gate-eling-wharf.html'))" />
+  
+	<hotspot name="western_extension" style="spot_link_balloon_small" ath="30.692712964060433" atv="2.8644997632462577" tooltip="Western Extension" onclick="loadscene(scene_western_extension, null, MERGE, BLEND(1));" linked_scene="scene_western_extension" />
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon_small" ath="65.01812836082553" atv="2.5509043932301689" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_1, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_1" />
+</scene>
+
+<scene name="scene_horizon_cruise_terminal" title="Horizon Cruise Terminal" description="The Horizon Cruise Terminal opened in 2021. It is the newest cruise terminal with state-of-the-art green infrastructure including 2,000 roof-mounted solar panels and clean energy shore power for cruise ships. Using shore-side power means cruise ships can turn off their engines in port to achieve zero emissions.&amp;lt;br&amp;gt;Horizon Cruise Terminal serves major cruise lines, including MSC Cruises, Norwegian Cruise Line and Disney Cruises. Additionally, it caters to luxury cruise lines such as Regent Seven Seas Cruises and Oceania Cruises.&amp;lt;br&amp;gt;Horizon Cruise Terminal is easily accessible from A33, West Quay Road, please follow signs for Dock Gate 10. Once through Dock Gate 10, the terminal is directly in front of you, take a right to reach the terminal.&amp;lt;br&amp;gt;Horizon Cruise Terminal is a 10 minute walk from the train station." thumburl="panos/horizon_cruise_terminal.tiles/thumb.jpg" lat="50.90362467" lng="-1.41783928" alt="8.80" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="-357.1" vlookat="14.8" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/horizon_cruise_terminal.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/horizon_cruise_terminal.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="horizon_cruise_terminal" style="spot_cruise|tooltip" ath="-4.763821514961364" atv="16.07880611038123" tooltip="Horizon Cruise Terminal" onclick="js(openInfoPopup('cruise-horizon.html'))"/>
+
+	<hotspot name="city_cruise_terminal" style="spot_cruise|tooltip" ath="-56.633964035215456" atv="7.337061087190983" tooltip="City Cruise Terminal" onclick="js(openInfoPopup('cruise-city.html'))"/>
+
+	<hotspot name="city_cruise_terminal_1" style="spot_link_balloon" ath="-68.43654169013655" atv="5.5153330253567940" tooltip="City Cruise Terminal" onclick="loadscene(scene_city_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_city_cruise_terminal" />
+
+	<hotspot name="mayflower_cruise_terminal" style="spot_link_balloon" ath="92.76247355597619" atv="3.3909602086848394" tooltip="Mayflower Cruise Terminal" onclick="loadscene(scene_mayflower_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_mayflower_cruise_terminal" />
+
+	<hotspot name="multi-deck_(western_docks)" style="spot_automotive|tooltip" ath="74.52902762628992" atv="11.664395662552328" tooltip="Multi-deck (Western Docks)" onclick="js(openInfoPopup('automotive-multideck-west.html'))"/>
+
+	<hotspot name="abparking_areas" style="spot_parking|tooltip" ath="9.94476242291256" atv="56.90670567194282" tooltip="ABParking Areas" onclick="js(openInfoPopup('parking.html'))"/>
+
+	<hotspot name="dock_gate_10" style="spot_gate|tooltip" ath="-178.82308874389645" atv="51.408858102922004" tooltip="Dock Gate 10" onclick="js(openInfoPopupSimple('dock-gate-10.html'))"/>
+
+	<hotspot name="mayflower_cruise_terminal_1" style="spot_cruise|tooltip" ath="81.26021766043897" atv="2.9597515063394835" tooltip="Mayflower Cruise Terminal" onclick="js(openInfoPopup('cruise-mayflower.html'))"/>
+
+	<hotspot name="eastern_docks" style="spot_link_balloon_small" ath="-82.71573363304162" atv="3.1299532874507259" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_1" />
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon_small" ath="45.700140832719626" atv="3.4612501034991126" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_3, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_3" />
+</scene>
+
+
+<scene name="scene_marchwood_1" title="Marchwood Industrial Park" description="Marchwood Industrial Park is a well-established industrial site and home to more than 60 businesses. The park has 24-hour on-site security. Nearby rail and road links connect Southampton to key UK networks.&amp;lt;br&amp;gt;The Port of Southampton is a hub for economic activity in the Solent and a vital gateway for trade supporting businesses across Britain. It is ideally located for companies servicing the south coast, Thames Valley and London, and equally suited to those looking to benefit from excellent proximity to deep-sea shipping lanes, complementing import and export business." thumburl="panos/marchwood_1.tiles/thumb.jpg" lat="50.89611697" lng="-1.44656217" alt="5.82" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="-16.1" vlookat="23.4" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/marchwood_1.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/marchwood_1.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="marchwood_industrial_park" style="spot_industrial_container|tooltip" ath="-12.131135594635282" atv="15.619203673712034" tooltip="Marchwood Industrial Park" onclick="js(openInfoPopup('marchwood.html'))"/>
+
+	<hotspot name="marchwood_industrial_park_1" style="spot_link_balloon" ath="-28.066868330543116" atv="6.49189763073856" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_2, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_2" />
+
+	<hotspot name="western_extension" style="spot_link_balloon_small" ath="-67.31286804599887" atv="4.0107413683141679" tooltip="Western Extension" onclick="loadscene(scene_western_extension, null, MERGE, BLEND(1));" linked_scene="scene_western_extension" />
+
+	<hotspot name="marchwood_industrial_park_2" style="spot_link_balloon" ath="21.36541771036616" atv="4.9839942297582267" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_3, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_3" />
+
+	<hotspot name="marchwood_industrial_park_3" style="spot_link_balloon" ath="47.80295543946835" atv="6.943605520394706" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_4, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_4" />
+
+	<hotspot name="solent_gateway" style="spot_link_balloon_small" ath="72.45320465662695" atv="5.607411703659543" tooltip="Solent Gateway" onclick="loadscene(scene_solent_gateway, null, MERGE, BLEND(1));" linked_scene="scene_solent_gateway" />
+
+	<hotspot name="marchwood_industrial_park_main_entrance_and_exit" style="spot_gate|tooltip" ath="159.5191622489926" atv="63.145786792171535" tooltip="Marchwood Industrial Park Main Entrance &amp; Exit" onclick="js(openInfoPopupSimple('dock-gate-marchwood-1.html'))" />
+
+	<hotspot name="eling_wharf" style="spot_link_balloon_small" ath="-110.24750725921564" atv="2.5493587049858522" tooltip="Eling Wharf" onclick="loadscene(scene_eling_wharf_1, null, MERGE, BLEND(1));" linked_scene="scene_eling_wharf_1" />
+</scene>
+
+<scene name="scene_marchwood_2" title="Marchwood Industrial Park" description="Marchwood Industrial Park is a well-established industrial site and home to more than 60 businesses. The park has 24-hour on-site security. Nearby rail and road links connect Southampton to key UK networks.&amp;lt;br&amp;gt;The Port of Southampton is a hub for economic activity in the Solent and a vital gateway for trade supporting businesses across Britain. It is ideally located for companies servicing the south coast, Thames Valley and London, and equally suited to those looking to benefit from excellent proximity to deep-sea shipping lanes, complementing import and export business." thumburl="panos/marchwood_2.tiles/thumb.jpg" lat="50.90177953" lng="-1.44087619" alt="27.03" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="-42.2" vlookat="22.2" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true" />
+
+	<preview url="panos/marchwood_2.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/marchwood_2.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon" ath="-93.31428994909425" atv="5.501147967107880" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_3, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_3" />
+
+	<hotspot name="marchwood_industrial_park_1" style="spot_link_balloon" ath="-6.6947393560124056" atv="2.8456645409358829" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_1, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_1" />
+
+	<hotspot name="marchwood_industrial_park_2" style="spot_industrial_container|tooltip" ath="-10.067282198766065" atv="9.970864362003368" tooltip="Marchwood Industrial Park" onclick="js(openInfoPopup('marchwood.html'))"/>
+
+	<hotspot name="marchwood_industrial_park_3" style="spot_link_balloon" ath="-58.12709514308517" atv="1.56560562004503545" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_4, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_4" />
+
+	<hotspot name="western_extension" style="spot_link_balloon_small" ath="101.72444976447431" atv="1.3080390268788797" tooltip="Western Extension" onclick="loadscene(scene_western_extension, null, MERGE, BLEND(1));" linked_scene="scene_western_extension" />
+
+	<hotspot name="western_docks" style="spot_link_balloon_small" ath="149.75495032140037" atv="3.4923828055895338" tooltip="Western Docks" onclick="loadscene(scene_western_docks, null, MERGE, BLEND(1));" linked_scene="scene_western_docks" />
+
+	<hotspot name="mayflower_cruise_terminal" style="spot_link_balloon_small" ath="-148.72858963236064" atv="1.0575823159745643" tooltip="Mayflower Cruise Terminal" onclick="loadscene(scene_mayflower_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_mayflower_cruise_terminal" />
+
+	<hotspot name="horizon_cruise_terminal" style="spot_link_balloon_small" ath="-123.5988716376483" atv="-0.4261591589754055" tooltip="Horizon Cruise Terminal" onclick="loadscene(scene_horizon_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_horizon_cruise_terminal" />
+
+	<hotspot name="eastern_docks" style="spot_link_balloon_small" ath="-110.38951994188838" atv="0.0709309938710299" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_1" />
+
+	<hotspot name="eling_wharf" style="spot_link_balloon_small" ath="64.54841157429553" atv="2.13646092491771578" tooltip="Eling Wharf" onclick="loadscene(scene_eling_wharf_1, null, MERGE, BLEND(1));" linked_scene="scene_eling_wharf_1" />
+</scene>
+
+<scene name="scene_marchwood_3" title="Marchwood Industrial Park" description="Marchwood Industrial Park is a well-established industrial site and home to more than 60 businesses. The park has 24-hour on-site security. Nearby rail and road links connect Southampton to key UK networks.&amp;lt;br&amp;gt;The Port of Southampton is a hub for economic activity in the Solent and a vital gateway for trade supporting businesses across Britain. It is ideally located for companies servicing the south coast, Thames Valley and London, and equally suited to those looking to benefit from excellent proximity to deep-sea shipping lanes, complementing import and export business." thumburl="panos/marchwood_3.tiles/thumb.jpg" lat="50.89973658" lng="-1.43457858" alt="27.03" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="50.9" vlookat="22.8" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true" />
+
+	<preview url="panos/marchwood_3.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/marchwood_3.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon" ath="89.10149583444684" atv="8.094692173970895" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_2, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_2" />
+
+	<hotspot name="marchwood_industrial_park_1" style="spot_link_balloon" ath="38.90405214666612" atv="3.7534140444255595" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_1, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_1" />
+
+	<hotspot name="marchwood_industrial_park_2" style="spot_link_balloon" ath="-9.942282474820104" atv="3.4861045072223584" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_4, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_4" />
+
+	<hotspot name="marchwood_industrial_park_3" style="spot_link_balloon" ath="-89.49128107372661" atv="6.538904047909848" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_5, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_5" />
+
+	<hotspot name="horizon_cruise_terminal" style="spot_link_balloon_small" ath="-124.56976813100235" atv="1.108636403109247" tooltip="Horizon Cruise Terminal" onclick="loadscene(scene_horizon_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_horizon_cruise_terminal" />
+
+	<hotspot name="mayflower_cruise_terminal" style="spot_link_balloon_small" ath="-159.27169975346155" atv="1.1242784883975612" tooltip="Mayflower Cruise Terminal" onclick="loadscene(scene_mayflower_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_mayflower_cruise_terminal" />
+
+	<hotspot name="western_docks" style="spot_link_balloon_small" ath="141.89077294792233" atv="1.6675016406147520" tooltip="Western Docks" onclick="loadscene(scene_western_docks, null, MERGE, BLEND(1));" linked_scene="scene_western_docks" />
+
+	<hotspot name="western_extension" style="spot_link_balloon_small" ath="110.34219269411352" atv="2.3176959746027739" tooltip="Western Extension" onclick="loadscene(scene_western_extension, null, MERGE, BLEND(1));" linked_scene="scene_western_extension" />
+
+	<hotspot name="solent_gateway" style="spot_link_balloon_small" ath="-27.84862956195576" atv="4.3195594748047679" tooltip="Solent Gateway" onclick="loadscene(scene_solent_gateway, null, MERGE, BLEND(1));" linked_scene="scene_solent_gateway" />
+</scene>
+
+<scene name="scene_marchwood_4" title="Marchwood Industrial Park" description="Marchwood Industrial Park is a well-established industrial site and home to more than 60 businesses. The park has 24-hour on-site security. Nearby rail and road links connect Southampton to key UK networks.&amp;lt;br&amp;gt;The Port of Southampton is a hub for economic activity in the Solent and a vital gateway for trade supporting businesses across Britain. It is ideally located for companies servicing the south coast, Thames Valley and London, and equally suited to those looking to benefit from excellent proximity to deep-sea shipping lanes, complementing import and export business." thumburl="panos/marchwood_4.tiles/thumb.jpg" lat="50.89542378" lng="-1.43450928" alt="19.61" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="-45.3" vlookat="22.6" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/marchwood_4.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/marchwood_4.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon" ath="-88.46111200830342" atv="2.211139156546967" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_1, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_1" />
+
+	<hotspot name="marchwood_industrial_park_1" style="spot_link_balloon" ath="-12.114564458767632" atv="7.41066157721589" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_3, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_3" />
+
+	<hotspot name="marchwood_industrial_park_2" style="spot_link_balloon_small" ath="-44.802955561547776" atv="3.438730092526053" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_2, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_2" />
+
+	<hotspot name="mayflower_cruise_terminal" style="spot_link_balloon_small" ath="21.694900276354133" atv="1.511590905911758" tooltip="Mayflower Cruise Terminal" onclick="loadscene(scene_mayflower_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_mayflower_cruise_terminal" />
+
+	<hotspot name="eastern_docks" style="spot_link_balloon_small" ath="77.34350978319094" atv="1.2307495300019273" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_1" />
+
+	<hotspot name="solent_gateway" style="spot_link_balloon" ath="-172.7575366185253" atv="5.341733283319687" tooltip="Solent Gateway" onclick="loadscene(scene_solent_gateway, null, MERGE, BLEND(1));" linked_scene="scene_solent_gateway" />
+
+	<hotspot name="marchwood_industrial_park_3" style="spot_industrial_container|tooltip" ath="-55.63621184145586" atv="32.08515370513891" tooltip="Marchwood Industrial Park" onclick="js(openInfoPopup('marchwood.html'))"/>
+
+	<hotspot name="entrance_&amp;_exit" style="spot_gate|tooltip" ath="49.02871877786072" atv="15.82177943792734" tooltip="Entrance &amp; Exit" onclick="js(openInfoPopupSimple('dock-gate-marchwood-2.html'))"/>
+
+	<hotspot name="marchwood_industrial_park_4" style="spot_link_balloon" ath="57.96529338480809" atv="8.682405328260529" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_5, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_5" />
+</scene>
+
+<scene name="scene_marchwood_5" title="Marchwood Industrial Park" description="Marchwood Industrial Park is a well-established industrial site and home to more than 60 businesses. The park has 24-hour on-site security. Nearby rail and road links connect Southampton to key UK networks.&amp;lt;br&amp;gt;The Port of Southampton is a hub for economic activity in the Solent and a vital gateway for trade supporting businesses across Britain. It is ideally located for companies servicing the south coast, Thames Valley and London, and equally suited to those looking to benefit from excellent proximity to deep-sea shipping lanes, complementing import and export business." thumburl="panos/marchwood_5.tiles/thumb.jpg" lat="50.89802253" lng="-1.42664861" alt="19.81" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="1.3" vlookat="18.6" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/marchwood_5.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/marchwood_5.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon" ath="36.16488855771047" atv="9.472556456854292" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_3, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_3" />
+
+	<hotspot name="marchwood_industrial_park_1" style="spot_link_balloon_small" ath="13.025184090063135" atv="1.1450001477827549" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_1, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_1" />
+
+	<hotspot name="solent_gateway" style="spot_link_balloon" ath="-27.29545243394233" atv="3.4998858356153351" tooltip="Solent Gateway" onclick="loadscene(scene_solent_gateway, null, MERGE, BLEND(1));" linked_scene="scene_solent_gateway" />
+
+	<hotspot name="strategic_land_reserve" style="spot_link_balloon_small" ath="-52.83028891430649" atv="2.09042488881187705" tooltip="Strategic Land Reserve" onclick="loadscene(scene_strategic_land_reserve, null, MERGE, BLEND(1));" linked_scene="scene_strategic_land_reserve" />
+
+	<hotspot name="western_extension" style="spot_link_balloon_small" ath="54.385648526863065" atv="-0.199929855521958" tooltip="Western Extension" onclick="loadscene(scene_western_extension, null, MERGE, BLEND(1));" linked_scene="scene_western_extension" />
+
+	<hotspot name="western_docks" style="spot_link_balloon_small" ath="87.77107429298326" atv="1.1102300557367586" tooltip="Western Docks" onclick="loadscene(scene_western_docks, null, MERGE, BLEND(1));" linked_scene="scene_western_docks" />
+
+	<hotspot name="mayflower_cruise_terminal" style="spot_link_balloon_small" ath="112.64453964457721" atv="2.77247684102375" tooltip="Mayflower Cruise Terminal" onclick="loadscene(scene_mayflower_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_mayflower_cruise_terminal" />
+
+	<hotspot name="horizon_cruise_terminal" style="spot_link_balloon" ath="176.48706950075353" atv="2.68684835481446" tooltip="Horizon Cruise Terminal" onclick="loadscene(scene_horizon_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_horizon_cruise_terminal" />
+
+	<hotspot name="eastern_docks" style="spot_link_balloon_small" ath="-154.59976512562935" atv="0.1634734199976062" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_1" />
+
+	<hotspot name="solent_gateway_1" style="spot_industrial_dock|tooltip" ath="-102.16490199263694" atv="6.3540613375092905" tooltip="Solent Gateway" onclick="js(openInfoPopup('solent-gateway.html'))" />
+</scene>
+
+<scene name="scene_mayflower_cruise_terminal" title="Mayflower Cruise Terminal" description="Mayflower Cruise Terminal opened in 1960 and was modernised in 2003 and 2015. Major cruise lines use the terminal such as Cunard and P&amp;O Cruises.&amp;lt;br&amp;gt;It is easily accessible from A33, West Quay Road, please follow signs for Dock Gate 10. Once through Dock Gate 10, turn right at the roundabout and follow the signs to the terminal. It is quite a distance from the dock gate and we recommend getting a taxi if arriving by train.&amp;lt;br&amp;gt;Mayflower Cruise Terminal is a 30 minute walk from the train station.&amp;lt;br&amp;gt;Short stay parking is located just behind the coach bays, to your right as you face the terminal. There is also long stay parking available on the port, this will need to be booked prior to your arrival.  " thumburl="panos/mayflower_cruise_terminal.tiles/thumb.jpg" lat="50.90602250" lng="-1.42932608" alt="8.61" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="1.4" vlookat="23.4" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/mayflower_cruise_terminal.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/mayflower_cruise_terminal.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="mayflower_cruise_terminal" style="spot_cruise|tooltip" ath="27.541530467173743" atv="31.08164033104216" tooltip="Mayflower Cruise Terminal" onclick="js(openInfoPopup('cruise-mayflower.html'))"/>
+
+	<hotspot name="western_docks" style="spot_link_balloon" ath="82.0287618686084" atv="2.28091927865668653" tooltip="Western Docks" onclick="loadscene(scene_western_docks, null, MERGE, BLEND(1));" linked_scene="scene_western_docks" />
+
+	<hotspot name="western_extension" style="spot_link_balloon_small" ath="59.7802983454294" atv="1.75365997975667498" tooltip="Western Extension" onclick="loadscene(scene_western_extension, null, MERGE, BLEND(1));" linked_scene="scene_western_extension" />
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon_small" ath="17.644001296218846" atv="3.3691072888366742" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_2, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_2" />
+
+	<hotspot name="horizon_cruise_terminal" style="spot_link_balloon" ath="-114.62630898871942" atv="1.3355938056831103" tooltip="Horizon Cruise Terminal" onclick="loadscene(scene_horizon_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_horizon_cruise_terminal" />
+
+	<hotspot name="multi-deck_(western_docks)" style="spot_automotive|tooltip" ath="-103.31795063257323" atv="5.3093273067997675" tooltip="Multi-deck (Western Docks)" onclick="js(openInfoPopup('automotive-multideck-west.html'))"/>
+
+	<hotspot name="ab_parking" style="spot_parking|tooltip" ath="83.92357188137714" atv="55.71390927157412" tooltip="AB Parking" onclick="js(openInfoPopup('parking.html'))"/>
+
+	<hotspot name="city_cruise_terminal" style="spot_link_balloon_small" ath="-103.00399840885109" atv="0.247581791488597" tooltip="City Cruise Terminal" onclick="loadscene(scene_city_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_city_cruise_terminal" />
+
+  <hotspot name="marchwood_industrial_park_1" style="spot_link_balloon_small" linked_scene="scene_marchwood_5" ath="-33.71215805807128" atv="3.7992267030391504" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_5, null, MERGE, BLEND(1));" />
+  
+</scene>
+
+<scene name="scene_ocean_cruise_terminal" title="Ocean Cruise Terminal" description="The Ocean Cruise Terminal opened in September 2009 and is close to the Old Town. This terminal serves several major cruise lines, including P&amp;O Cruises, Cunard and Princess Cruises.&amp;lt;br&amp;gt;The terminal is easily accessible from the A33, Platform Road, please head for Dock Gate 4. &amp;lt;br&amp;gt;By car, please follow the signs for Dock Gate 4, you will go through a manned security gate, Ocean Cruise Terminal is very close to the entrance, and you can access it by turning right at the first roundabout once inside the Port.&amp;lt;br&amp;gt;Short stay parking is located just behind the coach bays, to your right as you face the terminal. There is also long stay parking available on the port, this will need to be booked prior to your arrival. " thumburl="panos/ocean_cruise_terminal.tiles/thumb.jpg" lat="50.89457150" lng="-1.40091083" alt="3.88" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="44.5" vlookat="20.6" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/ocean_cruise_terminal.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/ocean_cruise_terminal.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="national_oceanography_centre_(noc)" style="spot_education|tooltip" ath="8.373059391640936" atv="4.80631594426889" tooltip="National Oceanography Centre (NOC)" onclick="js(openInfoPopup('noc.html'))" />
+
+	<hotspot name="southampton_university" style="spot_education|tooltip" ath="-4.754729953406297" atv="5.078069575504184" tooltip="Southampton University" onclick="js(openInfoPopup('university.html'))" />
+
+	<hotspot name="eastern_docks" style="spot_link_balloon" ath="-57.01165402305196" atv="12.02642980813535" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_1" />
+
+	<hotspot name="cruise_parking" style="spot_parking|tooltip" ath="-85.03990854160241" atv="20.95740009006091" tooltip="Cruise Parking" onclick="js(openInfoPopup('parking-2.html'))" />
+
+	<hotspot name="dock_gate_5" style="spot_gate|tooltip" ath="-103.56203986870588" atv="30.729999403223093" tooltip="Dock Gate 5" onclick="js(openInfoPopupSimple('dock-gate-5.html'))" />
+
+	<hotspot name="dock_gate_4" style="spot_gate|tooltip" ath="-67.2119934889771" atv="14.914959709841188" tooltip="Dock Gate 4" onclick="js(openInfoPopupSimple('dock-gate-4.html'))" />
+
+	<hotspot name="ocean_cruise_terminal" style="spot_cruise|tooltip" ath="57.38070679918485" atv="14.61591063886386" tooltip="Ocean Cruise Terminal" onclick="js(openInfoPopup('cruise-ocean.html'))" />
+
+	<hotspot name="eastern_docks_1" style="spot_link_balloon" ath="45.90698885294114" atv="0.9891963397426216" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_2, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_2" />
+
+  <hotspot name="city_cruise_terminal" style="spot_link_balloon" linked_scene="scene_city_cruise_terminal" ath="-162.77660960161168" atv="2.604124475146388" tooltip="City Cruise Terminal" onclick="loadscene(scene_city_cruise_terminal, null, MERGE, BLEND(1));" />
+
+</scene>
+
+<scene name="scene_qe2_cruise_terminal" title="QEII Cruise Terminal" description="The Queen Elizabeth II (QEII) Cruise Terminal opened in 1966 and was modernised in 2003 and 2016.&amp;lt;br&amp;gt;The terminal port was named in honour of Queen Elizabeth II and is a vital part of Southampton&apos;s cruise infrastructure. Its location makes it a long walk into the city centre. This terminal serves the Princess Cruises, Cunard Cruises, Norwegian Cruise Line and P&amp;O Cruises.&amp;lt;br&amp;gt;The terminal is easily accessible from the A33, Platform Road, please follow the signs for Dock Gate 4. By car, please follow the signs for Dock Gate 4, you will go through a manned security gate. Go straight on at the roundabout and the QE11 Cruise terminal will be on your right hand side. " thumburl="panos/qe2_cruise_terminal.tiles/thumb.jpg" lat="50.88626925" lng="-1.39583122" alt="7.88" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="-135.0" vlookat="21.7" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/qe2_cruise_terminal.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/qe2_cruise_terminal.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="qeii_cruise_terminal" style="spot_cruise|tooltip" ath="-150.51865586098884" atv="17.16721302705847" tooltip="QEII Cruise Terminal" onclick="js(openInfoPopup('cruise-qe2.html'))" />
+
+	<hotspot name="multi-decks_(eastern_docks)" style="spot_automotive|tooltip" ath="54.404698304234955" atv="16.61122311159339" tooltip="Multi-decks (Eastern Docks)" onclick="js(openInfoPopup('automotive-multideck-east.html'))" />
+
+	<hotspot name="eastern_docks" style="spot_link_balloon" ath="7.824712444431327" atv="12.827518674704587" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_2, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_2" />
+
+	<hotspot name="empress_dock" style="spot_industrial_dock|tooltip" ath="45.434698026593935" atv="8.313284348886112" tooltip="Empress Dock" onclick="js(openInfoPopup('empress-dock.html'))" />
+
+	<hotspot name="itchen_quays" style="spot_industrial_dock|tooltip" ath="68.32092375214631" atv="5.214394626473708" tooltip="Itchen Quays" onclick="js(openInfoPopup('itchen-quays.html'))" />
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon_small" ath="-30.976061341064337" atv="0.118834504119011" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_5, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_5" />
+
+	<hotspot name="eastern_docks_1" style="spot_link_balloon_small" ath="23.236686223930917" atv="2.035099985308714" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_1" />
+</scene>
+
+<scene name="scene_solent_gateway" title="Solent Gateway" description="ABP Solent Gateway Limited (SGL), the operator of Marchwood Port, has been part of ABP Southampton since 2023. Traditionally a military port owned by the Ministry of Defence (MoD), Marchwood Port is operated under a 35-year lease held by ABP Solent Gateway, covering a 200 acre site.&amp;lt;br&amp;gt;ABP SGL supports military and commercial port operations in various sectors, including aggregates, automotive, heavy plant export, break bulk, project cargoes, container storage, repair and maintenance, and renewable energy. As a multi-modal site, ABP SGL is one of the premier locations for importing and exporting cargo, boasting excellent sea, rail, and road connectivity. " thumburl="panos/solent_gateway.tiles/thumb.jpg" lat="50.89177439" lng="-1.43316733" alt="33.35" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="8.5" vlookat="22.8" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/solent_gateway.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/solent_gateway.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="solent_gateway_main_entrance" style="spot_gate|tooltip" ath="-112.53538287659191" atv="18.773969128082975" tooltip="Solent Gateway Main Entrance" onclick="js(openInfoPopupSimple('dock-gate-solent-1.html'))" />
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon" ath="-72.13260649390782" atv="14.371052780479094" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_4, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_4" />
+
+	<hotspot name="marchwood_industrial_park_1" style="spot_link_balloon" ath="-34.156927214234884" atv="7.354867884913067" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_3, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_3" />
+
+	<hotspot name="marchwood_industrial_park_2" style="spot_link_balloon" ath="5.205808686892738" atv="7.809295444221238" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_5, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_5" />
+
+	<hotspot name="solent_gateway" style="spot_industrial_dock|tooltip" ath="46.96851884416685" atv="7.502275311815204" tooltip="Solent Gateway" onclick="js(openInfoPopup('solent-gateway.html'))" />
+
+	<hotspot name="strategic_land_reserve" style="spot_link_balloon" ath="163.388778444999" atv="14.57500984118895" tooltip="Strategic Land Reserve" onclick="loadscene(scene_strategic_land_reserve, null, MERGE, BLEND(1));" linked_scene="scene_strategic_land_reserve" />
+
+	<hotspot name="marchwood_industrial_park_3" style="spot_link_balloon_small" ath="-93.35999788811216" atv="4.841154187655198" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_1, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_1" />
+
+  <hotspot name="eastern_docks" style="spot_link_balloon_small" linked_scene="scene_eastern_docks_1" ath="52.751960538902495" atv="2.161375117826932" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1));" />
+
+	<hotspot name="eastern_docks_1" style="spot_link_balloon_small" linked_scene="scene_eastern_docks_2" ath="70.5242161711451" atv="1.8559707978777564" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_2, null, MERGE, BLEND(1));" />
+
+</scene>
+
+<scene name="scene_strategic_land_reserve" title="Strategic Land Reserve" description="The Strategic Land Reserve comprises over 500 acres of land, a large part of which was reclaimed using arisings from various dredging operations in Southampton Water. In addition, the area includes land to the rear of the reclaimed area, currently largely for agricultural use.&amp;lt;br&amp;gt;As we consider options for developing the port estate, we will explore future options that creates sustainable opportunities and connections for the economy, community and environment." thumburl="panos/strategic_land_reserve.tiles/thumb.jpg" lat="50.88810272" lng="-1.43554308" alt="9.55" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="66.3" vlookat="14.8" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/strategic_land_reserve.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/strategic_land_reserve.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="strategic_land_reserve" style="spot_industrial_container|tooltip" ath="76.7495792583623" atv="7.488913988183789" tooltip="Strategic Land Reserve" onclick="js(openInfoPopup('land.html'))"/>
+
+	<hotspot name="solent_gateway" style="spot_link_balloon" ath="-50.45477580406612" atv="11.563897541165614" tooltip="Solent Gateway" onclick="loadscene(scene_solent_gateway, null, MERGE, BLEND(1));" linked_scene="scene_solent_gateway" />
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon_small" ath="-16.65507509084199" atv="4.899302822276179" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_5, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_5" />
+
+	<hotspot name="horizon_cruise_terminal" style="spot_link_balloon_small" ath="-1.089746109538737" atv="-1.0331060681782978" tooltip="Horizon Cruise Terminal" onclick="loadscene(scene_horizon_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_horizon_cruise_terminal" />
+
+	<hotspot name="eastern_docks" style="spot_link_balloon_small" ath="27.59083725461346" atv="1.1865291037510786" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_1" />
+
+	<hotspot name="eastern_docks_1" style="spot_link_balloon_small" ath="50.03335228882628" atv="1.74265568572235940" tooltip="Eastern Docks" onclick="loadscene(scene_eastern_docks_2, null, MERGE, BLEND(1));" linked_scene="scene_eastern_docks_2" />
+
+	<hotspot name="marchwood_industrial_park_1" style="spot_link_balloon_small" ath="-88.78443903786768" atv="4.594139698445947" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_1, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_1" />
+</scene>
+
+<scene name="scene_western_docks" title="Western Docks" description="The Western and Eastern Docks are separated by Town Quay, the Royal Pier and Mayflower Park. Construction of the first phase of the Western Docks commenced in the 1920s, with the reclamation of some 400 acres of mudflats along the River Test. It is a busy part of the Port serving a wide variety of trades that include cruise, roll-on/roll-off (ro-ro) cargoes, dry bulk commodities and fresh produce.&amp;lt;br&amp;gt;In the mid-1960s development of the second phase of the Western Docks commenced with the construction of the container terminal at berths 201 and 202 – now named berth SCT5 – which was one of the first dedicated container terminals in the UK.&amp;lt;br&amp;gt;The Western Docks is home to three of our Cruise Terminals, the 2nd largest container terminal in the UK and two rail terminals. We also operate parts of our automotive operations from the Western Docks and have one multideck car park." thumburl="panos/western_docks.tiles/thumb.jpg" lat="50.91110322" lng="-1.44002014" alt="112.36" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="51.3" vlookat="22.6" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/western_docks.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/western_docks.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="solent_stevedores" style="spot_industrial_container|tooltip" ath="24.679538365627593" atv="28.184946901540403" tooltip="Solent Stevedores" onclick="js(openInfoPopup('solent-stevedores.html'))"/>
+
+	<hotspot name="west_bay_house" style="spot_industrial_office|tooltip" ath="-11.341916580841769" atv="6.3355370814058185" tooltip="West Bay House" onclick="js(openInfoPopup('west-bay-house.html'))"/>
+
+	<hotspot name="mayflower_cruise_terminal" style="spot_link_balloon" ath="-6.196785839933227" atv="1.2178377609674444" tooltip="Mayflower Cruise Terminal" onclick="loadscene(scene_mayflower_cruise_terminal, null, MERGE, BLEND(1));" linked_scene="scene_mayflower_cruise_terminal" />
+
+	<hotspot name="steamship_shieldhall" style="spot_tourism|tooltip" ath="83.48006476622254" atv="17.205442429397742" tooltip="Steamship Shieldhall" onclick="js(openInfoPopup('shieldhall.html'))"/>
+
+	<hotspot name="king_george_v_original_dry_dock" style="spot_industrial_dock|tooltip" ath="108.04230278543744" atv="33.265165006547015" tooltip="King George V Original Dry Dock" onclick="js(openInfoPopup('drydock.html'))"/>
+
+	<hotspot name="western_extension" style="spot_link_balloon" ath="155.51411930675323" atv="3.9944851791896214" tooltip="Western Extension" onclick="loadscene(scene_western_extension, null, MERGE, BLEND(1));" linked_scene="scene_western_extension" />
+
+	<hotspot name="freightliner" style="spot_industrial_train|tooltip" ath="-162.29780768831694" atv="26.1226754113583" tooltip="Freightliner" onclick="js(openInfoPopup('freightliner.html'))"/>
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon_small" ath="61.09574851596676" atv="5.3902539245986825" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_1, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_1" />
+
+	<hotspot name="dp_world" style="spot_industrial_container|tooltip" ath="141.3086047310249" atv="7.726887157791517" tooltip="DP World" onclick="js(openInfoPopup('dp-world.html'))" />
+</scene>
+
+<scene name="scene_western_extension" title="Western Extension" description="The Southampton dock extension, built entirely on reclaimed land was opened in 1968 with seven new berths - 201-207, however they have since been renamed. Berths 204-207 are named SCT 1-4 and the reconstructed berths 201/202 are now SCT 5. We have recently completed a channel widening project which enables the World&apos;s largest container vessels (Category 7) to pass the World&apos;s largest cruise ships when alongside.&amp;lt;br&amp;gt;Home to the UK&apos;s second largest container terminal handling more than 1.5 million containers each year.&amp;lt;br&amp;gt;The five-berth Southampton Container Terminal is operated by DP World Southampton" thumburl="panos/western_extension.tiles/thumb.jpg" lat="50.91269706" lng="-1.46086536" alt="112.16" heading="0.0">
+	<control bouncinglimits="calc:image.cube ? true : false"/>
+
+	<view hlookat="18.4" vlookat="23.3" fovtype="VFOV" fov="90" projection="normal" fisheye="0" fisheyefovlink="0" maxpixelzoom="1" fovmin="70" fovmax="100" limitview="auto" architectural="1" architecturalonlymiddle="true"/>
+
+	<preview url="panos/western_extension.tiles/preview.jpg"/>
+
+	<image>
+		<cube url="panos/western_extension.tiles/pano_%s.jpg"/>
+	</image>
+
+	<hotspot name="dp_world" style="spot_industrial_container|tooltip" ath="-12.283484587081773" atv="9.747627099692584" tooltip="DP World" onclick="js(openInfoPopup('dp-world.html'))" />
+
+	<hotspot name="western_docks" style="spot_link_balloon" ath="-35.388317902322456" atv="2.460264103578793" tooltip="Western Docks" onclick="loadscene(scene_western_docks, null, MERGE, BLEND(1));" linked_scene="scene_western_docks" />
+
+	<hotspot name="freightliner" style="spot_industrial_train|tooltip" ath="-51.23196840586024" atv="20.301507940393503" tooltip="Freightliner" onclick="js(openInfoPopup('freightliner.html'))" />
+
+	<hotspot name="eling_wharf" style="spot_link_balloon_small" ath="158.5503899062084" atv="1.7942381744642868" tooltip="Eling Wharf" onclick="loadscene(scene_eling_wharf_1, null, MERGE, BLEND(1));" linked_scene="scene_eling_wharf_1" />
+
+	<hotspot name="marchwood_industrial_park" style="spot_link_balloon_small" ath="20.32971766159426" atv="2.10541245604461924" tooltip="Marchwood Industrial Park" onclick="loadscene(scene_marchwood_2, null, MERGE, BLEND(1));" linked_scene="scene_marchwood_2" />
+
+	<hotspot name="dock_gate_20" style="spot_gate|tooltip" ath="-138.3030139687271" atv="62.361423183732214" tooltip="Dock Gate 20" onclick="js(openInfoPopupSimple('dock-gate-20.html'))" />
+</scene>
+
+
+<!-- ///////////////////////////////////// SPOT STYLES /////////////////////////////////////// -->
+
+<style name="spot_industrial_container"
+       url="assets/spots/mkr-yellow-container.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_industrial_dock"
+       url="assets/spots/mkr-yellow-mooring.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_industrial_container"
+       url="assets/spots/mkr-yellow-container.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_industrial_office"
+       url="assets/spots/mkr-yellow-office.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_industrial_train"
+       url="assets/spots/mkr-yellow-train.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_cruise"
+       url="assets/spots/mkr-blue-cruise.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_marina"
+       url="assets/spots/mkr-lighblue-marina.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_tourism"
+       url="assets/spots/mkr-orange-binoc.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_parking"
+       url="assets/spots/mkr-parking.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_education"
+       url="assets/spots/mkr-purple-education.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_automotive"
+       url="assets/spots/mkr-red-car.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<style name="spot_gate"
+       url="assets/spots/mkr-green-gate.png"
+       scale="0.5"
+       distorted="false"
+       width="100"
+       height="100"
+       origin="center"
+       edge="center"
+       renderer="css3d"
+       handcursor="true"
+	   zoom="false"
+       onover="
+         tween(scale, 0.6, 0.2, easeOutQuad);
+       "
+       onout="
+         tween(scale, 0.5, 0.2, easeOutQuad);
+         set(tagname, 'spot_tag_' + name);
+         if(layer[get(tagname)], removelayer(get(tagname)); );
+       "
+/>
+
+<action name="call_update_scene_info">
+	js(updateSceneInfo(get(name)));
+</action>
+<events onnewscene="call_update_scene_info();" />
+
+<!-- Global tooltip settings -->
+<settings name="tooltip"
+  oy="-2"
+  style="tooltip_style"
+/>
+
+<!-- Tooltip styles -->
+<style name="tooltip_style"
+  font_family="Helvetica Neue, Helvetica, Arial, sans-serif"
+  html5_font_family="Helvetica Neue, Helvetica, sans-serif"
+  font_size="14"
+  font_weight="bold"
+  font_color="333333"
+  roundedge="100"
+  padding="10 20"
+  embeddedfonts="true"
+  background="true" backgroundcolor="0xffffff" backgroundalpha="0.9" 
+/>
+
+<style name="osx_tooltip_style"
+  font_family="Helvetica Neue, sans-serif"
+  font_size="14"
+  font_weight="bold"
+  font_color="333333"
+  roundedge="100"
+  padding="10 20"
+  background="true" backgroundcolor="0xffffff" backgroundalpha="0.9"
+	/>
+
+<!-- Text styles for context menu popups -->
+<style name="info_style"
+  font_family="Helvetica Neue, Helvetica, Arial, sans-serif"
+  html5_font_family="Helvetica Neue, Helvetica, Arial, sans-serif"
+  font_size="14"
+  font_weight="normal"
+  font_color="FFFFFF"
+  roundedge="10"
+  padding="20 25"
+  embeddedfonts="true"
+  background="true" 
+  backgroundcolor="0x000000" 
+  backgroundalpha="0.8"
+  bgborder="true"
+  bgbordercolor="0xFFFFFF"
+  bgborderalpha="0.3"
+  bgborderwidth="1"
+  align="center"
+  textalign="left"
+  width="400"
+  height="auto"
+  maxwidth="80%"
+  maxheight="60%"
+/>
+
+<style name="help_style"
+  font_family="Helvetica Neue, Helvetica, Arial, sans-serif"
+  html5_font_family="Helvetica Neue, Helvetica, Arial, sans-serif"
+  font_size="13"
+  font_weight="normal"
+  font_color="FFFFFF"
+  roundedge="10"
+  padding="25 30"
+  embeddedfonts="true"
+  background="true" 
+  backgroundcolor="0x000000" 
+  backgroundalpha="0.85"
+  bgborder="true"
+  bgbordercolor="0xFFFFFF"
+  bgborderalpha="0.3"
+  bgborderwidth="1"
+  align="center"
+  textalign="left"
+  width="450"
+  height="auto"
+  maxwidth="85%"
+  maxheight="70%"
+/>
+
+<action name="set_littleplanet_view">
+  set(view.fovtype, MFOV);
+  set(view.projection, stereographic);
+  set(view.architectural, 0);
+  set(view.architecturalonlymiddle, false);
+  set(view.fovmax, 179);                <!-- Allow maximum zoom out -->
+  tween(view.fov, 160, 2.0);            <!-- Slightly less zoomed out -->
+  tween(view.vlookat, 90, 2.0);         <!-- Look straight down -->
+  tween(view.hlookat, 0, 2.0);          <!-- Center the planet horizontally -->
+  set(view.fisheye, 0.5);               <!-- Optional: more pronounced effect -->
+  set(view.fisheyefovlink, 0.7);        <!-- Optional: link fisheye to FOV -->
+</action>
+
+</krpano>

@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Virtual Map | Southampton | Associated British Ports</title>
+	<meta name="description" content="Take a virtual tour of the facilities of the port of Southampton.">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
+
+	<script src="js/krpano.js"></script>
+
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/lightbox.css">
+	<link rel="stylesheet" href="css/sidebar.css">
+	<link rel="stylesheet" href="css/filter.css">
+	<link rel="stylesheet" href="css/editor.css">
+	<link rel="stylesheet" href="css/choices.min.css" />
+
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/choices.min.js"></script>
+
+	<style>
+		html { height:100%; }
+		body { height:100%; overflow:hidden; margin:0; padding:0; background-color:#000000; }
+	</style>
+
+</head>
+<body>
+
+<!-- /////////////// EDITOR /////////////// -->
+
+<div id="editor-wrapper">
+	<a href="#" id="toggle-cursor" data-tooltip="Toggle Cursor Mode"></a>
+	<a href="#" id="toggle-scene-list" data-tooltip="Scene List"></a>
+	<a href="#" id="toggle-edit-scene-info" data-tooltip="Edit Scene Info"></a>
+	<a href="#" id="toggle-add-hotspot" data-tooltip="Add Hotspot"></a>
+	<a href="#" id="toggle-edit-hotspot" data-tooltip="Edit Hotspots"></a>
+	<a href="#" id="toggle-set-scene-start" data-tooltip="Set Scene Start View"></a>
+	<!-- <a href="#" id="set-starting-view-btn" style="display:none; margin-left:10px;">Set Starting View</a> -->
+	<a href="#" id="toggle-save-scene" data-tooltip="View Scene XML"></a>
+</div>
+
+<!-- Scene List Sidebar -->
+<div id="scene-list-menu">
+	<!-- Scene list content -->
+</div>
+
+<!-- Edit Scene Info Sidebar -->
+<div id="edit-scene-info-menu" style="display:none;"></div>
+
+<!-- Save Scene Info Sidebar -->
+<div id="save-scene-info-menu">
+	<div class="save-scene-info-header">
+		<h3>Scene XML Output</h3>
+		<a href="#" class="close-scene-info-menu"></a>
+	</div>
+	<div class="save-scene-info-content">
+		<div class="save-scene-info-actions">
+			<button id="copy-scene-xml" class="copy-btn">Copy XML</button>
+			<button id="reset-scene-xml" class="reset-btn">Reset to Original</button>
+			<button id="clean-xml-output-2">Clean XML</button>
+		</div>
+		<!-- <textarea id="scene-xml-output" readonly></textarea> -->
+		
+		<textarea id="scene-xml-output-2"></textarea>
+	</div>
+</div>
+
+<!-- /////////////// TOUR /////////////// -->
+
+<div id="tour-wrapper">		
+
+	<!-- Krpano Viewer -->
+	<div id="pano" style="width: 100%; height: 100%;"></div>
+
+	<div id="intro-container">
+	
+	<div id="intro" role="dialog" tabindex="-1">
+		<div class="content">
+	
+			<div class="intro-logo"></div>
+	
+			<h1>Port of Southampton</h1>
+			<p>Virtual Map</p>
+	
+			<div class="btn-group">
+				<a class="btn areas toggle-sidebar-standard close-splash" data-link="sidebar-areas.html" role="button"
+					tabindex="0">Areas</a>
+				<a class="btn facilities toggle-sidebar-standard close-splash" data-link="sidebar-facilities.html"
+					role="button" tabindex="0">Facilities</a>
+				<a class="btn cruise toggle-sidebar-standard close-splash" data-link="sidebar-facilities-cruise.html"
+					role="button" tabindex="0">Cruise</a>
+			</div>
+	
+			</div>
+		</div>
+	</div><!-- end intro -->
+
+	<!-- Header -->
+	<header class="ui">
+	
+		<a class="logo" href="https://www.abports.co.uk" target="_blank"><span></span></a>
+	
+		<h2 class="tour-title"><a href="index.html">Southampton</a></h2>
+	
+		<a class="nav-icon"></a>
+	
+		<!-- <a class="home" target="_parent" href=""><span>Home</span></a> -->
+	
+		<div class="nav-main">
+			<div class="scroll">
+				<div class="nav-inner"></div>
+			</div>
+		</div>
+	
+	</header>
+
+	<!-- //////////////////////////////// SIDEBAR STANDARD ////////////////////////////////////// -->
+	<div class="sidebar" id="sidebar-standard"></div>
+
+	<!-- LIGHTBOX -->	
+	<div class="lightbox">
+		<div class="close-wrapper">
+			<a class="close-btn" role="button" tabindex="0"></a>
+			<div class="lightbox-container"></div>
+		</div>
+	</div>
+
+	<!-- Scene Info -->
+	<div id="scene-info" class="ui">
+	  <h2 id="scene-title"><span>Scene title</span></h2>
+	</div>
+	<div id="scene-description-container">
+		<p id="scene-description">Scene description will appear here.</p>
+		<a href="#" class="close-desc"></a>
+	</div>
+
+	<!--  Calls to action -->
+	<div class="cta ui">
+		<a href="#" class="share"><span>Share</span></a>
+	</div>
+
+	<!-- Share Tour Box -->
+	<div class="share-box-wrapper">
+		<div class="share-box">
+			<div class="share-box-container">
+				<h5>Share This View</h5>
+	
+				<p>Copy the URL to share a direct link to this view.</p>
+	
+				<div class="result">
+					<input type="text" class="url-result">
+					<button class="copy-btn">Copy</button>
+				</div>
+	
+				<a class="close-btn"></a>
+	
+			</div>
+		</div>
+	</div>
+
+	<!-- Category Control -->
+	<!-- <div class="category-controls ui">
+		<div class="category-controls-inner">
+
+	  		<div class="category-controls__numeric" style="display: none !important;">
+	    		<div id="scene-index">1</div> / <div id="scene-total">0</div>
+	  		</div>
+		
+	  		<ul class="category-controls__dots" id="scene-dots" style="display: none !important;"></ul>
+		
+			<div class="category-controls__arrows">
+			  <div class="-prev">
+			    <div class="-circle">
+			      <div class="prev"></div>
+			    </div>
+			    <div class="dot-hover arrow-hover-prev" style="display: none !important;"></div> 
+			  </div>
+			  <div class="-next">
+			    <div class="-circle">
+			      <div class="next"></div>
+			    </div>
+			 <div class="dot-hover arrow-hover-next" style="display: none !important;"></div> 
+			  </div>
+			</div>
+
+		</div>
+	</div> --><!-- end category controls -->
+
+
+	<!-- Menu System -->
+	<!-- <div id="main-menu">
+	  <button id="menu-toggle">☰ Menu</button>
+	  <div id="menu-content" class="hidden">
+	    <h3>Scene Groups</h3>
+	    <ul id="scene-groups"></ul>
+	  </div>
+	</div> -->
+
+	</div><!-- end tour-wrapper -->	
+
+<script src="js/tour.js"></script>
+<script src="js/functions.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/lightbox.js"></script>
+
+</body>
+</html>

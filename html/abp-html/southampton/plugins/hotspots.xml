@@ -1,0 +1,335 @@
+<krpano>
+
+	<style name="spot_link_bubble" 
+		type="image"
+		visible="true"
+		height="60" 
+		width="prop"
+		url="spots/mkr-360-view.png"
+		onclick="load_linkedscene"
+		onover="showinfo"
+		onout="hideinfo(true)"
+		zorder="10"
+		renderer="CSS3D"
+		alpha="0"
+		onloaded = "showhotspot()"
+		hotspot_onover_border  = "10"
+		
+		line="0" 
+		linecolor="0xffffff" 
+		linewidth="2"
+		
+		infotextcolor = "0x333333"
+		infotextbgcolor = "0xffffff"
+	/>
+
+	<style name="spot_link_bubble_small" 
+		type="image"
+		visible="true"
+		height="45" 
+		width="prop"
+		url="spots/mkr-360-view.png"
+		onclick="load_linkedscene"
+		onover="showinfo"
+		onout="hideinfo(true)"
+		zorder="10"
+		renderer="CSS3D"
+		alpha="0"
+		onloaded = "showhotspot()"
+		hotspot_onover_border  = "10"
+		
+		line="0" 
+		linecolor="0xffffff" 
+		linewidth="2"
+		
+		infotextcolor = "0x333333"
+		infotextbgcolor = "0xffffff"
+	/>
+
+	<style name="spot_link_balloon" 
+		type="image"
+		visible="true"
+		height="60" 
+		width="prop"
+		url="spots/mkr-360-view.png"
+		onclick="load_linkedscene"
+		onover="showinfo"
+		onout="hideinfo(true)"
+		zorder="10"
+		renderer="CSS3D"
+		alpha="0"
+		onloaded = "showhotspot()"
+		hotspot_onover_border  = "10"
+		
+		line="10" 
+		linecolor="0xffffff" 
+		linewidth="2"
+		
+		infotextcolor = "0x333333"
+		infotextbgcolor = "0xffffff"
+	/>
+
+	<style name="spot_link_balloon_small" 
+		type="image"
+		visible="true"
+		height="45" 
+		width="prop"
+		url="spots/mkr-360-view.png"
+		onclick="load_linkedscene"
+		onover="showinfo"
+		onout="hideinfo(true)"
+		zorder="10"
+		renderer="CSS3D"
+		alpha="0"
+		onloaded = "showhotspot()"
+		hotspot_onover_border  = "10"
+		
+		line="7" 
+		linecolor="0xffffff" 
+		linewidth="2"
+		
+		infotextcolor = "0x333333"
+		infotextbgcolor = "0xffffff"
+	/>
+	
+	<style name="preview" 
+		type="image"
+		visible="true"
+		height="150" 
+		width="250"
+		renderer="CSS3D"
+		bgroundedge="10"
+		alpha="0"
+		enabled="false"
+		zorder="1"
+		
+		keep="true" 
+		x="0" 
+		y="0" 
+		
+		bgshadow="0 0 20 0x000000 .5"
+	/>	
+	
+	<style name="hotspottext"
+		visible="true"
+		type="text"
+		alpha="0"
+		bgalpha="1"
+		
+		bgcolor="0x2a61ff"
+		text="abc qdf"
+		keep="true"
+		css="color: #FFFFFF; font-size:14px; text-align:center; font-weight: bold;"
+		vcenter="true"
+		bgborder="10 0xffffff 10"
+		bgroundedge="50"
+		enabled="false"
+		zorder="1"	
+		renderer="CSS3D"		
+	/>
+	
+	<style name="circle" 
+		ath="0"
+		atv="0"
+		width="0"
+		height="0"
+		visible="true" 
+		type="html" 
+		bgcolor="0xffffff" 
+		bgalpha=".5" 
+		keep="true" 
+		bgroundedge="100"
+		enabled="false"
+		zorder="1"
+		depth="2000"
+		renderer="CSS3D"
+		alpha="0"
+	/>
+	
+	<!-- <style name="line" 
+		ath="0"
+		atv="0"
+		width="10"
+		height="100"
+		visible="true" 
+		type="html" 
+		bgcolor="0xffffff" 
+		bgalpha="0" 
+		keep="true" 
+		bgroundedge="0"
+		enabled="false"
+		zorder="1"
+		renderer="CSS3D"
+		alpha="1"
+		css="border-color:#FFFFFF; border-style: dotted; border-width:5px; "
+	/> -->	
+	
+	
+	<action name="showhotspot" type="javascript"> <![CDATA[
+		var hotspot = krpano.hotspot.getItem(caller.name);
+		if (hotspot.line) {
+			krpano.call("addline('" + hotspot.name + "')");
+			hotspot.atv = parseInt(hotspot.atv) - parseInt(hotspot.line);
+			
+		}
+		setTimeout('krpano = document.getElementById("krpanoSWFObject");krpano=krpano.get("global");krpano.call("callwith(hotspot[' + caller.name + '], fadein)");', 500); 
+		]]>
+	</action>
+	
+	<action name="fadein" scope="local">
+		set(line, calc(get(caller.name) + "_line"));
+		tween(hotspot[get(caller.name)].alpha, 1);
+		tween(hotspot[get(line)].borderalpha, 1);
+	</action>
+	
+
+	
+	<action name="showinfo" type="javascript"> <![CDATA[
+		var hotspot = krpano.layer.getItem("hotspot_text");
+		var preview = krpano.layer.getItem("hotspot_preview");
+		var p = krpano.actions.spheretoscreen(caller.ath,caller.atv);
+		var linkedscene = krpano.scene.getItem(caller.linked_scene);
+		var circle = krpano.hotspot.getItem("circle");
+		
+		
+		
+		hotspot.text=caller.tooltip;		
+		hotspot.alpha=0;		
+		hotspot.caller = caller.name;		
+		hotspot.y = p.y-caller.pixelheight-10;
+		hotspot.css = hotspot.css + ";color: " + caller.infotextcolor;
+		hotspot.bgcolor = caller.infotextbgcolor;
+		
+		krpano.call("tween(layer[hotspot_text].y, " +  (hotspot.y - 20) + ")"); 
+		krpano.call("tween(layer[hotspot_text].alpha, 1)"); 
+			
+		
+		
+		preview.y = hotspot.y - preview.height + 20;
+		preview.url = linkedscene.thumburl;
+
+		krpano.call("tween(layer[hotspot_preview].y, " +  (preview.y - 30) + ", .5, easeinquint)"); 
+		krpano.call("tween(layer[hotspot_preview].alpha, 1, .3, easeinquint)");
+		
+		circle.alpha = 1;
+		circle.ath = caller.ath;
+		circle.atv = caller.atv;
+		var h = caller.pixelheight + parseInt(caller.hotspot_onover_border);
+		var w = caller.pixelwidth + parseInt(caller.hotspot_onover_border);
+		krpano.call("tween(hotspot[circle].height, " + h + ", .2)");
+		krpano.call("tween(hotspot[circle].width,  " + w + ", .2)");
+
+		]]>
+	</action>
+	
+	<action name="hideinfo" type="javascript" args="animated"> <![CDATA[
+		var animated = args[1];
+		var hotspot = krpano.layer.getItem("hotspot_text");
+		var preview = krpano.layer.getItem("hotspot_preview");
+		var circle = krpano.hotspot.getItem("circle");
+
+		if (caller) {
+			var p = krpano.actions.spheretoscreen(caller.ath,caller.atv);
+			var h = caller.pixelheight;
+			var w = caller.pixelwidth;
+			
+			hotspot.caller = caller.name;			
+			
+			if (animated) {
+				krpano.call("tween(layer[hotspot_text].y, " +  (hotspot.y + 10) + ")"); 
+				krpano.call("tween(layer[hotspot_text].alpha, 0)");
+				
+				krpano.call("tween(layer[hotspot_preview].alpha, 0)");
+				krpano.call("tween(layer[hotspot_preview].y, " +  (preview.y + 20) + ")"); 
+				
+				krpano.call("tween(hotspot[circle].height, " + h + ", .2)");
+				krpano.call("tween(hotspot[circle].width,  " + w + ", .2)");
+			}
+			else {
+				krpano.call("hideinfo_noanimation()");
+			}
+		}
+		else {
+			krpano.call("hideinfo_noanimation()");
+		}
+		
+		]]>
+	</action>
+	
+	<action name="hideinfo_noanimation" type="javascript" args="animated"> <![CDATA[
+		var hotspot = krpano.layer.getItem("hotspot_text");
+		var preview = krpano.layer.getItem("hotspot_preview");
+		var circle = krpano.hotspot.getItem("circle");
+	
+		krpano.call("stoptween(layer[hotspot_text].alpha)");
+		krpano.call("stoptween(layer[hotspot_preview].alpha)");
+		hotspot.alpha = 0;
+		preview.alpha = 0;
+		circle.alpha = 0;
+	]]>
+	</action>
+	
+	
+	<action name="updateposition" type="javascript"> <![CDATA[
+		var l=krpano.layer.getItem("hotspot_text");
+		var caller = l.caller;
+		
+		if(caller) {
+			var preview = krpano.layer.getItem("hotspot_preview");
+			
+			var h = krpano.hotspot.getItem(caller);
+			if (h) {
+				var p = krpano.actions.spheretoscreen(h.ath,h.atv);
+			
+				if (l.x != p.x - l.pixelwidth/2) {
+					l.x = p.x - l.pixelwidth/2;
+					preview.x = p.x - preview.width/2;
+				}
+				else {
+					l.caller="";
+				}
+			} else {
+				l.caller = "";
+			}
+		}
+		
+		]]>
+	</action>
+	
+
+	<action name="addline" args="hotspot"  >
+	
+		set(myhotspot, get(hotspot[%1]));
+	
+		set(name, calc(myhotspot.name + "_line"));
+		set(ath, get(myhotspot.ath));
+		set(atv, get(myhotspot.atv));
+		set(length, get(myhotspot.line));
+		set(color, get(myhotspot.linecolor));
+		set(width, get(myhotspot.linewidth));
+		
+		addhotspot(get(name), temp, "html");
+		set(temp.fillcolor, "0xffffff");
+		set(temp.borderalpha, 0);
+		set(temp.bordercolor, get(color));
+		set(temp.borderwidth, get(width));
+		
+		set(temp.point[0].ath, get(ath));
+		set(temp.point[0].atv, get(atv));
+		set(temp.point[1].ath,get(ath));
+		set(temp.point[1].atv,calc(atv-length));	
+	</action>
+	
+	<events onframe="updateposition"></events>
+
+	<action name="load_linkedscene" scope="local">
+		loadscene(get(caller.linked_scene));  <!-- you can set some custom flags here if you want -->
+		hideinfo(false);
+	</action>
+	
+		
+	<layer style="preview" name="hotspot_preview" ></layer>
+	<layer name="hotspot_text" style="hotspottext" />	
+	<hotspot name="circle" style="circle" keep="true"/>
+	
+</krpano>
