@@ -1,0 +1,64 @@
+
+
+<div class="content">
+	<div class="image">
+		<img src="inline/img/info/cruise-qe2.jpg" alt="#">
+		<div class="label cruise"><p>Cruise</p></div>
+        <div class="info-btns">
+            <a class="gate toggle-link-simple" data-link="dock-gate-4.html">Dock Gate 4</a>
+            <a class="parking toggle-link" data-link="parking-2.html">Parking Info</a>
+       </div>
+	</div>
+	<div class="text lightbox-scroll">
+		<div class="text-inner">
+			<h3>QEII Cruise Terminal</h3>
+			<p>The Queen Elizabeth II (QEII) Cruise Terminal opened in 1966 and was modernised in 2003 and 2016.<br><br>
+
+The terminal was named in honour of Queen Elizabeth II and is a vital part of Southampton's cruise infrastructure. We recommend using a taxi from Southampton City Centre or Central train station to reach the terminal. This terminal serves the Princess Cruises, Cunard Cruises, Norwegian Cruise Line and P&O Cruises.<br><br>
+
+The terminal is easily accessible from the A33, Platform Road, please follow the signs for Dock Gate 4. By car, follow the signs for Dock Gate 4, you will go through a manned security gate. Go straight on at the roundabout and the QE11 Cruise terminal will be on your right-hand side.
+
+<br><br>
+
+</p>
+		</div>	
+		<div class="gradient"></div>
+		<a class="scroll-down"></a>			
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+    function checkScrollPositionLightbox() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollHeight = scrollDiv.prop('scrollHeight');
+        var divHeight = scrollDiv.height();
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        if (currentScrollTop + divHeight >= scrollHeight || scrollHeight <= divHeight) {
+            $('.scroll-down').hide();
+        } else {
+            $('.scroll-down').show();
+        }
+    }
+
+    $('.scroll-down').on('click', function() {
+        var scrollDiv = $('.lightbox-scroll');
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        scrollDiv.animate({
+            scrollTop: currentScrollTop + 200
+        }, 400, function() {
+            checkScrollPositionLightbox();
+        });
+    });
+
+    $('.lightbox-scroll').on('scroll', function() {
+        checkScrollPositionLightbox();
+    });
+
+    // Initial check in case the content is already scrolled or doesn't need scrolling
+    checkScrollPositionLightbox();
+
+});
+</script>

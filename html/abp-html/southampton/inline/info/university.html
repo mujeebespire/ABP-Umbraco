@@ -1,0 +1,53 @@
+
+
+<div class="content">
+	<div class="image">
+		<img src="inline/img/info/noc.jpg" alt="#">
+		<div class="label education"><p>Education</p></div>
+	</div>
+	<div class="text lightbox-scroll">
+		<div class="text-inner">
+			<h3>Southampton University</h3>
+			<p>The Southampton University Waterfront Campus is based at The National Oceanography Centre Southampton (NOCS) where students can study ocean and earth scieneces courses.  <a href="https://www.southampton.ac.uk/student-life/campuses/waterfront" target="_blank">Click here</a> for more details.</p>
+		</div>
+		<div class="gradient"></div>    
+        <a class="scroll-down"></a> 				
+	</div>
+	
+</div>
+
+<script>
+$(document).ready(function() {
+    function checkScrollPositionLightbox() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollHeight = scrollDiv.prop('scrollHeight');
+        var divHeight = scrollDiv.height();
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        if (currentScrollTop + divHeight >= scrollHeight || scrollHeight <= divHeight) {
+            $('.scroll-down').hide();
+        } else {
+            $('.scroll-down').show();
+        }
+    }
+
+    $('.scroll-down').on('click', function() {
+        var scrollDiv = $('.lightbox-scroll');
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        scrollDiv.animate({
+            scrollTop: currentScrollTop + 200
+        }, 400, function() {
+            checkScrollPositionLightbox();
+        });
+    });
+
+    $('.lightbox-scroll').on('scroll', function() {
+        checkScrollPositionLightbox();
+    });
+
+    // Initial check in case the content is already scrolled or doesn't need scrolling
+    checkScrollPositionLightbox();
+
+});
+</script>

@@ -1,0 +1,266 @@
+<script>
+$(document).ready(function() {
+  $('.scroll').one('scroll', function() {
+    if ($(this).scrollTop() > 0) {
+      $(this).scrollTop(0);
+    }
+  });
+});
+</script>
+
+<div class="heading icon areas">
+	<h3>Areas</h3>
+</div>
+
+<a href="#" class="close-sidebar"></a>
+
+<div class="scroll">
+
+	<div class="sidebar-inner">
+
+		<div class="thumbnails-wrapper">
+			<div class="thumbnails-container">
+
+			<ul id="myUL">
+
+			<!-- <li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=pano13" onclick="getTourPlayer().call('mainloadscene(pano13)')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-western-docks.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Western Docks</h5>
+					<p>Home to two container terminals; managed by Solent Stevedores and DP World.</p>
+				</div>
+			</a>
+			</li> -->
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_horizon_cruise_terminal" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_horizon_cruise_terminal, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-eastern-docks.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Horizon Cruise Terminal</h5>
+					<p>Serving major cruise lines, including MSC Cruises, Norwegian Cruise Line, P&O Cruises and Disney Cruises.</p>
+				</div>
+			</a>
+			</li>
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_city_cruise_terminal" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_city_cruise_terminal, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-cruise-city.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>City Cruise Terminal</h5>
+					<p>Opened in 2003 and was upgraded in in 2007. It is one of the busiest terminals, designed to accommodate the largest ships.</p>
+				</div>
+			</a>
+			</li>
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_mayflower_cruise_terminal" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_mayflower_cruise_terminal, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-eastern-docks.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Mayflower Cruise Terminal</h5>
+					<p>Serving major cruise lines, including MSC Cruises, Norwegian Cruise Line, P&O Cruises and Disney Cruises.</p>
+				</div>
+			</a>
+			</li>
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_qe2_cruise_terminal" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_qe2_cruise_terminal, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-cruise-qe2.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>QEII Cruise Terminal</h5>
+					<p>The Queen Elizabeth II (QEII) Cruise Terminal opened in 1966 and was modernised in 2003 and 2016.</p>
+				</div>
+			</a>
+			</li>
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_ocean_cruise_terminal" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_ocean_cruise_terminal, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-cruise-ocean.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Ocean Cruise Terminal</h5>
+					<p>The Ocean Cruise Terminal opened in September 2009 and is close to the Old Town.</p>
+				</div>
+			</a>
+			</li>
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_western_docks" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_western_docks, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-western-docks.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Western Docks</h5>
+					<p>Home to three Cruise Terminals: Mayflower, Horizon and City.</p>
+				</div>
+			</a>
+			</li>
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_western_extension" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_western_extension, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-western-ext.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Western Extension</h5>
+					<p>The Southampton docks extension, built entirely on reclaimed land was opened in 1968.</p>
+				</div>
+			</a>
+			</li>
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_eastern_docks_1" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_eastern_docks_1, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-cruise-terminal.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Eastern Docks</h5>
+					<p>The Eastern Docks is home to the QEII and Ocean Cruise Terminals, the grain terminal and the automotive terminal.</p>
+				</div>
+			</a>
+			</li>
+
+			<!-- <li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=pano17" onclick="getTourPlayer().call('mainloadscene(pano17)')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-car-terminal.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Eastern Docks</h5>
+					<p>The Eastern Docks is home to the QEII and Ocean Cruise Terminals, the grain terminal and the automotive terminal. </p>
+				</div>
+			</a>
+			</li> -->
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_eling_wharf_1" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_eling_wharf_1, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-eling-wharf-1.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Eling Wharf</h5>
+					<p>Eling Wharf is a 41 acre site, which sits adjacent to the A35 and is predominantly used for storage.</p>
+				</div>
+			</a>
+			</li>
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_marchwood_1" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_marchwood_1, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-marchwood-1.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Marchwood Ind. Park</h5>
+					<p>Marchwood Industrial Park is a well-established industrial site and home to more than 60 businesses. </p>
+				</div>
+			</a>
+			</li>
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_solent_gateway" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_solent_gateway, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-solent-3.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Solent Gateway</h5>
+					<p>ABP Solent Gateway are the operators of Marchwood Military Port. The 83 hectare port supports MOD operations, and commercial automotive and bulk operations.</p>
+				</div>
+			</a>
+			</li>
+
+			<li data-tag="cht-owned">
+			<a class="thumbnail list" href="#s=scene_strategic_land_reserve" onclick="if(window.krpanoSWFObject) window.krpanoSWFObject.call('loadscene(scene_strategic_land_reserve, null, MERGE, BLEND(1))')">
+				<div class="thumb" style="background: url('inline/img/thumbs/tb-strategic-land.jpg') no-repeat center;"><span class="globe"></span></div>
+				<div class="text">
+					<h5>Strategic Land Reserve</h5>
+					<p>The Land Reserve comprises 500 acres of land.  A large part of which was reclaimed using arisings from various dredging operations in the Solent area. </p>
+				</div>
+			</a>
+			</li>
+
+			</ul>
+
+		</div>
+		</div>
+
+		<br><br><br><br>
+
+	
+	</div><!-- end sidebar inner -->
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    var listItems = $("#myUL li");
+    listItems.hide();
+    $("#loader").show();
+    setTimeout(function() {
+      listItems.filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+      $("#loader").hide();
+      if ($("#myUL li:visible").length === 0) {
+        $("#noresults").show();
+      } else {
+        $("#noresults").hide();
+      }
+    }, 2000);
+  });
+});
+
+
+$(document).ready(function() {
+  // Handle filter click events
+  $('#filter a').click(function(e) {
+    e.preventDefault();
+
+    // Get the data tag to filter by
+    var filterTag = $(this).data('tag');
+
+    // Add 'active' class to clicked link
+    $('#filter a').removeClass('active');
+    $(this).addClass('active');
+
+    $("#dropdown").prop('checked', false); 
+
+    // Check if 'all' is selected
+    if (filterTag === 'all') {
+      // Show all list items and hide no results message
+      $('#myUL li').show();
+      $('#nolocations').hide();
+    } else {
+      // Hide list items and show loader for 2 seconds
+      $('#myUL li').hide();
+      $('#loader').show();
+      setTimeout(function() {
+        // Filter the list
+        $('#myUL li').each(function() {
+          var liTag = $(this).data('tag');
+          if (liTag.indexOf(filterTag) > -1) {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+
+        // Show no results message if no matching items found
+        if ($('#myUL li:visible').length == 0) {
+          $('#nolocations').show();
+        } else {
+          $('#nolocations').hide();
+        }
+
+        // Hide loader
+        $('#loader').hide();
+      }, 1000);
+    }
+  });
+});
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

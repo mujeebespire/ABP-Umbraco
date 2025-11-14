@@ -1,0 +1,56 @@
+
+
+<div class="content">
+	<div class="image">
+		<img src="inline/img/info/shieldhall.jpg" alt="#">
+		<div class="label tourism"><p>Tourism</p></div>
+	</div>
+	<div class="text lightbox-scroll">
+		<div class="text-inner">
+			<h3>Steamship Shieldhall</h3>
+			<p>Steamship Shieldhall is the largest working steamship in Britain and offers local tours of the Solent and longer cruises from Southampton and Poole. Built in the 1920's, Shieldhall is now owned and operated entirely by voluntary effort. <br><br> 
+
+            For more info visit: <a href="https://ss-shieldhall.co.uk/" target="_blank">ss-shieldhall.co.uk/</a></p>
+
+
+		</div>	
+		<div class="gradient"></div>	
+		<a class="scroll-down"></a>		
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+    function checkScrollPositionLightbox() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollHeight = scrollDiv.prop('scrollHeight');
+        var divHeight = scrollDiv.height();
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        if (currentScrollTop + divHeight >= scrollHeight || scrollHeight <= divHeight) {
+            $('.scroll-down').hide();
+        } else {
+            $('.scroll-down').show();
+        }
+    }
+
+    $('.scroll-down').on('click', function() {
+        var scrollDiv = $('.lightbox-scroll');
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        scrollDiv.animate({
+            scrollTop: currentScrollTop + 200
+        }, 400, function() {
+            checkScrollPositionLightbox();
+        });
+    });
+
+    $('.lightbox-scroll').on('scroll', function() {
+        checkScrollPositionLightbox();
+    });
+
+    // Initial check in case the content is already scrolled or doesn't need scrolling
+    checkScrollPositionLightbox();
+
+});
+</script>
