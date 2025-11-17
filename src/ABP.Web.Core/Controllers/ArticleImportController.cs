@@ -171,10 +171,10 @@ namespace ABP.Web.UI.Controllers
                         string year = string.Empty;
 
                         if (DateTime.TryParseExact(record.Date,
-                   new[] { "dd MMM yyyy", "d MMM yyyy", "dd MMMM yyyy", "d MMMM yyyy" },
-                   CultureInfo.InvariantCulture,
-                   DateTimeStyles.None,
-                   out var recordDate))
+                         new[] { "dd MMM yyyy", "d MMM yyyy", "dd MMMM yyyy", "d MMMM yyyy", "dd-MMM-yy" },
+                         CultureInfo.InvariantCulture,
+                         DateTimeStyles.None,
+                         out var recordDate))
                         {
                             year = recordDate.Year.ToString();
                         }
