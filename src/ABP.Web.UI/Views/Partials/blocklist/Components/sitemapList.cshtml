@@ -4,7 +4,6 @@
 @using Umbraco.Extensions
 
 @{
-    // Get the block content strongly typed
     var content = Model.Content;
     var header = content.Value<string>("header");
     var siteMapItems = content.Value<BlockListModel>("siteMapItems");
@@ -15,7 +14,7 @@
     <div class="sitemap">
         <div class="wrap">
 
-            @if (!string.IsNullOrEmpty(header))
+            @if (!string.IsNullOrWhiteSpace(header))
             {
                 <h2 class="sitemap__title text-center">@header</h2>
             }
@@ -23,17 +22,34 @@
             <div class="row">
                 @foreach (var item in siteMapItems)
                 {
-                    var linkList = item.Content;
-                    var title = linkList.Value<string>("title");
-                    var links = linkList.Value<IEnumerable<Link>>("links");
+                    var block = item.Content;
+
+                    var title = block.Value<string>("title");
+                    var titleLink = block.Value<Link>("titleLink"); // NEW FIELD
+                    var links = block.Value<IEnumerable<Link>>("links");
 
                     <div class="col-lg-3 col-md-4">
                         <div class="sitemap__col">
-                            @if (!string.IsNullOrEmpty(title))
+
+                            @* TITLE OR TITLE-LINK *@
+                            @if (!string.IsNullOrWhiteSpace(title))
                             {
-                                <h4 class="sitemap__col-title">@title</h4>
+                                <h4 class="sitemap__col-title">
+                                    @if (titleLink != null)
+                                    {
+                                        <a href="@titleLink.Url" target="@titleLink.Target" class=" sitemap__col-title">
+                                            
+                                            @title
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        @title
+                                    }
+                                </h4>
                             }
 
+                            @* LINKS UNDER EACH COLUMN *@
                             @if (links != null && links.Any())
                             {
                                 <ul class="sitemap__list">
@@ -42,12 +58,15 @@
                                         if (l != null)
                                         {
                                             <li class="sitemap__item">
-                                                <a href="@l.Url" target="@l.Target" class="sitemap__link">@l.Name</a>
+                                                <a href="@l.Url" target="@l.Target" class="sitemap__link">
+                                                    @l.Name
+                                                </a>
                                             </li>
                                         }
                                     }
                                 </ul>
                             }
+
                         </div>
                     </div>
                 }
