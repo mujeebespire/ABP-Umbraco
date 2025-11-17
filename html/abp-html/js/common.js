@@ -8831,6 +8831,7 @@
         sliderReport: $(".js-report-slider"),
         sliderHome: $(".js-home-slider"),
         sliderBanner: $(".js-banner-slider"),
+        sliderRightSide: $(".js-slider-snapshot"),
         status: ".slider-counter",
         sum: ".slider-sum",
         init: function () {
@@ -8839,6 +8840,7 @@
           this.initReportSlider();
           this.homeSlider();
           this.bannerSlider();
+          this.rightSideSlider();
         },
         initRegularSlider: function () {
           var n = this;
@@ -8907,6 +8909,18 @@
               '<button class="slick-prev banner__arrow" aria-label="Previous" type="button"><span class="icon font-ico-arrow-left"></span></button>',
             nextArrow:
               '<button class="slick-next banner__arrow" aria-label="Next" type="button"><span class="icon font-ico-arrow-right"></span></button>',
+          });
+        },
+        rightSideSlider: function () {
+          this.sliderRightSide.slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            speed: 800,
+            arrows: false,
+            
           });
         },
         addZeros: function (n) {

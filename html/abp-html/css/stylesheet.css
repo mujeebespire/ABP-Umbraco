@@ -12064,6 +12064,16 @@ hr {
     font-weight: 700;
 }
 
+.table-wrapper tfoot{
+    font-size: 12px;
+    font-weight: 500;
+}
+.table-wrapper tfoot td{
+    background-color: #f4f5f7;
+    font-weight: 700;
+    padding: 12px 10px;
+}
+
 .table-wrapper tbody {
     font-size: 14px;
 }
@@ -12474,10 +12484,40 @@ hr {
     color: #fff;
 }
 
+
+.two-wrapper-slider{
+    margin: 15px -13px;
+}
+
+.two-wrapper-slider .box-inline__container{
+    padding: 20px;
+}
+
+.two-wrapper-slider > div:first-child h3{
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.two-wrapper-slider .box-inline__container h3{
+    font-weight: 600;
+    color: white;
+}
+
+.two-wrapper-slider .table-wrapper table{
+    margin: 20px 0;
+}
+
+
 @media only screen and (max-width: 767.98px) {
     .box-inline__title {
         padding-bottom: 28px;
         margin-bottom: 30px;
+    }
+    .two-wrapper-slider .col-md-8{
+        order: 2;
+    }
+    .two-wrapper-slider .col-md-4{
+        order: 1;
     }
 }
 
