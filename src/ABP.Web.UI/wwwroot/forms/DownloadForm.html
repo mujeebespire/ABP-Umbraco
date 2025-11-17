@@ -1,0 +1,63 @@
+﻿<div class="download-form__popup-inner">
+    <button type="button" class="download-form__popup-close js-download-close">
+        <span class="sr-only">Close popup</span>
+    </button>
+
+    <div class="download-from__content-holder js-download-content">
+        <form id="downloadForm" data-controller-url="/umbraco/Surface/DownloadForm/SubmitForm">
+
+            <input name="__RequestVerificationToken" type="hidden" value="">
+
+            <input id="FileGuid" name="FileGuid" type="hidden" value="">
+            <input id="RecipientGuid" name="RecipientGuid" type="hidden" value="">
+
+            <div class="download-form__input-holder">
+                <label for="FullName" class="download-form__input-label js-download-label">Full Name</label>
+                <input class="download-form__input js-download-input form-control"
+                       id="FullName" name="FullName" placeholder="Full name" type="text">
+            </div>
+
+            <div class="download-form__input-holder">
+                <label for="PhoneNumber" class="download-form__input-label js-download-label">Phone number</label>
+                <input class="download-form__input js-download-input form-control"
+                       id="PhoneNumber" name="PhoneNumber" placeholder="Phone number" type="tel">
+            </div>
+
+            <div class="download-form__input-holder">
+                <label for="JobTitle" class="download-form__input-label js-download-label">Job Title</label>
+                <input class="download-form__input js-download-input form-control"
+                       id="JobTitle" name="JobTitle" placeholder="Job Title" type="text">
+            </div>
+
+            <div class="download-form__input-holder">
+                <label for="OrganisationName" class="download-form__input-label js-download-label">Organisation Name</label>
+                <input class="download-form__input js-download-input form-control"
+                       id="OrganisationName" name="OrganisationName" placeholder="Organisation Name" type="text">
+            </div>
+
+            <div class="download-form__input-holder download-form__input-holder--has-message">
+                <label for="Email" class="download-form__input-label js-download-label">Email</label>
+                <input class="download-form__input js-download-input form-control"
+                       id="Email" name="Email" placeholder="Your Email" type="email">
+                <span class="download-form__input-message">Please provide your email to receive the latest report</span>
+            </div>
+
+            <div class="download-form__input-holder">
+                <label class="download-form__checkbox-label js-download-consent-label">
+                    <input class="js-download-consent" id="Consent" name="Consent" type="checkbox" value="true">
+                    <span class="download-form__checkbox-checkmark"></span>
+                    I consent for my details to be used in marketing
+                </label>
+                <span class="download-form__checkbox-message field-validation-error">Please tick the box</span>
+            </div>
+
+            <div class="download-form__button-holder">
+                <button type="submit"
+                        class="download-form__btn download-form__btn--submit download-form__btn--blue btn js-download-submit">
+                    <span class="download-form__btn-text">Submit</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

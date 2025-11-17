@@ -9,9 +9,10 @@
     var rightBlocks = content.Value<BlockListModel>("rightColumn");
 }
 
-<div class="container two-column-layout">
-    <div class="row">
+<div class="row two-wrapper-slider">
+    
         <div class="col-md-8">
+        <div class="rte">
             @if (leftBlocks != null)
             {
                 foreach (var block in leftBlocks)
@@ -19,6 +20,7 @@
                     @await Html.PartialAsync("blocklist/Components/" + block.Content.ContentType.Alias, block)
                 }
             }
+            </div>
         </div>
 
         <div class="col-md-4">

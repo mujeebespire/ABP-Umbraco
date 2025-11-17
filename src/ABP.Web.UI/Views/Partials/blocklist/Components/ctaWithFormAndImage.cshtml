@@ -1,0 +1,51 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+    if (content == null) { return; }
+
+    var title = content.Value<string>("title");
+    var ctaLinks = content.Value<IEnumerable<Link>>("cta");
+    var image = content.Value<IPublishedContent>("image");
+}
+
+<section class="download-form">
+    <div class="download-form__content">
+
+        <div class="download-form__info">
+            <h2 class="download-form__title">@title</h2>
+
+            <div class="download-form__cta-holder">
+                @if (ctaLinks != null)
+                {
+                    foreach (var cta in ctaLinks)
+                    {
+                        <button class="download-form__btn download-form__btn--blue download-form__btn--download btn js-download-btn"
+                                data-controller-url="/forms/DownloadForm.html"
+                                data-fileurl="@cta.Url">
+                            <span class="download-form__btn-text">@cta.Name</span>
+                        </button>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="download-form__image-holder">
+            @if (image != null)
+            {
+                <img class="download-form__img"
+                     src="@image.Url()"
+                     alt="@image.Name()" />
+            }
+        </div>
+
+    </div>
+
+    <div class="download-form__popup js-download-popup">
+        <span class="download-form__popup-overlay"></span>
+        <div id="response-container" class="download-form__popup-content"></div>
+    </div>
+</section>
