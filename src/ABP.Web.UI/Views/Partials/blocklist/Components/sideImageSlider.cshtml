@@ -1,0 +1,40 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+
+    var header = content.Value<string>("title");
+
+    // Multiple media picker → IEnumerable<MediaWithCrops>
+    var images = content.Value<IEnumerable<MediaWithCrops>>("images");
+}
+
+    <div class="box-inline__container">
+
+
+
+    <h3 class="h3">@header</h3>
+
+
+        @* Slider *@
+        @if (images != null && images.Any())
+        {
+            <div class="slider-snapshot js-slider-snapshot">
+                @foreach (var img in images)
+                {
+                    if (img != null)
+                    {
+                        <div>
+                            <div style="width:100%; display:inline-block;">
+                                <img src="@img.Url()" alt="@img.Name" />
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        }
+    </div>
+
