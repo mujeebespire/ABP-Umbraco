@@ -147,7 +147,7 @@ namespace ABP.Web.UI.Controllers
                 }
 
                 // Navigate to Articles And Blog folder
-                var investorRelationsNode = FindOrCreatePath(abportsNode, new[] { INVESTOR_RELATION_NAME, documentPath });
+                var investorRelationsNode = FindOrCreatePath(abportsNode, new[] { MEDIA_NEWS_AND_MEDIA_NAME, documentPath });
 
                 if (investorRelationsNode == null)
                 {
