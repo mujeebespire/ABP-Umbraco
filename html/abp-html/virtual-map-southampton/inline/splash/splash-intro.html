@@ -1,0 +1,80 @@
+
+<div class="splash" id="splash-intro" role="dialog" aria-labelledby="splash-title" tabindex="-1">
+	<div class="content">
+
+		<!-- <a class="splash-close-btn close-splash"></a> -->
+
+		<div class="banner">
+			<div class="banner-logo">
+				
+			</div>
+		</div>
+
+		<div class="upper">
+			<div class="contours"></div>
+
+			<h1 id="splash-title">Cornwall’s Heritage for One and All</h1>
+
+			<p>Ertach Kernow rag Onan hag Oll</p>
+
+			<div class="btn-group">
+				<a id="start-map" class="btn close-splash toggle-map open" role="button" tabindex="0"><span>Explore</span> Map</a>
+				<a id="start-sites" class="btn toggle-sites2" role="button" tabindex="0"><span>Explore</span> Sites</a>
+			</div>
+
+			<!-- <p class="small">Developed by 3deep Media, in association with Cornish Mining World Heritage.</p> -->
+
+
+		</div>
+
+	</div>
+</div>
+
+<script src="./js/functions-splash.js"></script>
+
+<script>
+	$('.toggle-map.open').click(function() {
+    getTourPlayer().call('panotourmapsOpentourmap()');
+    $('.toggleMap.close').delay(4000).show();
+    $('.toggleMap.close2').delay(4000).show();
+    $("#wrapper").removeClass("shift-left");
+    $(".sidebar").removeClass('open');
+    //$("#commands-optional").hide();
+    $('.back-button').hide();
+    $('.pano-info').hide();
+    $('.toggleMap.close').show();
+    $(".kolorArea").addClass('wide');
+    $(".cta").hide();
+  });
+  
+  $('.toggle-map.close').click(function() {
+    getTourPlayer().call('panotourmapsClosetourmap()');
+    $(this).hide();
+    $('.toggleMap.close2').hide();
+    $('.toggleMap.open').show();
+    $('.nav-inner a').removeClass('active');
+    $(".cta").show();
+    $("#commands-optional").show();
+  });
+
+  $('.toggleMap.close').click(function() {
+    getTourPlayer().call('panotourmapsClosetourmap()');
+    $(this).hide();
+    $('.nav-inner a').removeClass('active');
+    $(".cta").show();
+    $("#commands-optional").show();
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,55 @@
+<a class="areas toggle-sidebar-standard" data-link="sidebar-areas.html"><span>Areas</span></a>
+<a class="facilities toggle-sidebar-standard" data-link="sidebar-facilities.html"><span>Facilities</span></a>
+<a class="cruise toggle-sidebar-standard" data-link="sidebar-facilities-cruise.html"><span>Cruise</span></a>
+<!-- <a class="miner toggle-sidebar-standard" data-link="sidebar-people.html"><span>People</span></a>
+<a class="history toggle-sidebar-standard" data-link="sidebar-history.html"><span>History</span></a> -->
+<!-- <a class="map toggle-map open" data-link="sidebar-location.html"><span>Map</span></a> -->
+<!-- <a class="areas toggle-sidebar-standard" data-link="sidebar-areas.html"><span>Areas</span></a> -->
+<!-- <a class="areas toggle-sidebar-standard" data-link="sidebar-3d.html"><span>3D</span></a> -->
+<!-- <a class="glossary toggle-sidebar-standard" data-link="sidebar-glossary.html"><span>Glossary</span></a> -->
+<a class="info toggle-sidebar-standard" data-link="sidebar-info.html"><span>Info</span></a>
+
+<script>
+
+  $('.nav-main a').click(function(){
+    $('.nav-main').removeClass('open');
+    $('.nav-icon').removeClass('cross');
+  });
+
+	$('.toggle-map.open').click(function() {
+       getTourPlayer().call('panotourmapsOpentourmap()');
+       $('.toggleMap.close').delay(4000).show();
+       $('.toggleMap.close2').delay(4000).show();
+       $("#wrapper").removeClass("shift-left");
+       $(".sidebar").removeClass('open');
+       //$("#commands-optional").hide();
+       $('.back-button').hide();
+       $('.pano-info').hide();
+       $('.toggleMap.close').show();
+       $(".kolorArea").addClass('wide');
+       //$(".cta").hide();
+       $(".nav-main").show();
+       $(".nav-main a.map").addClass('active');
+       $(".nav-main a.sites").removeClass('active');
+  });
+  
+  $('.toggle-map.close').click(function() {
+    getTourPlayer().call('panotourmapsClosetourmap()');
+    $(this).hide();
+    $('.toggleMap.close2').hide();
+    $('.toggleMap.open').show();
+    $('.nav-inner a').removeClass('active');
+    $(".cta").show();
+    $("#commands-optional").show();
+    $(".nav-main a.map").removeClass('active');
+  });
+
+  $('.toggleMap.close').click(function() {
+    getTourPlayer().call('panotourmapsClosetourmap()');
+    $(this).hide();
+    $('.nav-inner a').removeClass('active');
+    $(".cta").show();
+    $("#commands-optional").show();
+    $(".nav-main a.map").removeClass('active');
+  });
+</script>

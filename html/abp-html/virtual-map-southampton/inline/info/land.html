@@ -1,0 +1,54 @@
+
+<div class="content">
+	<div class="image">
+		<img src="inline/img/info/land.jpg" alt="#">
+		<div class="label industrial"><p>Industrial</p></div>
+	</div>
+	<div class="text lightbox-scroll">
+		<div class="text-inner">
+			<h3>Strategic Land Reserve</h3>
+			<p>The Strategic Land Reserve spans over 500 acres, much of which was reclaimed using material from various dredging operations in Southampton Water. This area also includes land situated behind the reclaimed land, which is currently
+            used primarily for agriculture.<br><br>
+            As we look ahead to the future development of the port estate, we are committed to exploring opportunities that deliver long-term, sustainable value—supporting economic growth, strengthening community connections, and enhancing
+            environmental resilience.</p>
+		</div>	
+		<div class="gradient"></div>
+		<a class="scroll-down"></a>			
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+    function checkScrollPositionLightbox() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollHeight = scrollDiv.prop('scrollHeight');
+        var divHeight = scrollDiv.height();
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        if (currentScrollTop + divHeight >= scrollHeight || scrollHeight <= divHeight) {
+            $('.scroll-down').hide();
+        } else {
+            $('.scroll-down').show();
+        }
+    }
+
+    $('.scroll-down').on('click', function() {
+        var scrollDiv = $('.lightbox-scroll');
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        scrollDiv.animate({
+            scrollTop: currentScrollTop + 200
+        }, 400, function() {
+            checkScrollPositionLightbox();
+        });
+    });
+
+    $('.lightbox-scroll').on('scroll', function() {
+        checkScrollPositionLightbox();
+    });
+
+    // Initial check in case the content is already scrolled or doesn't need scrolling
+    checkScrollPositionLightbox();
+
+});
+</script>

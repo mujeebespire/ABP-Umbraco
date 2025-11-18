@@ -1,0 +1,44 @@
+
+<div class="content">
+    <div class="emded-container">
+        <div class='embed-container'><iframe src='https://player.vimeo.com/video/1105188913' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+</div>
+
+<script>
+
+$(document).ready(function() {
+    function checkScrollPositionLightbox() {
+        var scrollDiv = $('.lightbox-scroll');
+        var scrollHeight = scrollDiv.prop('scrollHeight');
+        var divHeight = scrollDiv.height();
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        if (currentScrollTop + divHeight >= scrollHeight || scrollHeight <= divHeight) {
+            $('.scroll-down').hide();
+        } else {
+            $('.scroll-down').show();
+        }
+    }
+
+    $('.scroll-down').on('click', function() {
+        var scrollDiv = $('.lightbox-scroll');
+        var currentScrollTop = scrollDiv.scrollTop();
+        
+        scrollDiv.animate({
+            scrollTop: currentScrollTop + 200
+        }, 400, function() {
+            checkScrollPositionLightbox();
+        });
+    });
+
+    $('.lightbox-scroll').on('scroll', function() {
+        checkScrollPositionLightbox();
+    });
+
+    // Initial check in case the content is already scrolled or doesn't need scrolling
+    checkScrollPositionLightbox();
+
+});
+</script>
+

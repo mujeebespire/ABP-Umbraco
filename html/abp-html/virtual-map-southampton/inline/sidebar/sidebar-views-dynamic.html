@@ -1,0 +1,54 @@
+<div class="heading icon view">
+	<h3>Views</h3>
+</div>
+
+<a href="#" class="close-sidebar"></a>
+
+<div class="scroll">
+
+	<div class="sidebar-inner">
+
+		<div class="thumbnails-wrapper">
+			<div class="thumbnails-container">
+
+				{% if project.panoGroups.count %}
+					  {% for group in project.panoGroups %}
+						{% if group.isExplicit %}
+
+						{% for pano in group.panos %}
+
+										<a href="#" class="thumbnail" style="cursor:pointer;" onclick="getTourPlayer().call('mainloadscene({{pano.tourId}})')">
+											<div class="thumb"><img src="{{dataDirectory}}/{{pano.thumbnailPath}}" title="{{pano.description.name}}" alt="{{pano.description.name}}" /></div>
+											<div class="overlay">
+												<div class="caption">
+													<p>{{pano.description.name}}</p>
+												</div>
+											</div>
+										</a>
+						{% endfor %}
+
+						{% else %}
+						  {% for pano in group.panos %}
+							  			<a href="#" class="thumbnail" style="cursor:pointer;" onclick="getTourPlayer().call('mainloadscene({{pano.tourId}})')">
+											<div class="thumb"><img src="{{dataDirectory}}/{{pano.thumbnailPath}}" title="{{pano.description.name}}" alt="{{pano.description.name}}" /></div>
+											<div class="overlay">
+												<div class="caption">
+													<p>{{pano.description.name}}</p>
+												</div>
+											</div>
+										</a>
+						  {% endfor %}
+						{% endif %}
+					  {% endfor %}
+				{% endif %}
+
+
+			</div>
+		</div>
+
+		<br><br><br><br>
+
+	
+	</div><!-- end sidebar inner -->
+
+</div><!-- end scroll -->

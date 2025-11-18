@@ -1,0 +1,154 @@
+<krpano>
+
+	<events	name="custom_hotspot_events" keep="true" 
+            onnewscene="add_layers_hs_deselect_on_ondown_event();
+                        generate_custom_hotspots_images();
+                        set(events[custom_hotspot_events].onnewscene, generate_custom_hotspots_images(););"
+            onmousedown="select_hs();"/>
+    
+	<action	name="generate_custom_hotspots_images" scope="local">
+		for(set(h,0), h LT hotspot.count, inc(h);,
+			if(hotspot[get(h)].style == 'custom_spot',
+				txtadd(custom_spot,get(hotspot[get(h)].name),'_img');
+				addhotspot(get(custom_spot));
+                hotspot[get(custom_spot)].loadstyle(custom_spot_img);
+				copy(hotspot[get(custom_spot)].ath,hotspot[get(h)].ath);
+				copy(hotspot[get(custom_spot)].atv,hotspot[get(h)].atv);
+                trace('linkedscene:', get(hotspot[get(h)].linkedscene));
+                trace('scene thumburl:', get(scene[get(hotspot[get(h)].linkedscene)].thumburl));
+                trace('scene title:', get(scene[get(hotspot[get(h)].linkedscene)].title));
+                set(thumburl, get(scene[get(hotspot[get(h)].linkedscene)].thumburl));
+                trace('Final thumb url for hotspot:', get(thumburl));
+                set(hotspot[get(custom_spot)].url, get(thumburl));
+
+                set(hs_title, get(scene[get(hotspot[get(h)].linkedscene)].title));
+                txtadd(hs_tag,get(hotspot[get(h)].name),'_tag');        
+                addhotspot(get(hs_tag));        
+                hotspot[get(hs_tag)].loadstyle(custom_spot_tag);
+				copy(hotspot[get(hs_tag)].ath,hotspot[get(h)].ath);
+				copy(hotspot[get(hs_tag)].atv,hotspot[get(h)].atv);
+                txtadd(hotspot[get(hs_tag)].html, '[h1]',get(hs_title),'[/h1]');
+                set(hotspot[get(hs_tag)].oy,145);););
+	</action> 
+    
+    <action name="add_layers_hs_deselect_on_ondown_event" scope="local">
+        for(set(l,0), l LT layer.count, inc(l);,
+            txtadd(layer[get(l)].ondown, get(layer[get(l)].ondown), ' select_hs();'););
+    </action>
+    
+    <!-- Main Custom Spot Style -->
+    
+    <style name="custom_spot" 
+        type="image"
+        url="/assets/spots/mkr-yellow-container.png"
+        scale="0.5"
+        flying="0.03"
+		onover="select_hs(get(name));"
+        onout=""
+        onout.desktop="select_hs();"
+        onclick2="loadscene(get(name),null,MERGE,get(skin_settings.loadscene_blend));"
+		onclick="if(name != @selected_hs,
+				select_hs(get(name));
+				looktohotspot(get(name),get(view.fov));
+				,
+				set(enabled,false);
+                    select_hs();
+				lookto(get(hotspot[get(name)].ath),get(hotspot[get(name)].atv),get(view.fovmin),smooth(100,-100,120),true,false);
+                    WAIT();                 
+                    onclick2());"
+		onclick.desktop="
+				set(enabled,false);
+				lookto(get(hotspot[get(name)].ath),get(hotspot[get(name)].atv),get(view.fovmin),smooth(100,-100,120),true,false);
+                    WAIT();
+                    onclick2();"/>
+    
+    <!-- Hidden Custom Thumbs Style -->    
+    
+    <style name="custom_spot_img" 
+        type="image"
+        url="/assets/spots/mkr-yellow-container.png"
+        scale="0.5"
+        alpha="0"
+        visible="false"
+        flying="0.03"
+        zorder="3"
+        enabled="false"/>       
+    
+    <!-- Custom Spot Tag (Textfield) Style -->
+    
+    <style name="custom_spot_tag" 
+        type="text"
+        alpha="0"
+        zorder="999999"
+        flying="0.03"
+        enabled="false"
+        padding="10 30 10 30"
+        bg="true"
+        bgalpha="1"
+        bgcolor="#333333"
+        bgroundedge="100"
+        onautosized="false"
+        oversampling="3"
+        mipmapping="2"
+        css="h1{font-family:Helvetica; font-size:14px; color:#ffffff; margin:0px;}"
+        />
+
+	<action name="select_hs">
+		if(%1 != null AND %1 != '',
+			hs_anim_off(get(@selected_hs));
+			set(@selected_hs, %1);
+			ifnot(%1 == null, hs_anim_on(get(@selected_hs)););
+		);
+	</action>
+    
+	<action name="hs_anim_on">
+		trace('hs_anim_on called with:', %1);
+		if(%1 != null AND %1 != '',
+			txtadd(hs_tag,%1,'_tag');
+			if(hotspot[get(hs_tag)].name,
+				tween(hotspot[get(hs_tag)].alpha,1,0.3);
+				set(hotspot[get(hs_tag)].zorder, 999999);
+			);
+			set(hotspot[%1].zorder, 999999);
+			tween(hotspot[%1].scale,1,0.3,easeoutcubic);
+			tween(hotspot[%1].alpha,0,0.3,easeoutcubic);
+			delayedcall(0.2,set(hotspot[%1].zorder,0););
+
+			txtadd(custom_spot,get(%1),'_img');
+			trace('Trying to tween:', get(custom_spot));
+			if(hotspot[get(custom_spot)].name,
+				set(hotspot[get(custom_spot)].visible, true);
+				tween(hotspot[get(custom_spot)].alpha,1,0.3,easeoutcubic);
+			);
+		);
+	</action>
+	
+	<action name="hs_anim_off">
+		trace('hs_anim_off called with:', %1);
+		if(%1 != null AND %1 != '',
+			if(device.desktop == true, 
+				ifnot(hotspot[%1].hovering == true, 
+					txtadd(hs_tag,%1,'_tag'); 
+					if(hotspot[get(hs_tag)].name,
+						tween(hotspot[get(hs_tag)].alpha,0,0.3);
+					);
+				),
+					txtadd(hs_tag,%1,'_tag');
+					if(hotspot[get(hs_tag)].name,
+						tween(hotspot[get(hs_tag)].alpha,0,0.3);
+					);
+			);
+			set(hotspot[%1].zorder, 100);
+			tween(hotspot[%1].scale,0.5,0.3,easeoutcubic);
+			tween(hotspot[%1].alpha,1,0.3,easeoutcubic);
+
+			txtadd(custom_spot,get(%1),'_img');
+			trace('Trying to tween:', get(custom_spot));
+			if(hotspot[get(custom_spot)].name,
+				tween(hotspot[get(custom_spot)].alpha,0,0.3,easeoutcubic);
+				delayedcall(0.3,set(hotspot[get(custom_spot)].visible,false));
+			);
+		);
+	</action>  
+    
+</krpano>    
