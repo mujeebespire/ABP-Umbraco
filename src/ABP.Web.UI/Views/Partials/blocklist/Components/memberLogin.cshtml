@@ -1,0 +1,44 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Extensions
+
+@{
+    var content = Model.Content;
+
+    // Member Login Title (textstring)
+    var title = content.Value<string>("title");
+}
+
+<div class="Member-login-form rte">
+
+    @* Dynamic Title *@
+    @if (!string.IsNullOrWhiteSpace(title))
+    {
+        <h2 class="h2">@title</h2>
+    }
+
+    <form method="post" action="en/550.0/login.htm" name="login">
+        <p>
+            <label for="username">Username:</label>
+            <input id="username" class="text" name="username" type="text" />
+        </p>
+
+        <p>
+            <label for="password">Password:</label>
+            <input id="password" class="text" type="password" name="password" />
+        </p>
+
+        <p class="align-right">
+            <button type="submit" name="submit">Submit</button>
+        </p>
+
+        <!-- Hidden fields kept as-is -->
+        <input type="hidden" name="form_id" value="6b7a5cef-f40c-4e2f-9af8-cbc558e77b19" />
+        <input type="hidden" name="fromPage" value="328" />
+        <input type="hidden" name="hasCaptcha" value="False" />
+        <input type="hidden" name="captchaCode" value="87AFBCD46411A968F93635FA3B3609AB5CE0CB10" />
+        <input type="hidden" name="captchaKey" value="358370101" />
+    </form>
+
+</div>
