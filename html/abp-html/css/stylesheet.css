@@ -7266,6 +7266,11 @@ input[type="email"]::-ms-clear {
     color: #fff;
 }
 
+.footer .footer__container .row .col-lg-4:nth-child(n+4){
+    margin-top: 40px;
+}
+
+
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {
     .footer__list-large {
         display: -webkit-box;
@@ -11367,6 +11372,9 @@ input[type="email"]::-ms-clear {
 .contact-card+.main {
     padding-top: 170px;
 }
+.contact-card.contact-card--multi + .main {
+    padding-top: 30px;
+}
 
 @media only screen and (max-width: 767.98px) {
     .contact-card+.main {
@@ -12021,7 +12029,7 @@ hr {
 }
 
 .table-wrapper table.thead-dark {
-    margin: 20px 0;
+    margin: 40px 0 40px;
 }
 
 @media only screen and (max-width: 575.98px) {
