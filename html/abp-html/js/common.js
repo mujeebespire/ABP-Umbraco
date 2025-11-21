@@ -9645,6 +9645,7 @@
           this.filterByType();
           this.filterByYear();
           this.pagination();
+          this.callAjax(1);
         },
         filterByType: function () {
           var n = this;
