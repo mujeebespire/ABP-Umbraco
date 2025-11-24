@@ -9246,6 +9246,7 @@
           this.filterArticlesByRegion();
           this.pagination();
           this.deleteUncessaryItems();
+          this.callAjax(1);
         },
         clearFilters: function () {
           $("#ListingYears").prop("selectedIndex", 0).selectric("refresh");
