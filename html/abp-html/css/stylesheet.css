@@ -14265,7 +14265,7 @@ hr {
     }
 }
 
-.people__text {
+.people__text, .people__details p {
     font-size: 18px;
     line-height: 32px;
     color: #16181a;
@@ -14274,7 +14274,7 @@ hr {
 }
 
 @media only screen and (max-width: 767.98px) {
-    .people__text {
+    .people__text, .people__details p {
         font-size: 16px;
         line-height: 30px;
     }
