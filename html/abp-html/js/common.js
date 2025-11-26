@@ -8858,6 +8858,9 @@
               var f = (u || 0) + 1;
               i.find(n.status).text(n.addZeros(f));
               i.find(n.sum).text(n.addZeros(r.slideCount));
+
+              // Check and add disabled class on init
+              checkArrowState(r, u || 0);
             });
             t.slick({
               slidesToShow: 1,
@@ -8867,12 +8870,38 @@
               nextArrow:
                 '<button class="slick-next slider__arrow" aria-label="Next" type="button"><span class="icon font-ico-arrow-right"></span></button>',
               appendArrows: r,
+
+              infinite: false, // Set to false to enable/disable arrows at boundaries
             });
             t.on("afterChange", function (t, r, u) {
               var f = (u || 0) + 1;
               i.find(n.status).text(n.addZeros(f));
               i.find(n.sum).text(n.addZeros(r.slideCount));
+
+              // Check and add disabled class after slide change
+              checkArrowState(r, u);
             });
+
+            // Function to check arrow state and add/remove disabled class
+            function checkArrowState(slickInstance, currentSlide) {
+              var prevArrow = i.find(".slick-prev");
+              var nextArrow = i.find(".slick-next");
+
+              // Disable prev arrow on first slide
+              if (currentSlide === 0) {
+                prevArrow.addClass("slick-disabled").attr("disabled", true);
+              } else {
+                prevArrow.removeClass("slick-disabled").attr("disabled", false);
+              }
+
+              // Disable next arrow on last slide
+              if (currentSlide >= slickInstance.slideCount - 1) {
+                nextArrow.addClass("slick-disabled").attr("disabled", true);
+              } else {
+                nextArrow.removeClass("slick-disabled").attr("disabled", false);
+              }
+            }
+            
           });
         },
         initMapSlider: function () {
@@ -8900,9 +8929,9 @@
             infinite: true,
             autoplay: true,
             autoplaySpeed: 5000,
-             speed: 800,
+            speed: 800,
             fade: true,
-            cssEase: 'linear',
+            cssEase: "linear",
             arrows: true,
             // dots: false,
             prevArrow:
@@ -8920,7 +8949,6 @@
             autoplaySpeed: 5000,
             speed: 800,
             arrows: false,
-            
           });
         },
         addZeros: function (n) {
@@ -10025,10 +10053,12 @@
                 f = n.scrollTop();
               t.width() < 992
                 ? u + f >= r
-                  ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
+                  ? (n.addClass("header--sticky"),
+                    i.css("padding-top", n.innerHeight()))
                   : (n.removeClass("header--sticky"), i.css("padding-top", "0"))
                 : u + f >= r
-                ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
+                ? (n.addClass("header--sticky"),
+                  i.css("padding-top", n.innerHeight()))
                 : (n.removeClass("header--sticky"), i.css("padding-top", "0"));
             });
             t.on("resize", function () {
@@ -10037,10 +10067,12 @@
                 f = n.scrollTop();
               t.width() < 992
                 ? u + f >= r
-                  ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
+                  ? (n.addClass("header--sticky"),
+                    i.css("padding-top", n.innerHeight()))
                   : (n.removeClass("header--sticky"), i.css("padding-top", "0"))
                 : u + f >= r
-                ? (n.addClass("header--sticky"), i.css("padding-top", n.innerHeight()))
+                ? (n.addClass("header--sticky"),
+                  i.css("padding-top", n.innerHeight()))
                 : (n.removeClass("header--sticky"), i.css("padding-top", "0"));
             });
           });
@@ -10125,7 +10157,7 @@
             this.bindClickEvents();
             this.navigationFunction();
 
-            // new resize added 
+            // new resize added
             this.bindNavigationResizeHandler();
           },
           bindClickEvents: function () {
@@ -10439,37 +10471,40 @@
               l = c.height(),
               a = $(window).height(),
               w = n.height();
-            y.off("click.navigation-toggle").on("click.navigation-toggle", function () {
-              function i() {
-                $(".nav__item").show();
-                n.stop().slideDown(200);
-                t.siblings(".nav__list").removeClass("nav__list--open");
-                t.siblings(".nav__list").find(".nav__submenu").hide();
-                r.default.disableScroll();
+            y.off("click.navigation-toggle").on(
+              "click.navigation-toggle",
+              function () {
+                function i() {
+                  $(".nav__item").show();
+                  n.stop().slideDown(200);
+                  t.siblings(".nav__list").removeClass("nav__list--open");
+                  t.siblings(".nav__list").find(".nav__submenu").hide();
+                  r.default.disableScroll();
+                }
+                var t = $(this),
+                  u,
+                  f;
+                a < w + l &&
+                  n.css({
+                    height: "calc(100% - 69px)",
+                    overflow: "auto",
+                  });
+                u = $(".urgent").length;
+                f = $(".cookies").length;
+                t.hasClass("nav__toggle--open")
+                  ? (t.removeClass("nav__toggle--open"),
+                    n.stop().slideUp(200),
+                    r.default.enableScroll())
+                  : (t.addClass("nav__toggle--open"),
+                    u && f ? setTimeout(i, 500) : i(),
+                    p.animate(
+                      {
+                        scrollTop: c.offset().top,
+                      },
+                      500
+                    ));
               }
-              var t = $(this),
-                u,
-                f;
-              a < w + l &&
-                n.css({
-                  height: "calc(100% - 69px)",
-                  overflow: "auto",
-                });
-              u = $(".urgent").length;
-              f = $(".cookies").length;
-              t.hasClass("nav__toggle--open")
-                ? (t.removeClass("nav__toggle--open"),
-                  n.stop().slideUp(200),
-                  r.default.enableScroll())
-                : (t.addClass("nav__toggle--open"),
-                  u && f ? setTimeout(i, 500) : i(),
-                  p.animate(
-                    {
-                      scrollTop: c.offset().top,
-                    },
-                    500
-                  ));
-            });
+            );
           },
           bindNavigationResizeHandler: function () {
             var n = this,
@@ -10480,9 +10515,7 @@
               function () {
                 var r = n.getNavigationBreakpoint(t.width());
                 r !== i &&
-                  ((i = r),
-                  n.resetNavigationState(),
-                  n.navigationFunction());
+                  ((i = r), n.resetNavigationState(), n.navigationFunction());
               }
             );
           },
@@ -10493,7 +10526,9 @@
             n.find(".nav__link").off(".navigation");
             n.find(".nav__submenu-item--back").off(".navigation");
             $(document).off(".navigation-close");
-            this.navToggle.off(".navigation-toggle").removeClass("nav__toggle--open");
+            this.navToggle
+              .off(".navigation-toggle")
+              .removeClass("nav__toggle--open");
             t.stop(!0, !0).removeAttr("style").removeClass("nav__list--open");
             n.find(".nav__submenu").stop(!0, !0).removeAttr("style");
             n.find(".nav__item").show();
