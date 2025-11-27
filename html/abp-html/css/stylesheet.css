@@ -6366,6 +6366,18 @@ input[type="email"]::-ms-clear {
     .header__container--bottom {
         min-height: 94px;
     }
+
+    /* new fix for navigation */
+    ul.nav__container.row > li:nth-child(2) {
+        display: block !important;
+    }
+
+    .nav__link--btn{
+        border: #546e7a 1px solid;
+        line-height: 40px;
+        letter-spacing: -0.01em;
+        border-radius: 50px;
+    }
 }
 
 .header__dropdown {
