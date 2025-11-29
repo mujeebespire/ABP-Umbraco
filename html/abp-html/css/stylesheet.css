@@ -3916,8 +3916,9 @@ td {
         font-size: 16px;
         line-height: 30px;
     }
-    .rte p iframe{
-    max-width: 100%;
+
+    .rte p iframe {
+        max-width: 100%;
     }
 
 }
@@ -6376,11 +6377,11 @@ input[type="email"]::-ms-clear {
     }
 
     /* new fix for navigation */
-    ul.nav__container.row > li:nth-child(2) {
+    ul.nav__container.row>li:nth-child(2) {
         display: block !important;
     }
 
-    .nav__link--btn{
+    .nav__link--btn {
         border: #546e7a 1px solid;
         line-height: 40px;
         letter-spacing: -0.01em;
@@ -7286,7 +7287,7 @@ input[type="email"]::-ms-clear {
     color: #fff;
 }
 
-.footer .footer__container .row .col-lg-4:nth-child(n+4){
+.footer .footer__container .row .col-lg-4:nth-child(n+4) {
     margin-top: 40px;
 }
 
@@ -11392,7 +11393,8 @@ input[type="email"]::-ms-clear {
 .contact-card+.main {
     padding-top: 170px;
 }
-.contact-card.contact-card--multi + .main {
+
+.contact-card.contact-card--multi+.main {
     padding-top: 30px;
 }
 
@@ -14301,7 +14303,8 @@ hr {
     }
 }
 
-.people__text, .people__details p {
+.people__text,
+.people__details p {
     font-size: 18px;
     line-height: 32px;
     color: #16181a;
@@ -14310,7 +14313,9 @@ hr {
 }
 
 @media only screen and (max-width: 767.98px) {
-    .people__text, .people__details p {
+
+    .people__text,
+    .people__details p {
         font-size: 16px;
         line-height: 30px;
     }
@@ -15987,7 +15992,7 @@ hr {
 }
 
 @media only screen and (max-width: 991.98px) {
-   
+
     .filters__container:last-child .filters__info {
         left: 25px;
     }
@@ -16013,6 +16018,12 @@ hr {
 @media only screen and (max-width: 767.98px) {
     .filters__info {
         top: 14px;
+        left: 0;
+    }
+
+    .filters__container:nth-child(2) .selectric,
+    .filters__container:nth-child(2) .filters__info {
+        padding-left: 18px;
         left: 0;
     }
 }
@@ -18097,14 +18108,14 @@ hr {
     }
 }
 
-.Member-login-form{
+.Member-login-form {
     background-color: #f4f5f7;
     padding: 20px 40px;
     margin-bottom: 40px;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    
+
 }
 
 .Member-login-form p {
