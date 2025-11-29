@@ -16046,6 +16046,12 @@ hr {
         display: flex;
         max-width: 100%;
     }
+    .nav__submenu ul.nav__sub-block{
+        padding-top: 16px;
+    }
+    .nav__submenu ul.nav__sub-block.nav__sub-block--image{
+         padding-top: 0;
+    }
 }
 
 @media only screen and (min-width: 768px) {
