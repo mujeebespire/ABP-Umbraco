@@ -3916,6 +3916,10 @@ td {
         font-size: 16px;
         line-height: 30px;
     }
+    .rte p iframe{
+    max-width: 100%;
+    }
+
 }
 
 img {
@@ -5461,6 +5465,10 @@ input[type="email"]::-ms-clear {
     position: relative;
     overflow: hidden;
     padding: 38px 25px 16px;
+}
+
+.filters .selectric {
+    padding-right: 49px;
 }
 
 .selectric .label {
@@ -14001,6 +14009,22 @@ hr {
     position: relative;
 }
 
+.people > .wrap > h2 {
+    font-size: 36px;
+    line-height: 46px;
+    font-weight: 100;
+    color: #1a191b;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.people > .wrap > h2.h2:not(:first-of-type) {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
 .people:not(:first-of-type) {
     margin: 60px 0;
 }
@@ -15943,6 +15967,7 @@ hr {
     margin-top: 50px;
     position: relative;
     z-index: 4;
+    overflow-x: auto;
 }
 
 .filters__container {
@@ -15962,6 +15987,7 @@ hr {
 }
 
 @media only screen and (max-width: 991.98px) {
+   
     .filters__container:last-child .filters__info {
         left: 25px;
     }
