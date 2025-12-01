@@ -15972,7 +15972,6 @@ hr {
     margin-top: 50px;
     position: relative;
     z-index: 4;
-    overflow-x: auto;
 }
 
 .filters__container {
@@ -15995,6 +15994,12 @@ hr {
 
     .filters__container:last-child .filters__info {
         left: 25px;
+    }
+}
+
+@media only screen and (max-width: 490px) {
+    .filters {
+        overflow-x: auto;
     }
 }
 
