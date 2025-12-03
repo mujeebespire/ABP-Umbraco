@@ -3896,6 +3896,10 @@ td {
     max-width: 838px;
 }
 
+.rte img {
+    height: auto;
+}   
+
 .rte p a {
     font-family: "Roboto", sans-serif;
     color: #16181a;
