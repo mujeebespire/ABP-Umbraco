@@ -1507,8 +1507,16 @@ body {
     color: #0f3e58;
 }
 
+.mega-menu .menu_primary>li .menu-icon{
+    background: url(../images/linkedin-menu.svg) 0 15px no-repeat;
+   text-indent: -9999px;
+    padding: 17px 10px;
+    /* height: 12px; */
+    display: block
+}
+
 .mega-menu .menu_primary>li .menu-icon:hover {
-    background: #0a2c3d !important;
+    background: url(../images/linkedin-menu.svg) 0 15px no-repeat;
     transform: scale(1.1);
     transition: ease-in .1s;
 }
@@ -2813,9 +2821,19 @@ a:focus {
     max-width: 72rem;
 }
 
+.two-colum-box{
+    display: flex;
+    flex-direction: row;
+    max-width: 72rem;
+    width: 100%;
+}
+
 @media(max-width:991px) {
     .second-level__row {
         grid-template-columns: auto;
+    }
+    .two-colum-box{
+        flex-direction: column;
     }
 }
 
@@ -2881,6 +2899,24 @@ a:focus {
         grid-row: 3;
         padding: 0 1.5rem 1.5rem 1.5rem;
     }
+}
+
+.rich-text h2{
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    color: #0a2c3d;
+}
+
+.rich-text h3{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    color: #0a2c3d;
+}
+
+.rich-text h4{
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    color: #0f3e58;
 }
 
 .second-level__row__content a {
@@ -3256,13 +3292,17 @@ a:focus {
     margin-top: 1.5rem;
 }
 
-.contact-us__content {
+/* .contact-us__content {
     max-width: 75rem;
     display: grid;
     grid-template: "form right-column" "map map" /7fr 4fr;
-    gap: 2rem 3rem;
-    margin: 1rem auto;
-    padding: 1.5rem 2rem 0 2rem;
+    gap: 2rem 3rem; 
+    margin: 0 auto;
+    padding: 0rem 2rem 0 2rem;
+} */
+
+.contact-us__content__right-column__address{
+    padding: 0 1.5rem 1.5rem 1.5rem;
 }
 
 @media(max-width:767px) {
@@ -3296,9 +3336,10 @@ a:focus {
 
 .contact-us__content__right-column__cta {
     background: #0a2c3d;
-    min-width: 15rem;
+    /* min-width: 15rem; */
+    width: 92%;
     padding: 1.25rem;
-    margin: 1.8rem 0 0 0;
+    margin: 0 1.5rem 1.5rem 1.5rem;
     font-size: 1rem;
 }
 
@@ -3776,7 +3817,12 @@ a:focus {
 .title-and-description__header {
     background: #fff;
     padding: 3rem 1.25rem;
-    margin-bottom: 1.125rem;
+    /* margin-bottom: 1.125rem; */
+
+}
+
+.line-component{
+    height: 1.125rem;
 }
 
 @media(min-width:768px) {
