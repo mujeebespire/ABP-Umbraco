@@ -7018,17 +7018,16 @@ input[type="email"]::-ms-clear {
 }
 
 
-
-.nav__submenu-item ul {
+.level-2 .nav__submenu-item ul {
     margin-left: 14px;
     margin-top: 18px;
 }
 
-.nav__submenu-item ul li {
+.level-2 .nav__submenu-item ul li {
     margin-bottom: 18px;
 }
 
-.nav__submenu-item ul li a {
+.level-2 .nav__submenu-item ul li a {
     font-size: 14px;
     font-weight: normal;
     word-break: break-word;
@@ -7037,15 +7036,11 @@ input[type="email"]::-ms-clear {
     position: relative;
 }
 
-.nav__submenu-item ul li a.font-ico-arrow-right:before {
+.level-2 .nav__submenu-item ul li a.font-ico-arrow-right:before {
     position: absolute;
     left: -14px;
     transform: scale(0.6);
     display: none;
-}
-
-.nav__submenu-item ul li ul li a {
-    color: black;
 }
 
 
@@ -7053,7 +7048,7 @@ input[type="email"]::-ms-clear {
     .nav__submenu-item {
         border-bottom: 1px solid #cfd8dc;
     }
-    .nav__submenu-item > ul{
+    .level-2 .nav__submenu-item > ul{
         margin-top: 0;
         padding-left: 18px;
     }
