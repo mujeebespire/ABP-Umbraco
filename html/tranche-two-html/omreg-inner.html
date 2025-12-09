@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="application/ld+json">
+                {
+                "@context" : "https://schema.org",
+                  "@type" : "WebSite",
+                  "name" : "OMReg",
+                  "url" : "https://omreg.net/"
+                }
+    </script>
+
+    <title>
+        OMReg Habitat Creation Scheme Database - ABPmer
+    </title>
+
+
+    <meta name="description"
+        content="Explore our database of coastal habitat creation schemes and other adaptation projects | View, download and add information on completed projects." />
+
+    <link href="//fonts.googleapis.com/css?family=Open%20Sans:100,300,400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web"><!-- Standard fav icon -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href='Content/style.css' type='text/css' rel='stylesheet' />
+
+
+    <script type="text/javascript" src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+</head>
+
+<body>
+
+    <script type="text/javascript" src="https://secure.leadforensics.com/js/62827.js"></script>
+    <noscript><img src="https://secure.leadforensics.com/62827.png" style="display:none;" /></noscript>
+
+
+    <!-- Cookie privacy policy -->
+    <div class="text-center cookie-disclaimer" role="alert" style="display: none;">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>
+
+                <p>We use cookies to enhance your experience of our website, some of which are essential to the
+                    operation of our site. If you agree to our use of cookies please click "Yes, I agree" to remove this
+                    message or to find out more click the "Cookie Policy" button.</p>
+                <p>Please note that by continuing to use this website without disabling cookies, you consent to the use
+                    of cookies.</p>
+                </p>
+
+                <p>
+                    <button class="btn btn-success" id="consent-to-cookies" data-dismiss="alert" aria-label="Yes">Yes, I
+                        agree</button>
+                    <a class="btn btn-info" aria-label="Cookie Policy" href="/privacy-and-cookies">Cookie Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav role="navigation" class="navbar navbar-default all-navigation">
+            <div class="container">
+                <div class="flex-support">
+                    <div class="navbar-header">
+                        <a href="/" class="navbar-brand logo--box">
+                            <img alt="OMReg" src="images/marinecoastalsurvey/Microsite Logo - Survey.gif" height="45"
+                                class="logoimage logoimage-survey">
+                        </a>
+                        <div class="navbar-toggle-container">
+                            <img alt="ABPmer logo" src="images/abpmer-logo-220x60.png" height="30" width="110"
+                                class="abpmer-logo-mobile  survey-abpmer-logo-mobile" />
+
+                            <button data-target="#navbar-collapse" data-toggle="collapse" class="navbar-toggle"
+                                type="button">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="navbar-collapse" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/about-us/" target="_self">ABOUT</a>
+                            </li>
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                                    href="https://marinecoastalsurvey.co.uk/services/">
+                                    SERVICES
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/hydrographic-and-geophysical-survey/"
+                                        target="_self">HYDROGRAPHIC AND GEOPHYSICAL SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/oceanographic-survey/"
+                                        target="_self">OCEANOGRAPHIC SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/topographic-survey/"
+                                        target="_self">TOPOGRAPHIC SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/ecological-survey/"
+                                        target="_self">ECOLOGICAL SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/habitat-mapping/"
+                                        target="_self">HABITAT MAPPING</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/habitat-sampling/"
+                                        target="_self">HABITAT SAMPLING</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/laboratory-analysis/"
+                                        target="_self">LABORATORY ANALYSIS</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/consultancy/"
+                                        target="_self">CONSULTANCY</a>
+                                </div>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/assets/" target="_self">ASSETS</a>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/qhse/" target="_self">QHSE</a>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/experience/" target="_self">EXPERIENCE</a>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/contact-us/" target="_self">CONTACT</a>
+                            </li>
+
+
+                        </ul>
+                        <img alt="ABPmer logo" src="images/abpmer-logo-220x60.png" height="40" width="146"
+                            class="abpmer-logo">
+                    </div>
+
+                </div>
+
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <div class="searchbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="innersearch">
+                            <span class="searchspan ">
+                                <input id="searchtext" type="text" placeholder="Enter your search">
+                            </span>
+                            <input id="searchsubmit" type="button" data-link="https://omreg.net/query-database/"
+                                value="Search Database">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <section id="cb-header-1-3" class="cb-header-block cb-header-1-3">
+        <header class="header3"
+            style="background-image: url(images/wave-background-1920x450.png); background-size: cover; background-position: right center;">
+            <div class="container">
+                <div class="row video-header">
+                    <div class="col-md-6 pl-0">
+                        <div class="content">
+                            <h1 class="content video-header__title">Habitat Sampling</h1>
+
+                            <h2 class="video-header__subtitle">Understand the potential impact to marine flora and fauna
+                                at your development site</h2>
+
+                            <div class="video-header__description">
+                                <p>&nbsp;</p>
+                                <h4 class="text-white">Our experienced surveyors support complex consenting requirements
+                                    and condition assessments&nbsp;by identifying and assessing habitats and species and
+                                    sediment makeup in detail</h4>
+                                <a class="btn btn-default cta-btn" style="background-color:#FA8A18;color:#0b2c3d"
+                                    href="https://www.marinecoastalsurvey.co.uk/contact-us/?Reference=Habitat Samping surveys">TALK
+                                    TO A SPECIALIST</a>
+                                <p>&nbsp;</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 pr-0">
+                        <div class="video-header__video">
+                            <iframe
+                                src="https://player.vimeo.com/video/879435303?badge=0&amp;autopause=0&amp;quality_selector=1&amp;player_id=0&amp;app_id=58479"
+                                width="640" height="360" frameborder="0"
+                                allow="autoplay; fullscreen; picture-in-picture"
+                                title="Marine habitat sampling with ABPmer"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+
+    <section id="cb-slider-1-2" class="cb-slider-block cb-slider-1-2 inner-banner">
+        <img src="images/abpmer-survey-buoy.jpg" alt="" />
+    </section>
+
+
+
+    <section class="experience-section">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-8 mt20">
+
+                    <div class="richtext">
+                        <h1>About us</h1>
+                        <h2>About us</h2>
+                        <h3>About us</h3>
+                        <h4>About us</h4>
+                        <h5>About us</h5>
+                        <p><strong>A unique, diverse capability</strong></p>
+                        <p>ABPmer Marine and Coastal Survey undertakes bespoke coastal and inshore surveys around the UK
+                            and further afield.</p>
+
+                        <ul>
+                            <li>Coastal surveys (seine, gill, fyke netting)</li>
+                            <li>Mid water and epibenthic trawls</li>
+                            <li>Baited underwater video</li>
+                            <li>Shellfish assessment surveys</li>
+                            <li>Habitat assessment (black bream nesting sites)</li>
+                        </ul>
+
+                        <ol>
+                            <li>Coastal surveys (seine, gill, fyke netting)</li>
+                            <li>Mid water and epibenthic trawls</li>
+                            <li>Baited underwater video</li>
+                            <li>Shellfish assessment surveys</li>
+                            <li>Habitat assessment (black bream nesting sites)</li>
+                        </ol>
+
+                        <p>As well as our wide marine survey capability, we also&nbsp;provide charting, data processing,
+                            <span style="text-decoration: underline;"><a
+                                    data-udi="umb://document/d4a821c365f5468f910b0499e9c74781"
+                                    href="https://marinecoastalsurvey.co.uk/services/laboratory-analysis/"
+                                    title="Laboratory Analysis">laboratory analysis</a></span> and consultancy advice.
+                        </p>
+                        <hr>
+                        <p>As would be expected, we are committed to behaving responsibly, complying with legislation
+                            and meeting industry standards. External, independent <span
+                                style="text-decoration: underline;"><a
+                                    data-udi="umb://document/6d1e2838d864490096a6739b91c51668"
+                                    href="https://marinecoastalsurvey.co.uk/qhse/" title="QHSE">audits and
+                                    awards</a></span>&nbsp;are testament to this.</p>
+                        <h2>Our people</h2>
+                        <p>Our survey team&nbsp;includes ecologists, geomorphologists, hydrographic surveyors, lab
+                            technicians, marine mammal observers, oceanographers and ornithologists. In addition to
+                            ABPmer survey and consultancy staff,&nbsp;we work with highly experienced hydrographic
+                            surveyors&nbsp;across the Associated British Ports Group, based in key port locations across
+                            the UK.</p>
+                        <p>&nbsp;</p>
+                    </div>
+
+                    <div id="contact4">
+
+                        <div class="alert alert-success" style="display:none" id="send-success">
+                            Thanks! We've received your message and we'll be in touch soon.
+                        </div>
+
+                        <div class="alert alert-warning" style="display:none" id="send-fail">
+                            Your message was unable to be sent.
+                        </div>
+
+                        <form action="/contact-us/" class="js-hide-on-success" enctype="multipart/form-data"
+                            id="contact--form" method="post"><input data-val="true"
+                                data-val-required="Captcha is required" id="CaptchaResponse" name="CaptchaResponse"
+                                type="hidden" value="" />
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+                                        <input class="form-control" data-val="true"
+                                            data-val-regex="Characters &lt;>#;{} are not allowed."
+                                            data-val-regex-pattern="^[^&lt;>#;{}]+$"
+                                            data-val-required="The Name field is required." id="Name" name="Name"
+                                            placeholder="Name" type="text" value="" />
+                                        <span class="field-validation-valid" data-valmsg-for="Name"
+                                            data-valmsg-replace="true"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input class="form-control" data-val="true"
+                                            data-val-email="The Email field is not a valid e-mail address."
+                                            data-val-regex="Characters &lt;>#;{} are not allowed."
+                                            data-val-regex-pattern="^[^&lt;>#;{}]+$"
+                                            data-val-required="The Email field is required." id="Email" name="Email"
+                                            placeholder="Email" type="text" value="" />
+                                        <span class="field-validation-valid" data-valmsg-for="Email"
+                                            data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" data-val="true"
+                                            data-val-equalto="The email and confirmation email do not match"
+                                            data-val-equalto-other="*.Email"
+                                            data-val-regex="Characters &lt;>#;{} are not allowed."
+                                            data-val-regex-pattern="^[^&lt;>#;{}]+$"
+                                            data-val-required="The ComparisonEmail field is required."
+                                            id="ComparisonEmail" name="ComparisonEmail" placeholder="Confirm email"
+                                            type="text" value="" />
+                                        <span class="field-validation-valid" data-valmsg-for="ComparisonEmail"
+                                            data-valmsg-replace="true"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" cols="30" data-val="true"
+                                            data-val-length="Message must can be no longer than 1000 characters"
+                                            data-val-length-max="1000"
+                                            data-val-regex="Characters &lt;>#;{} are not allowed."
+                                            data-val-regex-pattern="^[^&lt;>#;{}]+$"
+                                            data-val-required="The Message field is required." id="Message"
+                                            name="Message" placeholder="Message" rows="10">
+</textarea>
+                                        <span class="field-validation-valid" data-valmsg-for="Message"
+                                            data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+
+                                
+                                    <div class="col-md-12">
+                                        <div class="g-recaptcha" data-sitekey="6LdJGTgUAAAAAKF8BldIb0fO9S-psvYo9i9hl6u1"
+                                            data-callback="googleCaptchaCallback"
+                                            data-expired-callback="googleCaptchaExpiredCallback"></div>
+                                        <span class="field-validation-error" id="captcha-required"
+                                            style="display:none"><span class="">Captcha is required</span></span>
+                                    </div>
+                                
+
+                               
+                                    <div class="col-md-12">
+
+                                        <button type="submit" class="btn btn-default btn-end">SEND MESSAGE</button>
+
+                                    </div>
+                                
+                            </div>
+                            <input name='ufprt' type='hidden'
+                                value='C7578323EA486A07BB447207B97850AA670877E31FD23E4295FF89FCD45AA9DF7D8EAC1428B7A1655476EFDDEFED480D717F20F47C8C89B61C5E8CA8F82B3F59066BCC7C57E142C8F9A9EDF93EAF8FC069FB8FC11705894D65DB131A366620F5A1A5E78E36CF6EBA3D6E6ABD232BFC280BD771B76C44599E7291A091671EDBCA33613CC084B97C21BBF4C1B514DB7A88' />
+                        </form>
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-4 mt20">
+
+                    <div class="contact-extra">
+                        <div class="contact-extra-content">
+                            <div class="profileimage-sm"
+                                style="background-image: url('https://marinecoastalsurvey.co.uk/media/1912/vicky-west-abpmer-marine-ecologist.jpg');"
+                                title="Vicky West ABPmer" role="img" aria-label="Vicky West ABPmer">
+
+                            </div>
+                            <div class="profiletext-sm">
+                                <h2>Vicky West</h2>
+                                <h5>Habitat Sampling</h5>
+                                <a href="tel:+44-238-0711-851">+44 (0)23 8071 1851</a>
+                                <div class="contact-extra-button">
+                                    <div class="icon">
+                                        <a class="icon--linkedin" href="https://www.linkedin.com/in/victoriawest93/"
+                                            target="_blank">
+                                            <img src="images/linkedin.svg">
+                                        </a>
+                                    </div>
+
+                                    <div class="icon">
+                                        <a class="icon--email cursor-pointer"
+                                            data-micromodal-trigger="contact-person-modal"
+                                            onclick="FillPersonModal({'image': 'https://marinecoastalsurvey.co.uk/media/1912/vicky-west-abpmer-marine-ecologist.jpg', 'name': 'Vicky West', 'role': 'Habitat Sampling', 'email': 'vicky.west@abpmer.co.uk, survey@abpmer.co.uk'})">
+                                            <img src="images/envelope.svg">
+                                        </a>
+                                    </div>
+                                    <div class="icon">
+                                        <a href="tel:+44-238-0711-851" class="icon--tel">
+                                            <img src="images/phone-button.svg" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function FillPersonModal(personData) {
+                                var modal = $('#contact-person-modal');
+
+                                modal.find('.modal__title').text(personData.name)
+                                modal.find('.modal__subtitle').text(personData.role)
+                                modal.find('.modal__person-image').attr('src', personData.image)
+                                modal.find('#ContactPersonToEmail').val(personData.email)
+                            }
+                        </script>
+                    </div>
+
+                    <div class="servicemenu">
+                        <h3>Services</h3>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="https://marinecoastalsurvey.co.uk/services/ecological-survey/"
+                                    class="hover-underline">
+                                    Ecological Surveys
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://marinecoastalsurvey.co.uk/services/hydrographic-and-geophysical-survey/"
+                                    class="hover-underline">
+                                    Hydrographic and Geophysical Surveys
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://marinecoastalsurvey.co.uk/services/laboratory-analysis/"
+                                    class="hover-underline">
+                                    Laboratory Analysis
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://marinecoastalsurvey.co.uk/services/oceanographic-survey/"
+                                    class="hover-underline">
+                                    Oceanographic Surveys
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://marinecoastalsurvey.co.uk/services/topographic-survey/"
+                                    class="hover-underline">
+                                    Topographic Surveys
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.seastates.net/services/consultancy/" class="hover-underline">
+                                    Consultancy
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h5 class="cta-phone">Your details will only be used to reply to your enquiry. They will not be
+                        passed on to any third party or used in any other way without your express permission.</h5>
+
+                </div>
+            </div>
+
+            <div class="user-details">
+                <div class="row">
+                    <div class="col-md-3 mb20">
+                        <div class="avtar-box">
+                            <p><img style="width: 200px; height: 200px;"
+                                    src="https://marinecoastalsurvey.co.uk/media/1908/paul-clement-abpmer-hydrographic-and-oceanographic-surveyor.jpg"
+                                    alt="Paul Clement ABPmer Hydrographic and Oceanographic Surveyor"
+                                    data-udi="umb://media/cc6eb16ea921448e83d438e04449f76a"></p>
+                            <p><span style="font-size: 11pt;"><strong><span style="color: #333333;">Paul
+                                            Clement<br></span></strong><span style="color: #333333;">Head of
+                                        Survey<br></span></span></p>
+                            <a class="btn btn-default cta-btn" style="background-color:#fa8a18;color:#0a2c3d"
+                                href="https://www.marinecoastalsurvey.co.uk/contact-us/?Reference=General survey enquiry - ">Get
+                                in touch</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb20">
+                        <div class="avtar-box">
+                            <p><img style="width: 200px; height: 200px;"
+                                    src="https://marinecoastalsurvey.co.uk/media/1908/paul-clement-abpmer-hydrographic-and-oceanographic-surveyor.jpg"
+                                    alt="Paul Clement ABPmer Hydrographic and Oceanographic Surveyor"
+                                    data-udi="umb://media/cc6eb16ea921448e83d438e04449f76a"></p>
+                            <p><span style="font-size: 11pt;"><strong><span style="color: #333333;">Paul
+                                            Clement<br></span></strong><span style="color: #333333;">Head of
+                                        Survey<br></span></span></p>
+                            <a class="btn btn-default cta-btn" style="background-color:#fa8a18;color:#0a2c3d"
+                                href="https://www.marinecoastalsurvey.co.uk/contact-us/?Reference=General survey enquiry - ">Get
+                                in touch</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb20">
+                        <div class="avtar-box">
+                            <p><img style="width: 200px; height: 200px;"
+                                    src="https://marinecoastalsurvey.co.uk/media/1908/paul-clement-abpmer-hydrographic-and-oceanographic-surveyor.jpg"
+                                    alt="Paul Clement ABPmer Hydrographic and Oceanographic Surveyor"
+                                    data-udi="umb://media/cc6eb16ea921448e83d438e04449f76a"></p>
+                            <p><span style="font-size: 11pt;"><strong><span style="color: #333333;">Paul
+                                            Clement<br></span></strong><span style="color: #333333;">Head of
+                                        Survey<br></span></span></p>
+                            <a class="btn btn-default cta-btn" style="background-color:#fa8a18;color:#0a2c3d"
+                                href="https://www.marinecoastalsurvey.co.uk/contact-us/?Reference=General survey enquiry - ">Get
+                                in touch</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb20">
+                        <div class="avtar-box">
+                            <p><img style="width: 200px; height: 200px;"
+                                    src="https://marinecoastalsurvey.co.uk/media/1908/paul-clement-abpmer-hydrographic-and-oceanographic-surveyor.jpg"
+                                    alt="Paul Clement ABPmer Hydrographic and Oceanographic Surveyor"
+                                    data-udi="umb://media/cc6eb16ea921448e83d438e04449f76a"></p>
+                            <p><span style="font-size: 11pt;"><strong><span style="color: #333333;">Paul
+                                            Clement<br></span></strong><span style="color: #333333;">Head of
+                                        Survey<br></span></span></p>
+                            <a class="btn btn-default cta-btn" style="background-color:#fa8a18;color:#0a2c3d"
+                                href="https://www.marinecoastalsurvey.co.uk/contact-us/?Reference=General survey enquiry - ">Get
+                                in touch</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 mb20">
+                        <div class="avtar-box">
+                            <p><img style="width: 200px; height: 200px;"
+                                    src="https://marinecoastalsurvey.co.uk/media/1908/paul-clement-abpmer-hydrographic-and-oceanographic-surveyor.jpg"
+                                    alt="Paul Clement ABPmer Hydrographic and Oceanographic Surveyor"
+                                    data-udi="umb://media/cc6eb16ea921448e83d438e04449f76a"></p>
+                            <p><span style="font-size: 11pt;"><strong><span style="color: #333333;">Paul
+                                            Clement<br></span></strong><span style="color: #333333;">Head of
+                                        Survey<br></span></span></p>
+                            <a class="btn btn-default cta-btn" style="background-color:#fa8a18;color:#0a2c3d"
+                                href="https://www.marinecoastalsurvey.co.uk/contact-us/?Reference=General survey enquiry - ">Get
+                                in touch</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <section id="cb-accordion-blocks-1-2" class="cb-accordion-block cb-accordion-1-2">
+                <div id="accordion2">
+
+                    <div class="panel-group">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading active">
+                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#1300"
+                                        aria-expanded="false">About coastal adaptation and habitat
+                                        creation</a></h4>
+                            </div>
+                        </div>
+                        <div id="1300" class="panel-collapse collapse in" aria-expanded="false">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p>The shorelines and intertidal habitats of our coasts and estuaries
+                                            provide
+                                            valuable environmental, social and economic benefits.</p>
+                                        <p>However, they are under pressure across the world from human
+                                            activities (past
+                                            and present) and climate change. To respond to these pressures, many
+                                            different shoreline adaptation and habitat creation projects have
+                                            been
+                                            carried out.</p>
+                                        <p>Such schemes are often designed to make coastlines more sustainable,
+                                            maintain
+                                            crucial wetlands and enhance marine biodiversity. </p>
+                                        <p>There are many reasons for carrying out shoreline adaptation work.
+                                            The main
+                                            two are</p>
+                                        <ol>
+                                            <li>to improve flood protection and address issues related to
+                                                shoreline
+                                                change and the effects of sea level rise;</li>
+                                            <li>to restore/protect coastal habitats and offset either past,
+                                                present or
+                                                future losses of coastal habitat and biodiversity.</li>
+                                        </ol>
+                                        <p>Many of the projects in this database have been pursued with these
+                                            two
+                                            central motives in mind. However there are other social and economic
+                                            objectives associated with shoreline adaptation work. These wider
+                                            benefits
+                                            or 'Ecosystem Services' (i.e. the benefits people derive from nature
+                                            and its
+                                            restoration) are increasingly being recognised and valued.</p>
+                                        <p>A wide variety of techniques have been used, ranging from small
+                                            schemes to
+                                            vast landscape restorations.</p>
+                                        <p><strong><span style="text-decoration: underline;"><a
+                                                        data-udi="umb://document/5e400582b4a14d18913ff7dc096a6738"
+                                                        href="https://omreg.net/query-database/"
+                                                        title="Query Database">Explore the database</a></span>
+                                                or read
+                                                on to understand the different techniques.</strong></p>
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <img src="https://omreg.net/media/1232/about-adapting-shorelines-450.jpg"
+                                            alt="Adapting shorelines" class="accordion-image" />
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading active">
+                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion2" href="#1669"
+                                        aria-expanded="false">Benefits of shoreline adaptation</a>
+                                </h4>
+                            </div>
+                        </div>
+
+                        <div id="1669" class="panel-collapse collapse " aria-expanded="false">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p>There are many reasons for carrying out shoreline adaptation work.
+                                            The main
+                                            two are</p>
+                                        <ol>
+                                            <li>to improve flood protection and address issues related to
+                                                shoreline
+                                                change and the effects of sea level rise;</li>
+                                            <li>to restore/protect coastal habitats and offset either past,
+                                                present or
+                                                future losses of coastal habitat and biodiversity.</li>
+                                        </ol>
+                                        <p>Many of the projects in the OMReg database have been pursued with
+                                            these two
+                                            central motives in mind. However there are other social and economic
+                                            objectives associated with shoreline adaptation work.</p>
+                                        <p>These wider benefits or 'Ecosystem Services' (i.e. the benefits
+                                            people derive
+                                            from nature and its restoration) are increasingly being recognised
+                                            and
+                                            valued.</p>
+                                        <p>Depending upon the scheme in question, these extra benefits can
+                                            include any
+                                            of the following:</p>
+                                        <ul>
+                                            <li>Job creation during the project's implementation (short-term) or
+                                                for the
+                                                project's ongoing management </li>
+                                            <li>Provision of public space</li>
+                                            <li>Increased visitor numbers leading to economic gains for the
+                                                region;</li>
+                                            <li>Visual enhancement of the 'seascape';</li>
+                                            <li>Public health and well-being benefits;</li>
+                                            <li>Enhancement of recreational and commercial fisheries;</li>
+                                            <li>Provision of food and raw materials;</li>
+                                            <li>Improvements to water quality;</li>
+                                            <li>Sequestration of carbon (especially in coastal wetlands);</li>
+                                            <li>Creation of resource for community involvement, engagement and
+                                                education; and</li>
+                                            <li>A location for future research.</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+
+                                        <img src="https://omreg.net/media/1199/benefits-450.jpg"
+                                            alt="Coastal adaptation" class="accordion-image" />
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <div class="fullrichtext">
+                <h1>Contact Us</h1>
+                <h3>Use this form to get in touch, or call the maritime team direct on +44 (0)23 8071 1892.</h3>
+            </div>
+
+
+        </div>
+    </section>
+
+    <section id="cb-content-1-1" class="content-block cb-content-1-1 abp-cta1"
+        style="background-color:#FA8A18;color:#0b2c3d">
+
+        <div class="content1">
+            <div class="container">
+                <h3>Want to talk to us about a scheme? Call <span style="text-decoration: underline;"><a
+                            href="tel:+442380711860">+44 (0)23 8071 1860</a></span></h3>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <section>
+        <div id="footer1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="https://www.abpmer.co.uk/" target="_blank"><img alt="ABPmer logo"
+                                        src="images/ABPMerLogo-190x52.jpg" width="190"
+                                        style="margin-right:8px; margin-top: -6px; float: left;background-image: url('/images/59b69c4e961d6200019d2a7c_REV_RGB_2016.jpg');"></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="mt20">
+                                <h4>A free resource maintained by ABPmer</h4>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 style="outline: none; cursor: inherit;">Contact us</h3>
+                        <p class="mt20">ABPmer<br />Quayside Suite<br />Medina Chambers<br />Town
+                            Quay<br />Southampton<br />SO14 2AQ</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 style="outline: none; cursor: inherit;">Get in touch</h3>
+                        <p class="mt20"><i class="fa fa-phone"></i>Phone: <a href="tel:+44-238-0711-860">+44 (0)23 8071
+                                1860</a></p>
+                        <p><i class="fa fa-envelope-o"></i><a
+                                href="mailto:habitatcreation@abpmer.co.uk">habitatcreation@abpmer.co.uk</a></p>
+                    </div>
+                    <div class="col-md-3">
+                        <form class="mailingsignup clearfix validate" data-name="Email Form 2"
+                            id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+                            action="//abpmer.us8.list-manage.com/subscribe/post?u=b5a8fa6188db1d7ece2313525&amp;id=5e68988234"
+                            method="post" target="_blank" novalidate>
+
+                            <h3>E-zine sign-up</h3>
+
+                            <input id="mce-ENTRY" name="ENTRY" type="hidden" value="Omreg">
+
+                            <input name="group[12905][65536]" type="hidden" value="1" />
+                            <input name="group[12905][1]" type="hidden" value="1" />
+
+                            <div class="form-group">
+                                <input class="form-control valid whitetxt" style="margin-top:20px" data-val="true"
+                                    data-val-required="Name is required." id="mce-NAME" name="NAME" placeholder="Name"
+                                    type="text" value="" aria-required="true" aria-describedby="mce-NAME-error"
+                                    aria-invalid="false">
+                                <span class="field-validation-valid" data-valmsg-for="NAME"
+                                    data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control valid whitetxt" data-val="true"
+                                    data-val-required="Email is required."
+                                    data-val-email="Please enter a valid e-mail address." id="mce-EMAIL" name="EMAIL"
+                                    placeholder="Email" type="text" value="" aria-required="true"
+                                    aria-describedby="mce-EMAIL-error" aria-invalid="false">
+                                <span class="field-validation-valid" data-valmsg-for="EMAIL"
+                                    data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control valid whitetxt" data-val="true"
+                                    data-val-required="Organisation is required." id="mce-ORG" name="ORG"
+                                    placeholder="Organisation" type="text" value="" aria-required="true"
+                                    aria-describedby="mce-ORG-error" aria-invalid="false">
+                                <div class="field-validation-valid" data-valmsg-for="ORG" data-valmsg-replace="true">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label style="font-size:1em">
+                                        <input id="ezineTerms" name="Terms" value="true" type="checkbox" data-val="true"
+                                            data-val-checkboxrequired="Please check to continue.">
+
+                                        Yes, add me to your e-news mailing list
+                                    </label>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="Terms"
+                                    data-valmsg-replace="true"></span>
+
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Subscribe" />
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Bottom -->
+    <section class="footer1 bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="footer1-p">Copyright 2025 All Rights Reserved. ABP Marine Environmental Research Ltd</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="https://omreg.net/sitemap/">Site Map</a>&nbsp;&#124;
+                    <a href="https://omreg.net/terms-of-use/">Terms of use</a>&nbsp;&#124;
+                    <a href="https://omreg.net/privacy-and-cookies/">Privacy and Cookies Notice</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="modal micromodal-slide" id="contact-person-modal" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="contact-person-modal__title">
+                <div class="modal__header">
+                    <img class="modal__person-image" />
+                    <div class="modal__header__description">
+                        <h4>Contact</h4>
+                        <strong class="modal__title">
+                        </strong>
+                        <span class="modal__subtitle"></span>
+                    </div>
+                    <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+                </div>
+                <form action="/umbraco/surface/ContactSurface/ContactPerson" method="post" id="contact-person-form"
+                    class="contact-form">
+                    <main class="modal__content">
+
+                        <fieldset>
+                            <input name="__RequestVerificationToken" type="hidden"
+                                value="8RCHqltHQ8_Lyua_pfngqw5js3XrYLO7RMZPuEvhAxAJeg_M6zUvYrmWy598jYXLhvz-tbLGDYFhJWA7Bn1eoJ69ohWq1LTo77imm7hWSTg1" />
+
+                            <input type="hidden" name="ToEmail" id="ContactPersonToEmail" required>
+                            <input type="text" name="Name" id="Name" placeholder="Name" required />
+                            <input type="email" name="Email" id="Email" placeholder="Email" required />
+                            <input type="email" name="ConfirmEmail" placeholder="Confirm email" required />
+                            <textarea name="Message" rows="10" placeholder="Message" value=""></textarea>
+                        </fieldset>
+                        <div class="modal__content__fieldset__row">
+                            <div class="modal__content__fieldset__checkbox">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="AddToMailingList" id="AddToMailingList" />
+                                    <span class="checkbox-custom rectangular"></span>
+                                </label>
+                                <span>Yes, add me to the mailing list (unsubscribe at any time)</span>
+                            </div>
+                        </div>
+                    </main>
+                    <footer class="modal__footer">
+                        <input type="submit" id="send-message-button" class="btn btn-default cta-btn" name="SendMessage"
+                            value="Send message" />
+                    </footer>
+                </form>
+            </div>
+        </div>
+
+        Secondary form for e-zine subscription, submitting this form redirects to an external page for sign-up
+        <form action="//abpmer.us8.list-manage.com/subscribe/post?u=b5a8fa6188db1d7ece2313525&id=5e68988234"
+            method="post" id="e-zine-form" class="hidden">
+            <fieldset class="e-zine-form">
+                <input type="text" name="MERGE1" id="EZineName" placeholder="Name" required />
+                <input type="email" name="MERGE0" id="EZineEmail" placeholder="Email" required />
+                <input type="text" name="MERGE3" id="EZineOrganisation" placeholder="Organisation" value="Unspecified"
+                    required />
+
+            </fieldset>
+        </form>
+    </div>
+
+
+
+    <script src="js/common.js"></script>
+    <script src="js/cookie-disclaimer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#searchsubmit').click(function (e) {
+                e.preventDefault();
+
+                var url = $(e.target).data('link');
+                const param = $('#searchtext').val();
+
+                if (param !== '') {
+                    url += "?fromnav=1&q=" + encodeURI(param);
+                }
+                window.location = url;
+            });
+        });
+    </script>
+
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
+        var showCookieDisclaimer = !hasConsentedToCookies();
+        if (showCookieDisclaimer) {
+            $(".cookie-disclaimer").show();
+
+            $("#consent-to-cookies").click(function () {
+                consentToCookies();
+                $(".cookie-disclaimer").hide();
+            });
+
+            $("#dissent-to-cookies").click(function () {
+                dissentToCookies();
+            });
+        }
+        $(document).ready(function () {
+            $('.header-video').each(function (i, elem) {
+                headerVideo = new HeaderVideo({
+                    element: elem,
+                    media: '.header-video__media',
+                });
+            });
+        });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRNNPTTXR7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-LRNNPTTXR7');
+    </script>
+
+
+    <script>
+        //FAQ Scripts
+        $('[data-faq-menu-index]').click(function (x) {
+
+            $('[data-faq-content-index]').removeClass('softwarev3__faq__content--active');
+            $('[data-faq-menu-index]').removeClass('softwarev3__faq__nav__link--active');
+
+            var index = $(this).data('faq-menu-index');
+
+            $(`[data-faq-content-index=${index}]`).addClass('softwarev3__faq__content--active');
+            $(`[data-faq-menu-index=${index}]`).addClass('softwarev3__faq__nav__link--active');
+        })
+    </script>
+</body>
+
+</html>

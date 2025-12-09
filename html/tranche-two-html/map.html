@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="application/ld+json">
+                {
+                "@context" : "https://schema.org",
+                  "@type" : "WebSite",
+                  "name" : "OMReg",
+                  "url" : "https://omreg.net/"
+                }
+    </script>
+
+    <title>
+        OMReg Habitat Creation Scheme Database - ABPmer
+    </title>
+
+
+    <meta name="description"
+        content="Explore our database of coastal habitat creation schemes and other adaptation projects | View, download and add information on completed projects." />
+
+    <link href="//fonts.googleapis.com/css?family=Open%20Sans:100,300,400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web"><!-- Standard fav icon -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href='Content/style.css' type='text/css' rel='stylesheet' />
+
+
+    <script type="text/javascript" src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+</head>
+
+<body>
+
+    <script type="text/javascript" src="https://secure.leadforensics.com/js/62827.js"></script>
+    <noscript><img src="https://secure.leadforensics.com/62827.png" style="display:none;" /></noscript>
+
+
+    <!-- Cookie privacy policy -->
+    <div class="text-center cookie-disclaimer" role="alert" style="display: none;">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>
+
+                <p>We use cookies to enhance your experience of our website, some of which are essential to the
+                    operation of our site. If you agree to our use of cookies please click "Yes, I agree" to remove this
+                    message or to find out more click the "Cookie Policy" button.</p>
+                <p>Please note that by continuing to use this website without disabling cookies, you consent to the use
+                    of cookies.</p>
+                </p>
+
+                <p>
+                    <button class="btn btn-success" id="consent-to-cookies" data-dismiss="alert" aria-label="Yes">Yes, I
+                        agree</button>
+                    <a class="btn btn-info" aria-label="Cookie Policy" href="/privacy-and-cookies">Cookie Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav role="navigation" class="navbar navbar-default all-navigation">
+            <div class="container">
+                <div class="flex-support">
+                    <div class="navbar-header">
+                        <a href="/" class="navbar-brand logo--box">
+                            <img alt="OMReg" src="images/marinecoastalsurvey/Microsite Logo - Survey.gif" height="45"
+                                class="logoimage logoimage-survey">
+                        </a>
+                        <div class="navbar-toggle-container">
+                            <img alt="ABPmer logo" src="images/abpmer-logo-220x60.png" height="30" width="110"
+                                class="abpmer-logo-mobile  survey-abpmer-logo-mobile" />
+
+                            <button data-target="#navbar-collapse" data-toggle="collapse" class="navbar-toggle"
+                                type="button">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="navbar-collapse" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/about-us/" target="_self">ABOUT</a>
+                            </li>
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                                    href="https://marinecoastalsurvey.co.uk/services/">
+                                    SERVICES
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/hydrographic-and-geophysical-survey/"
+                                        target="_self">HYDROGRAPHIC AND GEOPHYSICAL SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/oceanographic-survey/"
+                                        target="_self">OCEANOGRAPHIC SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/topographic-survey/"
+                                        target="_self">TOPOGRAPHIC SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/ecological-survey/"
+                                        target="_self">ECOLOGICAL SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/habitat-mapping/"
+                                        target="_self">HABITAT MAPPING</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/habitat-sampling/"
+                                        target="_self">HABITAT SAMPLING</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/laboratory-analysis/"
+                                        target="_self">LABORATORY ANALYSIS</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/consultancy/"
+                                        target="_self">CONSULTANCY</a>
+                                </div>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/assets/" target="_self">ASSETS</a>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/qhse/" target="_self">QHSE</a>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/experience/" target="_self">EXPERIENCE</a>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/contact-us/" target="_self">CONTACT</a>
+                            </li>
+
+
+                        </ul>
+                        <img alt="ABPmer logo" src="images/abpmer-logo-220x60.png" height="40" width="146"
+                            class="abpmer-logo">
+                    </div>
+
+                </div>
+
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <div class="searchbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="innersearch">
+                            <span class="searchspan ">
+                                <input id="searchtext" type="text" placeholder="Enter your search">
+                            </span>
+                            <input id="searchsubmit" type="button" data-link="https://omreg.net/query-database/"
+                                value="Search Database">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+
+  <iframe id="js-viewmapiframe" style="width: 100%" src="https://vision.abpmer.net/omreg"></iframe>
+  
+
+
+
+
+
+
+    <!-- FOOTER -->
+    <section>
+        <div id="footer1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="https://www.abpmer.co.uk/" target="_blank"><img alt="ABPmer logo"
+                                        src="images/ABPMerLogo-190x52.jpg" width="190"
+                                        style="margin-right:8px; margin-top: -6px; float: left;background-image: url('/images/59b69c4e961d6200019d2a7c_REV_RGB_2016.jpg');"></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="mt20">
+                                <h4>A free resource maintained by ABPmer</h4>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 style="outline: none; cursor: inherit;">Contact us</h3>
+                        <p class="mt20">ABPmer<br />Quayside Suite<br />Medina Chambers<br />Town
+                            Quay<br />Southampton<br />SO14 2AQ</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h3 style="outline: none; cursor: inherit;">Get in touch</h3>
+                        <p class="mt20"><i class="fa fa-phone"></i>Phone: <a href="tel:+44-238-0711-860">+44 (0)23 8071
+                                1860</a></p>
+                        <p><i class="fa fa-envelope-o"></i><a
+                                href="mailto:habitatcreation@abpmer.co.uk">habitatcreation@abpmer.co.uk</a></p>
+                    </div>
+                    <div class="col-md-3">
+                        <form class="mailingsignup clearfix validate" data-name="Email Form 2"
+                            id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+                            action="//abpmer.us8.list-manage.com/subscribe/post?u=b5a8fa6188db1d7ece2313525&amp;id=5e68988234"
+                            method="post" target="_blank" novalidate>
+
+                            <h3>E-zine sign-up</h3>
+
+                            <input id="mce-ENTRY" name="ENTRY" type="hidden" value="Omreg">
+
+                            <input name="group[12905][65536]" type="hidden" value="1" />
+                            <input name="group[12905][1]" type="hidden" value="1" />
+
+                            <div class="form-group">
+                                <input class="form-control valid whitetxt" style="margin-top:20px" data-val="true"
+                                    data-val-required="Name is required." id="mce-NAME" name="NAME" placeholder="Name"
+                                    type="text" value="" aria-required="true" aria-describedby="mce-NAME-error"
+                                    aria-invalid="false">
+                                <span class="field-validation-valid" data-valmsg-for="NAME"
+                                    data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control valid whitetxt" data-val="true"
+                                    data-val-required="Email is required."
+                                    data-val-email="Please enter a valid e-mail address." id="mce-EMAIL" name="EMAIL"
+                                    placeholder="Email" type="text" value="" aria-required="true"
+                                    aria-describedby="mce-EMAIL-error" aria-invalid="false">
+                                <span class="field-validation-valid" data-valmsg-for="EMAIL"
+                                    data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control valid whitetxt" data-val="true"
+                                    data-val-required="Organisation is required." id="mce-ORG" name="ORG"
+                                    placeholder="Organisation" type="text" value="" aria-required="true"
+                                    aria-describedby="mce-ORG-error" aria-invalid="false">
+                                <div class="field-validation-valid" data-valmsg-for="ORG" data-valmsg-replace="true">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label style="font-size:1em">
+                                        <input id="ezineTerms" name="Terms" value="true" type="checkbox" data-val="true"
+                                            data-val-checkboxrequired="Please check to continue.">
+
+                                        Yes, add me to your e-news mailing list
+                                    </label>
+                                </div>
+                                <span class="field-validation-valid" data-valmsg-for="Terms"
+                                    data-valmsg-replace="true"></span>
+
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Subscribe" />
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Bottom -->
+    <section class="footer1 bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="footer1-p">Copyright 2025 All Rights Reserved. ABP Marine Environmental Research Ltd</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="https://omreg.net/sitemap/">Site Map</a>&nbsp;&#124;
+                    <a href="https://omreg.net/terms-of-use/">Terms of use</a>&nbsp;&#124;
+                    <a href="https://omreg.net/privacy-and-cookies/">Privacy and Cookies Notice</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+        
+    
+
+
+    <script src="js/common.js"></script>
+    <script src="js/cookie-disclaimer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://omreg.net/Scripts/fileinput.js" defer></script>
+    <script src="https://omreg.net/Scripts/file-input-theme.js" defer></script>
+
+
+     <script>
+        var headerHeight = $("header").height();
+
+        $("#js-viewmapiframe").css("height", "calc(100vh - " + headerHeight + "px)");
+    </script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#searchsubmit').click(function (e) {
+                e.preventDefault();
+
+                var url = $(e.target).data('link');
+                const param = $('#searchtext').val();
+
+                if (param !== '') {
+                    url += "?fromnav=1&q=" + encodeURI(param);
+                }
+                window.location = url;
+            });
+        });
+    </script>
+
+    <script>
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
+        var showCookieDisclaimer = !hasConsentedToCookies();
+        if (showCookieDisclaimer) {
+            $(".cookie-disclaimer").show();
+
+            $("#consent-to-cookies").click(function () {
+                consentToCookies();
+                $(".cookie-disclaimer").hide();
+            });
+
+            $("#dissent-to-cookies").click(function () {
+                dissentToCookies();
+            });
+        }
+        $(document).ready(function () {
+            $('.header-video').each(function (i, elem) {
+                headerVideo = new HeaderVideo({
+                    element: elem,
+                    media: '.header-video__media',
+                });
+            });
+        });
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRNNPTTXR7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-LRNNPTTXR7');
+    </script>
+
+
+    <script>
+        //FAQ Scripts
+        $('[data-faq-menu-index]').click(function (x) {
+
+            $('[data-faq-content-index]').removeClass('softwarev3__faq__content--active');
+            $('[data-faq-menu-index]').removeClass('softwarev3__faq__nav__link--active');
+
+            var index = $(this).data('faq-menu-index');
+
+            $(`[data-faq-content-index=${index}]`).addClass('softwarev3__faq__content--active');
+            $(`[data-faq-menu-index=${index}]`).addClass('softwarev3__faq__nav__link--active');
+        })
+    </script>
+</body>
+
+</html>
