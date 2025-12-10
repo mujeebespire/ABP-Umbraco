@@ -3909,6 +3909,14 @@ td {
     transition: 0.3s ease;
 }
 
+.rte.resource-inner-text p {
+    font-size: 60px;
+    text-align: center;
+    color: white;
+    line-height: normal;
+}
+
+
 @media only screen and (min-width: 1025px) {
     .no-touch .rte p a:hover {
         color: #2a61ff;
@@ -3923,6 +3931,10 @@ td {
 
     .rte p iframe {
         max-width: 100%;
+    }
+
+    .rte.resource-inner-text p {
+        font-size: 30px;
     }
 
 }
@@ -7034,6 +7046,7 @@ input[type="email"]::-ms-clear {
     color: #546e7a;
     padding: 0;
     position: relative;
+    /* text-transform: uppercase; */
 }
 
 .level-2 .nav__submenu-item ul li a.font-ico-arrow-right:before {
