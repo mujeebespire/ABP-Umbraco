@@ -6,91 +6,145 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <script type="application/ld+json">
+                {
+                "@context" : "https://schema.org",
+                  "@type" : "WebSite",
+                  "name" : "OMReg",
+                  "url" : "https://omreg.net/"
+                }
+    </script>
+
     <title>
         OMReg Habitat Creation Scheme Database - ABPmer
     </title>
+
 
     <meta name="description"
         content="Explore our database of coastal habitat creation schemes and other adaptation projects | View, download and add information on completed projects." />
 
     <link href="//fonts.googleapis.com/css?family=Open%20Sans:100,300,400,700" rel="stylesheet" type="text/css">
-
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web"><!-- Standard fav icon -->
-
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  
-
     <link href='Content/style.css' type='text/css' rel='stylesheet' />
 
-    <script type="text/javascript" src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
 
+    <script type="text/javascript" src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
 </head>
 
 <body>
 
+    <script type="text/javascript" src="https://secure.leadforensics.com/js/62827.js"></script>
+    <noscript><img src="https://secure.leadforensics.com/62827.png" style="display:none;" /></noscript>
+
+
+    <!-- Cookie privacy policy -->
+    <div class="text-center cookie-disclaimer" role="alert" style="display: none;">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>
+
+                <p>We use cookies to enhance your experience of our website, some of which are essential to the
+                    operation of our site. If you agree to our use of cookies please click "Yes, I agree" to remove this
+                    message or to find out more click the "Cookie Policy" button.</p>
+                <p>Please note that by continuing to use this website without disabling cookies, you consent to the use
+                    of cookies.</p>
+                </p>
+
+                <p>
+                    <button class="btn btn-success" id="consent-to-cookies" data-dismiss="alert" aria-label="Yes">Yes, I
+                        agree</button>
+                    <a class="btn btn-info" aria-label="Cookie Policy" href="/privacy-and-cookies">Cookie Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- NAVBAR -->
     <header>
-        <nav role="navigation" class="navbar navbar-expand-lg">
-            <div class="container-fluid">
+        <nav role="navigation" class="navbar navbar-default all-navigation">
+            <div class="container">
+                <div class="flex-support">
+                    <div class="navbar-header">
+                        <a href="/" class="navbar-brand logo--box">
+                            <img alt="OMReg" src="images/marinecoastalsurvey/Microsite Logo - Survey.gif" height="45"
+                                class="logoimage logoimage-survey">
+                        </a>
+                        <div class="navbar-toggle-container">
+                            <img alt="ABPmer logo" src="images/abpmer-logo-220x60.png" height="30" width="110"
+                                class="abpmer-logo-mobile  survey-abpmer-logo-mobile" />
+
+                            <button data-target="#navbar-collapse" data-toggle="collapse" class="navbar-toggle"
+                                type="button">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="navbar-collapse" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/about-us/" target="_self">ABOUT</a>
+                            </li>
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                                    href="https://marinecoastalsurvey.co.uk/services/">
+                                    SERVICES
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/hydrographic-and-geophysical-survey/"
+                                        target="_self">HYDROGRAPHIC AND GEOPHYSICAL SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/oceanographic-survey/"
+                                        target="_self">OCEANOGRAPHIC SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/topographic-survey/"
+                                        target="_self">TOPOGRAPHIC SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/ecological-survey/"
+                                        target="_self">ECOLOGICAL SURVEY</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/habitat-mapping/"
+                                        target="_self">HABITAT MAPPING</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/habitat-sampling/"
+                                        target="_self">HABITAT SAMPLING</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/laboratory-analysis/"
+                                        target="_self">LABORATORY ANALYSIS</a>
+                                    <a class="dropdown-item"
+                                        href="https://marinecoastalsurvey.co.uk/services/consultancy/"
+                                        target="_self">CONSULTANCY</a>
+                                </div>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/assets/" target="_self">ASSETS</a>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/qhse/" target="_self">QHSE</a>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/experience/" target="_self">EXPERIENCE</a>
+                            </li>
+                            <li class="">
+                                <a href="https://marinecoastalsurvey.co.uk/contact-us/" target="_self">CONTACT</a>
+                            </li>
 
 
-                <a href="/" class="navbar-brand">
-                    <img alt="OMReg" src="images/MicrositeLogo-OMREG.svg" height="45" class="logoimage-short">
-                </a>
-
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-
-
-
-                <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a href="/" class="nav-link active" target="_self">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://omreg.net/about-adaptation/" target="_self">ABOUT
-                                ADAPTATION</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://omreg.net/query-database/" target="_self">QUERY
-                                DATABASE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://omreg.net/view-map/" target="_self">VIEW MAP</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://omreg.net/add-scheme/" target="_self">ADD SCHEME</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://omreg.net/resources/" target="_self">RESOURCES</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://omreg.net/advice/" target="_self">ADVICE</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://omreg.net/contact-us/" target="_self">CONTACT</a>
-                        </li>
+                        </ul>
                         <img alt="ABPmer logo" src="images/abpmer-logo-220x60.png" height="40" width="146"
-                            class="abpmer-logo" />
+                            class="abpmer-logo">
+                    </div>
 
-                    </ul>
                 </div>
-
 
                 <!-- /.navbar-collapse -->
             </div>
@@ -101,522 +155,34 @@
                     <div class="col-xs-12">
                         <div id="innersearch">
                             <span class="searchspan ">
-                                <input id="searchtext" type="text" placeholder="Enter your search" />
+                                <input id="searchtext" type="text" placeholder="Enter your search">
                             </span>
                             <input id="searchsubmit" type="button" data-link="https://omreg.net/query-database/"
-                                value="Search Database" />
+                                value="Search Database">
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
+
     </header>
-
-
-    <section id="cb-header-1-3" class="cb-header-block cb-header-1-3">
-        <header class="header3"
-            style="background-image: url(&quot;/media/2209/wave-background-1920x450.png&quot;); background-size: cover; background-position: right center;">
-            <div class="container">
-                <div class="row video-header">
-                    <div class="col-md-6 pl-0">
-                        <div class="content">
-                            <h1 class="content video-header__title">Habitat Sampling</h1>
-
-                            <h2 class="video-header__subtitle">Understand the potential impact to marine flora and fauna
-                                at your development site</h2>
-
-                            <div class="video-header__description">
-                                <p> </p>
-                                <h4 class="text-white">Our experienced surveyors support complex consenting requirements
-                                    and condition assessments by identifying and assessing habitats and species and
-                                    sediment makeup in detail</h4>
-                                <a class="btn btn-default cta-btn" style="background-color:#FA8A18;color:#0b2c3d"
-                                    href="https://www.marinecoastalsurvey.co.uk/contact-us/?Reference=Habitat Samping surveys">TALK
-                                    TO A SPECIALIST</a>
-                                <p> </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 pr-0">
-                        <div class="video-header__video">
-                            <iframe
-                                src="https://player.vimeo.com/video/879435303?badge=0&amp;autopause=0&amp;quality_selector=1&amp;player_id=0&amp;app_id=58479"
-                                width="640" height="360" frameborder="0"
-                                allow="autoplay; fullscreen; picture-in-picture"
-                                title="Marine habitat sampling with ABPmer"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-    </section>
-
-
-
-    <section id="cb-slider-1-2" class="cb-slider-block cb-slider-1-2">
-        <div id="slider2">
-            <div class="slider2">
-                <div class="item bg bg1" style="background-image: url('images/abpmer-survey-buoy.jpg');"
-                    title="ABPmer survey buoy" role="img" aria-label="ABPmer survey buoy">
-                </div>
-            </div>
-        </div>
-    </section>
 
 
     <section class="experience-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                
+                <div class="col-md-8 mt20">
 
-
-                    <div class="richtext">
-                        <h1>About us</h1>
-                        <h2>About us</h2>
-                        <h3>About us</h3>
-                        <h4>About us</h4>
-                        <h5>About us</h5>
-
-                        <ul>
-                            <li> Habitat surveys</li>
-
-                            <li>Bird surveys</li>
-
-                            <li>Fish surveys</li>
-
-                            <li>Marine mammal surveys</li>
-                        </ul>
-
-                        <hr>
-
-                        <ol>
-                            <li> Habitat surveys</li>
-
-                            <li>Bird surveys</li>
-
-                            <li>Fish surveys</li>
-
-                            <li>Marine mammal surveys</li>
-                        </ol>
-
-                        <p><strong>A unique, diverse capability</strong></p>
-
-                        <a href="/experience/?tag=Hydrographic-Geophysical+Survey">
-                            <h5><span class="label label-primary">Hydrographic-Geophysical Survey</span></h5>
-                        </a>
-
-                        <p>ABPmer Marine and Coastal Survey undertakes bespoke coastal and inshore surveys around the UK
-                            and
-                            further afield.</p>
-                        <p>As well as our wide marine survey capability, we also&nbsp;provide charting, data processing,
-                            <span style="text-decoration: underline;"><a
-                                    data-udi="umb://document/d4a821c365f5468f910b0499e9c74781"
-                                    href="https://marinecoastalsurvey.co.uk/services/laboratory-analysis/"
-                                    title="Laboratory Analysis">laboratory analysis</a></span> and consultancy advice.
-                        </p>
-                        <p>Experienced in ecological, geophysical, hydrographic, oceanographic and topographic survey,
-                            each
-                            can be delivered as a standalone service or as part of a wider, <a
-                                data-udi="umb://document/e0bdfbb6eea440f58c55c95f3f5bfa77"
-                                href="https://marinecoastalsurvey.co.uk/services/consultancy/"
-                                title="Consultancy">consultancy</a>&nbsp;project.</p>
-                        <p>To complement our extensive range of <span style="text-decoration: underline;"><a
-                                    data-udi="umb://document/f008e23539df44999f1f208de7683e7e" href="#"
-                                    title="Assets">vessels and instruments</a></span> for data collection, we operate a
-                            fully equipped, independently certified sediment analysis laboratory.</p>
-
-                        <hr>
-
-                        <p>Whether we are undertaking an intensive, short-term study of baseline conditions, or a
-                            long-term,
-                            monitoring campaign, our comprehensive service includes planning, acquisition, analysis and
-                            reporting.</p>
-                        <p>As would be expected, we are committed to behaving responsibly, complying with legislation
-                            and
-                            meeting industry standards. External, independent <span
-                                style="text-decoration: underline;"><a
-                                    data-udi="umb://document/6d1e2838d864490096a6739b91c51668"
-                                    href="https://marinecoastalsurvey.co.uk/qhse/" title="QHSE">audits and
-                                    awards</a></span>&nbsp;are testament to this.</p>
-
-                        <div style="border: 1px solid lightgrey; padding-top: 20px;">
-                            <div id="toc_container">
-
-                                <p style="padding-left: 20px;" class="toc_title"><strong>Explore&nbsp;surveys</strong>
-                                </p>
-                                <p style="padding-left: 20px; line-height: 75%;">●&nbsp; &nbsp;<span
-                                        style="text-decoration: underline;"><a href="#Habitat surveys">Habitat
-                                            surveys</a></span></p>
-                                <p style="padding-left: 20px; line-height: 75%;">●&nbsp; &nbsp;<span
-                                        style="text-decoration: underline;"><a href="#Bird surveys">Bird
-                                            surveys</a></span>
-                                </p>
-                                <p style="padding-left: 20px; line-height: 75%;">●&nbsp; &nbsp;<span
-                                        style="text-decoration: underline;"><a href="#Fish surveys">Fish
-                                            surveys</a></span>
-                                </p>
-                                <p style="padding-left: 20px; line-height: 75%;">●&nbsp; &nbsp;<span
-                                        style="text-decoration: underline;"><a href="#Marine mammal surveys">Marine
-                                            mammal
-                                            surveys</a></span></p>
-                            </div>
-                        </div>
-                        <p></p>
-
-                        <h2>Our people</h2>
-                        <p>Our survey team&nbsp;includes ecologists, geomorphologists, hydrographic surveyors, lab
-                            technicians, marine mammal observers, oceanographers and ornithologists. In addition to
-                            ABPmer
-                            survey and consultancy staff,&nbsp;we work with highly experienced hydrographic
-                            surveyors&nbsp;across the Associated British Ports Group, based in key port locations across
-                            the
-                            UK.</p>
-                        <p>&nbsp;</p>
-
-
-
-                    </div>
 
                     <div id="contact4">
-                        <form action="/contact-us/" class="js-hide-on-success" enctype="multipart/form-data"
-                            id="contact--form" method="post"><input data-val="true"
-                                data-val-required="Captcha is required" id="CaptchaResponse" name="CaptchaResponse"
-                                type="hidden" value="" />
-                            <div class="row">
-                                <div class="col-md-12">
-
-                                    <div class="form-group">
-                                        <input class="form-control" data-val="true"
-                                            data-val-regex="Characters &lt;>#;{} are not allowed."
-                                            data-val-regex-pattern="^[^&lt;>#;{}]+$"
-                                            data-val-required="The Name field is required." id="Name" name="Name"
-                                            placeholder="Name" type="text" value="" />
-                                        <span class="field-validation-valid" data-valmsg-for="Name"
-                                            data-valmsg-replace="true"></span>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input class="form-control" data-val="true"
-                                            data-val-email="The Email field is not a valid e-mail address."
-                                            data-val-regex="Characters &lt;>#;{} are not allowed."
-                                            data-val-regex-pattern="^[^&lt;>#;{}]+$"
-                                            data-val-required="The Email field is required." id="Email" name="Email"
-                                            placeholder="Email" type="text" value="" />
-                                        <span class="field-validation-valid" data-valmsg-for="Email"
-                                            data-valmsg-replace="true"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" data-val="true"
-                                            data-val-equalto="The email and confirmation email do not match"
-                                            data-val-equalto-other="*.Email"
-                                            data-val-regex="Characters &lt;>#;{} are not allowed."
-                                            data-val-regex-pattern="^[^&lt;>#;{}]+$"
-                                            data-val-required="The ComparisonEmail field is required."
-                                            id="ComparisonEmail" name="ComparisonEmail" placeholder="Confirm email"
-                                            type="text" value="" />
-                                        <span class="field-validation-valid" data-valmsg-for="ComparisonEmail"
-                                            data-valmsg-replace="true"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea class="form-control" cols="30" data-val="true"
-                                            data-val-length="Message must can be no longer than 1000 characters"
-                                            data-val-length-max="1000"
-                                            data-val-regex="Characters &lt;>#;{} are not allowed."
-                                            data-val-regex-pattern="^[^&lt;>#;{}]+$"
-                                            data-val-required="The Message field is required." id="Message"
-                                            name="Message" placeholder="Message" rows="10">
-</textarea>
-                                        <span class="field-validation-valid" data-valmsg-for="Message"
-                                            data-valmsg-replace="true"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="g-recaptcha" data-sitekey="6LdJGTgUAAAAAKF8BldIb0fO9S-psvYo9i9hl6u1"
-                                        data-callback="googleCaptchaCallback"
-                                        data-expired-callback="googleCaptchaExpiredCallback"></div>
-                                    <span class="field-validation-error" id="captcha-required"
-                                        style="display:none"><span class="">Captcha is required</span></span>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
 
 
-                                    <button type="submit" class="btn btn-default btn-end">SEND MESSAGE</button>
-
-                                </div>
-                            </div>
-                            <input name='ufprt' type='hidden'
-                                value='597E85F545A9CDFBAA04AAFE4EB9A5729301AFAB5F84B7DAB13797E353A4992F1C023F0EDF14E059C9160147F329FD785DA504878769879C9A265E0D73CB2408BA1AAB6CF0EF50C97C5B37F8D0633E7E59E7AA2A4A22E7AD9EE2F501B250BA3B913645B0935ECA860153552918CAFA4ED2ABB9074355E75F4C3E442B0DE6FC9B61C0D21AA0FFFAB8890329E553DC867D' />
-                        </form>
-                    </div>
-
-
-                </div>
-                <div class="col-md-4 right-exp-col">
-
-
-                    <style scoped="">
-                        @media only screen and (max-width: 991px) {
-                            .contact-sm {
-                                margin-top: 20px;
-                            }
-                        }
-                    </style>
-                    <script>
-                        function FillPersonModal(personData) {
-                            var modal = $('#contact-person-modal');
-
-                            modal.find('.modal__title').text(personData.name)
-                            modal.find('.modal__subtitle').text(personData.role)
-                            modal.find('.modal__person-image').attr('src', personData.image)
-                            modal.find('#ContactPersonToEmail').val(personData.email)
-                        }
-                    </script>
-
-
-
-                    <p>
-                        <img src="images/area-392-393-survey-420x150.jpg" alt="Area 392-393 survey"
-                            class="img-responsive">
-                    </p>
-
-                    <div class="contact-extra">
-
-
-                        <div class="contact-extra-content">
-                            <div class="profileimage-sm" role="img" aria-label="Paul Clement ABPmer">
-                                <img src="images/paul-clement-abpmer-hydrographic-and-oceanographic-surveyor.jpg"
-                                    alt="Paul Clement ABPmer" />
-                            </div>
-                            <div class="profiletext-sm">
-                                <h2>Paul Clement</h2>
-                                <h5>Marine and Coastal Survey</h5>
-                                <a href="tel:+44-238-0711-886">+44 (0)23 8071 1886</a>
-                                <div class="contact-extra-button">
-                                    <div class="icon">
-                                        <a class="icon--linkedin"
-                                            href="https://www.linkedin.com/in/paul-clement-a70b3737/" target="_blank">
-                                            <img src="images/linkedin.svg">
-                                        </a>
-                                    </div>
-
-                                    <div class="icon">
-                                        <a class="icon--email cursor-pointer"
-                                            data-micromodal-trigger="contact-person-modal"
-                                            onclick="FillPersonModal({'image': '/media/1908/paul-clement-abpmer-hydrographic-and-oceanographic-surveyor.jpg', 'name': 'Paul Clement', 'role': 'Marine and Coastal Survey', 'email': 'paul.clement@abpmer.co.uk'})">
-                                            <img src="images/envelope.svg">
-                                        </a>
-                                    </div>
-                                    <div class="icon">
-                                        <a href="tel:+44-238-0711-886" class="icon--tel">
-                                            <img src="images/phone-button.svg" height="20" width="20">
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="servicemenu">
-                        <h3>Services</h3>
-
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="https://marinecoastalsurvey.co.uk/services/ecological-survey/"
-                                    class="hover-underline">
-                                    Ecological Survey
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://marinecoastalsurvey.co.uk/services/hydrographic-and-geophysical-survey/"
-                                    class="hover-underline">
-                                    Hydrographic and Geophysical Survey
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://marinecoastalsurvey.co.uk/services/laboratory-analysis/"
-                                    class="hover-underline">
-                                    Laboratory Analysis
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://marinecoastalsurvey.co.uk/services/oceanographic-survey/"
-                                    class="hover-underline">
-                                    Oceanographic Survey
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://marinecoastalsurvey.co.uk/services/topographic-survey/"
-                                    class="hover-underline">
-                                    Topographic Survey
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://marinecoastalsurvey.co.uk/services/consultancy/"
-                                    class="hover-underline">
-                                    Consultancy
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <h5 class="cta-phone">Your details will only be used to reply to your enquiry. They will not be
-                        passed on to any third party or used in any other way without your express permission.</h5>
-
-
-
-                </div>
-            </div>
-
-            <p></p>
-
-            <div class="row">
-                <div id="accordion2">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="panel-group">
-
-                                <div class="panel panel-default">
-                                    <div class="panel-heading active">
-                                        <h4 class="panel-title">
-                                            <a data-bs-toggle="collapse" href="javascript:void()" data-bs-target="#1300"
-                                                data-parent="#accordion" aria-expanded="true"
-                                                aria-controls="collapseOne">About coastal
-                                                adaptation
-                                                and habitat
-                                                creation</a>
-
-                                        </h4>
-                                    </div>
-                                </div>
-
-                                <div id="1300" class="accordion-collapse collapse show" data-bs-parent="#accordion2">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <p>The shorelines and intertidal habitats of our coasts and estuaries
-                                                    provide valuable environmental, social and economic benefits.</p>
-                                                <p>However, they are under pressure across the world from human
-                                                    activities (past and present) and climate change. To respond to
-                                                    these pressures, many different shoreline adaptation and habitat
-                                                    creation projects have been carried out.</p>
-                                                <p>Such schemes are often designed to make coastlines more sustainable,
-                                                    maintain crucial wetlands and enhance marine biodiversity. </p>
-                                                <p>There are many reasons for carrying out shoreline adaptation work.
-                                                    The main two are</p>
-                                                <ol>
-                                                    <li>to improve flood protection and address issues related to
-                                                        shoreline change and the effects of sea level rise;</li>
-                                                    <li>to restore/protect coastal habitats and offset either past,
-                                                        present or future losses of coastal habitat and biodiversity.
-                                                    </li>
-                                                </ol>
-                                                <p>Many of the projects in this database have been pursued with these
-                                                    two central motives in mind. However there are other social and
-                                                    economic objectives associated with shoreline adaptation work. These
-                                                    wider benefits or 'Ecosystem Services' (i.e. the benefits people
-                                                    derive from nature and its restoration) are increasingly being
-                                                    recognised and valued.</p>
-                                                <p>A wide variety of techniques have been used, ranging from small
-                                                    schemes to vast landscape restorations.</p>
-                                                <p><strong><span style="text-decoration: underline;"><a
-                                                                data-udi="umb://document/5e400582b4a14d18913ff7dc096a6738"
-                                                                href="https://omreg.net/query-database/"
-                                                                title="Query Database">Explore the database</a></span>
-                                                        or read on to understand the different techniques.</strong></p>
-                                            </div>
-                                            <div class="col-md-4">
-
-                                                <img src="images/about-adapting-shorelines-450.jpg"
-                                                    alt="Adapting shorelines" class="accordion-image" />
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="panel panel-default">
-                                    <div class="panel-heading active">
-                                        <h4 class="panel-title">
-                                            <a data-bs-toggle="collapse" href="javascript:void()"
-                                                data-parent="#accordion" data-bs-target="#1669" aria-expanded="true"
-                                                aria-controls="collapseOne">About coastal adaptation
-                                                and habitat
-                                                creation</a>
-                                        </h4>
-
-                                    </div>
-                                </div>
-
-                                <div id="1669" class="accordion-collapse collapse" data-bs-parent="#accordion2"
-                                    aria-expanded="false">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <p>The shorelines and intertidal habitats of our coasts and estuaries
-                                                    provide valuable environmental, social and economic benefits.</p>
-                                                <p>However, they are under pressure across the world from human
-                                                    activities (past and present) and climate change. To respond to
-                                                    these pressures, many different shoreline adaptation and habitat
-                                                    creation projects have been carried out.</p>
-                                                <p>Such schemes are often designed to make coastlines more sustainable,
-                                                    maintain crucial wetlands and enhance marine biodiversity. </p>
-                                                <p>There are many reasons for carrying out shoreline adaptation work.
-                                                    The main two are</p>
-                                                <ol>
-                                                    <li>to improve flood protection and address issues related to
-                                                        shoreline change and the effects of sea level rise;</li>
-                                                    <li>to restore/protect coastal habitats and offset either past,
-                                                        present or future losses of coastal habitat and biodiversity.
-                                                    </li>
-                                                </ol>
-                                                <p>Many of the projects in this database have been pursued with these
-                                                    two central motives in mind. However there are other social and
-                                                    economic objectives associated with shoreline adaptation work. These
-                                                    wider benefits or 'Ecosystem Services' (i.e. the benefits people
-                                                    derive from nature and its restoration) are increasingly being
-                                                    recognised and valued.</p>
-                                                <p>A wide variety of techniques have been used, ranging from small
-                                                    schemes to vast landscape restorations.</p>
-                                                <p><strong><span style="text-decoration: underline;"><a
-                                                                data-udi="umb://document/5e400582b4a14d18913ff7dc096a6738"
-                                                                href="https://omreg.net/query-database/"
-                                                                title="Query Database">Explore the database</a></span>
-                                                        or read on to understand the different techniques.</strong></p>
-                                            </div>
-                                            <div class="col-md-4">
-
-                                                <img src="images/about-adapting-shorelines-450.jpg"
-                                                    alt="Adapting shorelines" class="accordion-image" />
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-8">
-                          <div id="contact4">
-                        <form action="/add-scheme/" enctype="multipart/form-data" id="addscheme--form" method="post"
-                            novalidate="novalidate"><input data-val="true" data-val-required="Captcha is required"
-                                id="ViewModel_CaptchaResponse" name="ViewModel.CaptchaResponse" type="hidden" value="">
+                        <form action="/add-scheme/" enctype="multipart/form-data" id="addscheme--form" method="post">
+                            <input data-val="true" data-val-required="Captcha is required"
+                                id="ViewModel_CaptchaResponse" name="ViewModel.CaptchaResponse" type="hidden"
+                                value="" />
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -624,7 +190,7 @@
                                             Name</label>
                                         <input class="form-control" data-val="true"
                                             data-val-required="The Scheme Name field is required." id="ViewModel_Name"
-                                            name="ViewModel.Name" type="text" value="">
+                                            name="ViewModel.Name" type="text" value="" />
                                         <span class="field-validation-valid help-block" data-valmsg-for="ViewModel.Name"
                                             data-valmsg-replace="true"></span>
                                     </div>
@@ -691,7 +257,7 @@
                                                             value="Beneficial use of dredged sediment"
                                                             data-show-other="#js-habitatscreatedother"
                                                             data-val-required="A Scheme Type is required"
-                                                            data-val="true">
+                                                            data-val="true" />
 
                                                         Beneficial use of dredged sediment
                                                     </label>
@@ -702,7 +268,7 @@
                                                     <label for="ViewModel.SelectedSchemeType.2">
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.2"
                                                             name="ViewModel.SelectedSchemeType" value="Island formation"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Island formation
                                                     </label>
@@ -714,7 +280,7 @@
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.3"
                                                             name="ViewModel.SelectedSchemeType"
                                                             value="Managed realignment"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Managed realignment
                                                     </label>
@@ -726,7 +292,7 @@
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.4"
                                                             name="ViewModel.SelectedSchemeType"
                                                             value="Marine infrastructure modification"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Marine infrastructure modification
                                                     </label>
@@ -738,7 +304,7 @@
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.5"
                                                             name="ViewModel.SelectedSchemeType"
                                                             value="Native Oyster Habitat"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Native Oyster Habitat
                                                     </label>
@@ -749,7 +315,7 @@
                                                     <label for="ViewModel.SelectedSchemeType.6">
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.6"
                                                             name="ViewModel.SelectedSchemeType" value="Reef creation"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Reef creation
                                                     </label>
@@ -761,7 +327,7 @@
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.7"
                                                             name="ViewModel.SelectedSchemeType"
                                                             value="Regulated tidal exchange"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Regulated tidal exchange
                                                     </label>
@@ -773,7 +339,7 @@
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.8"
                                                             name="ViewModel.SelectedSchemeType"
                                                             value="Rocky habitat creation"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Rocky habitat creation
                                                     </label>
@@ -784,7 +350,7 @@
                                                     <label for="ViewModel.SelectedSchemeType.9">
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.9"
                                                             name="ViewModel.SelectedSchemeType" value="Seagrass"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Seagrass
                                                     </label>
@@ -796,7 +362,7 @@
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.10"
                                                             name="ViewModel.SelectedSchemeType"
                                                             value="Shoreline restoration"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Shoreline restoration
                                                     </label>
@@ -808,7 +374,7 @@
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.11"
                                                             name="ViewModel.SelectedSchemeType"
                                                             value="Unmanaged realignment"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Unmanaged realignment
                                                     </label>
@@ -819,7 +385,7 @@
                                                     <label for="ViewModel.SelectedSchemeType.12">
                                                         <input type="radio" id="ViewModel.SelectedSchemeType.12"
                                                             name="ViewModel.SelectedSchemeType" value="Other"
-                                                            data-show-other="#js-habitatscreatedother">
+                                                            data-show-other="#js-habitatscreatedother" />
 
                                                         Other
                                                     </label>
@@ -845,7 +411,7 @@
                                             <option value="487">United Kingdom</option>
                                             <option value="250">Andorra</option>
                                             <option value="251">Afghanistan</option>
-                                            <option value="252">Åland</option>
+                                            <option value="252">&#197;land</option>
                                             <option value="253">Albania</option>
                                             <option value="254">Algeria</option>
                                             <option value="255">American Samoa</option>
@@ -1024,11 +590,11 @@
                                             <option value="428">Puerto Rico</option>
                                             <option value="429">Qatar</option>
                                             <option value="430">Republic of the Congo</option>
-                                            <option value="431">Réunion</option>
+                                            <option value="431">R&#233;union</option>
                                             <option value="432">Romania</option>
                                             <option value="433">Russia</option>
                                             <option value="434">Rwanda</option>
-                                            <option value="435">Saint Barthélemy</option>
+                                            <option value="435">Saint Barth&#233;lemy</option>
                                             <option value="436">Saint Helena</option>
                                             <option value="437">Saint Kitts and Nevis</option>
                                             <option value="438">Saint Lucia</option>
@@ -1037,7 +603,7 @@
                                             <option value="441">Saint Vincent and the Grenadines</option>
                                             <option value="442">Samoa</option>
                                             <option value="443">San Marino</option>
-                                            <option value="444">São Tomé and Príncipe</option>
+                                            <option value="444">S&#227;o Tom&#233; and Pr&#237;ncipe</option>
                                             <option value="445">Saudi Arabia</option>
                                             <option value="446">Senegal</option>
                                             <option value="447">Serbia</option>
@@ -1104,7 +670,7 @@
                                             for="ViewModel_LocationEstuaryCoastal">Place (estuary or coastal location
                                             name)</label>
                                         <input class="form-control" id="ViewModel_LocationEstuaryCoastal"
-                                            name="ViewModel.LocationEstuaryCoastal" type="text" value="">
+                                            name="ViewModel.LocationEstuaryCoastal" type="text" value="" />
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.LocationEstuaryCoastal"
                                             data-valmsg-replace="true"></span>
@@ -1131,7 +697,7 @@
                                             data-val-number="The field Longitude must be a number."
                                             data-val-required="The Longitude field is required."
                                             id="ViewModel_LocationLongitude" name="ViewModel.LocationLongitude"
-                                            type="text" value="0">
+                                            type="text" value="0" />
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.LocationLongitude"
                                             data-valmsg-replace="true"></span>
@@ -1145,7 +711,7 @@
                                             data-val-number="The field Latitude must be a number."
                                             data-val-required="The Latitude field is required."
                                             id="ViewModel_LocationLatitude" name="ViewModel.LocationLatitude"
-                                            type="text" value="0">
+                                            type="text" value="0" />
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.LocationLatitude"
                                             data-valmsg-replace="true"></span>
@@ -1162,7 +728,7 @@
                                         <ul class="list-unstyled habitats-list">
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="1">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="1" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1176,7 +742,7 @@
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
                                                                     data-show-other="#js-habitatscreatedother"
                                                                     data-val-requiredlist="At least one Habitat is required"
-                                                                    data-val="true">
+                                                                    data-val="true" />
 
                                                                 Not Known
                                                             </label>
@@ -1189,7 +755,7 @@
                                                             data-habitat-id="1"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[1].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[1].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1198,7 +764,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="2">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="2" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1210,7 +776,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[2].Name"
                                                                     value="Dune"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Dune
                                                             </label>
@@ -1223,7 +789,7 @@
                                                             data-habitat-id="2"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[2].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[2].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1232,7 +798,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="3">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="3" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1244,7 +810,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[3].Name"
                                                                     value="Lagoon"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Lagoon
                                                             </label>
@@ -1257,7 +823,7 @@
                                                             data-habitat-id="3"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[3].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[3].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1266,7 +832,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="4">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="4" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1278,7 +844,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[4].Name"
                                                                     value="Mudflat"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Mudflat
                                                             </label>
@@ -1291,7 +857,7 @@
                                                             data-habitat-id="4"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[4].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[4].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1300,7 +866,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="5">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="5" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1312,7 +878,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[5].Name"
                                                                     value="Native Oyster Habitat"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Native Oyster Habitat
                                                             </label>
@@ -1325,7 +891,7 @@
                                                             data-habitat-id="5"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[5].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[5].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1334,7 +900,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="6">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="6" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1346,7 +912,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[6].Name"
                                                                     value="Reedbed"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Reedbed
                                                             </label>
@@ -1359,7 +925,7 @@
                                                             data-habitat-id="6"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[6].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[6].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1368,7 +934,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="7">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="7" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1380,7 +946,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[7].Name"
                                                                     value="Reef"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Reef
                                                             </label>
@@ -1393,7 +959,7 @@
                                                             data-habitat-id="7"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[7].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[7].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1402,7 +968,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="8">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="8" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1414,7 +980,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[8].Name"
                                                                     value="Rockpool"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Rockpool
                                                             </label>
@@ -1427,7 +993,7 @@
                                                             data-habitat-id="8"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[8].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[8].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1436,7 +1002,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="9">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="9" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1448,7 +1014,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[9].Name"
                                                                     value="Rocky shore"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Rocky shore
                                                             </label>
@@ -1461,7 +1027,7 @@
                                                             data-habitat-id="9"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[9].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[9].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1470,7 +1036,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="10">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="10" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1482,7 +1048,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[10].Name"
                                                                     value="Saltmarsh"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Saltmarsh
                                                             </label>
@@ -1495,7 +1061,7 @@
                                                             data-habitat-id="10"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[10].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[10].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1504,7 +1070,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="11">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="11" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1516,7 +1082,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[11].Name"
                                                                     value="Seagrass"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Seagrass
                                                             </label>
@@ -1529,7 +1095,7 @@
                                                             data-habitat-id="11"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[11].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[11].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1538,7 +1104,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="12">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="12" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1550,7 +1116,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[12].Name"
                                                                     value="Transitional Grassland"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Transitional Grassland
                                                             </label>
@@ -1563,7 +1129,7 @@
                                                             data-habitat-id="12"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[12].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[12].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1572,7 +1138,7 @@
                                             </li>
                                             <li>
                                                 <input type="hidden"
-                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="13">
+                                                    name="ViewModel.SelectedLocationHabitatsCreated.Index" value="13" />
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="checkbox">
@@ -1584,7 +1150,7 @@
                                                                     name="ViewModel.SelectedLocationHabitatsCreated[13].Name"
                                                                     value="Other"
                                                                     class="ViewModel.SelectedLocationHabitatsCreated.Name"
-                                                                    data-show-other="#js-habitatscreatedother">
+                                                                    data-show-other="#js-habitatscreatedother" />
 
                                                                 Other
                                                             </label>
@@ -1597,7 +1163,7 @@
                                                             data-habitat-id="13"
                                                             name="ViewModel.SelectedLocationHabitatsCreated[13].Area"
                                                             placeholder="Area in Hectares" style="display:none"
-                                                            disabled="">
+                                                            disabled />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatsCreated[13].Area"
                                                             data-valmsg-replace="true"></span>
@@ -1613,7 +1179,7 @@
                                                             data-val-requirediflistcontains-targetvalue="Other"
                                                             id="ViewModel_SelectedLocationHabitatCreatedOther"
                                                             name="ViewModel.SelectedLocationHabitatCreatedOther"
-                                                            placeholder="Please specify" type="text" value="">
+                                                            placeholder="Please specify" type="text" value="" />
                                                         <span class="field-validation-valid help-block"
                                                             data-valmsg-for="ViewModel.SelectedLocationHabitatCreatedOther"
                                                             data-valmsg-replace="true"></span>
@@ -1635,7 +1201,7 @@
                                         <input class="form-control" data-val="true"
                                             data-val-number="The field Total habitat area (in hectares) must be a number."
                                             data-val-required="The Total habitat area (in hectares) field is required."
-                                            id="ViewModel_SizeArea" name="ViewModel.SizeArea" type="text" value="0">
+                                            id="ViewModel_SizeArea" name="ViewModel.SizeArea" type="text" value="0" />
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.SizeArea" data-valmsg-replace="true"></span>
                                     </div>
@@ -1659,7 +1225,7 @@
                                                             name="ViewModel.SelectedWhyUndertakenValues"
                                                             value="Biodiversity Enhancement"
                                                             data-val-requiredlist="At least one Why Undertaken is required"
-                                                            data-val="true">
+                                                            data-val="true" />
 
                                                         Biodiversity Enhancement
                                                     </label>
@@ -1672,7 +1238,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.2"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Climate Change (Greenhouse Gas) Mitigation">
+                                                            value="Climate Change (Greenhouse Gas) Mitigation" />
 
                                                         Climate Change (Greenhouse Gas) Mitigation
                                                     </label>
@@ -1685,7 +1251,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.3"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Climate Change (Sea Level Rise) Mitigation">
+                                                            value="Climate Change (Sea Level Rise) Mitigation" />
 
                                                         Climate Change (Sea Level Rise) Mitigation
                                                     </label>
@@ -1698,7 +1264,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.4"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Compensation">
+                                                            value="Compensation" />
 
                                                         Compensation
                                                     </label>
@@ -1711,7 +1277,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.5"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Create a More Natural Shoreline">
+                                                            value="Create a More Natural Shoreline" />
 
                                                         Create a More Natural Shoreline
                                                     </label>
@@ -1724,7 +1290,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.6"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Demonstration or Pilot Project">
+                                                            value="Demonstration or Pilot Project" />
 
                                                         Demonstration or Pilot Project
                                                     </label>
@@ -1737,7 +1303,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.7"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Economic Need/Enhancement">
+                                                            value="Economic Need/Enhancement" />
 
                                                         Economic Need/Enhancement
                                                     </label>
@@ -1750,7 +1316,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.8"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Flood Risk Management">
+                                                            value="Flood Risk Management" />
 
                                                         Flood Risk Management
                                                     </label>
@@ -1763,7 +1329,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.9"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Flood Storage Provision">
+                                                            value="Flood Storage Provision" />
 
                                                         Flood Storage Provision
                                                     </label>
@@ -1776,7 +1342,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.10"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Habitat Creation">
+                                                            value="Habitat Creation" />
 
                                                         Habitat Creation
                                                     </label>
@@ -1789,7 +1355,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.11"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Habitat Enhancement">
+                                                            value="Habitat Enhancement" />
 
                                                         Habitat Enhancement
                                                     </label>
@@ -1802,7 +1368,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.12"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Habitat Protection">
+                                                            value="Habitat Protection" />
 
                                                         Habitat Protection
                                                     </label>
@@ -1815,7 +1381,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.13"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Improve Flood Protection">
+                                                            value="Improve Flood Protection" />
 
                                                         Improve Flood Protection
                                                     </label>
@@ -1828,7 +1394,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.14"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Improve Water Quality">
+                                                            value="Improve Water Quality" />
 
                                                         Improve Water Quality
                                                     </label>
@@ -1841,7 +1407,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.15"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Mitigation">
+                                                            value="Mitigation" />
 
                                                         Mitigation
                                                     </label>
@@ -1854,7 +1420,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.16"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Provide a Recreational Facility">
+                                                            value="Provide a Recreational Facility" />
 
                                                         Provide a Recreational Facility
                                                     </label>
@@ -1867,7 +1433,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.17"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Provide Fish Habitat">
+                                                            value="Provide Fish Habitat" />
 
                                                         Provide Fish Habitat
                                                     </label>
@@ -1880,7 +1446,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.18"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Reduce Flood Protection Costs">
+                                                            value="Reduce Flood Protection Costs" />
 
                                                         Reduce Flood Protection Costs
                                                     </label>
@@ -1893,7 +1459,7 @@
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.19"
                                                             name="ViewModel.SelectedWhyUndertakenValues"
-                                                            value="Not Known">
+                                                            value="Not Known" />
 
                                                         Not Known
                                                     </label>
@@ -1905,7 +1471,8 @@
                                                     <label for="ViewModel.SelectedWhyUndertakenValues.20">
                                                         <input type="checkbox"
                                                             id="ViewModel.SelectedWhyUndertakenValues.20"
-                                                            name="ViewModel.SelectedWhyUndertakenValues" value="Other">
+                                                            name="ViewModel.SelectedWhyUndertakenValues"
+                                                            value="Other" />
 
                                                         Other
                                                     </label>
@@ -1928,7 +1495,8 @@
                                         <textarea class="form-control" cols="20" data-val="true"
                                             data-val-required="The Project Description Summary field is required."
                                             id="ViewModel_ProjectDescriptionSummary"
-                                            name="ViewModel.ProjectDescriptionSummary" rows="4"></textarea>
+                                            name="ViewModel.ProjectDescriptionSummary" rows="4">
+</textarea>
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.ProjectDescriptionSummary"
                                             data-valmsg-replace="true"></span>
@@ -1984,7 +1552,7 @@
                                         <label class="control-label scheme-label" for="ViewModel_VideoUrl">Add Related
                                             Video URL Here</label>
                                         <input class="form-control" id="ViewModel_VideoUrl" name="ViewModel.VideoUrl"
-                                            type="text" value="">
+                                            type="text" value="" />
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.VideoUrl" data-valmsg-replace="true"></span>
                                     </div>
@@ -1999,59 +1567,15 @@
                                             data-target="#file-help-modal">
                                             <span class="glyphicon glyphicon-info-sign"></span>
                                         </a>
-                                        <div class="file-input file-input-new theme-fa">
-                                            <div class="file-preview ">
-                                                <button type="button" class="close fileinput-remove">×</button>
-                                                <div class="file-drop-disabled">
-                                                    <div class="file-preview-thumbnails">
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                    <div class="file-preview-status text-center text-success"></div>
-                                                    <div class="kv-fileinput-error file-error-message"
-                                                        style="display: none;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="kv-upload-progress kv-hidden" style="display: none;">
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-success progress-bar-success progress-bar-striped active"
-                                                        role="progressbar" aria-valuenow="0" aria-valuemin="0"
-                                                        aria-valuemax="100" style="width:0%;">
-                                                        0%
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                            <div class="input-group file-caption-main">
-                                                <div class="file-caption form-control  kv-fileinput-caption"
-                                                    tabindex="500">
-                                                    <span class="file-caption-icon"></span>
-                                                    <input class="file-caption-name" onkeydown="return false;"
-                                                        onpaste="return false;" placeholder="Select files...">
-                                                </div>
-                                                <div class="input-group-btn">
-                                                    <button type="button" tabindex="500" title="Clear selected files"
-                                                        class="btn btn-default btn-secondary fileinput-remove fileinput-remove-button"><i
-                                                            class="fa fa-trash"></i> <span
-                                                            class="hidden-xs">Remove</span></button>
-                                                    <button type="button" tabindex="500" title="Abort ongoing upload"
-                                                        class="btn btn-default btn-secondary kv-hidden fileinput-cancel fileinput-cancel-button"><i
-                                                            class="fa fa-ban"></i> <span
-                                                            class="hidden-xs">Cancel</span></button>
-
-                                                    <div tabindex="500" class="btn btn-primary btn-file"><i
-                                                            class="fa fa-folder-open"></i> <span
-                                                            class="hidden-xs">Browse …</span><input type="file"
-                                                            name="ViewModel.Photos" multiple=""
-                                                            data-val-listlength="The maximum number of photos you can upload is 10"
-                                                            data-val-listlength-minlength=""
-                                                            data-val-listlength-maxlength="10"
-                                                            data-val-filesoftype="PNG, JPG and GIF files only"
-                                                            data-val-filesoftype-validmimetypes="image/png,image/jpeg,image/gif"
-                                                            data-val-filelistmaxsizeattribute="Maximum file size per photo is 2mb"
-                                                            data-val-filelistmaxsizeattribute-combinedmaxlengthinbytes="2097152"
-                                                            data-val="true" id="1764323877165_18"></div>
-                                                </div>
-                                            </div>
+                                        <div class="file-loading">
+                                            <input type="file" name="ViewModel.Photos" multiple
+                                                data-val-listlength="The maximum number of photos you can upload is 10"
+                                                data-val-listlength-minlength="" data-val-listlength-maxlength="10"
+                                                data-val-filesoftype="PNG, JPG and GIF files only"
+                                                data-val-filesoftype-validmimetypes="image/png,image/jpeg,image/gif"
+                                                data-val-filelistmaxsizeattribute="Maximum file size per photo is 2mb"
+                                                data-val-filelistmaxsizeattribute-combinedmaxlengthinbytes="2097152"
+                                                data-val="true" />
                                         </div>
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.Photos" data-valmsg-replace="true"></span>
@@ -2067,59 +1591,15 @@
                                             data-target="#file-help-modal">
                                             <span class="glyphicon glyphicon-info-sign"></span>
                                         </a>
-                                        <div class="file-input file-input-new theme-fa">
-                                            <div class="file-preview ">
-                                                <button type="button" class="close fileinput-remove">×</button>
-                                                <div class="file-drop-disabled">
-                                                    <div class="file-preview-thumbnails">
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                    <div class="file-preview-status text-center text-success"></div>
-                                                    <div class="kv-fileinput-error file-error-message"
-                                                        style="display: none;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="kv-upload-progress kv-hidden" style="display: none;">
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-success progress-bar-success progress-bar-striped active"
-                                                        role="progressbar" aria-valuenow="0" aria-valuemin="0"
-                                                        aria-valuemax="100" style="width:0%;">
-                                                        0%
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                            <div class="input-group file-caption-main">
-                                                <div class="file-caption form-control  kv-fileinput-caption"
-                                                    tabindex="500">
-                                                    <span class="file-caption-icon"></span>
-                                                    <input class="file-caption-name" onkeydown="return false;"
-                                                        onpaste="return false;" placeholder="Select files...">
-                                                </div>
-                                                <div class="input-group-btn">
-                                                    <button type="button" tabindex="500" title="Clear selected files"
-                                                        class="btn btn-default btn-secondary fileinput-remove fileinput-remove-button"><i
-                                                            class="fa fa-trash"></i> <span
-                                                            class="hidden-xs">Remove</span></button>
-                                                    <button type="button" tabindex="500" title="Abort ongoing upload"
-                                                        class="btn btn-default btn-secondary kv-hidden fileinput-cancel fileinput-cancel-button"><i
-                                                            class="fa fa-ban"></i> <span
-                                                            class="hidden-xs">Cancel</span></button>
-
-                                                    <div tabindex="500" class="btn btn-primary btn-file"><i
-                                                            class="fa fa-folder-open"></i> <span
-                                                            class="hidden-xs">Browse …</span><input type="file"
-                                                            name="ViewModel.Documents" multiple=""
-                                                            data-val-filelistmaxsizeattribute="Total size of files uploaded should not exceed 60mb"
-                                                            data-val-filelistmaxsizeattribute-combinedmaxlengthinbytes="62914560"
-                                                            data-val-listlength="The maximum number of documents you can upload is 3"
-                                                            data-val-listlength-minlength=""
-                                                            data-val-listlength-maxlength="3"
-                                                            data-val-filesoftype="PDF files only"
-                                                            data-val-filesoftype-validmimetypes="application/pdf"
-                                                            data-val="true" id="1764323877174_97"></div>
-                                                </div>
-                                            </div>
+                                        <div class="file-loading">
+                                            <input type="file" name="ViewModel.Documents" multiple
+                                                data-val-listlength="The maximum number of documents you can upload is 3"
+                                                data-val-listlength-minlength="" data-val-listlength-maxlength="3"
+                                                data-val-filesoftype="PDF files only"
+                                                data-val-filesoftype-validmimetypes="application/pdf"
+                                                data-val-filelistmaxsizeattribute="Total size of files uploaded should not exceed 60mb"
+                                                data-val-filelistmaxsizeattribute-combinedmaxlengthinbytes="62914560"
+                                                data-val="true" />
                                         </div>
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.Documents" data-valmsg-replace="true"></span>
@@ -2133,7 +1613,7 @@
                                             <input type="checkbox" id="ViewModel_CanContact" name="ViewModel.CanContact"
                                                 value="true"
                                                 data-val-required="The Please provide your contact details. We will only contact you in connection with this scheme. They will not be published. If you are happy for us to contact you about this scheme please tick this box. field is required."
-                                                data-val="true">
+                                                data-val="true" />
 
                                             Please provide your contact details. We will only contact you in connection
                                             with this scheme. They will not be published. If you are happy for us to
@@ -2153,7 +1633,7 @@
                                             data-val-length-max="50" data-val-requiredif="Your name is required"
                                             data-val-requiredif-dependentproperty="ViewModel_IsInvolvedWithScheme"
                                             data-val-requiredif-targetvalue="true" id="ViewModel_ContactName"
-                                            name="ViewModel.ContactName" type="text" value="">
+                                            name="ViewModel.ContactName" type="text" value="" />
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.ContactName" data-valmsg-replace="true"></span>
                                     </div>
@@ -2167,7 +1647,7 @@
                                             data-val-requiredif="Your email is required"
                                             data-val-requiredif-dependentproperty="ViewModel_IsInvolvedWithScheme"
                                             data-val-requiredif-targetvalue="true" id="ViewModel_ContactEmail"
-                                            name="ViewModel.ContactEmail" type="text" value="">
+                                            name="ViewModel.ContactEmail" type="text" value="" />
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.ContactEmail" data-valmsg-replace="true"></span>
                                     </div>
@@ -2180,7 +1660,7 @@
                                             data-val-requiredif="Your telephone number is required"
                                             data-val-requiredif-dependentproperty="ViewModel_IsInvolvedWithScheme"
                                             data-val-requiredif-targetvalue="true" id="ViewModel_ContactTelephoneNumber"
-                                            name="ViewModel.ContactTelephoneNumber" type="text" value="">
+                                            name="ViewModel.ContactTelephoneNumber" type="text" value="" />
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.ContactTelephoneNumber"
                                             data-valmsg-replace="true"></span>
@@ -2195,7 +1675,7 @@
                                                 <input type="checkbox" id="ViewModel_IsInvolvedWithScheme"
                                                     name="ViewModel.IsInvolvedWithScheme" value="true"
                                                     data-val-required="The I was/am involved in this scheme field is required."
-                                                    data-val="true">
+                                                    data-val="true" />
 
                                                 I was/am involved in this scheme
                                                 <input name="ViewModel.IsInvolvedWithScheme" type="hidden"
@@ -2215,7 +1695,7 @@
                                             <div class="col-md-6">
                                                 <label class="btn btn-lg btn-fw whitetxt abp-cta1--orange btn-checkbox">
                                                     <input type="checkbox" name="ViewModel.KnowAdditionalDetails"
-                                                        value="true" data-showhide="#js-additionaldetails">
+                                                        value="true" data-showhide="#js-additionaldetails" />
                                                     Yes
                                                 </label>
                                             </div>
@@ -2236,7 +1716,7 @@
                                             <label class="control-label scheme-label"
                                                 for="ViewModel_HowWasSchemeFunded">How was this scheme funded?</label>
                                             <input class="form-control" id="ViewModel_HowWasSchemeFunded"
-                                                name="ViewModel.HowWasSchemeFunded" type="text" value="">
+                                                name="ViewModel.HowWasSchemeFunded" type="text" value="" />
                                             <span class="field-validation-valid help-block"
                                                 data-valmsg-for="ViewModel.HowWasSchemeFunded"
                                                 data-valmsg-replace="true"></span>
@@ -2247,7 +1727,7 @@
                                             <label class="control-label scheme-label" for="ViewModel_PreviousLandUse">If
                                                 it is a managed realignment - previous landuse</label>
                                             <input class="form-control" id="ViewModel_PreviousLandUse"
-                                                name="ViewModel.PreviousLandUse" type="text" value="">
+                                                name="ViewModel.PreviousLandUse" type="text" value="" />
                                             <span class="field-validation-valid help-block"
                                                 data-valmsg-for="ViewModel.PreviousLandUse"
                                                 data-valmsg-replace="true"></span>
@@ -2267,7 +1747,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.1">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.1"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Accretion/Erosion">
+                                                                value="Accretion/Erosion" />
 
                                                             Accretion/Erosion
                                                         </label>
@@ -2278,7 +1758,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.2">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.2"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Amphibians/Reptiles">
+                                                                value="Amphibians/Reptiles" />
 
                                                             Amphibians/Reptiles
                                                         </label>
@@ -2288,7 +1768,8 @@
                                                     <div class="checkbox">
                                                         <label for="ViewModel.SelectedMonitoring.3">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.3"
-                                                                name="ViewModel.SelectedMonitoring" value="Archaeology">
+                                                                name="ViewModel.SelectedMonitoring"
+                                                                value="Archaeology" />
 
                                                             Archaeology
                                                         </label>
@@ -2298,7 +1779,8 @@
                                                     <div class="checkbox">
                                                         <label for="ViewModel.SelectedMonitoring.4">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.4"
-                                                                name="ViewModel.SelectedMonitoring" value="Bathymetry">
+                                                                name="ViewModel.SelectedMonitoring"
+                                                                value="Bathymetry" />
 
                                                             Bathymetry
                                                         </label>
@@ -2309,7 +1791,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.5">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.5"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Bird Populations">
+                                                                value="Bird Populations" />
 
                                                             Bird Populations
                                                         </label>
@@ -2320,7 +1802,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.6">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.6"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Breach Morphology">
+                                                                value="Breach Morphology" />
 
                                                             Breach Morphology
                                                         </label>
@@ -2331,7 +1813,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.7">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.7"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Coastal Processes">
+                                                                value="Coastal Processes" />
 
                                                             Coastal Processes
                                                         </label>
@@ -2342,7 +1824,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.8">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.8"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Creek Morphology">
+                                                                value="Creek Morphology" />
 
                                                             Creek Morphology
                                                         </label>
@@ -2353,7 +1835,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.9">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.9"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Ecology General">
+                                                                value="Ecology General" />
 
                                                             Ecology General
                                                         </label>
@@ -2363,7 +1845,8 @@
                                                     <div class="checkbox">
                                                         <label for="ViewModel.SelectedMonitoring.10">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.10"
-                                                                name="ViewModel.SelectedMonitoring" value="Fish Usage">
+                                                                name="ViewModel.SelectedMonitoring"
+                                                                value="Fish Usage" />
 
                                                             Fish Usage
                                                         </label>
@@ -2374,7 +1857,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.11">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.11"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Hydrodynamics (flows, tides etc.)">
+                                                                value="Hydrodynamics (flows, tides etc.)" />
 
                                                             Hydrodynamics (flows, tides etc.)
                                                         </label>
@@ -2385,7 +1868,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.12">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.12"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Invertebrates">
+                                                                value="Invertebrates" />
 
                                                             Invertebrates
                                                         </label>
@@ -2396,7 +1879,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.13">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.13"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Sediment Particle Size">
+                                                                value="Sediment Particle Size" />
 
                                                             Sediment Particle Size
                                                         </label>
@@ -2407,7 +1890,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.14">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.14"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Sediment/Soil Quality">
+                                                                value="Sediment/Soil Quality" />
 
                                                             Sediment/Soil Quality
                                                         </label>
@@ -2418,7 +1901,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.15">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.15"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Terrestrial or Freshwater Species">
+                                                                value="Terrestrial or Freshwater Species" />
 
                                                             Terrestrial or Freshwater Species
                                                         </label>
@@ -2428,7 +1911,8 @@
                                                     <div class="checkbox">
                                                         <label for="ViewModel.SelectedMonitoring.16">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.16"
-                                                                name="ViewModel.SelectedMonitoring" value="Vegetation">
+                                                                name="ViewModel.SelectedMonitoring"
+                                                                value="Vegetation" />
 
                                                             Vegetation
                                                         </label>
@@ -2439,7 +1923,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.17">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.17"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Water Quality">
+                                                                value="Water Quality" />
 
                                                             Water Quality
                                                         </label>
@@ -2450,7 +1934,7 @@
                                                         <label for="ViewModel.SelectedMonitoring.18">
                                                             <input type="checkbox" id="ViewModel.SelectedMonitoring.18"
                                                                 name="ViewModel.SelectedMonitoring"
-                                                                value="Little or No Formal Monitoring">
+                                                                value="Little or No Formal Monitoring" />
 
                                                             Little or No Formal Monitoring
                                                         </label>
@@ -2469,7 +1953,8 @@
                                                 monitoring</label>
                                             <textarea class="form-control" cols="20"
                                                 id="ViewModel_MonitoringExtraDetail"
-                                                name="ViewModel.MonitoringExtraDetail" rows="4"></textarea>
+                                                name="ViewModel.MonitoringExtraDetail" rows="4">
+</textarea>
                                             <span class="field-validation-valid help-block"
                                                 data-valmsg-for="ViewModel.MonitoringExtraDetail"
                                                 data-valmsg-replace="true"></span>
@@ -2501,7 +1986,7 @@
                                             <input class="form-control" data-val="true"
                                                 data-val-number="The field Cost must be a number."
                                                 data-val-required="The Cost field is required." id="ViewModel_Cost"
-                                                name="ViewModel.Cost" type="text" value="0">
+                                                name="ViewModel.Cost" type="text" value="0" />
                                             <span class="field-validation-valid help-block"
                                                 data-valmsg-for="ViewModel.Cost" data-valmsg-replace="true"></span>
                                         </div>
@@ -2514,7 +1999,8 @@
                                                 for="ViewModel_OngoingUseManagement">How is the new habitat being
                                                 used/managed?</label>
                                             <textarea class="form-control" cols="20" id="ViewModel_OngoingUseManagement"
-                                                name="ViewModel.OngoingUseManagement" rows="4"></textarea>
+                                                name="ViewModel.OngoingUseManagement" rows="4">
+</textarea>
                                             <span class="field-validation-valid help-block"
                                                 data-valmsg-for="ViewModel.OngoingUseManagement"
                                                 data-valmsg-replace="true"></span>
@@ -2528,7 +2014,8 @@
                                                 for="ViewModel_LessonsLearned">What lessons have been learned (e.g.
                                                 drivers, constraints, successes, views of contributors)</label>
                                             <textarea class="form-control" cols="20" id="ViewModel_LessonsLearned"
-                                                name="ViewModel.LessonsLearned" rows="4"></textarea>
+                                                name="ViewModel.LessonsLearned" rows="4">
+</textarea>
                                             <span class="field-validation-valid help-block"
                                                 data-valmsg-for="ViewModel.LessonsLearned"
                                                 data-valmsg-replace="true"></span>
@@ -2540,7 +2027,8 @@
                                                 for="ViewModel_AdditionalInfo">Please use this space to tell us anything
                                                 else</label>
                                             <textarea class="form-control" cols="20" id="ViewModel_AdditionalInfo"
-                                                name="ViewModel.AdditionalInfo" rows="4"></textarea>
+                                                name="ViewModel.AdditionalInfo" rows="4">
+</textarea>
                                             <span class="field-validation-valid help-block"
                                                 data-valmsg-for="ViewModel.AdditionalInfo"
                                                 data-valmsg-replace="true"></span>
@@ -2559,50 +2047,128 @@
                                     <div class="form-group">
                                         <div class="g-recaptcha" data-sitekey="6LdJGTgUAAAAAKF8BldIb0fO9S-psvYo9i9hl6u1"
                                             data-callback="googleCaptchaCallback"
-                                            data-expired-callback="googleCaptchaExpiredCallback">
-                                            <div style="width: 304px; height: 78px;">
-                                                <div><iframe title="reCAPTCHA" width="304" height="78"
-                                                        role="presentation" name="a-pn9epe9tuqqg" frameborder="0"
-                                                        scrolling="no"
-                                                        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
-                                                        src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LdJGTgUAAAAAKF8BldIb0fO9S-psvYo9i9hl6u1&amp;co=aHR0cDovL29tcmVnLm5ldDo4MA..&amp;hl=en&amp;v=TkacYOdEJbdB_JjX802TMer9&amp;size=normal&amp;anchor-ms=20000&amp;execute-ms=15000&amp;cb=5zyvuhtfqmfi"></iframe>
-                                                </div><textarea id="g-recaptcha-response" name="g-recaptcha-response"
-                                                    class="g-recaptcha-response"
-                                                    style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
-                                            </div><iframe style="display: none;"></iframe>
-                                        </div>
+                                            data-expired-callback="googleCaptchaExpiredCallback"></div>
                                         <span class="field-validation-valid help-block"
                                             data-valmsg-for="ViewModel.CaptchaResponse"
                                             data-valmsg-replace="true"></span>
                                     </div>
                                 </div>
                             </div>
-                            <input name="ufprt" type="hidden"
-                                value="3B98B3CDF5586DD56D65FDE88CF9FDD8A0B8E9D012592BC2D36F0BC732489ED2F41123A75590C8B3AA92E2917375DACB37CAEC8A3CD55D18D510C6CEB585D25C1380968E7174A1F0B7267A4F957D776EF623B88AD0E3EB4117324BE8C7663F74ABDA908C3CD36E1E159B5535F9B7ECD1BBA20ADE5B9BCF00D6B1B57D319B968C3C1AD73A445420905EC3CEF8D82B84F6">
+                            <input name='ufprt' type='hidden'
+                                value='F07B580A5BBB82E37AEB7E4CD5F490A7A2BD2E61F5127CE886D47AE215BD38523268D7EE9B6D25112E9013EC5C51BFC99C8F51709E83F73BC73D03F25802FAB8618AA631368C70735DAFFE583371A956F26341B6C6A85D0C37118866DAD075D5DCBB6321D10E8D2ABBC1089FB7CD1585DDFB901C6F356EA8B1BF16698B655B56534A7085F223BC41DBEF221756C14281' />
                         </form>
+
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-4 mt20">
+                    <div class="contact-extra">
+                        <div class="contact-extra-content">
+                            <div class="profileimage-sm" style="background-image: url('https://marinecoastalsurvey.co.uk/media/1912/vicky-west-abpmer-marine-ecologist.jpg');" title="Vicky West ABPmer" role="img" aria-label="Vicky West ABPmer">
+
+                            </div>
+                            <div class="profiletext-sm">
+                                <h2>Vicky West</h2>
+                                <h5>Habitat Sampling</h5>
+                                <a href="tel:+44-238-0711-851">+44 (0)23 8071 1851</a>
+                                <div class="contact-extra-button">
+                                    <div class="icon">
+                                        <a class="icon--linkedin" href="https://www.linkedin.com/in/victoriawest93/" target="_blank">
+                                            <img src="images/linkedin.svg">
+                                        </a>
+                                    </div>
+
+                                    <div class="icon">
+                                        <a class="icon--email cursor-pointer" data-micromodal-trigger="contact-person-modal" onclick="FillPersonModal({'image': 'https://marinecoastalsurvey.co.uk/media/1912/vicky-west-abpmer-marine-ecologist.jpg', 'name': 'Vicky West', 'role': 'Habitat Sampling', 'email': 'vicky.west@abpmer.co.uk, survey@abpmer.co.uk'})">
+                                            <img src="images/envelope.svg">
+                                        </a>
+                                    </div>
+                                    <div class="icon">
+                                        <a href="tel:+44-238-0711-851" class="icon--tel">
+                                            <img src="images/phone-button.svg" height="20" width="20">
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function FillPersonModal(personData) {
+                                var modal = $('#contact-person-modal');
+
+                                modal.find('.modal__title').text(personData.name)
+                                modal.find('.modal__subtitle').text(personData.role)
+                                modal.find('.modal__person-image').attr('src', personData.image)
+                                modal.find('#ContactPersonToEmail').val(personData.email)
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
 
 
         </div>
-
     </section>
 
 
-    <section id="cb-content-1-1" class="content-block cb-content-1-1 abp-cta1"
-        style="background-color:#FA8A18;color:#0b2c3d">
-
-        <div class="content1">
-            <div class="container">
-                <h3>Want to talk to us about a scheme? Call <span style="text-decoration: underline;"><a
-                            href="tel:+442380711860">+44 (0)23 8071 1860</a></span></h3>
-
+    <div class="modal fade pg-show-modal" id="coordinate-picker-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h2>DRAG PIN TO SELECT COORDINATES</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="map" id="map">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="js-save-coordinates btn btn-default">Pick Selected Coordinates</button>
+                </div>
             </div>
         </div>
+    </div>
 
-    </section>
 
+    <div class="modal fade" id="file-help-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h2>UPLOADING MULTIPLE FILES</h2>
+                </div>
+                <div class="modal-body">
+                    <h3>Windows/Linux</h3>
+                    <ol class="file-help-list">
+                        <li>Place all files in a single location on your computer</li>
+                        <li>Click the "BROWSE" button</li>
+                        <li>
+                            Click and drag the mouse across each file
+                            <strong>OR</strong>
+                            hold the <kbd>CTRL</kbd> button on your keyboard and left click each file with the mouse
+                        </li>
+                    </ol>
+
+                    <h3>Mac</h3>
+                    <ol class="file-help-list">
+                        <li>Place all files in a single location on your computer</li>
+                        <li>Click the "BROWSE" button</li>
+                        <li>
+                            Click and drag the mouse across each file
+                            <strong>OR</strong>
+                            hold the <kbd>command</kbd> button on your keyboard and left click each file with the mouse
+                        </li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <section>
@@ -2613,7 +2179,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <a href="https://www.abpmer.co.uk/" target="_blank"><img alt="ABPmer logo"
-                                        src="images/ABPMerLogo-190x52.jpg" width="190"></a>
+                                        src="images/ABPMerLogo-190x52.jpg" width="190"
+                                        style="margin-right:8px; margin-top: -6px; float: left;background-image: url('/images/59b69c4e961d6200019d2a7c_REV_RGB_2016.jpg');"></a>
                             </div>
                         </div>
                         <div class="row">
@@ -2680,6 +2247,7 @@
                                     <label style="font-size:1em">
                                         <input id="ezineTerms" name="Terms" value="true" type="checkbox" data-val="true"
                                             data-val-checkboxrequired="Please check to continue.">
+
                                         Yes, add me to your e-news mailing list
                                     </label>
                                 </div>
@@ -2688,6 +2256,7 @@
 
                             </div>
                             <input type="submit" class="btn btn-primary" value="Subscribe" />
+
                         </form>
 
                     </div>
@@ -2695,7 +2264,6 @@
             </div>
         </div>
     </section>
-
     <!-- Footer Bottom -->
     <section class="footer1 bottom-footer">
         <div class="container">
@@ -2711,6 +2279,7 @@
             </div>
         </div>
     </section>
+
 
     <div class="modal micromodal-slide" id="contact-person-modal" aria-hidden="true">
         <div class="modal__overlay" tabindex="-1" data-micromodal-close>
@@ -2770,11 +2339,206 @@
         </form>
     </div>
 
-    <script src="js/common.js"></script>
- 
-    <script src="js/cookie-disclaimer.js"></script>
 
+    <script src="js/common.js"></script>
+    <script src="js/cookie-disclaimer.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
+
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="js/fileinput.js"></script>
+    <script src="js/file-input-theme.js"></script>
+
+
+    <script>
+
+        $("input[type=file]").fileinput({
+            theme: "fa",
+            showUpload: false,
+            fileActionSettings: {
+                showUpload: false
+            },
+            uploadAsync: false,
+            overwriteInitial: false
+        });
+
+        $("#addscheme--form").submit(function (e) {
+            var form = $(e.target);
+            var formValid = form.valid();
+
+            if (!formValid) {
+                var firstError = $('.field-validation-error:first');
+
+                if (firstError) {
+                    e.preventDefault();
+                    var transition = 300;
+
+                    $('html, body').animate({
+                        scrollTop: firstError.closest('.form-group').offset().top
+                    }, transition);
+                }
+                return false;
+            }
+        });
+
+        function googleCaptchaCallback(gRecaptchaResponse) {
+            $("input[name='ViewModel.CaptchaResponse']").val(gRecaptchaResponse);
+            $("input[name='ViewModel.CaptchaResponse']").valid();
+        };
+        function googleCaptchaExpiredCallback() {
+            $("input[name='ViewModel.CaptchaResponse']").val("");
+            $("input[name='ViewModel.CaptchaResponse']").valid();
+        };
+
+        $("input[type=checkbox][data-show-other]").change(function () {
+            var $self = $(this);
+
+            var results = $("input[class='" + $self.prop("class") + "']").filter(function (index) {
+                return $(this).is(":checked") && $(this).prop("value") === "Other";
+            });
+
+            var $otherContainer = $($self.attr("data-show-other"));
+
+            if (results.length > 0) {
+                $otherContainer.show();
+            }
+            else {
+                $otherContainer.hide();
+            }
+        });
+
+        $("select[data-show-other]").change(function () {
+            var $self = $(this);
+
+            var $otherContainer = $($self.attr("data-show-other"));
+
+            if ($self.val() === "Other") {
+                $otherContainer.show();
+            }
+            else {
+                $otherContainer.hide();
+            }
+        });
+
+        $("[data-showhide]").change(function () {
+            var $self = $(this);
+
+            var $container = $($self.attr("data-showhide"));
+
+            if (($self.is(":checkbox") && $self.is(":checked")) || ($self.is(":button"))) {
+                $container.show();
+            }
+            else {
+                $container.hide();
+            }
+        });
+
+        $(".ViewModel\\.SelectedLocationHabitatsCreated\\.Name").change(function () {
+            var $self = $(this);
+
+            var id = $self.attr("data-habitat-id");
+
+            var $areaTextBox = $(".ViewModel\\.SelectedLocationHabitatsCreated\\.Area[data-habitat-id='" + id + "']");
+
+            if ($self.is(":checked")) {
+                $areaTextBox.show();
+                $areaTextBox.prop("disabled", false);
+            }
+            else {
+                $areaTextBox.hide();
+                $areaTextBox.prop("disabled", true);
+            }
+        });
+
+        $("#js-add-reference").click(function (e) {
+            e.preventDefault();
+
+            const rows = $(".js-example-row");
+            if (rows.length > 0) {
+                const exampleRow = $(rows[0]);
+                $("#js-reference-rows").append(exampleRow.html());
+            }
+
+        });
+
+        $("#js-reference-rows").click(function (e) {
+            e.preventDefault();
+
+            const tgt = $(e.target);
+
+            if (tgt.hasClass("js-delete--reference")) {
+                const rows = $(".js-add-reference--row");
+                if (rows.length > 1) {
+                    tgt.closest(".js-add-reference--row").remove();
+                }
+            }
+        });
+
+    </script>
+
+    <script>
+        var resetMarkerLocation = { lat: 51.5074, lng: -0.1278 };
+        var pickedMarker;
+        var googleMap;
+
+        var mapReadyForInit = false;
+
+        function initMap() {
+            mapReadyForInit = true;
+        };
+
+        function resetMap(map) {
+            if (typeof (googleMap) === "undefined") {
+
+                var location = { lat: resetMarkerLocation.lat, lng: resetMarkerLocation.lng };
+                googleMap = new google.maps.Map(map, {
+                    zoom: 6,
+                    center: location
+                });
+
+                var marker = new google.maps.Marker({
+                    position: location,
+                    map: googleMap,
+                    draggable: true,
+                });
+
+                pickedMarker = marker;
+            }
+        }
+
+        $(function () {
+
+            $("#coordinate-picker-modal").on("shown.bs.modal", function (e) {
+
+                var mapDiv = document.getElementById('map');
+
+                resetMap(mapDiv);
+
+                $(".js-save-coordinates").click(function (e) {
+                    var location = pickedMarker.position;
+                    $('#ViewModel_LocationLongitude').val(location.lng());
+                    $("#ViewModel_LocationLongitude").valid();
+                    $('#ViewModel_LocationLatitude').val(location.lat());
+                    $("#ViewModel_LocationLatitude").valid();
+                    $("#coordinate-picker-modal").modal("hide");
+                });
+            });
+
+            $("#coordinate-picker-modal").on("hide.bs.modal", function (e) {
+                $(".js-save-coordinates").unbind('click');
+            });
+
+            $("#js-coordinate-picker").click(function (e) {
+                e.preventDefault();
+
+                if (mapReadyForInit) {
+                    $("#coordinate-picker-modal").modal("show");
+                }
+
+            });
+        });
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyngUYojXrTkTTH6dopn56uU1r5LV3OPA&callback=initMap"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -2845,14 +2609,6 @@
             $(`[data-faq-menu-index=${index}]`).addClass('softwarev3__faq__nav__link--active');
         })
     </script>
-
-    <script type="text/javascript">
-        $(function () {
-            carousel.init($(".slider2"), { autoPlay: 0 });
-            $('.collapse').collapse()
-        });
-    </script>
-
 </body>
 
 </html>
