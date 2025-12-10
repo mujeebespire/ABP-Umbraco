@@ -44242,6 +44242,10 @@ input.file-caption-name {
     text-decoration: underline;
 }
 
+.richtext a.btn-default {
+    text-decoration: none;
+}
+
 .richtext ul {
     line-height: 1em;
 }
