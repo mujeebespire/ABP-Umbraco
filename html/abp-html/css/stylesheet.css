@@ -3914,6 +3914,14 @@ td {
     text-align: center;
     color: white;
     line-height: normal;
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.rte.resource-inner-text img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
 }
 
 
