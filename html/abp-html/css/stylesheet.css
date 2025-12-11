@@ -12612,11 +12612,11 @@ hr {
     }
 
     .two-wrapper-slider .col-md-8 {
-        order: 2;
+        order: 1;
     }
 
     .two-wrapper-slider .col-md-4 {
-        order: 1;
+        order: 2;
     }
 }
 
