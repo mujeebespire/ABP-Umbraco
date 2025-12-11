@@ -7239,6 +7239,7 @@ input[type="email"]::-ms-clear {
 
 .logo__img {
     width: 260px;
+    height: auto;
 }
 
 .logo__img-hover {
