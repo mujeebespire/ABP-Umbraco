@@ -42127,6 +42127,9 @@ Footer
         width: 70%;
         max-width: 1694px;
     }
+    .nav-container .container, .searchbar .container{
+       width: 1175px;
+    }
 }
 
 /* ======================================================================*/
@@ -42134,7 +42137,7 @@ Footer
 @media (max-width: 1200px) {
     .navbar-header {
         float: none;
-        width: 100%;
+        /* width: 100%; */
     }
 
     .flex-support {
@@ -42400,6 +42403,7 @@ label {
     border-bottom: 3px solid #FA8A18;
     font-weight: 300;
 }
+
 
 .all-navigation .collapse.navbar-collapse {
     padding-left: 0;
@@ -44688,7 +44692,7 @@ textarea.form-control {
 }
 
 .abpmer-logo {
-    margin: 0px 0 0 25px;
+    margin: 5px 0 0 25px;
     display: block;
 }
 
@@ -44786,7 +44790,7 @@ textarea.form-control {
     .logoimage {
         max-width: 215px;
         height: 18px;
-        margin-top: 9px;
+        /* margin-top: 9px; */
     }
 
     .software-grid-4col .software-item {
