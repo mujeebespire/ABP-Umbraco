@@ -18231,13 +18231,23 @@ hr {
     transition: box-shadow 0.45s, border-color 0.45s ease-in-out;
 }
 
-.Member-login-form button[type="submit"] {
+.Member-login-form [type="submit"] {
     background-color: #2a61ff;
     color: white;
     padding: 12px 19px;
     text-transform: uppercase;
     border-radius: 50px;
     font-size: 14px;
+}
+
+.Member-login-form .indicates-required {
+    text-align: right;
+    font-size: 11px;
+    margin-right: 0;
+}
+
+.asterisk{
+    color: red;
 }
 
 /*# sourceMappingURL=style.min.css.map */
