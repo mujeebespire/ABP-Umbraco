@@ -17993,6 +17993,74 @@ hr {
     color: rgba(0, 0, 0, 0.5);
 }
 
+
+/* new build popup form */
+.download-brochure-form .col-md-12{
+    padding: 0;
+}
+
+.download-brochure-form .umbraco-forms-field-wrapper{
+        position: relative;
+}
+
+.download-brochure-form .umbraco-forms-caption,
+.download-brochure-form legend{
+    display: none;
+}
+
+.download-brochure-form .umbraco-forms-container label, 
+.download-brochure-form .umbraco-forms-hidden{
+    visibility: hidden;
+    opacity: 0;
+}
+
+.download-brochure-form .umbraco-forms-field input{
+    border: 0;
+    padding: 0 0 16px;
+    border-bottom: 1px solid #3565f6;
+    line-height: 1.33;
+    font-weight: 400;
+    display: block;
+    width: 100%;
+    font-size: 24px;
+}
+
+.download-brochure-form .umbraco-forms-field input.input-validation-error{
+    border-color: #EC6707;
+}
+
+.download-brochure-form [type="submit"]{
+    background-color: #3565f6;
+    border-color: #3565f6;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.17;
+    border-radius: 50px;
+    border: 1px solid #2a61ff;
+    padding: 14px 24px;
+    transition: 0.4s ease-out;
+    margin: 5px 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.download-brochure-form .field-validation-error{
+        color: #EC6707;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 13px;
+    bottom: -19px;
+}
+
+.download-brochure-form .umbraco-forms-field input::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+/* new build popup form */
+
+
+
 @media only screen and (min-width: 992px) {
     .download-form__input {
         margin-bottom: 24px;
