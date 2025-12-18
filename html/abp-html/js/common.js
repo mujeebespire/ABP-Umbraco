@@ -8587,6 +8587,7 @@
               var t = location.pathname,
                 i,
                 n;
+
               if (1 !== t.lenght) {
                 if (
                   ((i = location.pathname.split("/")[1]),
@@ -8602,6 +8603,16 @@
                     return;
                   n.addClass("nav__link--current");
                 }
+
+                // $('.nav__submenu-link').each(function(){
+                //   let getValueHref = $(this).attr('href').split('/')[1];
+                //   if(location.pathname.indexOf(getValueHref) > -1){
+                //     $(this).closest("li.has-children")
+                //       .find("a.js-nav-link")
+                //       .addClass("nav__varun");
+                //   }
+                // });
+
                 n.closest("li.has-children")
                   .find("a.js-nav-link")
                   .addClass("nav__link--current");
@@ -8652,6 +8663,7 @@
           $downloadbtn: $(".js-download-btn"),
           init: function () {
             this.downloadButtonClick();
+            this.newDownloadButtonClick();
             this.handleLabelShow();
             this.closePopup();
           },
@@ -8680,6 +8692,20 @@
               });
             });
           },
+
+          newDownloadButtonClick: function () {
+            $(".js-download-btn-new").on("click", function () {
+              let n = $(this);
+              console.log("nnn", n.attr('data-button-id'));
+              $(".js-download-popup-new").each(function(){
+                if($(this).attr('data-popup-id') == n.attr('data-button-id')){
+                    $(this).addClass("download-form__popup--show");
+                } 
+              });
+            
+            });
+          },
+
           handleLabelShow: function () {
             $(document).on("input", ".js-download-input", function (n) {
               var t = $(n.currentTarget),
@@ -8699,7 +8725,7 @@
           closePopup: function () {
             $(document).on("click", ".js-download-close", function () {
               u.default.enableScroll();
-              $(".js-download-popup").removeClass("download-form__popup--show");
+              $(".js-download-popup, .js-download-popup-new").removeClass("download-form__popup--show");
               $("#response-container").html("");
             });
           },
@@ -8901,7 +8927,6 @@
                 nextArrow.removeClass("slick-disabled").attr("disabled", false);
               }
             }
-            
           });
         },
         initMapSlider: function () {
