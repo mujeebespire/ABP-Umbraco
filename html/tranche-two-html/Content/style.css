@@ -36903,8 +36903,8 @@ figure.effect-chico:hover p {
 }
 
 .btn-end {
-            margin-bottom: 20px;
-        }
+    margin-bottom: 20px;
+}
 
 @media (max-width: 768px) {
     #contact4 .form-control {
@@ -38274,6 +38274,7 @@ figure.effect-chico:hover p {
 }
 
 
+
 /* footer7 */
 
 #footer7 {
@@ -38358,7 +38359,6 @@ figure.effect-chico:hover p {
 
 
 /* footer8 */
-
 #footer8 {
     padding: 40px 0;
     background: #fff;
@@ -38441,6 +38441,102 @@ figure.effect-chico:hover p {
         text-align: center;
     }
 }
+
+/* contact-side avtar box */
+.contact-side-widget {
+    min-width: 24rem;
+    min-height: 13rem;
+    background: #0a2c3d;
+    color: #fff;
+    margin-bottom: .5rem;
+    padding: 30px 25px;
+}
+
+.contact-side-widget__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.contact-side-widget__content__img {
+        /* width: 100%; */
+    /* max-width: 5rem; */
+    justify-content: center;
+    display: flex;
+    margin: 0;
+    margin-right: 25px;
+}
+
+.contact-side-widget__content__img img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
+
+.contact-side-widget__content__info {
+    width: 100%;    
+}
+
+.contact-side-widget__content__info header {
+    background: none;
+}
+
+.contact-side-widget__content__info--name {
+    font-size: 23px;
+    margin: 0px;
+    font-weight: 400;
+}
+
+.contact-side-widget__content__info--role {
+    font-size: 15.36px;
+    margin: 0px;
+    margin-bottom: 12px;
+    color: #FFFFFF;
+}
+
+.contact-side-widget__content__info--tel {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    font-weight: 400;
+    margin: 0 0 1rem 0;
+}
+
+.contact-side-widget__content__info--tel a {
+    font-size: 1.75rem;
+    font-family: "Open Sans", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-weight: 300;
+    margin-top: 0px;
+    color: #FA8A18;
+}
+
+.contact-side-widget__content__info--tel a:hover { 
+    color: #666;
+    text-decoration: none;
+}
+
+.contact-side-widget__content__info__icons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.contact-side-widget__content__info__icons>.icon {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    background: #fa8a18;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
+}
+
+/* contact-side avtar box */
+
+
+
 
 
 /********* 1.30 BASIC BLOCKS STYLES /*****
@@ -42127,8 +42223,10 @@ Footer
         width: 70%;
         max-width: 1694px;
     }
-    .nav-container .container, .searchbar .container{
-       width: 1175px;
+
+    .nav-container .container,
+    .searchbar .container {
+        width: 1175px;
     }
 }
 
@@ -42138,6 +42236,10 @@ Footer
     .navbar-header {
         float: none;
         /* width: 100%; */
+    }
+
+    .nav-container .navbar-right {
+        margin: 0;
     }
 
     .flex-support {
@@ -42188,6 +42290,13 @@ Footer
     .collapse.in {
         display: block !important;
     }
+
+    .nav-container .navbar-nav>li>.dropdown-menu {
+        position: static;
+        display: block;
+        width: 100%;
+    }
+
 }
 
 h4,
@@ -43919,9 +44028,9 @@ h3 {
     font-size: 14px;
 }
 
-.schemedetails p {
+/* .schemedetails p {
     font-weight: bold;
-}
+} */
 
 .scheme-reference-list li {
     word-break: break-word;
@@ -44141,10 +44250,10 @@ a.btn-default {
     transform: translateX(30px);
 }
 
-.result-item img{
+.result-item img {
     width: 100%;
     height: 100%;
-       background-size: cover;
+    background-size: cover;
     background-position: center
 }
 
@@ -44262,7 +44371,8 @@ input.file-caption-name {
     padding-left: 1.5rem;
 }
 
-.panel-body ul, .panel-body ol {
+.panel-body ul,
+.panel-body ol {
     line-height: 1.5;
     padding-left: 1.75rem;
 }
