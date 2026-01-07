@@ -2807,6 +2807,11 @@ a:focus {
     border-radius: .2rem;
 }
 
+main > .second-level:first-child {
+    padding-bottom: 20px;
+}
+
+
 .second-level {
     display: flex;
     flex-direction: column;
@@ -2823,11 +2828,11 @@ a:focus {
     margin: 0 auto;
 }
 
-@media(min-width:992px) {
+/* @media(min-width:992px) {
     .second-level__hero {
         margin-bottom: -0.50rem;
     }
-}
+} */
 
 .second-level__hero img {
     width: 100%;
@@ -3887,7 +3892,7 @@ a:focus {
 }
 
 .line-component{
-    height: 1.125rem;
+    height: 1.5rem;
 }
 
 @media(min-width:768px) {
