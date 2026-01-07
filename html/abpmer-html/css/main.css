@@ -2952,6 +2952,10 @@ a:focus {
     margin: 0;
 }
 
+.second-level__row__content .rich-text ul li p{
+    margin: 0;
+}
+
 .second-level__row__content a {
     text-decoration: underline;
     color: #2b91a9;
