@@ -1520,7 +1520,7 @@ body {
 }
 
 .mega-menu .menu_primary>li .menu-icon{
-    background: url(../images/linkedin-menu.svg) center 15px no-repeat;
+    background: url(../images/linkedin-menu.svg) center center no-repeat;
    text-indent: -9999px;
     padding: 17px 10px;
     margin: 0 8px;
@@ -1528,14 +1528,14 @@ body {
 }
 
 .mega-menu .menu_primary>li .menu-icon:hover {
-    background: url(../images/linkedin-menu.svg) center 15px no-repeat;
+    background: url(../images/linkedin-menu.svg) center center no-repeat;
     transform: scale(1.1);
     transition: ease-in .1s;
 }
 
-@media(max-width:767px) {
+@media only screen and (max-width: 767px) {
 
-    .mega-menu .menu_primary > li .menu-icon{
+    .top-nav .menu-icon{
         display: none;
     }
 
