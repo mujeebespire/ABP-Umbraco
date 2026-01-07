@@ -2930,6 +2930,12 @@ a:focus {
     }
 }
 
+.rich-text .second-level__row__title__main{
+   font-size: 2.25rem;
+    line-height: 2.5rem;
+    color: #0a2c3d;
+}
+
 .rich-text h2{
     font-size: 1.8rem;
     line-height: 2.5rem;
