@@ -2948,6 +2948,10 @@ a:focus {
     color: #0f3e58;
 }
 
+.rich-text ul.toc_list li p{
+    margin: 0;
+}
+
 .second-level__row__content a {
     text-decoration: underline;
     color: #2b91a9;
