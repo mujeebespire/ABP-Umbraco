@@ -1483,6 +1483,10 @@ body {
     }
 }
 
+.mega-menu .menu_primary{
+    margin: 0;
+}
+
 .mega-menu .menu_primary>li {
     display: inline-block;
     position: relative;
@@ -1508,21 +1512,23 @@ body {
     }
 }
 
+
+
 .mega-menu .menu_primary>li a:hover {
     background: #fff;
     color: #0f3e58;
 }
 
 .mega-menu .menu_primary>li .menu-icon{
-    background: url(../images/linkedin-menu.svg) 0 15px no-repeat;
+    background: url(../images/linkedin-menu.svg) center 15px no-repeat;
    text-indent: -9999px;
     padding: 17px 10px;
-    /* height: 12px; */
+    margin: 0 8px;
     display: block
 }
 
 .mega-menu .menu_primary>li .menu-icon:hover {
-    background: url(../images/linkedin-menu.svg) 0 15px no-repeat;
+    background: url(../images/linkedin-menu.svg) center 15px no-repeat;
     transform: scale(1.1);
     transition: ease-in .1s;
 }
@@ -2727,6 +2733,7 @@ a:focus {
     margin: 0;
 }
 
+
 .contact-side-widget {
     min-width: 24rem;
     min-height: 13rem;
@@ -2810,7 +2817,7 @@ a:focus {
 
 @media(min-width:992px) {
     .second-level__hero {
-        margin-bottom: 1.25rem;
+        margin-bottom: -0.50rem;
     }
 }
 
@@ -2922,7 +2929,7 @@ a:focus {
 }
 
 .rich-text h3{
-    font-size: 2.25rem;
+    font-size: 1.17em;
     line-height: 2.5rem;
     color: #0a2c3d;
 }
