@@ -1533,6 +1533,14 @@ body {
     transition: ease-in .1s;
 }
 
+@media(max-width:767px) {
+
+    .mega-menu .menu_primary > li .menu-icon{
+        display: none;
+    }
+
+}
+
 .mega-menu .menu_primary>li:hover ul {
     display: block;
 }
