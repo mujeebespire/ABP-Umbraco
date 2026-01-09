@@ -3895,6 +3895,10 @@ main > .second-level:first-child {
     height: 1.5rem;
 }
 
+section.line-component + .second-level .two-colum-box {
+    padding-top: 24px;
+}
+
 @media(min-width:768px) {
     .title-and-description__header {
         text-align: center;
@@ -4254,8 +4258,28 @@ main > .second-level:first-child {
     margin: 1rem 0 1rem 1rem;
 }
 
-.blog__row .e-zine-form .newsletter-checkbox label {
-    margin-right: .75rem;
+.footer .newsletter-checkbox label {
+    margin-right:0;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 24px; 
+     height: auto;
+     width: auto;
+     display: flex;
+}
+
+.footer .newsletter-checkbox .checkbox-label .checkbox-custom {
+
+    position: relative;
+    display: block;
+        margin-right: .75rem;
+
+}
+
+.footer .newsletter-checkbox span.checkbox-text {
+    font-size: .875rem;
 }
 
 .blog__row .e-zine-form .newsletter-checkbox>span {

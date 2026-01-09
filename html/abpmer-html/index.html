@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    
-    <title>ABPmer: a marine consultancy and survey company</title>
 
+    <title>ABPmer: a marine consultancy and survey company</title>
 
     <meta name="keywords" content="">
     <meta name="description"
@@ -22,14 +21,14 @@
 
     <link rel="stylesheet" href="css/main.css" />
 
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="css/slick.css" />
 
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.min.css" />
 
-    <script type="text/javascript" src="//secure.leadforensics.com/js/59189.js"></script>
-    
-    <script type="text/javascript" src="//unpkg.com/micromodal/dist/micromodal.min.js"></script>
-    
+    <script type="text/javascript" src="js/59189.js"></script>
+
+    <script type="text/javascript" src="js/micromodal.min.js"></script>
+
 </head>
 
 <body>
@@ -218,8 +217,8 @@
                         </li>
 
                         <li>
-                           <a href="https://www.linkedin.com/company/abpmer/" target="_blank" class="menu-icon ">
-                                linked in
+                            <a href="https://www.linkedin.com/company/abpmer/#linkedin" target="_blank" class="menu-icon" aria-label="Linked">
+                                <img src="/Stylesheets/Assets/images/linkedin-menu.svg" height="20" width="20" alt="">
                             </a>
                         </li>
 
@@ -231,7 +230,7 @@
 
 
     <!--CONTENT-->
-     <div class="abpmer-container">
+    <div class="abpmer-container">
         <main role="main">
 
 
@@ -507,12 +506,21 @@
                             <input type="text" name="MERGE1" id="Name" placeholder="Name" required />
                             <input type="email" name="MERGE0" id="Email" placeholder="Email" required />
                             <input type="text" name="MERGE3" id="Organisation" placeholder="Organisation" required />
-                            <div class="newsletter-checkbox">
+                            <!-- <div class="newsletter-checkbox">
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="SignMeUp" id="SignMeUp" />
                                     <span class="checkbox-custom rectangular"></span>
                                 </label>
                                 <span>Yes, add me to your e-news mailing list</span>
+                            </div> -->
+                            <div class="newsletter-checkbox">
+                                <label class="checkbox-label" for="SignMeUp">
+                                        <input type="checkbox" name="SignMeUp" id="SignMeUp" />
+                                        <span class="checkbox-custom rectangular"></span>
+                                          <span class="checkbox-text" >
+                                            Yes, add me to your e-news mailing list
+                                        </span>
+                                      </label>       
                             </div>
                             <input type="submit" name="Sign me up" value="Sign me up" />
                             <h2 id="result-txt" style="display:none"></h2>
@@ -574,10 +582,10 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/jquery.scrollTo.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>
+    <script src="js/jquery.validate.unobtrusive.min.js"></script>
     <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LdX2skZAAAAAJppEB7uc_KDWeyLEnjx_sa2lAxy"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10" defer></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript" src="js/slick.min.js"></script>
 
     <script src="js/ace-responsive-menu.js"></script>
     <script src="js/nav.js"></script>
