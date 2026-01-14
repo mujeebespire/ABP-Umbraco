@@ -43998,7 +43998,7 @@ h3 {
 }
 
 .richtext p {
-    font-size: 1.4em;
+    font-size: 17px;
     line-height: 1.55em;
 }
 
@@ -44007,6 +44007,40 @@ h3 {
     padding: 0 15px 0 20px;
     font-size: 17px;
 }
+
+.richtext ul li p,
+.richtext ol li p{
+   margin: 0;
+}
+
+.richtext table p .toc_title {
+    padding-top: 20px;
+    display: block;
+}
+
+.richtext table{
+  margin-bottom: 30px;
+}
+
+.richtext table ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.richtext table ul li {
+    line-height: 75%;
+    margin-bottom: 10px;
+}
+
+
+.richtext table ul p {
+    line-height: 75%;
+    font-size: 16.8px;
+}
+
+
+
+
 
 .richtext blockquote {
     font-size: 1.6em;
