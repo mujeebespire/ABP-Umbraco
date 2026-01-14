@@ -43412,9 +43412,23 @@ header.header3 {
     font-size: 20px;
 }
 
-.experience-section .col-md-8 .contact-us__content h3 {
+/* .experience-section .fullrichtext h3 {
     font-size: 26px;
     font-weight: 400;
+} */
+
+.newsletter-checkbox{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.newsletter-checkbox label{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.grecaptcha-badge {
+    visibility: hidden !important;
 }
 
 .cb-contact-block {
