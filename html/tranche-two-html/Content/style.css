@@ -44385,9 +44385,9 @@ input.file-caption-name {
     margin-bottom: 1rem;
 }
 
-.richtext a {
+/* .richtext a {
     text-decoration: underline;
-}
+} */
 
 .richtext a.btn-default {
     text-decoration: none;

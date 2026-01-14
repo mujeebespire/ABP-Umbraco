@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const contactForm = function(){
+  if(document.getElementById("boatForm") != undefined){
+
+ 
   document.getElementById("boatForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -18,6 +21,8 @@ const contactForm = function(){
       ($(".header").height() + 20),
     behavior: "smooth",
   });
+
+   
 
   function showError(input, message) {
     const error = input.previousElementSibling.querySelector(".error");
@@ -75,6 +80,9 @@ const contactForm = function(){
     this.reset();
   }
 });
+
+  }
+
 }
 
 

@@ -8700,6 +8700,9 @@
               $(".js-download-popup-new").each(function(){
                 if($(this).attr('data-popup-id') == n.attr('data-button-id')){
                     $(this).addClass("download-form__popup--show");
+
+                
+
                 } 
               });
             
@@ -8732,6 +8735,7 @@
         };
       t.default = f;
     },
+
     function (n, t) {
       "use strict";
       Object.defineProperty(t, "__esModule", {
@@ -9176,10 +9180,14 @@
         $person: $(".people__widget"),
         $otherPeople: $(".people__item"),
         $peopleList: $(".people__list"),
+        $horizontalTab: document.querySelectorAll('.js-tabs-horizontal > .tab'),
+        $horizontalTabContents: document.querySelectorAll('.tab-content'),
+        $contentContainer : document.querySelector('.content-container'),
         init: function () {
           this.peopleExpand();
           this.personPopupAutoOpen();
           this.checkPeopleItemPosition();
+          this.horizontalTabs();
         },
         peopleExpand: function () {
           this.$person.on("click", function () {
@@ -9245,6 +9253,50 @@
               });
           });
         },
+         horizontalTabs: function(){
+          let thisTabs = this.$horizontalTab;
+          let thishorizontalTabContents = this.$horizontalTabContents;
+          let thisContentContainer = this.$contentContainer;
+
+          function setContainerHeight() {
+            const activeContent = document.querySelector('.tab-content.active');
+            if (activeContent) {
+                const height = activeContent.scrollHeight;
+                thisContentContainer.style.height = height + 'px';
+            }
+                console.log('tabs', activeContent);
+        }
+
+         setContainerHeight();
+      
+          $(window).on("resize", function () {
+            setContainerHeight();
+          });
+
+          
+           thisTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+                const newActive = document.querySelector(`.tab-content[data-content="${targetTab}"]`);
+                
+                thisTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                thishorizontalTabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                newActive.classList.add('active');
+
+                // Update container height after switching tabs
+                setTimeout(() => {
+                    setContainerHeight();
+                }, 10);
+
+            });
+        });
+
+        },
       };
       t.default = i;
     },
@@ -9256,8 +9308,10 @@
       var i = {
         $bgSwitch: $(".js-grid-bg-img"),
         $images: $("img[data-desktop][data-tablet][data-mobile]"),
+       
         init: function () {
           this.resizeImages();
+         
         },
         resizeImages: function () {
           this.$bgSwitch.length &&
@@ -9279,6 +9333,7 @@
                 : n.css("background-image", "url(" + t + ")");
             });
         },
+        
       };
       t.default = i;
     },
@@ -10605,6 +10660,7 @@
                       .find(".accordion__button-circle")
                       .removeClass("accordion__button-circle--opened"),
                     u.css("color", "#1a191b"),
+                    u.removeClass('ac-color-blue'),
                     u
                       .next(n)
                       .stop()
@@ -10621,7 +10677,9 @@
                       .find(".accordion__button-circle--opened")
                       .removeClass("accordion__button-circle--opened"),
                     u.css("color", "#2a61ff"),
+                    u.addClass('ac-color-blue'),
                     u.parent().siblings().find(r).css("color", "#1a191b"),
+                    u.parent().siblings().find(r).removeClass('ac-color-blue'),
                     u
                       .parent()
                       .siblings()
