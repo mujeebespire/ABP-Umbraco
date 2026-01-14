@@ -32833,7 +32833,7 @@ span.pIcon {
     max-width: 100%;
     position: relative;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-position: center;
     object-fit: cover;
 
@@ -42806,7 +42806,8 @@ banner-textpanel {
     text-align: center;
 }
 
-.casestudy--item h4 {
+.casestudy--item h4,
+.casestudy--item .h4 {
     margin-top: 16px;
     font-size: 20px;
     line-height: 30px;
@@ -44237,7 +44238,7 @@ a.breadcrumb-tab:hover {
 
 #portfolio4 .content {
     position: relative;
-    max-height: 140px;
+    height: 140px;
     overflow: hidden;
 }
 
