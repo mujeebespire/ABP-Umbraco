@@ -12218,6 +12218,20 @@ input[type=file].file-loading,
 #contact-person-modal #send-message-button {
     border: 0 !important;
     width: 175px;
+    /* background: #FA8A18; */
+    border-radius: 4px;
+    padding: 12px 24px;
+    background: #FA8A18;
+    color: white;
+    font-weight: 600;
+    line-height: 1.1;
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 14px;
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
 }
 
 #contact-person-modal #send-message-button:hover {
@@ -12237,6 +12251,7 @@ input[type=file].file-loading,
 #contact-person-modal .modal__header {
     display: flex;
     padding: 8px 0 48px 0;
+    background: none;
 }
 
 @media(max-width:767px) {
@@ -38460,7 +38475,7 @@ figure.effect-chico:hover p {
 }
 
 .contact-side-widget__content__img {
-        /* width: 100%; */
+    /* width: 100%; */
     /* max-width: 5rem; */
     justify-content: center;
     display: flex;
@@ -38475,7 +38490,7 @@ figure.effect-chico:hover p {
 }
 
 .contact-side-widget__content__info {
-    width: 100%;    
+    width: 100%;
 }
 
 .contact-side-widget__content__info header {
@@ -38510,7 +38525,7 @@ figure.effect-chico:hover p {
     color: #FA8A18;
 }
 
-.contact-side-widget__content__info--tel a:hover { 
+.contact-side-widget__content__info--tel a:hover {
     color: #666;
     text-decoration: none;
 }
@@ -42666,10 +42681,16 @@ label {
     display: none;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: inline-block;
-    width: auto;
-    white-space: nowrap;
+
+@media only screen and (min-width: 1200px) {
+
+    .dropdown:hover .dropdown-menu {
+        display: inline-block;
+        width: auto;
+        white-space: nowrap;
+    }
+
+
 }
 
 .dropdown-item {
@@ -43006,6 +43027,19 @@ banner-textpanel {
 .experience-item-copy {
     padding: 0 16px 0 0;
     margin-top: -14px;
+}
+
+.experience-banner-desktop{
+    display: block;
+}
+
+.experience-banner-mobile{
+    display: none;
+}
+
+@media (max-width: 991px) {
+    .experience-banner-desktop{ display:none; }
+    .experience-banner-mobile{ display: block;}
 }
 
 .filter-style {
@@ -43417,12 +43451,12 @@ header.header3 {
     font-weight: 400;
 } */
 
-.newsletter-checkbox{
+.newsletter-checkbox {
     display: flex;
     margin-bottom: 20px;
 }
 
-.newsletter-checkbox label{
+.newsletter-checkbox label {
     display: inline-block;
     margin-right: 10px;
 }
@@ -44034,8 +44068,8 @@ h3 {
 }
 
 .richtext ul li p,
-.richtext ol li p{
-   margin: 0;
+.richtext ol li p {
+    margin: 0;
 }
 
 .richtext table .toc_title {
@@ -44043,8 +44077,8 @@ h3 {
     display: block;
 }
 
-.richtext table{
-  margin-bottom: 30px;
+.richtext table {
+    margin-bottom: 30px;
 }
 
 .richtext table ul {
@@ -44063,9 +44097,9 @@ h3 {
     font-size: 16.8px;
 }
 
-
-
-
+.richtext img {
+    height: auto;
+}
 
 .richtext blockquote {
     font-size: 1.6em;
