@@ -35590,6 +35590,17 @@ figure.effect-chico:hover p {
     margin-top: 10px;
 }
 
+#accordion2 .panel-body .richtext ul li p {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+
+ul.ui-sitemap-url-list{
+    margin-left: 0;
+    padding-left: 0;
+}
+
 
 /********* 1.23 TAB BLOCKS STYLES *****/
 
@@ -44442,6 +44453,12 @@ input.file-caption-name {
 
 .aboutpanels li {
     margin-bottom: 1rem;
+}
+
+.aboutpanels li p{
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 /* .richtext a {
