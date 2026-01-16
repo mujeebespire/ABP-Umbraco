@@ -35601,7 +35601,7 @@ figure.effect-chico:hover p {
     line-height: 1.5;
 }
 
-ul.ui-sitemap-url-list{
+.richtext ul.ui-sitemap-url-list{
     margin-left: 0;
     padding-left: 0;
 }
@@ -43466,6 +43466,11 @@ header.header3 {
     font-size: 26px;
     font-weight: 400;
 } */
+
+.experience-section .col-md-4 > .richtext:first-child p {
+    margin: 0;
+    padding: 0;
+}
 
 .newsletter-checkbox {
     display: flex;
