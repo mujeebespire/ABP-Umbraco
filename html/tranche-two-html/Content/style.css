@@ -45390,3 +45390,37 @@ p {}
     background: #f57c00;
     margin: 20px 0;
 }
+
+
+/* ===== VALIDATION STATES ===== */
+
+.custom-popup .form-group.error input,
+.custom-popup .form-group.error input:focus {
+    border-color: #d9534f;
+}
+ 
+.custom-popup .form-group.error label {
+    color: #d9534f;
+}
+ 
+.custom-popup .checkbox.error {
+    color: #d9534f;
+}
+ 
+.custom-popup .checkbox.error input[type="checkbox"] {
+    outline: 2px solid #d9534f;
+}
+
+.custom-popup .validation-message {
+    color: #d9534f;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+}
+ 
+.custom-popup .form-group.error .validation-message,
+.custom-popup .checkbox.error .validation-message {
+    display: block;
+}
+
+/* END VALIDATION STATES */
