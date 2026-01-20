@@ -35604,6 +35604,8 @@ ul.ui-sitemap-url-list{
 }
 
 
+
+
 /********* 1.23 TAB BLOCKS STYLES *****/
 
 
@@ -43514,6 +43516,11 @@ header.header3 {
     padding: 20px 0;
 }
 
+.tab-content ol li p{
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
 #portfolio4 {
     padding: 0 0 16px;
 }
@@ -45366,17 +45373,17 @@ p {}
     font-weight: normal;
 }
 
-    .custom-popup .checkbox input[type="checkbox"] {
-        margin-top: 4px;
-        flex-shrink: 0;
-    }
+.custom-popup .checkbox input[type="checkbox"] {
+    margin-top: 4px;
+    flex-shrink: 0;
+}
 
-    .custom-popup .checkbox label,
-    .custom-popup .checkbox span {
-        margin: 0;
-        line-height: 1.5;
-        cursor: pointer;
-    }
+.custom-popup .checkbox label,
+.custom-popup .checkbox span {
+    margin: 0;
+    line-height: 1.5;
+    cursor: pointer;
+}
 
 .custom-popup .orange-divider {
     height: 22px;
