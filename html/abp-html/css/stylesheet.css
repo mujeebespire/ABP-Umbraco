@@ -9013,6 +9013,7 @@ input[type="email"]::-ms-clear {
     position: absolute;
     top: 0;
     left: 61px;
+    padding-top: 20px;
 }
 
 .banner-slider.static .slick-slide img {
@@ -9071,6 +9072,7 @@ input[type="email"]::-ms-clear {
     padding: 10px 20px;
     font-size: 60px;
     line-height: normal;
+    text-transform: uppercase;
 }
 
 .banner-slider.static .slider__element .hero__title::after{
