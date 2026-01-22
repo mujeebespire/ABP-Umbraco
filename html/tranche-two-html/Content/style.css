@@ -38016,7 +38016,6 @@ ul.ui-sitemap-url-list{
 
 
 /* footer1 */
-
 #footer1 {
     padding-top: 80px;
     width: 100%;
@@ -38049,7 +38048,7 @@ ul.ui-sitemap-url-list{
 
 #footer1 a:hover {
     color: #f5f5f5;
-    margin-left: 5px;
+    margin-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -45386,7 +45385,7 @@ p {}
 }
 
 .custom-popup .orange-divider {
-    height: 22px;
+    min-height: 22px;
     background: #f57c00;
     margin: 20px 0;
 }
