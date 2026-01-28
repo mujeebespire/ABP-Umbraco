@@ -1,14 +1,22 @@
 !(function (n, t) {
   "use strict";
-  "object" == typeof module && "object" == typeof module.exports
-    ? (module.exports = n.document
-        ? t(n, !0)
-        : function (n) {
-            if (!n.document)
-              throw new Error("jQuery requires a window with a document");
-            return t(n);
-          })
-    : t(n);
+
+  // Option B: jQuery must be loaded externally (>= 3.7.1) before this file.
+  if (n && n.jQuery) {
+    var v = (n.jQuery.fn && n.jQuery.fn.jquery) || "";
+    var p = v.split(".");
+    var maj = parseInt(p[0] || "0", 10) || 0;
+    var min = parseInt(p[1] || "0", 10) || 0;
+    var pat = parseInt(p[2] || "0", 10) || 0;
+    if (maj < 3 || (maj === 3 && (min < 7 || (min === 7 && pat < 1)))) {
+      throw new Error("common.js requires jQuery 3.7.1+ (found " + v + ")");
+    }
+    return;
+  }
+  throw new Error(
+    "common.js requires jQuery 3.7.1+ to be loaded before it (e.g., via <script src=\"jquery-3.7.1.min.js\"></script>)."
+  );
+
 })("undefined" != typeof window ? window : this, function (n, t) {
   "use strict";
   function hr(n, t, i) {
