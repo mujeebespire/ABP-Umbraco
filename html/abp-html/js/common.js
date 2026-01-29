@@ -8704,7 +8704,7 @@
           newDownloadButtonClick: function () {
             $(".js-download-btn-new").on("click", function () {
               let n = $(this);
-              console.log("nnn", n.attr('data-button-id'));
+              //console.log("nnn", n.attr('data-button-id'));
               $(".js-download-popup-new").each(function(){
                 if($(this).attr('data-popup-id') == n.attr('data-button-id')){
                     $(this).addClass("download-form__popup--show");
@@ -9272,7 +9272,7 @@
                 const height = activeContent.scrollHeight;
                 thisContentContainer.style.height = height + 'px';
             }
-                console.log('tabs', activeContent);
+                //console.log('tabs', activeContent);
         }
 
          setContainerHeight();
