@@ -38055,6 +38055,12 @@ ul.ui-sitemap-url-list{
     transition: all 0.5s ease;
 }
 
+#footer1 .fa-phone + a:hover,
+#footer1 .fa-envelope-o + a:hover {
+    margin-left: 5px;
+}
+
+
 #footer-rights1 {
     padding: 25px 10px;
     background: #393939;
