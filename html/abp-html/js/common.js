@@ -9694,7 +9694,10 @@
         },
         initValidation: function () {
           // Reinitialize jQuery validation
-          if ($.validator && $.validator.unobtrusive) {
+          // if ($.validator && $.validator.unobtrusive) {
+          //   $.validator.unobtrusive.parse(this.$newsletterForm);
+          // }
+          if ($.validator && $.validator.unobtrusive && this.$newsletterForm.length) {
             $.validator.unobtrusive.parse(this.$newsletterForm);
           }
         },
