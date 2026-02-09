@@ -2904,6 +2904,7 @@ main > .second-level:first-child {
 
 .second-level__row__title__sub {
     margin-bottom: 1rem;
+    padding-bottom: 1rem;
     font-size: 1.4rem;
     line-height: 1.6rem;
     color: #0f3e58;
@@ -3896,7 +3897,7 @@ main > .second-level:first-child {
 }
 
 section.line-component + .second-level .two-colum-box {
-    padding-top: 24px;
+    padding-top: 32px;
 }
 
 @media(min-width:768px) {
