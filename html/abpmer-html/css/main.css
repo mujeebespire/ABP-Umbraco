@@ -3634,6 +3634,7 @@ main > .second-level:first-child {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 99;
 }
 
 .modal__container {
