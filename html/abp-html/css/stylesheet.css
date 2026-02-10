@@ -6300,11 +6300,11 @@ input[type="email"]::-ms-clear {
     }
 
     .header .logo__img {
-        width: 208px;
+        max-width: 208px;
     }
 
     .header .logo__img-hover {
-        width: 218px;
+        max-width: 218px;
     }
 }
 
@@ -7244,13 +7244,14 @@ input[type="email"]::-ms-clear {
 }
 
 .logo__img {
-    width: 260px;
+    max-width: 260px;
+    width: 100%;
     height: auto;
 }
 
 .logo__img-hover {
     display: none;
-    width: 273px;
+    max-width: 273px;
 }
 
 .header--sticky {
