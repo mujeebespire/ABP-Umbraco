@@ -7796,6 +7796,8 @@ button.close {
     line-height: 1;
 }
 
+
+
 @media all and (transform-3d),
 (-webkit-transform-3d) {
     .carousel-inner>.item {
@@ -42253,16 +42255,17 @@ Footer
 /* Increase max container width for screens > 1200px*/
 
 @media (min-width: 1200px) {
+
     .container {
         min-width: 1146px;
         width: 70%;
         max-width: 1694px;
     }
 
-    .nav-container .container,
-    .searchbar .container {
-        width: 1175px;
+    .nav-container .container, .searchbar .container {
+        min-width: 1175px;
     }
+    
 }
 
 /* ======================================================================*/
@@ -44394,6 +44397,7 @@ input.file-caption-name {
     min-height: 420px;
     object-fit: cover;
     object-position: center;
+    width: 100%;
 }
 
 .file-caption.form-control.kv-fileinput-caption {
@@ -44941,16 +44945,15 @@ textarea.form-control {
 }
 
 @media (max-width:665px) {
+    .logo--box{
+        padding: 0 15px;
+    }
     .logoimage {
-        height: 22px;
+        min-height: 22px;
         margin-right: 8px;
         float: left;
         max-width: 270px;
-    }
-}
-
-@media (max-width:665px) {
-    .logoimage {
+        width: 100%;
         margin-left: 6px;
     }
 }
