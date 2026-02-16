@@ -66,7 +66,8 @@ body.ipswich-theme .accordion__button:hover,
 body.ipswich-theme .footer__btn:hover,
 body.ipswich-theme .scroll-to-top:hover::before,
 body.ipswich-theme .rte p a:hover,
-body.ipswich-theme .header__social-link:hover {
+body.ipswich-theme .header__social-link:hover,
+body.ipswich-theme .form-container h2 {
     color: var(--primary-ipswich-color);
 }
 
@@ -178,7 +179,8 @@ body.lowestoft-theme .accordion__button:hover,
 body.lowestoft-theme .footer__btn:hover,
 body.lowestoft-theme .scroll-to-top:hover::before,
 body.lowestoft-theme .rte p a:hover,
-body.lowestoft-theme .header__social-link:hover {
+body.lowestoft-theme .header__social-link:hover,
+body.lowestoft-theme .form-container h2  {
     color: var(--primary-lowestoft-color);
 }
 
@@ -299,7 +301,8 @@ body.fleetwood-theme .accordion__button:hover,
 body.fleetwood-theme .footer__btn:hover,
 body.fleetwood-theme .scroll-to-top:hover::before,
 body.fleetwood-theme .rte p a:hover,
-body.fleetwood-theme .header__social-link:hover {
+body.fleetwood-theme .header__social-link:hover,
+body.fleetwood-theme .form-container h2 {
     color: var(--primary-fleetwood-color);
 }
 
@@ -776,6 +779,19 @@ body.ipswich-theme .horizontal-tabs-container .tab {
 
 .form-container {
     margin: 30px auto;
+}
+
+.form-container h2{
+    margin-top: 60px;
+    margin-bottom: 40px;
+    margin-left: 0;
+    border-bottom: 2px solid;
+    margin-right: 0;
+    width: 100%;
+    display: block;
+    max-width: 1600px;
+    padding-bottom: 10px;
+    font-weight: bold;
 }
 
 .form-container input::placeholder,
