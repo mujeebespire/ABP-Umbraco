@@ -716,6 +716,15 @@ body.ipswich-theme .horizontal-tabs-container .tab {
         padding: 30px;
     }
 
+    .notice-wrapper {
+        flex-direction: column;
+        padding: 24px;
+    }
+
+    .notice-image {
+        justify-content: center;
+    }
+
 }
 
 
