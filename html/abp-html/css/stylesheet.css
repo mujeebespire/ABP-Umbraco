@@ -3166,7 +3166,7 @@ td {
 .font-ico-hamburger:before,
 .font-ico-hardHat:before,
 .font-ico-hydrogenEnergy:before,
-.font-ico-instagram2:before,
+.font-ico-instagram:before,
 .font-ico-lift:before,
 .font-ico-linkedin:before,
 .font-ico-linkedin2:before,
@@ -3404,7 +3404,7 @@ td {
     content: "";
 }
 
-.font-ico-instagram2:before {
+.font-ico-instagram:before {
     content: "";
 }
 
@@ -10248,6 +10248,17 @@ input[type="email"]::-ms-clear {
     font-size: 100px;
     line-height: 117px;
     margin-bottom: 46px;
+}
+
+.hero__content .hero__text {
+    font-size: 24px;
+    line-height: normal;
+    margin-bottom: 61px;
+    color: white;
+    max-width: 1000px;
+    width: 100%;
+    font-weight: 400;
+    margin-left: 0;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {
