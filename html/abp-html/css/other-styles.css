@@ -101,6 +101,7 @@ body.ipswich-theme .ac-color-blue {
     color: var(--primary-ipswich-color) !important;
 }
 
+body.ipswich-theme .rte table th,
 body.ipswich-theme .rte table td {
     border: 1px solid var(--secondary-ipswich-color);
 }
@@ -214,6 +215,7 @@ body.lowestoft-theme .ac-color-blue {
     color: var(--primary-lowestoft-color) !important;
 }
 
+body.lowestoft-theme .rte table th,
 body.lowestoft-theme .rte table td {
     border: 1px solid var(--secondary-lowestoft-color);
 }
@@ -336,6 +338,7 @@ body.fleetwood-theme .ac-color-blue {
     color: var(--primary-fleetwood-color) !important;
 }
 
+body.fleetwood-theme .rte table th,
 body.fleetwood-theme .rte table td {
     border: 1px solid var(--secondary-fleetwood-color);
 }
