@@ -1,0 +1,406 @@
+.email-management .icon-email {
+    width: 32px;
+    height: 32px;
+}
+
+/* Tabs Styling */
+.email-management .tabs {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 30px;
+}
+
+.email-management .tab-button {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: #5a5a5a;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    background-color: transparent;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+}
+
+.email-management .tab-button:hover {
+    color: #1a1a1a;
+    background-color: #f8f9fa;
+}
+
+.email-management .tab-button.active {
+    color: white;
+    background-color: #183371;
+    font-weight: 500;
+    border-radius:10px 10px 0 0;
+}
+
+.email-management .tab-content {
+    display: none;
+    animation: fadeIn 0.3s;
+}
+
+.email-management .tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Button Group Styling */
+.email-management .btn-group {
+    display: inline-flex;
+    margin-bottom: 30px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.email-management .btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: white;
+    color: #5a5a5a;
+    border-right: 1px solid #dee2e6;
+      border-radius: 50px;
+}
+
+.email-management .btn:last-child {
+    border-right: none;
+}
+
+.email-management .btn:hover {
+    background-color: #f8f9fa;
+}
+
+.email-management .btn.active {
+    background-color: #2a61ff;
+    color: white;
+}
+
+.email-management .btn-primary {
+    background-color: #2a61ff;
+    color: white;
+    border: 1px solid #2a61ff;
+      margin-right: 10px;
+    padding: 10px 20px;
+}
+
+.email-management .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.email-management .btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    
+    padding: 10px 20px;
+}
+
+.email-management .btn-success:hover {
+    background-color: #218838;
+}
+
+.email-management .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+   
+    padding: 10px 20px;
+    margin-right: 10px;
+}
+
+.email-management .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.email-management .btn-sm {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.email-management .btn-warning {
+    background-color: #ffc107;
+    color: #212529;
+    border: none;
+}
+
+.email-management .btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.email-management .btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.email-management .btn-danger:hover {
+    background-color: #c82333;
+}
+
+.email-management .btn-info {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    margin-right: 10px;
+
+}
+
+.email-management .btn-info:hover {
+    background-color: #138496;
+}
+
+/* Table Styling */
+.email-management .table-responsive {
+    overflow-x: auto;
+}
+
+.email-management table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.email-management th,
+.email-management td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.email-management thead {
+    background-color: #2c3034;
+    color: white;
+}
+
+.email-management thead th {
+    font-weight: 500;
+    border-bottom: none;
+}
+
+.email-management tbody tr {
+    background-color: white;
+}
+
+.email-management tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.email-management tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Form Styling */
+.email-management .form-group {
+    margin-bottom: 20px;
+}
+
+.email-management label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.email-management input[type="text"],
+.email-management input[type="email"],
+.email-management textarea,
+.email-management select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.email-management input[type="text"]:focus,
+.email-management input[type="email"]:focus,
+.email-management textarea:focus,
+.email-management select:focus {
+    outline: none;
+    border-color: #2a61ff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+}
+
+.email-management textarea {
+    resize: vertical;
+    min-height: 200px;
+}
+
+/* Rich Text Editor Toolbar */
+.email-management .editor-toolbar {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-bottom: none;
+    padding: 10px;
+    border-radius: 4px 4px 0 0;
+}
+
+.email-management .editor-toolbar button {
+    padding: 6px 12px;
+    margin-right: 5px;
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.email-management .editor-toolbar button:hover {
+    background-color: #e9ecef;
+}
+
+.email-management .editor-content {
+    border: 1px solid #ced4da;
+    border-radius: 0 0 4px 4px;
+    padding: 12px;
+    min-height: 300px;
+    background-color: white;
+}
+
+.email-management .editor-content:focus {
+    outline: none;
+    border-color: #2a61ff;
+}
+
+/* Modal Styling */
+.email-management .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: fadeIn 0.3s;
+}
+
+.email-management .modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.email-management .modal-dialog {
+    background-color: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.email-management .modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.email-management .modal-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.email-management .modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #6c757d;
+    line-height: 1;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.email-management .modal-close:hover {
+    color: #000;
+}
+
+.email-management .modal-body {
+    padding: 20px;
+}
+
+.email-management .modal-footer {
+    padding: 20px;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Checkbox Styling */
+.email-management .checkbox-group {
+    margin-bottom: 10px;
+}
+
+.email-management .checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.email-management .checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+/* SVG Icons */
+.email-management .icon-svg {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+}
+
+/* Utility Classes */
+.email-management .mt-4 {
+    margin-top: 1.5rem;
+}
+
+.email-management .mb-3 {
+    margin-bottom: 1rem;
+}
+
+.email-management .mb-4 {
+    margin-bottom: 1.5rem;
+}
