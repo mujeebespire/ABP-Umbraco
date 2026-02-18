@@ -43,6 +43,7 @@ body.default-theme .rte table td {
     border: 1px solid #e1e4e7;
 }
 
+
 /* theme ipswich color */
 body.ipswich-theme header.header.header--sticky,
 body.ipswich-theme header.header .header__bottom,
@@ -427,6 +428,15 @@ body.fleetwood-theme .rte table ul {
     body.fleetwood-theme .nav__item {
         background-color: var(--primary-fleetwood-color);
     }
+
+    body.default-theme .nav__submenu-img-beacon,
+    body.ipswich-theme .nav__submenu-img-beacon,
+    body.lowestoft-theme .nav__submenu-img-beacon,
+    body.fleetwood-theme .nav__submenu-img-beacon{
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
 
 }
 
