@@ -16,25 +16,31 @@
     --secondary-fleetwood-color: #f5e6cd;
 }
 
-.beaconmarinas-header.header--sticky,
-.beaconmarinas-header .header__bottom {
+.default-theme .header.header--sticky,
+.default-theme .header .header__bottom {
     background-color: white;
 }
 
-footer.beaconmarinas-footer .footer__container--top {
+.default-theme footer.footer .footer__container--top,
+.ipswich-theme footer.footer .footer__container--top,
+.lowestoft-theme footer.footer .footer__container--top,
+.fleetwood-theme footer.footer .footer__container--top {
     padding-top: 60px;
     padding-bottom: 60px;
 }
 
-footer.beaconmarinas-footer .footer__container--bottom {
+.default-theme footer.footer .footer__container--bottom,
+.ipswich-theme footer.footer .footer__container--bottom,
+.lowestoft-theme footer.footer .footer__container--bottom,
+.fleetwood-theme footer.footer .footer__container--bottom {
     padding-top: 30px;
     padding-bottom: 30px;
 }
 
 
 /* theme ipswich color */
-body.ipswich-theme .beaconmarinas-header.header--sticky,
-body.ipswich-theme .beaconmarinas-header .header__bottom,
+body.ipswich-theme header.header.header--sticky,
+body.ipswich-theme header.header .header__bottom,
 body.ipswich-theme .horizontal-tabs-container .tab.active,
 body.ipswich-theme .horizontal-tabs-container .tab:hover.active,
 body.ipswich-theme .form-container .radio-option input[type="radio"]:checked::after,
@@ -147,8 +153,8 @@ body.ipswich-theme .rte table ul {
 
 
 /* start theme lowestoft color  */
-body.lowestoft-theme .beaconmarinas-header.header--sticky,
-body.lowestoft-theme .beaconmarinas-header .header__bottom,
+body.lowestoft-theme header.header.header--sticky,
+body.lowestoft-theme header.header .header__bottom,
 body.lowestoft-theme .horizontal-tabs-container .tab.active,
 body.lowestoft-theme .horizontal-tabs-container .tab:hover.active,
 body.lowestoft-theme .form-container .radio-option input[type="radio"]:checked::after,
@@ -270,8 +276,8 @@ body.beaconmarinas-theme .hero__content p {
 
 /* theme fleetwood color start */
 
-body.fleetwood-theme .beaconmarinas-header.header--sticky,
-body.fleetwood-theme .beaconmarinas-header .header__bottom,
+body.fleetwood-theme header.header.header--sticky,
+body.fleetwood-theme header.header .header__bottom,
 body.fleetwood-theme .horizontal-tabs-container .tab.active,
 body.fleetwood-theme .horizontal-tabs-container .tab:hover.active,
 body.fleetwood-theme .form-container .radio-option input[type="radio"]:checked::after,
@@ -385,7 +391,10 @@ body.fleetwood-theme .rte table ul {
 
 @media only screen and (min-width: 992px) and (max-width: 1500px) {
 
-    .beaconmarinas-header.header .logo__img {
+    .default-theme header.header .logo__img,
+    .ipswich-theme header.header .logo__img,
+    .lowestoft-theme header.header .logo__img,
+    .fleetwood-theme header.header .logo__img {
         height: 48px;
         width: auto;
     }
@@ -393,7 +402,11 @@ body.fleetwood-theme .rte table ul {
 }
 
 @media only screen and (max-width: 991px) {
-    .beaconmarinas-header.header .logo__img {
+
+    .default-theme header.header .logo__img,
+    .ipswich-theme header.header .logo__img,
+    .lowestoft-theme header.header .logo__img,
+    .fleetwood-theme header.header .logo__img  {
         height: 28px;
         width: auto;
     }
