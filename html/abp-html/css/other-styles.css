@@ -433,8 +433,12 @@ body.fleetwood-theme .rte table ul {
     body.ipswich-theme .nav__submenu-img-beacon,
     body.lowestoft-theme .nav__submenu-img-beacon,
     body.fleetwood-theme .nav__submenu-img-beacon{
-        margin-bottom: 20px;
+       margin-bottom: 20px;
         margin-top: 20px;
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 480px;
     }
 
 
