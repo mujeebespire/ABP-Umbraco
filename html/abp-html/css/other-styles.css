@@ -435,9 +435,9 @@ body.fleetwood-theme .rte table ul {
     body.fleetwood-theme .nav__submenu-img-beacon{
        margin-bottom: 20px;
         margin-top: 20px;
-        width: 100%;
-        margin-right: auto;
-        margin-left: auto;
+        width: 80%;
+        margin-right: 10%;
+        margin-left: 10%;
         max-width: 480px;
     }
 
