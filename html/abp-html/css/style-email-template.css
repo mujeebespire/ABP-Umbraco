@@ -9,7 +9,14 @@
     gap: 0;
     list-style: none;
     border-bottom: 1px solid #e0e0e0;
-    margin-bottom: 30px;
+    margin-bottom: 0;
+}
+
+.email-management .tab-contents {
+    border: 1px solid #e0e0e0;
+    border-top: 0;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
 .email-management .tab-button {
@@ -38,7 +45,7 @@
     color: white;
     background-color: #183371;
     font-weight: 500;
-    border-radius:10px 10px 0 0;
+    /* border-radius: 10px 10px 0 0; */
 }
 
 .email-management .tab-content {
@@ -81,7 +88,7 @@
     background-color: white;
     color: #5a5a5a;
     border-right: 1px solid #dee2e6;
-      border-radius: 50px;
+    border-radius: 50px;
 }
 
 .email-management .btn:last-child {
@@ -101,7 +108,7 @@
     background-color: #2a61ff;
     color: white;
     border: 1px solid #2a61ff;
-      margin-right: 10px;
+    margin-right: 10px;
     padding: 10px 20px;
 }
 
@@ -113,7 +120,7 @@
     background-color: #28a745;
     color: white;
     border: none;
-    
+
     padding: 10px 20px;
 }
 
@@ -125,7 +132,7 @@
     background-color: #6c757d;
     color: white;
     border: none;
-   
+
     padding: 10px 20px;
     margin-right: 10px;
 }
@@ -181,6 +188,7 @@
 .email-management table {
     width: 100%;
     border-collapse: collapse;
+    margin: 0;
 }
 
 .email-management th,
