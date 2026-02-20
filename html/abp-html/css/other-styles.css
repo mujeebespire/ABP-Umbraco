@@ -1704,7 +1704,9 @@ body.ipswich-theme .horizontal-tabs-container .tab {
     padding: 80px 0;
 }
 
-
+.partner-section .partner-grid .col-md-4{
+    margin-bottom: 30px;
+}
 
 .partner-section .partner-card {
     background: #ffffff;
