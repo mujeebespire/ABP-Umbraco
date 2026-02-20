@@ -1574,8 +1574,8 @@ body.ipswich-theme .horizontal-tabs-container .tab {
 .timeline-section .timeline-line {
     position: absolute;
     top: 50%;
-    left: 40px;
-    right: 40px;
+    left: 0;
+    right: 0;
     height: 2px;
     background: repeating-linear-gradient(to right,
             #cfcfcf 0,
