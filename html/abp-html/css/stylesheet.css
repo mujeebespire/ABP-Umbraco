@@ -7274,7 +7274,9 @@ img.logo__img {
     max-width: 260px;
     height: auto;
     max-height: 48px;
+    width:100%;
 }
+
 .logo__img-hover {
     display: none;
     max-width: 273px;
