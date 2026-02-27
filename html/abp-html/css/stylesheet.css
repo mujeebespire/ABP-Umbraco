@@ -7725,6 +7725,9 @@ img.logo__img {
         content: "/";
         margin-right: 7px;
         color: #546e7a;
+        position: absolute;
+        left: -15px;
+        top: 0;
     }
 }
 
@@ -7749,6 +7752,9 @@ img.logo__img {
     color: #fff;
     -webkit-transition: 0.2s;
     transition: 0.2s;
+    position: relative;
+    display: inline-block;
+    padding-right: 15px;
 }
 
 @media only screen and (min-width: 1025px) {
