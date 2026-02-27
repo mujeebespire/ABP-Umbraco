@@ -4147,6 +4147,26 @@ section.line-component + .second-level .two-colum-box {
     content: none;
 }
 
+/* new code */
+
+.content-raw .blog__row__content__tags--hr + p{
+    margin: 0;
+}
+
+.content-raw .blog__row__content__tags--hr+p a,
+.content-raw .blog__row__content__tags--hr + p > .label-primary{
+    color: #64afc0;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+
+.content-raw .blog__row__content__tags--hr + p > a > .label-primary{
+    text-decoration: underline;
+}
+
+/* new code */
+
 .blog__row__content__tags--hr {
     width: 100%;
     border-top: 2px solid #f0f6fb;
