@@ -24,7 +24,9 @@
 .default-theme footer.footer .footer__container--top,
 .ipswich-theme footer.footer .footer__container--top,
 .lowestoft-theme footer.footer .footer__container--top,
-.fleetwood-theme footer.footer .footer__container--top {
+.fleetwood-theme footer.footer .footer__container--top,
+.watersidepartnership-site footer.footer .footer__container--top,
+.imminghamget-site footer.footer .footer__container--top {
     padding-top: 60px;
     padding-bottom: 60px;
 }
@@ -32,7 +34,9 @@
 .default-theme footer.footer .footer__container--bottom,
 .ipswich-theme footer.footer .footer__container--bottom,
 .lowestoft-theme footer.footer .footer__container--bottom,
-.fleetwood-theme footer.footer .footer__container--bottom {
+.fleetwood-theme footer.footer .footer__container--bottom,
+.watersidepartnership-site footer.footer .footer__container--bottom,
+.imminghamget-site footer.footer .footer__container--bottom {
     padding-top: 30px;
     padding-bottom: 30px;
 }
@@ -1762,6 +1766,7 @@ body.ipswich-theme .horizontal-tabs-container .tab {
 .partner-section .partner-card h2 {
     margin-bottom: 10px;
     font-weight: 100;
+    color: black;
 }
 
 .partner-section .partner-card p {
@@ -1817,6 +1822,18 @@ body.ipswich-theme .horizontal-tabs-container .tab {
 .imminghamget-contact .rte h1,
 .imminghamget-contact .rte p {
     max-width: none;
+}
+
+
+.imminghamget-site .rte h1,
+.imminghamget-site .rte h2,
+.imminghamget-site .rte h3,
+.imminghamget-site .rte h4,
+.imminghamget-site .rte h5,
+.imminghamget-site .rte h6,
+.imminghamget-site .rte p
+{
+ max-width: 1094px;
 }
 
 .c-form h3 {
