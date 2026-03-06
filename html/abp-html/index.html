@@ -9,13 +9,15 @@
     <meta name="description" content="ABP is the UK’s leading ports group." />
     <meta name="keywords" content="Home ABP AB Ports" />
 
-    <link href="css/stylesheet.css" rel="stylesheet"/>
+    <link href="css/stylesheet.css" rel="stylesheet" />
 
     <script defer text/javascript src='//code.jquery.com/jquery-3.7.1.min.js'></script>
     <script defer text/javascript src='js/common.js'></script>
-    <script defer text/javascript src='js/externaljs.js'></script>
+   
 
     <link href="/favicon.ico" rel="icon" />
+
+    <script src="https://player.vimeo.com/api/player.js"></script>
 
 </head>
 
@@ -346,7 +348,8 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item has-children" role="menuitem" aria-label="Marine Information and Assurance">
+                        <li class="nav__item has-children" role="menuitem"
+                            aria-label="Marine Information and Assurance">
                             <a href="javascript:;" class="nav__link js-nav-link">Marine Information and Assurance</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -483,7 +486,8 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav__item nav__item--grey has-children" role="menuitem" aria-label="Other Businesses">
+                        <li class="nav__item nav__item--grey has-children" role="menuitem"
+                            aria-label="Other Businesses">
                             <a href="javascript:;" class="nav__link nav__link--grey js-nav-link">Other Businesses</a>
                             <div class="nav__submenu js-submenu">
                                 <ul class="nav__container row">
@@ -523,7 +527,8 @@
                                 class="nav__link nav__link--grey icon font-ico-external">Careers</a>
                         </li>
                     </ul>
-                    <button type="button" class="nav__search icon font-ico-search js-search-open" aria-label="Open search"></button>
+                    <button type="button" class="nav__search icon font-ico-search js-search-open"
+                        aria-label="Open search"></button>
                 </nav>
             </div>
         </div>
@@ -536,14 +541,15 @@
                 <img src="images/logo.svg" alt="Associated British Ports" class="logo__img" />
                 <img src="images/logo-hover.svg" alt="Associated British Ports" class="logo__img-hover" />
             </a>
-            <button type="button" class="search-overlay__close icon font-ico-close js-search-close" aria-label="close button"></button>
+            <button type="button" class="search-overlay__close icon font-ico-close js-search-close"
+                aria-label="close button"></button>
         </div>
         <div class="search-overlay__form-wrapper js-search-wrapper"
             data-controller-url="/umbraco/Surface/SearchListing/WildCardSearch">
 
             <div class="search-overlay__form-container">
                 <form class="search-overlay__form" action="/search-page/" method="get" aria-labelledby="search-heading">
-                     
+
                     <input type="search" name="q" required placeholder="Search" autofocus
                         class="search-overlay__input js-search-wildcards">
                     <button type="submit" class="icon font-ico-search search-overlay__btn" aria-label="search"></button>
@@ -558,20 +564,43 @@
     <div class="hero has-cover has-video-popup"
         style="background-image: url('images/homepage-fallback-ab-ports-crop2.jpg');">
         <div class="hero__video">
-            <iframe class="hero__video-iframe"
-                src="https://player.vimeo.com/video/679061897?background=1&autoplay=1&loop=1&byline=0&title=0"
+
+            <iframe class="hero__video-iframe js-hero-video"
+                src="https://player.vimeo.com/video/811367339?background=1&autoplay=1&muted=1&loop=1&playsinline=1"
                 frameborder="0" allow="autoplay; fullscreen" allowfullscreen aria-label="ABP background video"></iframe>
+
+            <script >
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    var iframe = document.querySelector('.js-hero-video');
+
+                    if (iframe) {
+
+                        var player = new Vimeo.Player(iframe);
+
+                        player.setMuted(true);
+
+                        player.play().catch(function (error) {
+                            console.log("Autoplay blocked:", error);
+                        });
+
+                    }
+
+                });
+            </script>
+
         </div>
         <div class="wrap">
             <div class="hero__content">
                 <h1 class="hero__title">ABP: the UK’s leading ports group</h1>
                 <div class="hero__search">
                     <form method="get" action="/search-page/"
-                        data-controller-url="/umbraco/Surface/SearchListing/WildCardSearch" aria-labelledby="search-heading">
+                        data-controller-url="/umbraco/Surface/SearchListing/WildCardSearch"
+                        aria-labelledby="search-heading">
                         <h2 id="search-heading" class="visually-hidden">Search What are you looking for</h2>
                         <button type="submit" class="hero__search-btn"><span class="hero__btn-text">Search</span><span
                                 class="icon font-ico-search-2"></span></button>
-                               
+
                         <input type="search" name="q" placeholder="What are you looking for?" class="hero__input">
                     </form>
                     <div class="hero__wildcard-list-items js-wildcard"></div>
@@ -1302,7 +1331,7 @@
                 <div class="map__point js-map-point" data-x-align="99" data-y-align="74" data-id="13">
                 </div>
                 <div class="map__info-cont js-map-info-cont" data-id="13">
-                    <button class="map__info-close js-map-info-close" aria-label="map close icon"> 
+                    <button class="map__info-close js-map-info-close" aria-label="map close icon">
                         <span class="map__close-icon font-ico-close-wider"></span>
                     </button>
                     <h3 class="map__info-title">Lowestoft</h3>
@@ -1895,7 +1924,7 @@
                         </a>
                     </div>
                 </article>
-                 <article class="cards__article cards__article_black_text">
+                <article class="cards__article cards__article_black_text">
                     <div class="cards__article-wrap"
                         style="background-image: url('https://humber.com/admin/content/files/Images/abports_33195911219%20-%20Copy.jpg');">
                         <a href="https://property.abports.co.uk/" class="cards__content" target="_blank">
@@ -1916,7 +1945,8 @@
                 <article class="cards__article cards__article_center_img">
                     <div class="cards__article-wrap">
                         <div class="img-block">
-                            <img src="https://humber.com/admin/content/files/Images/Simple%20Photo%20Spring%20Quote%20Instagram%20Post%20(1).png" alt="" />
+                            <img src="https://humber.com/admin/content/files/Images/Simple%20Photo%20Spring%20Quote%20Instagram%20Post%20(1).png"
+                                alt="" />
                         </div>
                         <a href="https://property.abports.co.uk/" class="cards__content" target="_blank">
                             <h3 class="cards__single-heading">ABP Property</h3>
@@ -1936,7 +1966,8 @@
                 <article class="cards__article cards__article_center_img">
                     <div class="cards__article-wrap">
                         <div class="img-block">
-                            <img src="https://humber.com/admin/content/files/Other%20images/Home%20pages%20tiles/NtM%20icon%20compressed.png" alt="" />
+                            <img src="https://humber.com/admin/content/files/Other%20images/Home%20pages%20tiles/NtM%20icon%20compressed.png"
+                                alt="" />
                         </div>
                         <a href="https://property.abports.co.uk/" class="cards__content" target="_blank">
                             <h3 class="cards__single-heading">ABP Property</h3>
@@ -1956,7 +1987,8 @@
                 <article class="cards__article cards__article_center_img">
                     <div class="cards__article-wrap">
                         <div class="img-block">
-                            <img src="https://humber.com/admin/content/files/Images/abports_33195911219%20-%20Copy.jpg" alt="" />
+                            <img src="https://humber.com/admin/content/files/Images/abports_33195911219%20-%20Copy.jpg"
+                                alt="" />
                         </div>
                         <a href="https://property.abports.co.uk/" class="cards__content" target="_blank">
                             <h3 class="cards__single-heading">ABP Property</h3>
@@ -2051,7 +2083,8 @@
         <div class="wrap">
             <div class="contact__container">
                 <div class="contact__img has-cover" style="background-image: url('images/contact-us-homepage.jpg');">
-                    <span class="sr-only">Contact image</span></div>
+                    <span class="sr-only">Contact image</span>
+                </div>
                 <div class="contact__content">
                     <h3 class="contact__subtitle">Get in touch</h3>
                     <h2 class="contact__title">Contact us</h2>
@@ -2101,14 +2134,15 @@
                         material:</h3>
                     <form class="newsletter__form" method="post" aria-labelledby="newsletter-heading">
                         <h2 id="newsletter-heading" class="visually-hidden">Subscribe to our newsletter</h2>
-                         <label for="EmailAddress" class="visually-hidden">Email address</label>
+                        <label for="EmailAddress" class="visually-hidden">Email address</label>
                         <input class="newsletter__input" data-val="true" data-val-email="The email address is not valid"
                             data-val-required="The email address is required" id="EmailAddress" name="EmailAddress"
                             placeholder="yourname@youraddress.com" type="text" value="" />
                         <span class="field-validation-valid" data-valmsg-for="EmailAddress"
                             data-valmsg-replace="true"></span>
                         <button type="submit" class="btn icon font-ico-arrow-btn newsletter__btn"
-                            data-controller-url="/umbraco/Surface/Subscribe/SubscribeForm" aria-label="Subscribe to newsletter"></button>
+                            data-controller-url="/umbraco/Surface/Subscribe/SubscribeForm"
+                            aria-label="Subscribe to newsletter"></button>
                     </form>
                 </div>
             </div>
@@ -2315,7 +2349,8 @@
     <!-- jQuery Validation -->
     <script defer text/javascript src="js/validation-1.21.0-Scripts.js"></script>
     <script defer text/javascript src="js/jquery.validate.unobtrusive.js"></script>
-     
+
 
 </body>
+
 </html>
