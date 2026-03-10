@@ -12207,6 +12207,10 @@ hr {
     }
 }
 
+.table-wrapper {
+    overflow-x: auto;
+}
+
 .table-wrapper table {
     border-collapse: collapse !important;
     border: 0 !important;
