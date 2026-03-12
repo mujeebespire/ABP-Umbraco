@@ -1,0 +1,129 @@
+@font-face {
+    font-family: "HelveticaNeue";
+    src: url("/fonts/HelveticaNeue.ttf") format("ttf");
+    
+    }
+body {
+        font-family: 'HelveticaNeue', sans-serif;
+      }
+.map {
+    text-align: center;
+    margin: auto;
+    max-width: 800px
+}
+.slides {
+    background: #f0fffe;
+    width: 100%;
+    height:  700px;
+    margin: 0 auto; 
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    display: flex;
+    align-items: center;
+}
+.slide {
+    margin: 0 auto; 
+    padding: 0 calc((100vw - 1200px) / 2);
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+}
+.content {
+    margin: auto;
+    max-width: 90%;
+    min-height: 500px;
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+}
+.content-img,
+.content-txt {
+    width: 50%;
+}
+.content-img {
+    min-height: 500px;
+    object-fit: cover;
+}
+.content-txt {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: flex-start;
+}
+.content-txt-title {
+    color: #1EA39B;
+    margin-top: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.content-txt p {
+    color: #707070;
+    margin: 0 0 1.25rem;
+    font-size: 1rem;
+}
+.content-txt-icon {
+    margin-top: auto;
+}
+.image {
+    margin-left: 1.25rem;
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+   
+}
+.arrow-left,
+.arrow-right {
+    position: absolute;
+    top: calc(50% - (63px /2));
+    cursor: pointer;
+}
+.arrow-left {
+    transform: scale(-1);
+    left: 10px;
+}
+.arrow-right {
+    right: 10px;
+}
+@media (min-width: 1280px) {
+    .arrow-left {
+        left: 30px;
+    }
+    .arrow-right {
+        right: 30px;
+    }
+}
+@media (min-width: 1360px) {
+    .arrow-left {
+        left: 50px;
+    }
+    .arrow-right {
+        right: 50px;
+    }
+}
+.close {
+    padding: 1.25rem;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    transition: 330ms;
+}
+.close:hover {
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
+/* Keyframe Animations */
+.port {
+    animation: orange-pulse 2s infinite;
+}
+@keyframes orange-pulse {
+    0% {
+      box-shadow: 0 0 0 0px rgba(241, 95, 34, 0.4);
+    }
+    100% {
+      box-shadow: 0 0 0 20px rgba(241, 95, 34, 0);
+    }
+  }

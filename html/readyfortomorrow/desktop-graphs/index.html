@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    
+    <div  class="show" >
+      <!-- HEADER -->
+      <header class="header flex" id="header">
+        <h1 id="title" class="header-title">Decarbonisation investment</h1>
+        <p class="header-text">Total <span class="purple">tCO&#8322e levels</span> with continued <span class="green">investment</span> year-on-year since 2021<br><small class="header-text-breakdown" style="font-size: 0.65em;">Click on bubbles for breakdown</small></p>
+        <p class="header-text">Total <span class="purple">tCO&#8322e levels</span> break down<sup>*</sup><br></p>
+        <p class="header-text">Continued <span class="green">investment</span> break down.</p>
+      </header>
+      <div class="circles" style="position:relative;">
+        <!-- PURPLE CIRCLES -->
+        <div style="position: absolute; left: -20px; /* top: 32%; */ width: 80%;">
+          <div class="purple-circles-container" id="purpleCirclesContainer"> 
+            <div class="flex-col" >
+              <div class="text-top text-top-purple flex-col" style="color: #84afa9;">
+                <h3 class="m-0">Vessels</h3>
+                <h3 class="m-0" id="purple-vessels-txt"></h3>
+              </div>
+              <div class="circle purple-devision" style="background-color: #84afa9" id="purple-vessels"></div>
+            </div>
+            <div class="flex-col">
+              <div class="circle purple-devision" style="background-color: #5C88C6" id="purple-cranes"></div>
+              <div class="text-bottom text-bottom-purple flex-col" style="color: #5C88C6;">
+                <h3 class="m-0">Cranes</h3>
+                <h3 class="m-0" id="purple-cranes-txt"></h3>
+              </div>
+            </div>
+            <div class="flex-col">
+              <div class="text-top text-top-purple  flex-col" style="color: #29697f;">
+                <h3 class="m-0">Equipment</h3>
+                <h3 class="m-0" id="purple-equipment-txt"></h3>
+              </div>
+              <div class="circle purple-devision" style="background-color: #29697f" id="purple-equipment"></div>
+            </div>
+            <div class="flex-col">
+              <div class="circle purple-devision" style="background-color: #36ADCD" id="purple-vehicles"></div>
+              <div class="text-bottom text-bottom-purple flex-col" style="color: #36ADCD;">
+                <h3 class="m-0">Vehicles</h3>
+                <h3 class="m-0" id="purple-vehicles-txt"></h3>
+              </div>
+            </div>
+            <div class="flex-col">
+              <div class="text-top text-top-purple  flex-col"  style="color: #744FA0;">
+                <h3 class="m-0">Facilities</h3>
+                <h3 class="m-0" id="purple-facilities-txt"></h3>
+              </div>
+              <div class="circle purple-devision" style="background-color: #744FA0" id="purple-facilities"></div> 
+            </div>
+            <div class="flex-col">
+              <div class="circle purple-devision" style="background-color: #7E627F" id="purple-electrical"></div> 
+              <div class="text-bottom text-bottom-purple flex-col"  style="color: #7E627F;">
+                <h3 class="m-0" style="width: 100px; text-align: center;">Electrical emissions</h3>
+                <h3 class="m-0" id="purple-electrical-txt"></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- GREEN CIRCLES -->
+        <div style="position: absolute; left: -50px; /* top: 32%; */ width: 80%;">
+          <div class="purple-circles-container" id="greenCirclesContainer"> 
+            <div class="flex-col" >
+              <div class="text-top text-top-green  flex-col " style="color: #36ADCD;">
+                <h3 class="m-0">Vehicles</h3>
+                <h3 class="m-0" id="green-vehicles-txt"></h3>
+              </div>
+              <div class="circle green-devision" style="background-color: #36ADCD" id="green-vehicles"></div>
+            </div>
+            <div class="flex-col">
+              <div class="circle green-devision" style="background-color: #5C88C6" id="green-cranes"></div>
+              <div class="text-bottom text-bottom-green flex-col"  style="color: #5C88C6;">
+                <h3 class="m-0">Cranes</h3>
+                <h3 class="m-0" id="green-cranes-txt"></h3>
+              </div>
+            </div>
+            <div class="flex-col">
+              <div class="text-top text-top-green  flex-col" style="color: #29697f;">
+                <h3 class="m-0">Equipment</h3>
+                <h3 class="m-0" id="green-equipment-txt"></h3>
+              </div>
+              <div class="circle green-devision" style="background-color: #29697f" id="green-equipment"></div>
+            </div>
+            <div class="flex-col">
+              <div class="circle green-devision" style="background-color: #84afa9" id="green-vessels"></div>
+              <div class="text-bottom text-bottom-green flex-col"  style="color: #84afa9;">
+                <h3 class="m-0">Vessels</h3>
+                <h3 class="m-0" id="green-vessels-txt"></h3>
+              </div>
+            </div>
+            <div class="flex-col">
+              <div class="text-top text-top-green  flex-col" style="color: #5171a8;">
+                <h3 class="m-0" style="width: 200px; text-align: center">Operational Costs</h3>
+                <h3 class="m-0" id="green-operational-txt"></h3>
+              </div>
+              <div class="circle green-devision" style="background-color: #5171a8" id="green-operational"></div>
+            </div>
+          </div>
+        </div>
+      <!-- MAIN CIRCLES -->
+        <!-- GREEN CIRCLE CONTAINER -->
+        <div class="circle-container  flex-col" id="greenContainer">
+
+          <div style="position: relative;position: relative;display:flex; justify-content: center;">
+            <div class="green-txt flex flex-col">
+              <h1 class="green" id="greenCount" style="z-index: 10; /* top: 100px; */ position: relative;">£30.5m</h1>
+            </div>
+            <div class="green-circle green-bg" id="green"></div>
+            <div class="green-circle green-circle-absolute"></div>
+        </div>
+
+        </div>
+        <!-- PURPLE CIRCLE CONTAINER -->
+        <div class="circle-container  flex-col" id="purpleCircleContainer">
+          <div style="position: relative">
+            <div class="purple-txt flex flex-col">
+                <h1 class="purple purpleCount" id="purpleCount">4412</h1>
+                <p id="purpleTitle">tCO&#8322e</p>
+            </div>
+            <div class="purple-circle purple-circle-absolute" ></div>
+            <div class="purple-circle purple-bg" id="purple"></div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- SCROLLER -->
+      <div class="flex">
+        <h1 id="year">2022</h1>
+      </div>
+      <div class="flex">
+        <div class="slidecontainer">
+            <div id="dots" class="dots-container"></div>
+            <input type="range" min="2022" max="2040" value="0" class="slider" id="myRange" />
+        </div>
+        <small style="margin: 1rem auto 0; font-size: 0.65em;"><sup>*</sup>Data based on internal modelling</small>
+      </div>
+    </div>
+  </body>
+</html>

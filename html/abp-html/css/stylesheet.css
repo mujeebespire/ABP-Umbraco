@@ -3118,6 +3118,7 @@ td {
         url("../fonts/svgicons.woff2") format("woff2"),
         url("../fonts/svgicons.woff") format("woff"),
         url("../fonts/svgicons.ttf") format("truetype");
+         font-display: swap;
 }
 
 .font-ico-agribulk:before,
@@ -3712,6 +3713,7 @@ td {
         url("../fonts/PlayfairDisplay-Bold.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
+     font-display: swap;
 }
 
 @font-face {
@@ -3722,6 +3724,7 @@ td {
         url("../fonts/Roboto-Black.ttf") format("truetype");
     font-weight: 800;
     font-style: normal;
+      font-display: swap;
 }
 
 @font-face {
@@ -3732,6 +3735,7 @@ td {
         url("../fonts/Roboto-Bold.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
+      font-display: swap;
 }
 
 @font-face {
@@ -3742,6 +3746,7 @@ td {
         url("../fonts/Roboto-Light.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
+     font-display: swap;
 }
 
 @font-face {
@@ -3752,6 +3757,7 @@ td {
         url("../fonts/Roboto-Medium.ttf") format("truetype");
     font-weight: 500;
     font-style: normal;
+     font-display: swap;
 }
 
 @font-face {
@@ -3762,6 +3768,7 @@ td {
         url("../fonts/Roboto-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
+     font-display: swap;
 }
 
 @font-face {
@@ -3772,6 +3779,7 @@ td {
         url("../fonts/Roboto-Thin.ttf") format("truetype");
     font-weight: 100;
     font-style: normal;
+     font-display: swap;
 }
 
 .rte h1,
@@ -12140,6 +12148,7 @@ hr {
         margin-left: 18px;
         margin-right: 0;
     }
+    
 }
 
 @media only screen and (max-width: 991.98px) {

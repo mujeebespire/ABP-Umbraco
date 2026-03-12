@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 409.71 125.4">
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="SHIP">
+      <g>
+        <g>
+          <rect x="205.46" y="72.88" width="30.17" height="11.94" style="fill: #5accc1"/>
+          <rect x="234.93" y="72.88" width="4.8" height="11.94" transform="translate(474.65 157.7) rotate(180)" style="fill: #66ada4"/>
+        </g>
+        <g>
+          <rect x="205.46" y="60.94" width="30.17" height="11.94" style="fill: #00adb4"/>
+          <rect x="234.93" y="60.94" width="4.8" height="11.94" transform="translate(474.65 133.81) rotate(180)" style="fill: #198e8e"/>
+        </g>
+        <g>
+          <rect x="168.3" y="72.88" width="30.17" height="11.94" style="fill: #00adb4"/>
+          <rect x="197.76" y="72.88" width="4.8" height="11.94" transform="translate(400.33 157.7) rotate(180)" style="fill: #198e8e"/>
+        </g>
+        <g>
+          <rect x="131.3" y="72.88" width="30.17" height="11.94" style="fill: #5accc1"/>
+          <rect x="160.76" y="72.88" width="4.8" height="11.94" transform="translate(326.32 157.7) rotate(180)" style="fill: #66ada4"/>
+        </g>
+        <g>
+          <rect x="279.51" y="72.88" width="30.17" height="11.94" style="fill: #5accc1"/>
+          <rect x="308.97" y="72.88" width="4.8" height="11.94" transform="translate(622.74 157.7) rotate(180)" style="fill: #66ada4"/>
+        </g>
+        <g>
+          <rect x="242.62" y="72.88" width="30.17" height="11.94" style="fill: #00adb4"/>
+          <rect x="272.08" y="72.88" width="4.8" height="11.94" transform="translate(548.96 157.7) rotate(180)" style="fill: #198e8e"/>
+        </g>
+        <path d="M409.41,75.32a.3.3,0,0,1,.16.55l-5.41,3.31a110.09,110.09,0,0,0-24.23,20.09c-1.49,1.64-2.92,3.34-4.31,5.07a110.11,110.11,0,0,0-13.23,21.06H71.28a76,76,0,0,1-43.64-13.77,78.89,78.89,0,0,1-8.91-7.29A76,76,0,0,1,0,76a.47.47,0,0,1,.44-.63H101.09l2.5,9.51H320.45l4-9.51Z" style="fill: #161b43"/>
+        <path d="M18.73,104.33a78.78,78.78,0,0,0,8.91,7.3A76,76,0,0,0,71.28,125.4H362.39a109.74,109.74,0,0,1,13.24-21.07Z" style="fill: #e61843"/>
+        <rect x="100.09" y="76.75" width="225.02" height="1.41" transform="translate(425.2 154.92) rotate(180)" style="fill: #161b43"/>
+        <rect x="287.22" y="81.75" width="11.41" height="1.41" transform="translate(210.47 375.38) rotate(-90)" style="fill: #161b43"/>
+        <rect x="258.35" y="81.75" width="11.41" height="1.41" transform="translate(181.6 346.51) rotate(-90)" style="fill: #161b43"/>
+        <rect x="229.49" y="81.75" width="11.41" height="1.41" transform="translate(152.73 317.65) rotate(-90)" style="fill: #161b43"/>
+        <rect x="200.62" y="81.75" width="11.41" height="1.41" transform="translate(123.87 288.78) rotate(-90)" style="fill: #161b43"/>
+        <rect x="171.75" y="81.75" width="11.41" height="1.41" transform="translate(95 259.92) rotate(-90)" style="fill: #161b43"/>
+        <rect x="142.89" y="81.75" width="11.41" height="1.41" transform="translate(66.14 231.05) rotate(-90)" style="fill: #161b43"/>
+        <rect x="114.02" y="81.75" width="11.41" height="1.41" transform="translate(37.27 202.18) rotate(-90)" style="fill: #161b43"/>
+        <rect x="100.09" y="80.57" width="225.02" height="1.41" transform="translate(425.2 162.55) rotate(180)" style="fill: #161b43"/>
+        <rect x="29.38" y="56.5" width="62.15" height="18.82" transform="translate(120.91 131.82) rotate(180)" style="fill: #cecece"/>
+        <rect x="49.98" y="37.67" width="41.55" height="18.82" transform="translate(141.51 94.17) rotate(180)" style="fill: #cecece"/>
+        <rect x="78.33" y="30.99" width="13.2" height="6.69" transform="translate(169.86 68.66) rotate(180)" style="fill: #cecece"/>
+        <rect x="85.98" y="42.45" width="2.57" height="3.57" transform="translate(174.54 88.47) rotate(180)" style="fill: #161b43"/>
+        <rect x="79.31" y="42.45" width="2.57" height="3.57" transform="translate(161.19 88.47) rotate(180)" style="fill: #161b43"/>
+        <rect x="72.63" y="42.45" width="2.57" height="3.57" transform="translate(147.83 88.47) rotate(180)" style="fill: #161b43"/>
+        <rect x="65.95" y="42.45" width="2.57" height="3.57" transform="translate(134.48 88.47) rotate(180)" style="fill: #161b43"/>
+        <rect x="59.27" y="42.45" width="2.57" height="3.57" transform="translate(121.12 88.47) rotate(180)" style="fill: #161b43"/>
+        <rect x="52.6" y="42.45" width="2.57" height="3.57" transform="translate(107.77 88.47) rotate(180)" style="fill: #161b43"/>
+        <rect x="85.98" y="61.41" width="2.57" height="3.57" transform="translate(174.54 126.38) rotate(180)" style="fill: #161b43"/>
+        <rect x="79.31" y="61.41" width="2.57" height="3.57" transform="translate(161.19 126.38) rotate(180)" style="fill: #161b43"/>
+        <rect x="72.63" y="61.41" width="2.57" height="3.57" transform="translate(147.83 126.38) rotate(180)" style="fill: #161b43"/>
+        <rect x="45.91" y="61.41" width="2.57" height="3.57" transform="translate(94.39 126.38) rotate(180)" style="fill: #161b43"/>
+        <rect x="39.23" y="61.41" width="2.57" height="3.57" transform="translate(81.04 126.38) rotate(180)" style="fill: #161b43"/>
+        <rect x="32.56" y="61.41" width="2.57" height="3.57" transform="translate(67.68 126.38) rotate(180)" style="fill: #161b43"/>
+        <rect x="65.95" y="61.41" width="2.57" height="3.57" transform="translate(134.48 126.38) rotate(180)" style="fill: #161b43"/>
+        <rect x="59.27" y="61.41" width="2.57" height="3.57" transform="translate(121.12 126.38) rotate(180)" style="fill: #161b43"/>
+        <rect x="52.6" y="61.41" width="2.57" height="3.57" transform="translate(107.77 126.38) rotate(180)" style="fill: #161b43"/>
+        <polygon points="83.87 31.07 86.72 31.07 85.3 0 83.87 0 83.87 31.07" style="fill: #cecece"/>
+        <polygon points="84.55 12.13 90.01 12.13 88.29 9.34 84.55 9.34 84.55 12.13" style="fill: #cecece"/>
+        <rect x="350.48" y="84.99" width="20.53" height="3.17" rx="0.62" transform="translate(721.49 173.15) rotate(180)" style="fill: #cecece"/>
+      </g>
+    </g>
+  </g>
+</svg>

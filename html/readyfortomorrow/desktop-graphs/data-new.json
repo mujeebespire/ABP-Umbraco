@@ -1,0 +1,384 @@
+{
+    "years" : [{
+        "year":"2022",
+        "purple":{
+            "total": "42621",
+            "vehicles":"961",
+            "cranes":"4844",
+            "equipment":"12229",
+            "vessels":"17812",
+            "facilities":"840",
+            "electrical":"6236"
+        },
+        "green":{
+            "total": "30.5",
+            "vehicles":"0.7",
+            "cranes":"7.2",
+            "equipment":"4.3",
+            "vessels":"10",
+            "operational":"8.3"
+        }
+    },
+    {
+        "year":"2023",
+        "purple":{
+            "total": "40753",
+            "vehicles":"933",
+            "cranes":"4373",
+            "equipment":"12104",
+            "vessels":"17634",
+            "facilities":"840",
+            "electrical":"2467"
+        },
+        "green":{
+            "total": "71.6",
+            "vehicles":"1.2",
+            "cranes":"24.3",
+            "equipment":"15.2",
+            "vessels":"22.5",
+            "operational":"24.0"
+        }
+    },
+    {
+        "year":"2024",
+        "purple":{
+            "total": "38884",
+            "vehicles":"915",
+            "cranes":"4209",
+            "equipment":"12014",
+            "vessels":"17176",
+            "facilities":"840",
+            "electrical":"559"
+        },
+        "green":{
+            "total": "96.4",
+            "vehicles":"1.6",
+            "cranes":"24.3",
+            "equipment":"15.2",
+            "vessels":"31.3",
+            "operational":"24.0"
+        }
+    },
+    {
+        "year":"2025",
+        "purple":{
+            "total": "37016",
+            "vehicles":"871",
+            "cranes":"3828",
+            "equipment":"11630",
+            "vessels":"16874",
+            "facilities":"756",
+            "electrical":"365"
+        },
+        "green":{
+            "total": "118.8",
+            "vehicles":"2.3",
+            "cranes":"32.0",
+            "equipment":"19.3",
+            "vessels":"33.8",
+            "operational":"31.5"
+        }
+    },
+    {
+        "year":"2026",
+        "purple":{
+            "total": "35147",
+            "vehicles":"817",
+            "cranes":"3665",
+            "equipment":"11323",
+            "vessels":"16874",
+            "facilities":"672",
+            "electrical":"159"
+        },
+        "green":{
+            "total": "133.4",
+            "vehicles":"3.1",
+            "cranes":"35.0",
+            "equipment":"22.7",
+            "vessels":"33.8",
+            "operational":"38.9"
+        }
+    },
+    {
+        "year":"2027",
+        "purple":{
+            "total": "33279",
+            "vehicles":"781",
+            "cranes":"3665",
+            "equipment":"11040",
+            "vessels":"16874",
+            "facilities":"588",
+            "electrical":"91"
+        },
+        "green":{
+            "total": "145.4",
+            "vehicles":"3.7",
+            "cranes":"35.0",
+            "equipment":"26.9",
+            "vessels":"33.8",
+            "operational":"46.2"
+        }
+    },
+    {
+        "year":"2028",
+        "purple":{
+            "total": "31410",         
+            "vehicles":"725",
+            "cranes":"3441",
+            "equipment":"8968",
+            "vessels":"16874",
+            "facilities":"504",
+            "electrical":"261"
+        },
+        "green":{
+            "total": "175.3",
+            "vehicles":"4.5",
+            "cranes":"43.1",
+            "equipment":"40.8",
+            "vessels":"33.8",
+            "operational":"53.2"
+        }
+    },
+    {
+        "year":"2029",
+        "purple":{
+            "total": "29541",
+            "vehicles":"584",
+            "cranes":"3278",
+            "equipment":"8273",
+            "vessels":"16735",
+            "facilities":"420",
+            "electrical":"313"
+        },
+        "green":{
+            "total": "198.7",
+            "vehicles":"6.2",
+            "cranes":"48.4",
+            "equipment":"47.9",
+            "vessels":"36.1",
+            "operational":"60.1"
+        }
+    },
+    {
+        "year":"2030",
+        "purple":{
+            "total": "27673",
+            "vehicles":"453",
+            "cranes":"3003",
+            "equipment":"7145",
+            "vessels":"16256",
+            "facilities":"336",
+            "electrical":"334"
+        },
+        "green":{
+            "total": "237.4",
+            "vehicles":"7.8",
+            "cranes":"53.2",
+            "equipment":"58.9",
+            "vessels":"50.7",
+            "operational":"66.8"
+        }
+    },
+    {
+        "year":"2031",
+        "purple":{
+            "total": "25350",
+            "vehicles":"397",
+            "cranes":"2837",
+            "equipment":"6467",
+            "vessels":"16256",
+            "facilities":"252",
+            "electrical":"294"
+        },
+        "green":{
+            "total": "258.2",
+            "vehicles":"8.6",
+            "cranes":"59.4",
+            "equipment":"66.1",
+            "vessels":"50.7",
+            "operational":"73.4"
+        }
+    },
+    {
+        "year":"2032",
+        "purple":{
+            "total": "23028",
+            "vehicles":"284",
+            "cranes":"2726",
+            "equipment":"5659",
+            "vessels":"12946",
+            "facilities":"0",
+            "electrical":"299"
+        },
+        "green":{
+            "total": "323.6",
+            "vehicles":"10.0",
+            "cranes":"64.0",
+            "equipment":"75.0",
+            "vessels":"95.0",
+            "operational":"79.5"
+        }
+    },
+    {
+        "year":"2033",
+        "purple":{
+            "total": "20706",
+            "vehicles":"212",
+            "cranes":"2560",
+            "equipment":"5070",
+            "vessels":"12606",
+            "facilities":"0",
+            "electrical":"286"
+        },
+        "green":{
+            "total": "351.9",
+            "vehicles":"11.0",
+            "cranes":"72.4",
+            "equipment":"81.5",
+            "vessels":"100.7",
+            "operational":"85.5"
+        }
+    },
+    {
+        "year":"2034",
+        "purple":{
+            "total": "18383",
+            "vehicles":"137",
+            "cranes":"2392",
+            "equipment":"3977",
+            "vessels":"12606",
+            "facilities":"0",
+            "electrical":"310"
+        },
+        "green":{
+            "total": "374.2",
+            "vehicles":"12.0",
+            "cranes":"78.0",
+            "equipment":"89.9",
+            "vessels":"102.9",
+            "operational":"91.3"
+        }
+    },
+    {
+        "year":"2035",
+        "purple":{
+            "total": "16061",
+            "vehicles":"101",
+            "cranes":"2196",
+            "equipment":"2681",
+            "vessels":"9296",
+            "facilities":"0",
+            "electrical":"353"
+        },
+        "green":{
+            "total": "450.3",
+            "vehicles":"12.5",
+            "cranes":"85.0",
+            "equipment":"99.7",
+            "vessels":"156.3",
+            "operational":"96.7"
+        }
+    },
+    {
+        "year":"2036",
+        "purple":{
+            "total": "13739",
+            "vehicles":"82",
+            "cranes":"2141",
+            "equipment":"2280",
+            "vessels":"9296",
+            "facilities":"0",
+            "electrical":"322"
+        },
+        "green":{
+            "total": "459.8",
+            "vehicles":"12.9",
+            "cranes":"86.1",
+            "equipment":"102.4",
+            "vessels":"156.3",
+            "operational":"102.1"
+        }
+    },
+    {
+        "year":"2037",
+        "purple":{
+            "total": "11416",
+            "vehicles":"0",
+            "cranes":"879",
+            "equipment":"1595",
+            "vessels":"9223",
+            "facilities":"0",
+            "electrical":"353"
+        },
+        "green":{
+            "total": "499.9",
+            "vehicles":"14.0",
+            "cranes":"110.2",
+            "equipment":"110.7",
+            "vessels":"157.8",
+            "operational":"107.1"
+        }
+    },
+    {
+        "year":"2038",
+        "purple":{
+            "total": "9094",
+            "vehicles":"0",
+            "cranes":"709",
+            "equipment":"1035",
+            "vessels":"6539",
+            "facilities":"0",
+            "electrical":"381"
+        },
+        "green":{
+            "total": "539.5",
+            "vehicles":"14.6",
+            "cranes":"114.6",
+            "equipment":"116.8",
+            "vessels":"181.5",
+            "operational":"111.9"
+        }
+    },
+    {
+        "year":"2039",
+        "purple":{
+            "total": "6771",
+            "vehicles":"0",
+            "cranes":"185",
+            "equipment":"518",
+            "vessels":"4601",
+            "facilities":"0",
+            "electrical":"402"
+        },
+        "green":{
+            "total": "592.3",
+            "vehicles":"15.2",
+            "cranes":"125.2",
+            "equipment":"122.2",
+            "vessels":"213.2",
+            "operational":"116.5"
+        }
+    },
+   
+    {
+        "year":"2040",
+        "purple":{
+            "total": "4449",
+            "vehicles":"0",
+            "cranes":"0",
+            "equipment":"320",
+            "vessels":"3750",
+            "facilities":"0",
+            "electrical":"378"
+        },
+        "green":{
+            "total": "620.9",
+            "vehicles":"16.0",
+            "cranes":"130.5",
+            "equipment":"132.6",
+            "vessels":"220.7",
+            "operational":"121.0"
+        }
+    }
+]
+}
