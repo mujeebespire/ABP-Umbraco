@@ -1349,3 +1349,8 @@ body .avia-font-entypo-fontello,
 html body [data-av_iconfont='entypo-fontello']:before {
     font-family: 'entypo-fontello';
 }
+
+#latest-news .avia-content-slider .slide-image img{
+    height: 267px;
+    object-fit: cover;
+}
