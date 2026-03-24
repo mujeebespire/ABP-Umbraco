@@ -12784,9 +12784,11 @@ h5 {
 .mb20 {
     margin-bottom: 20px;
 }
+
 .mt18 {
     margin-top: 18px;
 }
+
 .mt20 {
     margin-top: 20px;
 }
@@ -35600,7 +35602,7 @@ figure.effect-chico:hover p {
     line-height: 1.5;
 }
 
-ul.ui-sitemap-url-list{
+ul.ui-sitemap-url-list {
     margin-left: 0;
     padding-left: 0;
 }
@@ -38057,8 +38059,8 @@ ul.ui-sitemap-url-list{
     transition: all 0.5s ease;
 }
 
-#footer1 .fa-phone + a:hover,
-#footer1 .fa-envelope-o + a:hover {
+#footer1 .fa-phone+a:hover,
+#footer1 .fa-envelope-o+a:hover {
     margin-left: 5px;
 }
 
@@ -42262,10 +42264,11 @@ Footer
         max-width: 1694px;
     }
 
-    .nav-container .container, .searchbar .container {
+    .nav-container .container,
+    .searchbar .container {
         min-width: 1175px;
     }
-    
+
 }
 
 /* ======================================================================*/
@@ -43052,17 +43055,22 @@ banner-textpanel {
     margin-top: -14px;
 }
 
-.experience-banner-desktop{
+.experience-banner-desktop {
     display: block;
 }
 
-.experience-banner-mobile{
+.experience-banner-mobile {
     display: none;
 }
 
 @media (max-width: 991px) {
-    .experience-banner-desktop{ display:none; }
-    .experience-banner-mobile{ display: block;}
+    .experience-banner-desktop {
+        display: none;
+    }
+
+    .experience-banner-mobile {
+        display: block;
+    }
 }
 
 .filter-style {
@@ -43524,7 +43532,7 @@ header.header3 {
     padding: 20px 0;
 }
 
-.tab-content ol li p{
+.tab-content ol li p {
     margin-bottom: 0;
     font-size: 14px;
 }
@@ -44473,7 +44481,7 @@ input.file-caption-name {
     margin-bottom: 1rem;
 }
 
-.aboutpanels li p{
+.aboutpanels li p {
     font-size: 1.5rem;
     margin-bottom: 0;
     padding-bottom: 0;
@@ -44916,6 +44924,12 @@ textarea.form-control {
         grid-template-rows: 0;
         grid-gap: 0;
     }
+
+
+    .site-marinecoastalsurvey .logoimage {
+        max-width: 380px;
+    }
+
 }
 
 @media (min-width:768px) {
@@ -44945,16 +44959,21 @@ textarea.form-control {
 }
 
 @media (max-width:665px) {
-    .logo--box{
+    .logo--box {
         padding: 0 15px;
     }
+
     .logoimage {
-        min-height: 22px;
+        /* min-height: 22px; */
         margin-right: 8px;
         float: left;
         max-width: 270px;
         width: 100%;
         margin-left: 6px;
+    }
+
+    .site-marinecoastalsurvey .logoimage {
+        max-width: 320px;
     }
 }
 
@@ -44977,6 +44996,12 @@ textarea.form-control {
     .omreg-abpmer-logo-mobile {
         display: none !important;
     }
+
+
+    .site-marinecoastalsurvey .logoimage {
+        max-width: 220px;
+    }
+
 }
 
 @media (min-width: 1201px) {
@@ -45005,28 +45030,40 @@ textarea.form-control {
     .abpmer-logo {
         display: none;
     }
+
+    .logoimage {
+        height: auto;
+        max-height: 52px;
+        width: 100%;
+    }
 }
+
+
 
 @media (min-width:666px) and (max-width: 768px) {
     .logoimage {
-        height: 45px;
+        /* height: 45px; */
         margin-right: 8px;
         float: left;
     }
 }
 
 @media (min-width: 768px) {
+
     .logoimage {
-        height: 45px;
+        /* height: auto; */
         margin-right: 8px;
         float: left;
     }
+
+    
+
 }
 
 @media (max-width:370px) {
     .logoimage {
         max-width: 215px;
-        height: 18px;
+        /* height: 18px; */
         /* margin-top: 9px; */
     }
 
@@ -45406,15 +45443,15 @@ p {}
 .custom-popup .form-group.error input:focus {
     border-color: #d9534f;
 }
- 
+
 .custom-popup .form-group.error label {
     color: #d9534f;
 }
- 
+
 .custom-popup .checkbox.error {
     color: #d9534f;
 }
- 
+
 .custom-popup .checkbox.error input[type="checkbox"] {
     outline: 2px solid #d9534f;
 }
@@ -45425,7 +45462,7 @@ p {}
     margin-top: 4px;
     display: none;
 }
- 
+
 .custom-popup .form-group.error .validation-message,
 .custom-popup .checkbox.error .validation-message {
     display: block;
