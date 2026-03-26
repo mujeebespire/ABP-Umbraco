@@ -17537,7 +17537,9 @@ hr {
     font-weight: 400;
     line-height: 28px;
     letter-spacing: 0.5px;
-
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .cards__article_center_img .cards__single-heading {
