@@ -281,7 +281,6 @@ header {
 .content-raw img {
     height: auto !important;
     max-width: min(40rem, 100%) !important;
-    margin: auto;
     display: block;
 }
 
