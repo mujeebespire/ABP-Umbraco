@@ -3217,6 +3217,25 @@ td {
     line-height: 1;
 }
 
+a.footer__icon.font-ico-vimeo{
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.font-ico-vimeo:before {
+    position:absolute;
+    display: block;
+    width: 100%;
+    height: 100%;   
+    content: "";
+    top: 0;
+    left: 0;
+    background: url("../images/vimeo-icon.svg") 0 0 no-repeat;
+}
+
+
 [class*="font-ico"] {
     display: inline-block;
 }
@@ -3556,6 +3575,8 @@ td {
 .font-ico-youtube:before {
     content: "";
 }
+
+
 
 * {
     -webkit-box-sizing: border-box;
